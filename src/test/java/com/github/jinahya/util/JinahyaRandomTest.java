@@ -18,7 +18,6 @@
 package com.github.jinahya.util;
 
 
-import com.github.jinahya.util.JinahyaRandom;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Random;

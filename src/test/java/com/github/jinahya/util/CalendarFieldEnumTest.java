@@ -18,7 +18,6 @@
 package com.github.jinahya.util;
 
 
-import com.github.jinahya.util.CalendarFieldEnum;
 import com.github.jinahya.lang.FieldEnumTest;
 import java.util.Calendar;
 import org.testng.Assert;

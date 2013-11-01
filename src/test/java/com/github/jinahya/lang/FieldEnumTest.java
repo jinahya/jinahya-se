@@ -18,7 +18,6 @@
 package com.github.jinahya.lang;
 
 
-import com.github.jinahya.lang.FieldEnum;
 import java.util.HashSet;
 import java.util.Set;
 import org.testng.Assert;

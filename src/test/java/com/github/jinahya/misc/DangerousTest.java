@@ -18,7 +18,6 @@
 package com.github.jinahya.misc;
 
 
-import com.github.jinahya.misc.Dangerous;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

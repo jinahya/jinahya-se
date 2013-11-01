@@ -18,7 +18,6 @@
 package com.github.jinahya.io;
 
 
-import com.github.jinahya.io.WhiteInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Random;
@@ -76,7 +75,7 @@ public class WhiteInputStreamTest {
         final InputStream in = new WhiteInputStream(limit);
 
         in.skip(limit);
-        
+
         Assert.assertEquals(in.read(), -1);
         Assert.assertEquals(in.read(), -1);
 

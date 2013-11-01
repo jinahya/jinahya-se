@@ -18,9 +18,6 @@
 package com.github.jinahya.io;
 
 
-import com.github.jinahya.io.ByteStreams;
-import com.github.jinahya.io.BlackOutputStream;
-import com.github.jinahya.io.WhiteInputStream;
 import com.github.jinahya.security.MessageDigests;
 import java.io.File;
 import java.io.IOException;

@@ -122,7 +122,63 @@ public class ByteChannelsTest {
     }
 
 
-    @Test(enabled = false, invocationCount = 1)
+    @Test(enabled = true, invocationCount = 32)
+    public void copy_FromBiggerFileToSmallerChannel() throws IOException {
+
+//        final long limit = ThreadLocalRandom.current().nextInt(65535);
+//        LOGGER.trace("limit: {}", limit);
+//        final ReadableByteChannel input
+//            = new WhiteInputStream(limit).newChannel();
+//
+//        final File output = newTempFile(limit + 1);
+//
+//        final long count = ByteChannels.copy(
+//            input, output, ByteBuffer.allocate(1024), -1L);
+//
+//        Assert.assertEquals(count, limit);
+//        Assert.assertEquals(output.length(), limit);
+    }
+
+
+    @Test(enabled = true, invocationCount = 32)
+    public void copy_FromSmallerFileToBiggerChannel() throws IOException {
+
+//        final long limit = ThreadLocalRandom.current().nextInt(65535) + 1;
+//        assert limit > 0L;
+//        LOGGER.trace("limit: {}", limit);
+//        final ReadableByteChannel input
+//            = new WhiteInputStream(limit).newChannel();
+//
+//        final long size = ThreadLocalRandom.current().nextLong(0, limit);
+//        LOGGER.trace("size: {}", size);
+//        assert size < limit;
+//        final File output = newTempFile(size);
+//
+//        final long count = ByteChannels.copy(
+//            input, output, ByteBuffer.allocate(1024), -1L);
+//
+//        Assert.assertEquals(count, size);
+    }
+
+
+    @Test(enabled = true, invocationCount = 32)
+    public void copy_FromSmallerChannelToBiggerFile() throws IOException {
+
+        final long limit = ThreadLocalRandom.current().nextInt(65535);
+        LOGGER.trace("limit: {}", limit);
+        final ReadableByteChannel input
+            = new WhiteInputStream(limit).newChannel();
+
+        final File output = newTempFile(limit + 1);
+
+        final long count = ByteChannels.copy(input, output, -1L);
+
+        Assert.assertEquals(count, limit);
+        Assert.assertEquals(output.length(), limit);
+    }
+
+
+    @Test(enabled = true, invocationCount = 32)
     public void copy_FromBiggerChannelToSmallerFile() throws IOException {
 
         final long limit = ThreadLocalRandom.current().nextInt(65535) + 1;
@@ -136,11 +192,13 @@ public class ByteChannelsTest {
         assert size < limit;
         final File output = newTempFile(size);
 
-        final long count = ByteChannels.copy(
-            input, output, ByteBuffer.allocate(1024), -1L);
+        final long count = ByteChannels.copy(input, output, -1L);
 
         Assert.assertEquals(count, size);
     }
+
+
+;
 
 
 }

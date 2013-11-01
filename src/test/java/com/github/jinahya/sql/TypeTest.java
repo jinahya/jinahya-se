@@ -18,7 +18,6 @@
 package com.github.jinahya.sql;
 
 
-import com.github.jinahya.sql.Type;
 import com.github.jinahya.lang.FieldEnumTest;
 import java.lang.reflect.Field;
 import java.sql.Types;

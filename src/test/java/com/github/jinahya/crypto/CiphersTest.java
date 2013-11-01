@@ -18,7 +18,6 @@
 package com.github.jinahya.crypto;
 
 
-import com.github.jinahya.crypto.Ciphers;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

@@ -18,7 +18,6 @@
 package com.github.jinahya.security;
 
 
-import com.github.jinahya.security.MessageDigests;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;

@@ -18,7 +18,6 @@
 package com.github.jinahya.io;
 
 
-import com.github.jinahya.io.BlackOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Random;
