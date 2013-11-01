@@ -36,11 +36,6 @@ public class FilterReadableByteChannel implements ReadableByteChannel {
      * @param channel the underlying channel, or {@code null} if this instance
      * is to be created without an underlying channel.
      */
-    /*
-     * Creates an instance.
-     *
-     * @param channel the underlying channel
-     */
     protected FilterReadableByteChannel(final ReadableByteChannel channel) {
 
         super();
@@ -56,12 +51,20 @@ public class FilterReadableByteChannel implements ReadableByteChannel {
     @Override
     public int read(final ByteBuffer dst) throws IOException {
 
+        if (channel == null) {
+            throw new IllegalArgumentException("channel is currently null");
+        }
+
         return channel.read(dst);
     }
 
 
     @Override
     public boolean isOpen() {
+
+        if (channel == null) {
+            throw new IllegalArgumentException("channel is currently null");
+        }
 
         return channel.isOpen();
     }
@@ -70,11 +73,26 @@ public class FilterReadableByteChannel implements ReadableByteChannel {
     @Override
     public void close() throws IOException {
 
-        channel.close();
+        if (channel != null) {
+            channel.close();
+        }
     }
 
 
-    protected final ReadableByteChannel channel;
+    public ReadableByteChannel getChannel() {
+
+        return channel;
+    }
+
+
+    public void setChannel(final ReadableByteChannel channel) {
+
+        this.channel = channel;
+    }
+
+
+    protected ReadableByteChannel channel;
 
 
 }
+

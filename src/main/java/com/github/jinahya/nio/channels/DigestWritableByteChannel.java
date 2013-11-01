@@ -43,7 +43,7 @@ public class DigestWritableByteChannel extends FilterWritableByteChannel {
         super(channel);
 
         if (digest == null) {
-            throw new NullPointerException("digest");
+            //throw new NullPointerException("digest");
         }
 
         this.digest = digest;
@@ -52,6 +52,10 @@ public class DigestWritableByteChannel extends FilterWritableByteChannel {
 
     @Override
     public int write(final ByteBuffer src) throws IOException {
+
+        if (digest == null) {
+            throw new IllegalStateException("digest is currently null");
+        }
 
         final int position = src.position();
 
@@ -66,7 +70,20 @@ public class DigestWritableByteChannel extends FilterWritableByteChannel {
     }
 
 
-    private MessageDigest digest;
+    public MessageDigest getDigest() {
+
+        return digest;
+    }
+
+
+    public void setDigest(final MessageDigest digest) {
+
+        this.digest = digest;
+    }
+
+
+    protected MessageDigest digest;
 
 
 }
+

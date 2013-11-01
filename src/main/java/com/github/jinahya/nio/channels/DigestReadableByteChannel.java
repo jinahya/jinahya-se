@@ -43,7 +43,7 @@ public class DigestReadableByteChannel extends FilterReadableByteChannel {
         super(channel);
 
         if (digest == null) {
-            throw new NullPointerException("digest");
+            //throw new NullPointerException("digest");
         }
 
         this.digest = digest;
@@ -52,6 +52,10 @@ public class DigestReadableByteChannel extends FilterReadableByteChannel {
 
     @Override
     public int read(final ByteBuffer dst) throws IOException {
+
+        if (digest == null) {
+            throw new IllegalStateException("digest is currently null");
+        }
 
         final int position = dst.position();
 
@@ -66,7 +70,20 @@ public class DigestReadableByteChannel extends FilterReadableByteChannel {
     }
 
 
+    public MessageDigest getDigest() {
+
+        return digest;
+    }
+
+
+    public void setDigest(final MessageDigest digest) {
+
+        this.digest = digest;
+    }
+
+
     protected MessageDigest digest;
 
 
 }
+

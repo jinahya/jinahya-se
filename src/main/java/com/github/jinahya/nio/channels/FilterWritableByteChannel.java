@@ -36,11 +36,6 @@ public class FilterWritableByteChannel implements WritableByteChannel {
      * @param channel the underlying channel, or {@code null} if this instance
      * is to be created without an underlying channel.
      */
-    /*
-     * Creates an instance.
-     *
-     * @param channel the underlying channel
-     */
     protected FilterWritableByteChannel(final WritableByteChannel channel) {
 
         super();
@@ -56,12 +51,20 @@ public class FilterWritableByteChannel implements WritableByteChannel {
     @Override
     public int write(final ByteBuffer src) throws IOException {
 
+        if (channel == null) {
+            throw new IllegalStateException("channel is currently null");
+        }
+
         return channel.write(src);
     }
 
 
     @Override
     public boolean isOpen() {
+
+        if (channel == null) {
+            throw new IllegalStateException("channel is currently null");
+        }
 
         return channel.isOpen();
     }
@@ -70,7 +73,21 @@ public class FilterWritableByteChannel implements WritableByteChannel {
     @Override
     public void close() throws IOException {
 
-        channel.close();
+        if (channel != null) {
+            channel.close();
+        }
+    }
+
+
+    public WritableByteChannel getChannel() {
+
+        return channel;
+    }
+
+
+    public void setChannel(final WritableByteChannel channel) {
+
+        this.channel = channel;
     }
 
 
@@ -78,3 +95,4 @@ public class FilterWritableByteChannel implements WritableByteChannel {
 
 
 }
+

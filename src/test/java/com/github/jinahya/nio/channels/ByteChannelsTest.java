@@ -18,7 +18,6 @@
 package com.github.jinahya.nio.channels;
 
 
-import com.github.jinahya.nio.channels.ByteChannels;
 import com.github.jinahya.io.BlackOutputStream;
 import com.github.jinahya.io.WhiteInputStream;
 import java.io.File;
@@ -28,6 +27,8 @@ import java.nio.ByteBuffer;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.util.concurrent.ThreadLocalRandom;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -39,6 +40,45 @@ import org.testng.annotations.Test;
 public class ByteChannelsTest {
 
 
+    /**
+     * logger.
+     */
+    private static final Logger LOGGER
+        = LoggerFactory.getLogger(ByteChannelsTest.class);
+
+
+    protected static File newTempFile(final long size) throws IOException {
+
+        LOGGER.debug("newTempFile({})", size);
+
+        final File file = File.createTempFile("prefix", null);
+        file.deleteOnExit();
+
+        final RandomAccessFile raf = new RandomAccessFile(file, "rw");
+        try {
+            raf.setLength(size);
+        } finally {
+            raf.close();
+        }
+
+        LOGGER.debug("file.length: {}", file.length());
+
+        Assert.assertEquals(file.length(), size);
+
+        return file;
+    }
+
+
+    /**
+     *
+     * @param empty
+     *
+     * @return
+     *
+     * @throws IOException
+     * @deprecated
+     */
+    @Deprecated
     protected static File newTempFile(final boolean empty) throws IOException {
 
         final File f = File.createTempFile("prefix", null);
@@ -55,7 +95,7 @@ public class ByteChannelsTest {
     }
 
 
-    @Test(invocationCount = 32)
+    @Test(enabled = false, invocationCount = 32)
     public void testCopyFromFileToFile() throws IOException {
 
         final File source = newTempFile(false);
@@ -68,7 +108,7 @@ public class ByteChannelsTest {
     }
 
 
-    @Test(invocationCount = 32)
+    @Test(enabled = false, invocationCount = 32)
     public void testCopyFromFileToBlackOutput() throws IOException {
 
         final File input = newTempFile(false);
@@ -82,21 +122,26 @@ public class ByteChannelsTest {
     }
 
 
-    @Test(invocationCount = 32)
-    public void testCopyFromWhiteInputToFile() throws IOException {
+    @Test(enabled = false, invocationCount = 1)
+    public void copy_FromBiggerChannelToSmallerFile() throws IOException {
 
-        final long limit = ThreadLocalRandom.current().nextInt(65535);
-        final ReadableByteChannel input =
-            new WhiteInputStream(limit).newChannel();
+        final long limit = ThreadLocalRandom.current().nextInt(65535) + 1;
+        assert limit > 0L;
+        LOGGER.trace("limit: {}", limit);
+        final ReadableByteChannel input
+            = new WhiteInputStream(limit).newChannel();
 
-        final File output = newTempFile(true);
+        final long size = ThreadLocalRandom.current().nextLong(0, limit);
+        LOGGER.trace("size: {}", size);
+        assert size < limit;
+        final File output = newTempFile(size);
 
         final long count = ByteChannels.copy(
             input, output, ByteBuffer.allocate(1024), -1L);
 
-        Assert.assertEquals(count, limit);
-        Assert.assertEquals(output.length(), limit);
+        Assert.assertEquals(count, size);
     }
 
 
 }
+
