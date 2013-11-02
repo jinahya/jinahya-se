@@ -40,19 +40,21 @@ import javax.crypto.ShortBufferException;
  *
  * @author Jin Kwon <jinahya at gmail.com>
  */
-public class Ciphers {
+public final class Ciphers {
 
 
     /**
      * A map of transformations and lists of available key sizes that every
      * implementation of the Java platform is required to support.
+     *
+     * @see {@link Cipher}
      */
     public static final Map<String, List<Integer>> SUPPORTED_TRANSFORMATIONS;
 
 
     static {
-        final Map<String, List<Integer>> m =
-            new HashMap<String, List<Integer>>();
+        final Map<String, List<Integer>> m
+            = new HashMap<String, List<Integer>>();
         m.put("AES/CBC/NoPadding", Arrays.asList(128));
         m.put("AES/CBC/PKCS5Padding", Arrays.asList(128));
         m.put("AES/ECB/NoPadding", Arrays.asList(128));
@@ -217,8 +219,8 @@ public class Ciphers {
 
         long count = 0L;
 
-        ByteBuffer outbuf =
-            ByteBuffer.allocate(cipher.getOutputSize(inbuf.capacity()));
+        ByteBuffer outbuf
+            = ByteBuffer.allocate(cipher.getOutputSize(inbuf.capacity()));
 
         for (int read; length < 0L || count < length; count += read) {
             inbuf.clear(); // position -> 0, limit -> capacity
@@ -268,12 +270,13 @@ public class Ciphers {
 
 
     /**
-     * Creates a new instance.
+     * private constructor.
      */
-    protected Ciphers() {
+    private Ciphers() {
 
         super();
     }
 
 
 }
+
