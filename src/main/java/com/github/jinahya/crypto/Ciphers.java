@@ -77,6 +77,108 @@ public final class Ciphers {
 
 
     /**
+     * Updates and optionally finishes a multi-part encryption or description
+     * operation.
+     *
+     * @param cipher the cipher
+     * @param input the input
+     * @param output the output
+     * @param inbuf the input buffer
+     * @param length the maximum number of bytes to process; {@code -1L} for all
+     * available bytes in {@code input}.
+     * @param finish
+     *
+     * @return the actual number of bytes processed
+     *
+     * @throws IOException if an I/O error occurs.
+     * @throws IllegalBlockSizeException if this cipher is a block cipher, no
+     * padding has been requested (only in encryption mode), and the total input
+     * length of the data processed by this cipher is not a multiple of block
+     * size; or if this encryption algorithm is unable to process the input data
+     * provided. <i>Description copied from
+     * {@link Cipher#doFinal(byte[], int)}.</i>
+     * @throws BadPaddingException if this cipher is in decryption mode, and
+     * (un)padding has been requested, but the decrypted data is not bounded by
+     * the appropriate padding bytes. <i>Description copied from
+     * {@link Cipher#doFinal(byte[], int)}.</i>
+     *
+     * @see Cipher#update(byte[], int, int, byte[], int)
+     */
+    public static long update(final Cipher cipher, final InputStream input,
+                              final OutputStream output, final byte[] inbuf,
+                              final long length, final boolean finish)
+        throws IOException, IllegalBlockSizeException, BadPaddingException {
+
+        if (cipher == null) {
+            throw new NullPointerException("cipher == null");
+        }
+
+        if (input == null) {
+            throw new NullPointerException("input == null");
+        }
+
+        if (output == null) {
+            throw new NullPointerException("output == null");
+        }
+
+        if (inbuf == null) {
+            throw new NullPointerException("inbuf == null");
+        }
+
+        if (inbuf.length == 0) {
+            throw new IllegalArgumentException("inbuf.length == 0");
+        }
+
+        if (length < -1L) {
+            throw new IllegalArgumentException("length(" + length + " < -1L");
+        }
+
+        long count = 0L;
+
+        byte[] outbuf = new byte[cipher.getOutputSize(inbuf.length)];
+        int inlen;
+        int outlen;
+
+        for (int read; length == -1L || count < length; count += read) {
+            inlen = inbuf.length;
+            if (length != -1L) {
+                final long remained = length - count;
+                if (inlen > remained) {
+                    inlen = (int) remained;
+                }
+            }
+            read = input.read(inbuf, 0, inlen);
+            if (read == -1) {
+                break;
+            }
+            while (true) {
+                try {
+                    outlen = cipher.update(inbuf, 0, read, outbuf, 0);
+                    break;
+                } catch (final ShortBufferException sbe) {
+                    outbuf = new byte[outbuf.length * 2];
+                }
+            }
+            output.write(outbuf, 0, outlen);
+        }
+
+        if (finish) {
+            while (true) {
+                try {
+                    outlen = cipher.doFinal(outbuf, 0);
+                    break;
+                } catch (final ShortBufferException sbe) {
+                    outbuf = new byte[outbuf.length * 2];
+                }
+            }
+            output.write(outbuf, 0, outlen);
+        }
+
+        return count;
+    }
+
+
+    /**
      * Updates and finishes a multi-part encryption or description operation.
      *
      * @param cipher the cipher
@@ -102,66 +204,14 @@ public final class Ciphers {
      *
      * @see Cipher#update(byte[], int, int, byte[], int)
      * @see Cipher#doFinal(byte[], int)
+     * @see #update(Cipher, InputStream, OutputStream, byte[], long, boolean)
      */
     public static long doFinal(final Cipher cipher, final InputStream input,
                                final OutputStream output, final byte[] inbuf,
                                final long length)
         throws IOException, IllegalBlockSizeException, BadPaddingException {
 
-        if (cipher == null) {
-            throw new IllegalArgumentException("cipher");
-        }
-
-        if (input == null) {
-            throw new IllegalArgumentException("input");
-        }
-
-        if (output == null) {
-            throw new IllegalArgumentException("output");
-        }
-
-        if (inbuf == null) {
-            throw new IllegalArgumentException("inbuf");
-        }
-
-        if (inbuf.length == 0) {
-            throw new IllegalArgumentException("inbuf.length == 0");
-        }
-
-        long count = 0L;
-
-        byte[] outbuf = new byte[cipher.getOutputSize(inbuf.length)];
-        int outlen;
-
-        for (int inlen; length < 0L || count < length; count += inlen) {
-            final int inoff = length < 0L ? inbuf.length
-                              : (int) Math.min(inbuf.length, length - count);
-            inlen = input.read(inbuf, 0, inoff);
-            if (inlen == -1) {
-                break;
-            }
-            while (true) {
-                try {
-                    outlen = cipher.update(inbuf, 0, inlen, outbuf, 0);
-                    break;
-                } catch (ShortBufferException sbe) {
-                    outbuf = new byte[outbuf.length * 2];
-                }
-            }
-            output.write(outbuf, 0, outlen);
-        }
-
-        while (true) {
-            try {
-                outlen = cipher.doFinal(outbuf, 0);
-                break;
-            } catch (ShortBufferException sbe) {
-                outbuf = new byte[outbuf.length * 2];
-            }
-        }
-        output.write(outbuf, 0, outlen);
-
-        return count;
+        return update(cipher, input, output, inbuf, length, true);
     }
 
 
