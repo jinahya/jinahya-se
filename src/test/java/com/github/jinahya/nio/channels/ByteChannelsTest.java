@@ -19,6 +19,7 @@ package com.github.jinahya.nio.channels;
 
 
 import com.github.jinahya.io.BlackOutputStream;
+import com.github.jinahya.io.IoTests;
 import com.github.jinahya.io.WhiteInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -47,83 +48,40 @@ public class ByteChannelsTest {
         = LoggerFactory.getLogger(ByteChannelsTest.class);
 
 
-    protected static File newTempFile(final long size) throws IOException {
+    @Test(enabled = true, invocationCount = 32)
+    public void copy_file2file() throws IOException {
 
-        LOGGER.debug("newTempFile({})", size);
+        final long sourceLength = IoTests.newTempFileLength();
+        final File source = IoTests.newTempFile(sourceLength);
 
-        final File file = File.createTempFile("prefix", null);
-        file.deleteOnExit();
+        final long targetLength = IoTests.newTempFileLength();
+        final File target = IoTests.newTempFile(targetLength);
 
-        final RandomAccessFile raf = new RandomAccessFile(file, "rw");
-        try {
-            raf.setLength(size);
-        } finally {
-            raf.close();
-        }
+        final long count = ByteChannels.copy(source, target, -1L);
 
-        LOGGER.debug("file.length: {}", file.length());
-
-        Assert.assertEquals(file.length(), size);
-
-        return file;
-    }
-
-
-    /**
-     *
-     * @param empty
-     *
-     * @return
-     *
-     * @throws IOException
-     * @deprecated
-     */
-    @Deprecated
-    protected static File newTempFile(final boolean empty) throws IOException {
-
-        final File f = File.createTempFile("prefix", null);
-        f.deleteOnExit();
-
-        if (!empty) {
-            // fill input
-            final RandomAccessFile raf = new RandomAccessFile(f, "rwd");
-            raf.setLength(ThreadLocalRandom.current().nextInt(65536));
-            raf.close();
-        }
-
-        return f;
-    }
-
-
-    @Test(enabled = false, invocationCount = 32)
-    public void testCopyFromFileToFile() throws IOException {
-
-        final File source = newTempFile(false);
-        final File target = newTempFile(true);
-
-        final long count = ByteChannels.copy(
-            source, target, ByteBuffer.allocate(1024), -1L);
-
-        Assert.assertEquals(count, source.length());
-    }
-
-
-    @Test(enabled = false, invocationCount = 32)
-    public void testCopyFromFileToBlackOutput() throws IOException {
-
-        final File input = newTempFile(false);
-
-        final WritableByteChannel output = new BlackOutputStream().newChannel();
-
-        final long count = ByteChannels.copy(
-            input, output, ByteBuffer.allocate(1024), -1L);
-
-        Assert.assertEquals(count, input.length());
+        Assert.assertEquals(count, sourceLength);
+        Assert.assertEquals(target.length(), source.length());
     }
 
 
     @Test(enabled = true, invocationCount = 32)
-    public void copy_FromBiggerFileToSmallerChannel() throws IOException {
+    public void copy_SmallerFile2BiggerChannel() throws IOException {
+
+        final long length = IoTests.newTempFileLength();
+        final File file = IoTests.newTempFile(length);
+
+        final long limit = length + 1;
+        final WritableByteChannel channel
+            = new BlackOutputStream(limit).newChannel();
+
+        final long count = ByteChannels.copy(file, channel, -1L);
+
+        Assert.assertEquals(count, length);
+    }
+
+
+    @Test(enabled = true, invocationCount = 32)
+    public void copy_BiggerFile2SmallerChannel() throws IOException {
 
 //        final long limit = ThreadLocalRandom.current().nextInt(65535);
 //        LOGGER.trace("limit: {}", limit);
@@ -141,35 +99,14 @@ public class ByteChannelsTest {
 
 
     @Test(enabled = true, invocationCount = 32)
-    public void copy_FromSmallerFileToBiggerChannel() throws IOException {
-
-//        final long limit = ThreadLocalRandom.current().nextInt(65535) + 1;
-//        assert limit > 0L;
-//        LOGGER.trace("limit: {}", limit);
-//        final ReadableByteChannel input
-//            = new WhiteInputStream(limit).newChannel();
-//
-//        final long size = ThreadLocalRandom.current().nextLong(0, limit);
-//        LOGGER.trace("size: {}", size);
-//        assert size < limit;
-//        final File output = newTempFile(size);
-//
-//        final long count = ByteChannels.copy(
-//            input, output, ByteBuffer.allocate(1024), -1L);
-//
-//        Assert.assertEquals(count, size);
-    }
-
-
-    @Test(enabled = true, invocationCount = 32)
-    public void copy_FromSmallerChannelToBiggerFile() throws IOException {
+    public void copy_SmallerChannel2BiggerFile() throws IOException {
 
         final long limit = ThreadLocalRandom.current().nextInt(65535);
         LOGGER.trace("limit: {}", limit);
         final ReadableByteChannel input
             = new WhiteInputStream(limit).newChannel();
 
-        final File output = newTempFile(limit + 1);
+        final File output = IoTests.newTempFile(limit + 1);
 
         final long count = ByteChannels.copy(input, output, -1L);
 
@@ -179,7 +116,7 @@ public class ByteChannelsTest {
 
 
     @Test(enabled = true, invocationCount = 32)
-    public void copy_FromBiggerChannelToSmallerFile() throws IOException {
+    public void copy_BiggerChannel2SmallerFile() throws IOException {
 
         final long limit = ThreadLocalRandom.current().nextInt(65535) + 1;
         assert limit > 0L;
@@ -187,18 +124,15 @@ public class ByteChannelsTest {
         final ReadableByteChannel input
             = new WhiteInputStream(limit).newChannel();
 
-        final long size = ThreadLocalRandom.current().nextLong(0, limit);
-        LOGGER.trace("size: {}", size);
-        assert size < limit;
-        final File output = newTempFile(size);
+        final long length = ThreadLocalRandom.current().nextLong(0, limit);
+        LOGGER.trace("size: {}", length);
+        assert length < limit;
+        final File output = IoTests.newTempFile(length);
 
         final long count = ByteChannels.copy(input, output, -1L);
 
-        Assert.assertEquals(count, size);
+        Assert.assertEquals(count, length);
     }
-
-
-;
 
 
 }

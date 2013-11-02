@@ -18,15 +18,10 @@
 package com.github.jinahya.io;
 
 
-import com.github.jinahya.security.MessageDigests;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.RandomAccessFile;
-import java.nio.ByteBuffer;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import org.testng.Assert;
@@ -40,38 +35,27 @@ import org.testng.annotations.Test;
 public class ByteStreamsTest {
 
 
-    protected static File newTempFile() throws IOException {
+    @Test(expectedExceptions = {NullPointerException.class})
+    public static void copy_nullInput_NullPointerException()
+        throws IOException {
 
-        final File file = File.createTempFile("prefix", null);
-        file.deleteOnExit();
-
-        // fill input
-        final RandomAccessFile raf = new RandomAccessFile(file, "rwd");
-        raf.setLength(ThreadLocalRandom.current().nextInt(65536));
-        raf.close();
-
-        return file;
+        ByteStreams.copy((InputStream) null, new BlackOutputStream(),
+                         new byte[1], -1L);
     }
 
 
     @Test(expectedExceptions = {NullPointerException.class})
-    public static void testCopyWithNullInput() throws IOException {
+    public static void copy_nullOutput_NullPointerException()
+        throws IOException {
 
-        ByteStreams.copy((InputStream) null, new BlackOutputStream(), new byte[1],
-                         -1L);
+        ByteStreams.copy(new WhiteInputStream(), (OutputStream) null,
+                         new byte[1], -1L);
     }
 
 
     @Test(expectedExceptions = {NullPointerException.class})
-    public static void testCopyWithNullOutput() throws IOException {
-
-        ByteStreams.copy(new WhiteInputStream(), (OutputStream) null, new byte[1],
-                         -1L);
-    }
-
-
-    @Test(expectedExceptions = {NullPointerException.class})
-    public static void testCopyWithNullBuffer() throws IOException {
+    public static void copy_nullBuffer_NullPointerException()
+        throws IOException {
 
         ByteStreams.copy(new WhiteInputStream(), new BlackOutputStream(), null,
                          -1L);
@@ -79,14 +63,15 @@ public class ByteStreamsTest {
 
 
     @Test(expectedExceptions = {IllegalArgumentException.class})
-    public static void testCopyWithZeroLengthBuffer() throws IOException {
+    public static void copy_zeroLengthBuffer_IllegalArgumentException()
+        throws IOException {
 
         ByteStreams.copy(new WhiteInputStream(), new BlackOutputStream(),
                          new byte[0], -1L);
     }
 
 
-    @Test(invocationCount = 32)
+    @Test(invocationCount = 1)
     public static void testCopyWithPositiveLength() throws IOException {
 
         final Random random = ThreadLocalRandom.current();
@@ -102,35 +87,55 @@ public class ByteStreamsTest {
 
 
     @Test(invocationCount = 32)
-    public static void testCopyWithNegativeLength() throws IOException {
+    public static void copy_stream2stream() throws IOException {
 
-        final Random random = ThreadLocalRandom.current();
+        final ThreadLocalRandom random = ThreadLocalRandom.current();
 
         final long limit = random.nextInt(1048576);
 
-        final long count = ByteStreams.copy(
-            new WhiteInputStream(limit), new BlackOutputStream(),
-            new byte[8192], -1L);
+        final InputStream input = new WhiteInputStream(limit);
+        final OutputStream output = new BlackOutputStream();
 
-        Assert.assertEquals(count, limit);
+        final long length
+            = random.nextBoolean() ? -1L : random.nextLong(limit);
+
+        final long count
+            = ByteStreams.copy(input, output, new byte[8192], length);
+
+        if (length == -1) {
+            Assert.assertEquals(count, limit);
+        } else {
+            Assert.assertEquals(count, length);
+        }
     }
 
 
     @Test(invocationCount = 32)
-    public static void testCopyFileToFileWithoutLength()
-        throws IOException, NoSuchAlgorithmException {
+    public static void copy_file2file() throws IOException {
 
-        final File input = newTempFile();
-        final File output = newTempFile();
+        final ThreadLocalRandom random = ThreadLocalRandom.current();
 
-        ByteStreams.copy(input, output, new byte[1], -1L);
+        final long fileLength1 = IoTests.newTempFileLength();
+        final File file1 = IoTests.newTempFile(fileLength1);
 
-        final MessageDigest digest = MessageDigest.getInstance("SHA-1");
+        final long fileLength2 = IoTests.newTempFileLength();
+        final File file2 = IoTests.newTempFile(fileLength2);
 
-        Assert.assertEquals(
-            MessageDigests.digest(digest, input, new byte[1024], -1L),
-            MessageDigests.digest(digest, output, ByteBuffer.allocate(9), -1L));
+        final long length
+            = random.nextBoolean() ? -1L : random.nextLong(fileLength1);
+
+        final long count = ByteStreams.copy(
+            file1, file2, new byte[8192], length);
+
+        if (length == -1L) {
+            Assert.assertEquals(count, fileLength1);
+            Assert.assertEquals(file2.length(), file1.length());
+        } else {
+            Assert.assertEquals(count, length);
+            Assert.assertEquals(file2.length(), length);
+        }
     }
 
 
 }
+

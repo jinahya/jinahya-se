@@ -24,6 +24,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -35,13 +37,20 @@ public final class ByteStreams {
 
 
     /**
+     * logger.
+     */
+    private static final Logger LOGGER
+        = LoggerFactory.getLogger(ByteStreams.class);
+
+
+    /**
      * Copies bytes from given input stream to given output stream.
      *
      * @param input the input stream
      * @param output the output stream
-     * @param buffer a buffer
-     * @param length the maximum number of bytes to copy; any negative value for
-     * all.
+     * @param buffer a buffer to use
+     * @param length the maximum number of bytes to copy; {@code -1L} for all
+     * available bytes in {@code input}.
      *
      * @return the actual number of bytes copied.
      *
@@ -51,16 +60,19 @@ public final class ByteStreams {
                             final byte[] buffer, final long length)
         throws IOException {
 
+        LOGGER.trace("copy({}, {}, {}, {})", input, output,
+                     String.valueOf(buffer), length);
+
         if (input == null) {
-            throw new NullPointerException("input");
+            throw new NullPointerException("input == null");
         }
 
         if (output == null) {
-            throw new NullPointerException("output");
+            throw new NullPointerException("output == null");
         }
 
         if (buffer == null) {
-            throw new NullPointerException("buffer");
+            throw new NullPointerException("buffer == null");
         }
 
         if (buffer.length == 0) {
@@ -68,16 +80,24 @@ public final class ByteStreams {
                 "buffer.length(" + buffer.length + ") == 0");
         }
 
+        if (length < -1L) {
+            throw new IllegalArgumentException("length(" + length + ") < -1L");
+        }
+
         long count = 0L;
 
-        for (int read; length < 0L || count < length; count += read) {
-            final int l = length < 0L ? buffer.length
-                          : (int) Math.min(buffer.length, length - count);
-            read = input.read(buffer, 0, l);
+        long remained = length - count;
+        for (int read; length == -1L || remained > 0; count += read) {
+            int limit = buffer.length;
+            if (length != -1L && remained < buffer.length) {
+                limit = (int) remained;
+            }
+            read = input.read(buffer, 0, limit);
             if (read == -1) {
                 break;
             }
             output.write(buffer, 0, read);
+            remained -= read;
         }
 
         return count;
@@ -90,8 +110,8 @@ public final class ByteStreams {
      * @param input the input file
      * @param output the output stream
      * @param buffer a buffer
-     * @param length the maximum number of bytes to copy; any negative for all
-     * available bytes.
+     * @param length the maximum number of bytes to copy; {@code -1L} for all
+     * available bytes in {@code input}.
      *
      * @return the actual number of bytes copied.
      *
@@ -102,14 +122,14 @@ public final class ByteStreams {
         throws IOException {
 
         if (input == null) {
-            throw new NullPointerException("input");
+            throw new NullPointerException("input == null");
         }
 
-        final InputStream input_ = new FileInputStream(input);
+        final InputStream finput = new FileInputStream(input);
         try {
-            return copy(input_, output, buffer, length);
+            return copy(finput, output, buffer, length);
         } finally {
-            input_.close();
+            finput.close();
         }
     }
 
@@ -119,9 +139,9 @@ public final class ByteStreams {
      *
      * @param input the input stream
      * @param output the output file
-     * @param buffer a buffer
-     * @param length the maximum number of bytes to copy; any negative for all
-     * available bytes.
+     * @param buffer a buffer to use
+     * @param length the maximum number of bytes to copy; {@code -1L} for all
+     * available bytes in {@code input}.
      *
      * @return the actual number of bytes copied.
      *
@@ -135,15 +155,15 @@ public final class ByteStreams {
             throw new NullPointerException("output");
         }
 
-        final OutputStream output_ = new FileOutputStream(output);
+        final OutputStream foutput = new FileOutputStream(output);
         try {
             try {
-                return copy(input, output_, buffer, length);
+                return copy(input, foutput, buffer, length);
             } finally {
-                output_.flush();
+                foutput.flush();
             }
         } finally {
-            output_.close();
+            foutput.close();
         }
     }
 
@@ -154,8 +174,8 @@ public final class ByteStreams {
      * @param input the input file
      * @param output the output file
      * @param buffer a buffer
-     * @param length the maximum number of bytes to copy; any negative for all
-     * available bytes.
+     * @param length the maximum number of bytes to copy; {@code -1L} for all
+     * available bytes in {@code input}.
      *
      * @return the actual number of bytes copied.
      *
@@ -169,20 +189,20 @@ public final class ByteStreams {
             throw new NullPointerException("output");
         }
 
-        final InputStream input_ = new FileInputStream(input);
+        final InputStream finput = new FileInputStream(input);
         try {
-            final OutputStream output_ = new FileOutputStream(output);
+            final OutputStream foutput = new FileOutputStream(output);
             try {
                 try {
-                    return copy(input_, output_, buffer, length);
+                    return copy(finput, foutput, buffer, length);
                 } finally {
-                    output_.flush();
+                    foutput.flush();
                 }
             } finally {
-                output_.close();
+                foutput.close();
             }
         } finally {
-            input_.close();
+            finput.close();
         }
     }
 
@@ -197,3 +217,4 @@ public final class ByteStreams {
 
 
 }
+

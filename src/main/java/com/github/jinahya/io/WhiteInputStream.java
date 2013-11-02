@@ -35,19 +35,26 @@ public class WhiteInputStream extends InputStream {
     /**
      * Creates a new instance with given {@code limit}.
      *
-     * @param limit the maximum number of bytes can read; any negative value for
-     * no limit.
+     * @param limit the maximum number of bytes can be read; {@code -1L} for no
+     * limit.
+     *
+     * @throws IllegalArgumentException if {@code limit} is less than
+     * {@code -1L}
      */
     public WhiteInputStream(final long limit) {
 
         super();
+
+        if (limit < -1L) {
+            throw new IllegalArgumentException("limit(" + limit + ") < -1L");
+        }
 
         this.limit = limit;
     }
 
 
     /**
-     * Creates a new instance with {@link #UNLIMITED} as {@code limit}.
+     * Creates a new instance.
      */
     public WhiteInputStream() {
 
@@ -55,15 +62,22 @@ public class WhiteInputStream extends InputStream {
     }
 
 
+    /**
+     * Reads the next byte of data from the input stream.
+     *
+     * @return the next byte of data, or -1 if {@code limit} is set and the
+     * number of bytes read so far exceeds it.
+     *
+     * @throws IOException {@inheritDoc}
+     */
     @Override
     public int read() throws IOException {
 
-        if (limit >= 0L && count >= limit) {
+        if (limit != -1L && count++ >= limit) {
             return -1;
         }
 
-        count++;
-
+        //count++;
         return (int) (System.currentTimeMillis() & 0xFF);
     }
 
@@ -72,10 +86,38 @@ public class WhiteInputStream extends InputStream {
      * Constructs a channel that read bytes from this stream.
      *
      * @return a new readable byte channel
+     *
+     * @see Channels#newChannel(InputStream)
      */
     public ReadableByteChannel newChannel() {
 
         return Channels.newChannel(this);
+    }
+
+
+    /**
+     * Returns the current value of {@link #limit}.
+     *
+     * @return the current value of {@link #limit}.
+     */
+    public long getLimit() {
+
+        return limit;
+    }
+
+
+    /**
+     * Sets the value of {@link #limit}.
+     *
+     * @param limit new value for {@link #limit}.
+     */
+    public void setLimit(final long limit) {
+
+        if (limit < -1L) {
+            throw new IllegalArgumentException("limit(" + limit + ") < -1L");
+        }
+
+        this.limit = limit;
     }
 
 
@@ -91,15 +133,16 @@ public class WhiteInputStream extends InputStream {
 
 
     /**
+     * the maximum number of bytes can be read. {@code -1L} for unlimited.
+     */
+    protected long limit;
+
+
+    /**
      * the number of byte read so far.
      */
     private long count = 0x00L;
 
 
-    /**
-     * limit.
-     */
-    private final long limit;
-
-
 }
+

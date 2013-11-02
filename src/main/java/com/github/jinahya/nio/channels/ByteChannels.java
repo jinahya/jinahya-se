@@ -76,9 +76,10 @@ public final class ByteChannels {
 
         long count = 0L;
 
+        long position = input.position();
         while (length == -1L || count < length) {
 
-            long available = input.size() - input.position();
+            long available = input.size() - position;
             if (available == 0L) {
                 break;
             }
@@ -90,8 +91,8 @@ public final class ByteChannels {
             }
 
             final long transferred
-                = input.transferTo(input.position(), available, output);
-            input.position(input.position() + transferred);
+                = input.transferTo(position, available, output);
+            position += transferred;
             count += transferred;
         }
 
@@ -131,12 +132,10 @@ public final class ByteChannels {
 
         long count = 0L;
 
+        long position = output.position();
         while (length == -1L || count < length) {
 
-            LOGGER.debug("output.size: {}", output.size());
-            LOGGER.debug("output.position: {}", output.position());
-            long available = output.size() - output.position();
-            LOGGER.debug("available: {}", available);
+            long available = output.size() - position;
             if (available == 0L) {
                 break;
             }
@@ -148,10 +147,9 @@ public final class ByteChannels {
             }
 
             final long transferred
-                = output.transferFrom(input, output.position(), available);
-            LOGGER.debug("transferred: {}", transferred);
+                = output.transferFrom(input, position, available);
             if (transferred == 0) {
-                final ByteBuffer buffer = ByteBuffer.allocate(1024);
+                final ByteBuffer buffer = ByteBuffer.allocate(1);
                 if (input.read(buffer) == -1) {
                     break;
                 }
@@ -160,10 +158,8 @@ public final class ByteChannels {
                     output.write(buffer);
                 }
             }
-            output.position(output.position() + transferred);
-            LOGGER.debug("output.position: {}", output.position());
+            position += transferred;
             count += transferred;
-            LOGGER.debug("count: {}", count);
         }
 
         return count;
@@ -366,26 +362,27 @@ public final class ByteChannels {
      *
      * @param input the input path
      * @param output the output channel
-     * @param buffer the buffer to use
      * @param length the maximum number of bytes to copy; {@code -1L} for all
      * available bytes in {@code input}.
      *
-     * @return the actual number of byte copied.
+     * @return the actual number of bytes copied.
      *
      * @throws IOException if an I/O error occurs.
+     *
+     * @see #copy(FileChannel, WritableByteChannel, long)
      */
     public static long copy(final Path input, final WritableByteChannel output,
-                            final ByteBuffer buffer, final long length)
+                            final long length)
         throws IOException {
 
         if (input == null) {
-            throw new NullPointerException("input");
+            throw new NullPointerException("input = null");
         }
 
         final FileChannel finput
             = FileChannel.open(input, StandardOpenOption.READ);
         try {
-            return copy(finput, output, buffer, length);
+            return copy(finput, output, length);
         } finally {
             finput.close();
         }
@@ -396,39 +393,46 @@ public final class ByteChannels {
      * Copies bytes from {@code input} to {@code output} using specified
      * {@code buffer}.
      *
-     * @param input the input
-     * @param output the output
-     * @param buffer the buffer
+     * @param input the input file
+     * @param output the output channel
      * @param length the maximum number of bytes to copy; {@code -1L} for all
      * available bytes in {@code input}.
      *
-     * @return the actual number of byte copied.
+     * @return the actual number of bytes copied.
      *
+     * @throws NullPointerException if {@code input} is {@code null}
      * @throws IOException if an I/O error occurs.
+     *
+     * @see #copy(Path, WritableByteChannel, ByteBuffer, long)
      */
     public static long copy(final File input, final WritableByteChannel output,
-                            final ByteBuffer buffer, final long length)
+                            final long length)
         throws IOException {
 
         if (input == null) {
-            throw new NullPointerException("input");
+            throw new NullPointerException("input == null");
         }
 
-        return copy(input.toPath(), output, buffer, length);
+        if (!input.isFile()) {
+            throw new IllegalArgumentException("input file doesn't exist");
+        }
+
+        return copy(input.toPath(), output, length);
     }
 
 
     /**
-     * Copies bytes from {@code input} to {@code output} using specified
-     * {@code buffer}.
+     * Copies all or specified number of bytes from input channel to output
+     * path.
      *
      * @param input the input channel
      * @param output the output path
      * @param length the maximum number of bytes to copy; {@code -1L} for for
      * all available bytes in {@code input}.
      *
-     * @return the actual number of byte copied.
+     * @return the actual number of bytes copied.
      *
+     * @throws NullPointerException if {@code output} is {@code null}.
      * @throws IOException if an I/O error occurs.
      */
     public static long copy(final ReadableByteChannel input, final Path output,
@@ -436,7 +440,7 @@ public final class ByteChannels {
         throws IOException {
 
         if (output == null) {
-            throw new NullPointerException("output");
+            throw new NullPointerException("output == null");
         }
 
         final FileChannel foutput
@@ -444,7 +448,7 @@ public final class ByteChannels {
         try {
             try {
                 final long count = copy(input, foutput, length);
-                foutput.truncate(foutput.position());
+                foutput.truncate(foutput.position() + count);
                 return count;
             } finally {
                 foutput.force(false);
@@ -456,16 +460,17 @@ public final class ByteChannels {
 
 
     /**
-     * Copies bytes from {@code input} to {@code output} using specified
-     * {@code buffer}.
+     * Copies all or specified number of bytes from input channel to output file
+     * using given buffer.
      *
-     * @param input the input
-     * @param output the output
+     * @param input the input channel
+     * @param output the output file
      * @param length the maximum number of bytes to copy; {@code -1L} for all
      * available bytes in {@code input}.
      *
-     * @return the actual number of byte copied.
+     * @return the actual number of bytes copied.
      *
+     * @throws NullPointerException if {@code output} is {@code null}.
      * @throws IOException if an I/O error occurs.
      */
     public static long copy(final ReadableByteChannel input, final File output,
@@ -473,7 +478,7 @@ public final class ByteChannels {
         throws IOException {
 
         if (output == null) {
-            throw new NullPointerException("output");
+            throw new NullPointerException("output == null");
         }
 
         return copy(input, output.toPath(), length);
@@ -481,47 +486,34 @@ public final class ByteChannels {
 
 
     /**
-     * Copies bytes from {@code input} to {@code output} using specified
-     * {@code buffer}.
+     * Copies all or specified number of bytes from input file to output file.
      *
-     * @param input the input
-     * @param output the output
-     * @param buffer the buffer
+     * @param input the input file
+     * @param output the output file
      * @param length the maximum number of bytes to copy; {@code -1L} for all
      * available bytes in {@code input}.
      *
-     * @return the actual number of byte copied.
+     * @return the actual number of bytes copied.
      *
      * @throws IOException if an I/O error occurs.
      */
     public static long copy(final File input, final File output,
-                            final ByteBuffer buffer, final long length)
+                            final long length)
         throws IOException {
-
-        if (input == null) {
-            throw new NullPointerException("input == null");
-        }
 
         if (output == null) {
             throw new NullPointerException("output == null");
         }
 
-        final ReadableByteChannel finput
-            = FileChannel.open(input.toPath(), StandardOpenOption.READ);
+        final FileChannel foutput
+            = FileChannel.open(output.toPath(), StandardOpenOption.WRITE);
         try {
-            final FileChannel foutput
-                = FileChannel.open(output.toPath(), StandardOpenOption.WRITE);
-            try {
-                try {
-                    return copy(finput, foutput, buffer, length);
-                } finally {
-                    foutput.force(false);
-                }
-            } finally {
-                foutput.close();
-            }
+            final long count = copy(input, foutput, length);
+            foutput.truncate(foutput.position());
+            foutput.force(false);
+            return count;
         } finally {
-            finput.close();
+            foutput.close();
         }
     }
 
