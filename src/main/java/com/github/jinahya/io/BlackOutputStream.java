@@ -104,18 +104,6 @@ public class BlackOutputStream extends OutputStream {
 
 
     /**
-     *
-     * @return
-     *
-     * @see #getLimit()
-     */
-    public long limit() {
-
-        return getLimit();
-    }
-
-
-    /**
      * Sets the value of {@link #limit}.
      *
      * @param limit new value for {@link #limit}.
@@ -134,18 +122,6 @@ public class BlackOutputStream extends OutputStream {
 
 
     /**
-     *
-     * @param limit
-     *
-     * @see #setLimit(long)
-     */
-    public void limit(final long limit) {
-
-        setLimit(limit);
-    }
-
-
-    /**
      * Returns the number of bytes written so far.
      *
      * @return the number of bytes written so far.
@@ -153,18 +129,6 @@ public class BlackOutputStream extends OutputStream {
     public long getCount() {
 
         return count;
-    }
-
-
-    /**
-     *
-     * @return
-     *
-     * @see #getCount()
-     */
-    public long count() {
-
-        return getCount();
     }
 
 

@@ -106,18 +106,6 @@ public class WhiteInputStream extends InputStream {
 
 
     /**
-     *
-     * @return
-     *
-     * @see #getLimit()
-     */
-    public long limit() {
-
-        return getLimit();
-    }
-
-
-    /**
      * Sets the value of {@link #limit}.
      *
      * @param limit new value for {@link #limit}.
@@ -136,18 +124,6 @@ public class WhiteInputStream extends InputStream {
 
 
     /**
-     *
-     * @param limit
-     *
-     * @see #setLimit(long)
-     */
-    public void limit(final long limit) {
-
-        setLimit(limit);
-    }
-
-
-    /**
      * Returns the number of bytes read so far.
      *
      * @return the number of bytes read so far.
@@ -155,18 +131,6 @@ public class WhiteInputStream extends InputStream {
     public long getCount() {
 
         return count;
-    }
-
-
-    /**
-     *
-     * @return
-     *
-     * @see #getCount()
-     */
-    public long count() {
-
-        return getCount();
     }
 
 
