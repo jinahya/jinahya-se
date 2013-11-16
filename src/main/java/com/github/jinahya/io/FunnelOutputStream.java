@@ -27,22 +27,31 @@ import java.io.OutputStream;
  *
  * @author Jin Kwon <jinahya at gmail.com>
  */
-public class ScatterOutputStream extends FilterOutputStream {
+public class FunnelOutputStream extends FilterOutputStream {
 
 
     /**
-     * Creates an scattering output stream built on top of the specified
-     * underlying output stream.
+     * Creates a funnel output stream built on top of the specified underlying
+     * output stream.
      *
      * @param out the underlying output stream, or {@code null} if this instance
      * is to be created without an underlying stream.
      */
-    public ScatterOutputStream(final OutputStream out) {
+    public FunnelOutputStream(final OutputStream out) {
 
         super(out);
     }
 
 
+    /**
+     * {@inheritDoc} Overridden to write every byte via {@link #write(int)}.
+     *
+     * @param b {@inheritDoc }
+     * @param off {@inheritDoc }
+     * @param len {@inheritDoc }
+     *
+     * @throws IOException {@inheritDoc }
+     */
     @Override
     public void write(final byte[] b, int off, final int len)
         throws IOException {
@@ -51,7 +60,6 @@ public class ScatterOutputStream extends FilterOutputStream {
             write(b[off++]);
         }
     }
-
 
 }
 

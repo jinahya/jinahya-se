@@ -19,8 +19,10 @@ package com.github.jinahya.io;
 
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.concurrent.ThreadLocalRandom;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -30,32 +32,29 @@ import org.testng.annotations.Test;
  *
  * @author Jin Kwon <jinahya at gmail.com>
  */
-public class AccumulateInputStreamTest {
+public class FunnelOutputStreamTest {
 
 
     @Test(invocationCount = 128)
-    public void read() throws IOException {
+    public void write_() throws IOException {
 
         final ThreadLocalRandom random = ThreadLocalRandom.current();
         final byte[] bytes = new byte[random.nextInt(65536)];
         random.nextBytes(bytes);
 
-        final InputStream in = new ByteArrayInputStream(bytes);
-        try (final InputStream ais = new AccumulateInputStream(in)) {
-            int count = 0;
-            final byte[] buf = new byte[1024];
-            for (int read; true; count += read) {
-                final int off = random.nextInt(0, buf.length / 2);
-                final int len = random.nextInt(0, buf.length - off);
-                read = ais.read(buf, off, len);
-                if (read == -1) {
-                    break;
-                }
-            }
-            Assert.assertEquals(count, bytes.length);
-        }
-    }
+        final ByteArrayOutputStream baos =
+            new ByteArrayOutputStream(bytes.length);
 
+        final InputStream bais = new ByteArrayInputStream(bytes);
+        try (final OutputStream fos = new FunnelOutputStream(baos)) {
+            final byte[] buf = new byte[1024];
+            for (int read; (read = bais.read(buf)) != -1;) {
+                fos.write(buf, 0, read);
+            }
+        }
+
+        Assert.assertEquals(baos.toByteArray(), bytes);
+    }
 
 }
 

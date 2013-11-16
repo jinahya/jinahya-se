@@ -27,35 +27,45 @@ import java.io.InputStream;
  *
  * @author Jin Kwon <jinahya at gmail.com>
  */
-public class AccumulateInputStream extends FilterInputStream {
+public class FunnelInputStream extends FilterInputStream {
 
 
     /**
-     * Creates a accumulating input stream built on top of the specified
-     * underlying input stream.
+     * Creates a funnel input stream built on top of the specified underlying
+     * input stream.
      *
      * @param in the underlying input stream, or {@code null} if this instance
      * is to be created without an underlying stream.
      */
-    public AccumulateInputStream(final InputStream in) {
+    public FunnelInputStream(final InputStream in) {
 
         super(in);
     }
 
 
+    /**
+     * {@inheritDoc} Overridden to read every byte via {@link #read()}.
+     *
+     * @param b {@inheritDoc }
+     * @param off {@inheritDoc }
+     * @param len {@inheritDoc }
+     *
+     * @return {@inheritDoc }
+     *
+     * @throws IOException {@inheritDoc }
+     */
     @Override
     public int read(final byte[] b, int off, final int len) throws IOException {
 
-        for (int count = 0, read; count < len; count++) {
+        for (int i = 0, read; i < len; i++) {
             if ((read = read()) == -1) {
-                return count == 0 ? -1 : count;
+                return i == 0 ? -1 : i;
             }
             b[off++] = (byte) read;
         }
 
         return len;
     }
-
 
 }
 

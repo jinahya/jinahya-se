@@ -25,7 +25,7 @@ import java.nio.channels.ReadableByteChannel;
 
 
 /**
- * An {@code InputStream} which generates random values.
+ * An input stream generates random bytes.
  *
  * @author Jin Kwon <jinahya at gmail.com>
  */
@@ -54,7 +54,7 @@ public class WhiteInputStream extends InputStream {
 
 
     /**
-     * Creates a new instance.
+     * Creates a new instance with no limit.
      */
     public WhiteInputStream() {
 
@@ -63,7 +63,7 @@ public class WhiteInputStream extends InputStream {
 
 
     /**
-     * Reads the next byte of data from the input stream.
+     * {@inheritDoc }
      *
      * @return the next byte of data, or -1 if {@code limit} is set and the
      * number of bytes read so far exceeds it.
@@ -77,8 +77,7 @@ public class WhiteInputStream extends InputStream {
             return -1;
         }
 
-        //count++;
-        return (int) (System.currentTimeMillis() & 0xFF);
+        return (int) (System.currentTimeMillis() & 0xFFL);
     }
 
 
@@ -107,9 +106,24 @@ public class WhiteInputStream extends InputStream {
 
 
     /**
+     *
+     * @return
+     *
+     * @see #getLimit()
+     */
+    public long limit() {
+
+        return getLimit();
+    }
+
+
+    /**
      * Sets the value of {@link #limit}.
      *
      * @param limit new value for {@link #limit}.
+     *
+     * @throws IllegalArgumentException if {@code limit} is less than
+     * {@code -1L}
      */
     public void setLimit(final long limit) {
 
@@ -118,6 +132,18 @@ public class WhiteInputStream extends InputStream {
         }
 
         this.limit = limit;
+    }
+
+
+    /**
+     *
+     * @param limit
+     *
+     * @see #setLimit(long)
+     */
+    public void limit(final long limit) {
+
+        setLimit(limit);
     }
 
 
@@ -133,13 +159,25 @@ public class WhiteInputStream extends InputStream {
 
 
     /**
+     *
+     * @return
+     *
+     * @see #getCount()
+     */
+    public long count() {
+
+        return getCount();
+    }
+
+
+    /**
      * the maximum number of bytes can be read. {@code -1L} for unlimited.
      */
     protected long limit;
 
 
     /**
-     * the number of byte read so far.
+     * the total number of byte read so far.
      */
     private long count = 0x00L;
 

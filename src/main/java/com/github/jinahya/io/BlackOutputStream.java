@@ -25,7 +25,7 @@ import java.nio.channels.WritableByteChannel;
 
 
 /**
- * An {@code OutputStream} which blacks out written values.
+ * An output stream which shallows written bytes.
  *
  * @author Jin Kwon <jinahya at gmail.com>
  */
@@ -37,6 +37,9 @@ public class BlackOutputStream extends OutputStream {
      *
      * @param limit the maximum number of bytes can be written; {@code -1L} for
      * no limit.
+     *
+     * @throws IllegalArgumentException if the {@code limit} is less than
+     * {@code -1}
      */
     public BlackOutputStream(final long limit) {
 
@@ -51,7 +54,7 @@ public class BlackOutputStream extends OutputStream {
 
 
     /**
-     * Creates a new instance.
+     * Creates a new instance with no limit.
      */
     public BlackOutputStream() {
 
@@ -60,9 +63,9 @@ public class BlackOutputStream extends OutputStream {
 
 
     /**
-     * Writes the specified byte to this output stream.
+     * {@inheritDoc }
      *
-     * @param b the byte to write
+     * @param b {@inheritDoc }
      *
      * @throws IOException if {@code limit} is set and the number of bytes
      * written so far exceeds it.
@@ -73,8 +76,6 @@ public class BlackOutputStream extends OutputStream {
         if (limit != -1L && count++ >= limit) {
             throw new IOException("limit(" + limit + ") exceeded");
         }
-
-        //count++;
     }
 
 
@@ -103,9 +104,24 @@ public class BlackOutputStream extends OutputStream {
 
 
     /**
+     *
+     * @return
+     *
+     * @see #getLimit()
+     */
+    public long limit() {
+
+        return getLimit();
+    }
+
+
+    /**
      * Sets the value of {@link #limit}.
      *
      * @param limit new value for {@link #limit}.
+     *
+     * @throws IllegalArgumentException if {@code limit} is less than
+     * {@code -1L}
      */
     public void setLimit(final long limit) {
 
@@ -114,6 +130,18 @@ public class BlackOutputStream extends OutputStream {
         }
 
         this.limit = limit;
+    }
+
+
+    /**
+     *
+     * @param limit
+     *
+     * @see #setLimit(long)
+     */
+    public void limit(final long limit) {
+
+        setLimit(limit);
     }
 
 
@@ -129,13 +157,25 @@ public class BlackOutputStream extends OutputStream {
 
 
     /**
+     *
+     * @return
+     *
+     * @see #getCount()
+     */
+    public long count() {
+
+        return getCount();
+    }
+
+
+    /**
      * the maximum number of bytes can be written. {@code -1L} for unlimited.
      */
     protected long limit;
 
 
     /**
-     * the number of bytes written so far.
+     * the total number of bytes written so far.
      */
     private long count = 0L;
 

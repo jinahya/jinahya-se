@@ -19,9 +19,8 @@ package com.github.jinahya.io;
 
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.InputStream;
 import java.util.concurrent.ThreadLocalRandom;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -31,29 +30,33 @@ import org.testng.annotations.Test;
  *
  * @author Jin Kwon <jinahya at gmail.com>
  */
-public class ScatterOutputStreamTest {
+public class FunnelInputStreamTest {
 
 
     @Test(invocationCount = 128)
-    public void write_() throws IOException {
+    public void read() throws IOException {
 
         final ThreadLocalRandom random = ThreadLocalRandom.current();
         final byte[] bytes = new byte[random.nextInt(65536)];
         random.nextBytes(bytes);
 
-        final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-        final ByteArrayOutputStream baos
-            = new ByteArrayOutputStream(bytes.length);
+        int count = 0;
 
-        try (final OutputStream sos = new ScatterOutputStream(baos)) {
+        final InputStream bais = new ByteArrayInputStream(bytes);
+        try (final InputStream fis = new FunnelInputStream(bais)) {
             final byte[] buf = new byte[1024];
-            for (int read; (read = bais.read(buf)) != -1; ) {
-                sos.write(buf, 0, read);
+            for (int read; true; count += read) {
+                final int off = random.nextInt(0, buf.length / 2);
+                final int len = random.nextInt(0, buf.length - off);
+                read = fis.read(buf, off, len);
+                if (read == -1) {
+                    break;
+                }
             }
-            Assert.assertEquals(baos.toByteArray(), bytes);
         }
-    }
 
+        Assert.assertEquals(count, bytes.length);
+    }
 
 }
 
