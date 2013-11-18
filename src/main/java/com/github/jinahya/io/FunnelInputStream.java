@@ -18,7 +18,6 @@
 package com.github.jinahya.io;
 
 
-import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -27,45 +26,125 @@ import java.io.InputStream;
  *
  * @author Jin Kwon <jinahya at gmail.com>
  */
-public class FunnelInputStream extends FilterInputStream {
+public class FunnelInputStream extends InputStream {
 
 
     /**
      * Creates a funnel input stream built on top of the specified underlying
      * input stream.
      *
-     * @param in the underlying input stream, or {@code null} if this instance
-     * is to be created without an underlying stream.
+     * @param input the underlying input stream
      */
-    public FunnelInputStream(final InputStream in) {
+    public FunnelInputStream(final InputStream input) {
 
-        super(in);
+        super();
+
+        if (input == null) {
+            throw new NullPointerException("null input");
+        }
+
+        this.input = input;
     }
 
 
     /**
-     * {@inheritDoc} Overridden to read every byte via {@link #read()}.
      *
-     * @param b {@inheritDoc }
-     * @param off {@inheritDoc }
-     * @param len {@inheritDoc }
-     *
-     * @return {@inheritDoc }
-     *
-     * @throws IOException {@inheritDoc }
+     * @return @throws IOException
      */
+    @Override
+    public int read() throws IOException {
+
+        return input.read();
+    }
+
+
     @Override
     public int read(final byte[] b, int off, final int len) throws IOException {
 
-        for (int i = 0, read; i < len; i++) {
-            if ((read = read()) == -1) {
-                return i == 0 ? -1 : i;
-            }
-            b[off++] = (byte) read;
+        if (funnel) {
+            return super.read(b, off, len);
         }
 
-        return len;
+        return input.read(b, off, len);
+
+//        for (int i = 0, read; i < len; i++) {
+//            if ((read = read()) == -1) {
+//                return i == 0 ? -1 : i;
+//            }
+//            b[off++] = (byte) read;
+//        }
+//
+//        return len;
     }
+
+
+    @Override
+    public long skip(final long n) throws IOException {
+
+        if (funnel) {
+            return super.skip(n);
+        }
+
+        return input.skip(n);
+    }
+
+
+    @Override
+    public int available() throws IOException {
+
+        if (funnel) {
+            return super.available(); // ... always returns 0.
+        }
+
+        return input.available();
+    }
+
+
+    @Override
+    public void close() throws IOException {
+
+        input.close();
+    }
+
+
+    @Override
+    public void mark(final int readLimit) {
+
+        if (funnel) {
+            super.mark(readLimit); // ... does nothing.
+        }
+
+        input.mark(readLimit);
+    }
+
+
+    @Override
+    public void reset() throws IOException {
+
+        if (funnel) {
+            super.reset(); // ... does nothing except throw an IOException.
+        }
+
+        input.reset();
+    }
+
+
+    public boolean getFunnel() {
+
+        return funnel;
+    }
+
+
+    public void setFunnel(final boolean funnel) {
+
+        this.funnel = funnel;
+    }
+
+
+    protected final InputStream input;
+
+
+    protected boolean funnel = true;
 
 
 }

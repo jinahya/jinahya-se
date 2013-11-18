@@ -18,7 +18,6 @@
 package com.github.jinahya.io;
 
 
-import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -27,39 +26,77 @@ import java.io.OutputStream;
  *
  * @author Jin Kwon <jinahya at gmail.com>
  */
-public class FunnelOutputStream extends FilterOutputStream {
+public class FunnelOutputStream extends OutputStream {
 
 
     /**
      * Creates a funnel output stream built on top of the specified underlying
      * output stream.
      *
-     * @param out the underlying output stream, or {@code null} if this instance
-     * is to be created without an underlying stream.
+     * @param output the underlying output stream
      */
-    public FunnelOutputStream(final OutputStream out) {
+    public FunnelOutputStream(final OutputStream output) {
 
-        super(out);
+        super();
+
+        if (output == null) {
+            throw new NullPointerException("output");
+        }
+
+        this.output = output;
     }
 
 
-    /**
-     * {@inheritDoc} Overridden to write every byte via {@link #write(int)}.
-     *
-     * @param b {@inheritDoc }
-     * @param off {@inheritDoc }
-     * @param len {@inheritDoc }
-     *
-     * @throws IOException {@inheritDoc }
-     */
+    @Override
+    public void write(final int b) throws IOException {
+
+        output.write(b);
+    }
+
+
     @Override
     public void write(final byte[] b, int off, final int len)
         throws IOException {
 
-        for (int i = 0; i < len; i++) {
-            write(b[off++]);
+        if (funnel) {
+            super.write(b, off, len);
+            return;
         }
+
+        output.write(b, off, len);
     }
+
+
+    @Override
+    public void flush() throws IOException {
+
+        output.flush();
+    }
+
+
+    @Override
+    public void close() throws IOException {
+
+        output.close();
+    }
+
+
+    public boolean getFunnel() {
+
+        return funnel;
+    }
+
+
+    public void setFunnel(final boolean funnel) {
+
+        this.funnel = funnel;
+    }
+
+
+    protected final OutputStream output;
+
+
+    protected boolean funnel = true;
 
 
 }
