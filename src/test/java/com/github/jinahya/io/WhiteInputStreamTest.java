@@ -36,7 +36,7 @@ public class WhiteInputStreamTest {
     @Test
     public void testRead() throws IOException {
 
-        final InputStream in = new WhiteInputStream();
+        final InputStream in = new WhiteInputStream(-1L);
 
         for (int read, i = 0; i < 1048576; i++) {
             read = in.read();

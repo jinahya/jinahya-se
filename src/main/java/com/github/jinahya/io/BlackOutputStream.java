@@ -35,47 +35,25 @@ public class BlackOutputStream extends OutputStream {
     /**
      * Creates a new instance with specified limit.
      *
-     * @param limit the maximum number of bytes can be written; {@code -1L} for
+     * @param limit the maximum number of bytes can be written; any negative for
      * no limit.
-     *
-     * @throws IllegalArgumentException if the {@code limit} is less than
-     * {@code -1}
      */
     public BlackOutputStream(final long limit) {
 
         super();
 
-        if (limit < -1L) {
-            throw new IllegalArgumentException("limit(" + limit + ") < -1L");
-        }
-
         this.limit = limit;
     }
 
 
-    /**
-     * Creates a new instance with no limit.
-     */
-    public BlackOutputStream() {
-
-        this(-1L);
-    }
-
-
-    /**
-     * {@inheritDoc }
-     *
-     * @param b {@inheritDoc }
-     *
-     * @throws IOException if {@code limit} is set and the number of bytes
-     * written so far exceeds it.
-     */
     @Override
     public void write(final int b) throws IOException {
 
-        if (limit != -1L && count++ >= limit) {
+        if (limit >= 0L && count >= limit) {
             throw new IOException("limit(" + limit + ") exceeded");
         }
+
+        count++;
     }
 
 
@@ -104,24 +82,6 @@ public class BlackOutputStream extends OutputStream {
 
 
     /**
-     * Sets the value of {@link #limit}.
-     *
-     * @param limit new value for {@link #limit}.
-     *
-     * @throws IllegalArgumentException if {@code limit} is less than
-     * {@code -1L}
-     */
-    public void setLimit(final long limit) {
-
-        if (limit < -1L) {
-            throw new IllegalArgumentException("limit(" + limit + ") < -1L");
-        }
-
-        this.limit = limit;
-    }
-
-
-    /**
      * Returns the number of bytes written so far.
      *
      * @return the number of bytes written so far.
@@ -133,9 +93,9 @@ public class BlackOutputStream extends OutputStream {
 
 
     /**
-     * the maximum number of bytes can be written. {@code -1L} for unlimited.
+     * the maximum number of bytes can be written.
      */
-    protected long limit;
+    private final long limit;
 
 
     /**

@@ -32,19 +32,12 @@ import org.testng.annotations.Test;
 public class BlackOutputStreamTest {
 
 
-    @Test(expectedExceptions = {IllegalArgumentException.class})
-    public void construct_wrongLimit_IllegalArgumentException() {
-
-        final OutputStream instance = new BlackOutputStream(-2L);
-    }
-
-
     @Test
-    public void testWrite() throws IOException {
+    public void write() throws IOException {
 
         final Random random = ThreadLocalRandom.current();
 
-        final OutputStream out = new BlackOutputStream();
+        final OutputStream out = new BlackOutputStream(-1L);
 
         for (int i = 0; i < 1024; i++) {
             out.write(random.nextInt());

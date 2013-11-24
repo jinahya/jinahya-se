@@ -61,7 +61,7 @@ public class DigestWritableByteChannelTest {
             final MessageDigest digest2 = MessageDigest.getInstance(algorithm);
             final DigestWritableByteChannel channel =
                 new DigestWritableByteChannel(
-                Channels.newChannel(new BlackOutputStream()), digest2);
+                Channels.newChannel(new BlackOutputStream(-1L)), digest2);
             final ByteBuffer buffer = ByteBuffer.wrap(data);
             while (buffer.hasRemaining()) {
                 channel.write(buffer);

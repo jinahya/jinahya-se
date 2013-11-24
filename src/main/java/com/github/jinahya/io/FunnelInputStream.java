@@ -23,6 +23,7 @@ import java.io.InputStream;
 
 
 /**
+ * An input stream reads bytes only through {@link InputStream#read()}.
  *
  * @author Jin Kwon <jinahya at gmail.com>
  */
@@ -34,8 +35,10 @@ public class FunnelInputStream extends InputStream {
      * input stream.
      *
      * @param input the underlying input stream
+     *
+     * @throws NullPointerException if {@code input} is {@code null}
      */
-    public FunnelInputStream(final InputStream input) {
+    protected FunnelInputStream(final InputStream input) {
 
         super();
 
@@ -47,61 +50,10 @@ public class FunnelInputStream extends InputStream {
     }
 
 
-    /**
-     * Reads the next byte of data from the input stream. The {@code read()}
-     * method for class {@code FunnelInputStream} performs {@code input.read()}
-     * and returns the result.
-     *
-     * @return {@inheritDoc }
-     *
-     * @throws IOException {@inheritDoc }
-     */
     @Override
     public int read() throws IOException {
 
         return input.read();
-    }
-
-
-    @Override
-    public int read(final byte[] b, int off, final int len) throws IOException {
-
-        if (funnel) {
-            return super.read(b, off, len);
-        }
-
-        return input.read(b, off, len);
-
-//        for (int i = 0, read; i < len; i++) {
-//            if ((read = read()) == -1) {
-//                return i == 0 ? -1 : i;
-//            }
-//            b[off++] = (byte) read;
-//        }
-//
-//        return len;
-    }
-
-
-    @Override
-    public long skip(final long n) throws IOException {
-
-        if (funnel) {
-            return super.skip(n);
-        }
-
-        return input.skip(n);
-    }
-
-
-    @Override
-    public int available() throws IOException {
-
-        if (funnel) {
-            return super.available(); // ... always returns 0.
-        }
-
-        return input.available();
     }
 
 
@@ -115,10 +67,6 @@ public class FunnelInputStream extends InputStream {
     @Override
     public void mark(final int readLimit) {
 
-        if (funnel) {
-            super.mark(readLimit); // ... does nothing.
-        }
-
         input.mark(readLimit);
     }
 
@@ -126,30 +74,14 @@ public class FunnelInputStream extends InputStream {
     @Override
     public void reset() throws IOException {
 
-        if (funnel) {
-            super.reset(); // ... does nothing except throw an IOException.
-        }
-
         input.reset();
     }
 
 
-    public boolean getFunnel() {
-
-        return funnel;
-    }
-
-
-    public void setFunnel(final boolean funnel) {
-
-        this.funnel = funnel;
-    }
-
-
-    protected final InputStream input;
-
-
-    protected boolean funnel = true;
+    /**
+     * underlying input stream.
+     */
+    private final InputStream input;
 
 
 }

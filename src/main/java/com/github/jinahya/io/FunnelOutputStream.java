@@ -23,6 +23,7 @@ import java.io.OutputStream;
 
 
 /**
+ * An output stream writes bytes only through {@link OutputStream#write(int) }.
  *
  * @author Jin Kwon <jinahya at gmail.com>
  */
@@ -34,13 +35,15 @@ public class FunnelOutputStream extends OutputStream {
      * output stream.
      *
      * @param output the underlying output stream
+     *
+     * @throws NullPointerException if {@code output} is {@code null}
      */
-    public FunnelOutputStream(final OutputStream output) {
+    protected FunnelOutputStream(final OutputStream output) {
 
         super();
 
         if (output == null) {
-            throw new NullPointerException("output");
+            throw new NullPointerException("null output");
         }
 
         this.output = output;
@@ -51,19 +54,6 @@ public class FunnelOutputStream extends OutputStream {
     public void write(final int b) throws IOException {
 
         output.write(b);
-    }
-
-
-    @Override
-    public void write(final byte[] b, int off, final int len)
-        throws IOException {
-
-        if (funnel) {
-            super.write(b, off, len);
-            return;
-        }
-
-        output.write(b, off, len);
     }
 
 
@@ -81,22 +71,10 @@ public class FunnelOutputStream extends OutputStream {
     }
 
 
-    public boolean getFunnel() {
-
-        return funnel;
-    }
-
-
-    public void setFunnel(final boolean funnel) {
-
-        this.funnel = funnel;
-    }
-
-
-    protected final OutputStream output;
-
-
-    protected boolean funnel = true;
+    /**
+     * underlying output stream.
+     */
+    private final OutputStream output;
 
 
 }
