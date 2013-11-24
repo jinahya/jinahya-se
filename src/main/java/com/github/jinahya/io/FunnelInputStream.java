@@ -48,8 +48,13 @@ public class FunnelInputStream extends InputStream {
 
 
     /**
+     * Reads the next byte of data from the input stream. The {@code read()}
+     * method for class {@code FunnelInputStream} performs {@code input.read()}
+     * and returns the result.
      *
-     * @return @throws IOException
+     * @return {@inheritDoc }
+     *
+     * @throws IOException {@inheritDoc }
      */
     @Override
     public int read() throws IOException {
