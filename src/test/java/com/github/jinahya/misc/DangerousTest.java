@@ -18,22 +18,11 @@
 package com.github.jinahya.misc;
 
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
-
 /**
  *
  * @author Jin Kwon <onacit at gmail.com>
  */
 public class DangerousTest {
 
-
-    @Test
-    public static void test() {
-
-        Assert.assertNotNull(Dangerous.UNSAFE);
-    }
-
-
 }
+

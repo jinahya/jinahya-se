@@ -63,7 +63,9 @@ public class BlackOutputStream extends OutputStream {
      * @return a new writable byte channel
      *
      * @see Channels#newChannel(OutputStream)
+     * @deprecated Use {@link Channels#newChannel(java.io.OutputStream) }
      */
+    @Deprecated
     public WritableByteChannel newChannel() {
 
         return Channels.newChannel(this);

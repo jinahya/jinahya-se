@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
+import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.util.concurrent.ThreadLocalRandom;
@@ -72,7 +73,7 @@ public class ByteChannelsTest {
 
         final long limit = length + 1;
         final WritableByteChannel channel
-            = new BlackOutputStream(limit).newChannel();
+            = Channels.newChannel(new BlackOutputStream(limit));
 
         final long count = ByteChannels.copy(file, channel, -1L);
 
@@ -104,7 +105,7 @@ public class ByteChannelsTest {
         final long limit = ThreadLocalRandom.current().nextInt(65535);
         LOGGER.trace("limit: {}", limit);
         final ReadableByteChannel input
-            = new WhiteInputStream(limit).newChannel();
+            = Channels.newChannel(new WhiteInputStream(limit));
 
         final File output = IoTests.newTempFile(limit + 1);
 
@@ -122,7 +123,7 @@ public class ByteChannelsTest {
         assert limit > 0L;
         LOGGER.trace("limit: {}", limit);
         final ReadableByteChannel input
-            = new WhiteInputStream(limit).newChannel();
+            = Channels.newChannel(new WhiteInputStream(limit));
 
         final long length = ThreadLocalRandom.current().nextLong(0, limit);
         LOGGER.trace("size: {}", length);

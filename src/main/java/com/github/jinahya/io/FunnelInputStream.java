@@ -50,6 +50,16 @@ public class FunnelInputStream extends InputStream {
     }
 
 
+    /**
+     * Reads the next byte of data from the input stream.
+     * <p/>
+     * The {@code read()} method of {@code FunnelInputStream} calls
+     * {@code read()} on {@link #input}.
+     *
+     * @return {@inheritDoc }
+     *
+     * @throws IOException {@inheritDoc }
+     */
     @Override
     public int read() throws IOException {
 
@@ -57,6 +67,15 @@ public class FunnelInputStream extends InputStream {
     }
 
 
+    /**
+     * Closes this input stream and releases any system resources associated
+     * with the stream.
+     * <p/>
+     * The {@code close} method of {@code FunnelInputStream} calls {@code close}
+     * on {@code input}.
+     *
+     * @throws IOException {@inheritDoc }
+     */
     @Override
     public void close() throws IOException {
 
@@ -64,6 +83,14 @@ public class FunnelInputStream extends InputStream {
     }
 
 
+    /**
+     * Marks the current position in this input stream.
+     * <p/>
+     * The {@code mark} method of {@code FunnelInputStream} calls {@code mark}
+     * on {@code input}.
+     *
+     * @param readLimit
+     */
     @Override
     public void mark(final int readLimit) {
 
@@ -71,6 +98,15 @@ public class FunnelInputStream extends InputStream {
     }
 
 
+    /**
+     * Repositions this stream to the position at the time the {@code mark}
+     * method was last called on this input stream.
+     * <p/>
+     * The {@code reset} method of {@code FunnelInputStream} calls {@code reset}
+     * on {@code input}.
+     *
+     * @throws IOException {@inheritDoc }
+     */
     @Override
     public void reset() throws IOException {
 
@@ -79,9 +115,9 @@ public class FunnelInputStream extends InputStream {
 
 
     /**
-     * underlying input stream.
+     * The underlying input stream.
      */
-    private final InputStream input;
+    protected final InputStream input;
 
 
 }

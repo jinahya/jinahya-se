@@ -65,7 +65,9 @@ public class WhiteInputStream extends InputStream {
      * @return a new readable byte channel
      *
      * @see Channels#newChannel(InputStream)
+     * @deprecated Use {@link Channels#newChannel(java.io.InputStream)}
      */
+    @Deprecated
     public ReadableByteChannel newChannel() {
 
         return Channels.newChannel(this);

@@ -50,6 +50,16 @@ public class FunnelOutputStream extends OutputStream {
     }
 
 
+    /**
+     * Writes the specified byte to this output stream.
+     * <p/>
+     * The {@code write} method of {@code FunnelInputStream} calls {@code write}
+     * on {@link #output}.
+     *
+     * @param b {@inheritDoc }
+     *
+     * @throws IOException {@inheritDoc }
+     */
     @Override
     public void write(final int b) throws IOException {
 
@@ -57,6 +67,15 @@ public class FunnelOutputStream extends OutputStream {
     }
 
 
+    /**
+     * Flushes this output stream and forces any buffered output bytes to be
+     * written out.
+     * <p/>
+     * The {@code flush} of {@code FunnelOutputStream} calls {@code flush} on
+     * {@link #output}.
+     *
+     * @throws IOException {@inheritDoc }
+     */
     @Override
     public void flush() throws IOException {
 
@@ -64,6 +83,15 @@ public class FunnelOutputStream extends OutputStream {
     }
 
 
+    /**
+     * Closes this output stream and releases any system resources associated
+     * with this stream.
+     * <p/>
+     * The {@code close} method of {@code FunnelOutputStream} calls
+     * {@code close} on {@link #output}.
+     *
+     * @throws IOException null {@inheritDoc }
+     */
     @Override
     public void close() throws IOException {
 
@@ -72,9 +100,9 @@ public class FunnelOutputStream extends OutputStream {
 
 
     /**
-     * underlying output stream.
+     * The underlying output stream.
      */
-    private final OutputStream output;
+    protected final OutputStream output;
 
 
 }

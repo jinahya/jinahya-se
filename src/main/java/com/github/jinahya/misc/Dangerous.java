@@ -18,9 +18,10 @@
 package com.github.jinahya.misc;
 
 
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import sun.misc.Unsafe;
 
 
 /**
@@ -33,77 +34,72 @@ public final class Dangerous {
     /**
      * The {@code Unsafe} instance.
      */
-    public static final Unsafe UNSAFE;
+    private static final Object UNSAFE;
 
 
     static {
-        /*
-         * try { final Field field = Unsafe.class.getDeclaredField("theUnsafe");
-         * if (!field.isAccessible()) { field.setAccessible(true); } try {
-         * UNSAFE = (Unsafe) field.get(null); } catch (IllegalAccessException
-         * iae) { throw new InstantiationError(iae.getMessage()); } } catch
-         * (NoSuchFieldException nsfe) { throw new
-         * InstantiationError(nsfe.getMessage()); }
-         */
-        Unsafe unsafe = null;
-        for (final Field field : Unsafe.class.getDeclaredFields()) {
-            final int modifiers = field.getModifiers();
-            if (!Modifier.isStatic(modifiers)) {
-                continue;
-            }
-            if (!Unsafe.class.equals(field.getType())) {
-                continue;
-            }
+
+        Object unsafeInstance = null;
+
+        final Class<?> unsafeClass;
+        try {
+            unsafeClass = Class.forName("sun.misc.Unsafe");
+        } catch (final ClassNotFoundException cnfe) {
+            throw new InstantiationError(cnfe.getMessage());
+        }
+
+        try {
+            final Field field = unsafeClass.getDeclaredField("theUnsafe");
             if (!field.isAccessible()) {
                 field.setAccessible(true);
             }
             try {
-                unsafe = (Unsafe) field.get(null);
-                break;
+                unsafeInstance = field.get(null);
             } catch (IllegalAccessException iae) {
-                continue;
+                throw new InstantiationError(iae.getMessage());
             }
+        } catch (NoSuchFieldException nsfe) {
+            throw new InstantiationError(nsfe.getMessage());
         }
-        if (unsafe == null) {
-            throw new InstantiationError("unable to locate unsafe");
-        }
-        UNSAFE = unsafe;
-    }
 
-
-    /**
-     *
-     * @param o
-     * @param offset
-     *
-     * @return
-     *
-     * @see Unsafe#getInt(java.lang.Object, long)
-     */
-    public static long getUnsignedInt(final Object o, final long offset) {
-
-        return UNSAFE.getInt(o, offset) & 0xFFFFFFFFL;
-    }
-
-
-    /**
-     *
-     * @param o
-     * @param offset
-     * @param x
-     *
-     * @see Unsafe#putInt(java.lang.Object, long, int)
-     */
-    public static void putUnsignedInt(final Object o, final long offset,
-                                      final long x) {
-
-//        if (x < 0L) {
-//            throw new IllegalArgumentException("x(" + x + ") < 0L");
+//        for (final Field field : Unsafe.class.getDeclaredFields()) {
+//            final int modifiers = field.getModifiers();
+//            if (!Modifier.isStatic(modifiers)) {
+//                continue;
+//            }
+//            if (!Unsafe.class.equals(field.getType())) {
+//                continue;
+//            }
+//            if (!field.isAccessible()) {
+//                field.setAccessible(true);
+//            }
+//            try {
+//                unsafe = (Unsafe) field.get(null);
+//                break;
+//            } catch (IllegalAccessException iae) {
+//                continue;
+//            }
 //        }
-//
-//        UNSAFE.putInt(o, offset, (int) x);
+        if (unsafeInstance == null) {
+            throw new InstantiationError("unable to locate the unsafe");
+        }
 
-        UNSAFE.putInt(o, offset, (int) (x & 0xFFFFFFFFL));
+        UNSAFE = unsafeInstance;
+    }
+
+
+    public static int getInt(final Object object, final int offset)
+        throws Throwable {
+
+        final MethodType type
+            = MethodType.methodType(Object.class, Integer.TYPE);
+
+        final MethodHandles.Lookup lookup = MethodHandles.lookup();
+
+        final MethodHandle handle
+            = lookup.findVirtual(UNSAFE.getClass(), "getInt", type);
+
+        return ((Integer) handle.invokeExact(object, offset)).intValue();
     }
 
 
@@ -114,3 +110,4 @@ public final class Dangerous {
 
 
 }
+
