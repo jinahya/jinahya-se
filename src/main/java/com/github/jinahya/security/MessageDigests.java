@@ -32,19 +32,19 @@ import java.util.List;
 
 
 /**
- * a utility class for {@link MessageDigest}s.
+ * A utility class for {@link MessageDigest}s.
  *
  * @author Jin Kwon <jinahya at gmail.com>
  */
-public class MessageDigests {
+public final class MessageDigests {
 
 
     /**
      * Algorithms that every implementation of the Java platform is required to
      * support.
      */
-    public static final List<String> SUPPORTED_ALGORITHMS =
-        Arrays.asList("MD5", "SHA-1", "SHA-256");
+    public static final List<String> SUPPORTED_ALGORITHMS
+        = Arrays.asList("MD5", "SHA-1", "SHA-256");
 
 
     /**
@@ -210,8 +210,8 @@ public class MessageDigests {
             throw new NullPointerException("input");
         }
 
-        final ReadableByteChannel input_ =
-            new FileInputStream(input).getChannel();
+        final ReadableByteChannel input_
+            = new FileInputStream(input).getChannel();
         try {
             return digest(digest, input_, buffer, length);
         } finally {
@@ -280,8 +280,8 @@ public class MessageDigests {
 
 
     /**
-     * Digests on give digest with bytes read from given input channel
-     * and writes the result to given output channel.
+     * Digests on give digest with bytes read from given input channel and
+     * writes the result to given output channel.
      *
      * @param digest the digest
      * @param input the input channel
@@ -350,10 +350,11 @@ public class MessageDigests {
     /**
      * Creates a new instance.
      */
-    protected MessageDigests() {
+    private MessageDigests() {
 
         super();
     }
 
 
 }
+

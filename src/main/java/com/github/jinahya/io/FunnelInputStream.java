@@ -54,7 +54,7 @@ public class FunnelInputStream extends InputStream {
      * Reads the next byte of data from the input stream.
      * <p/>
      * The {@code read()} method of {@code FunnelInputStream} calls
-     * {@code read()} on {@link #input}.
+     * {@link InputStream#read()} on {@link #input}.
      *
      * @return {@inheritDoc }
      *
@@ -71,8 +71,8 @@ public class FunnelInputStream extends InputStream {
      * Closes this input stream and releases any system resources associated
      * with the stream.
      * <p/>
-     * The {@code close} method of {@code FunnelInputStream} calls {@code close}
-     * on {@code input}.
+     * The {@code close()} method of {@code FunnelInputStream} calls
+     * {@link InputStream#close()} on {@link #input}.
      *
      * @throws IOException {@inheritDoc }
      */
@@ -86,10 +86,10 @@ public class FunnelInputStream extends InputStream {
     /**
      * Marks the current position in this input stream.
      * <p/>
-     * The {@code mark} method of {@code FunnelInputStream} calls {@code mark}
-     * on {@code input}.
+     * The {@code mark(int)} method of {@code FunnelInputStream} calls
+     * {@link InputStream#mark(int)} on {@link #input}.
      *
-     * @param readLimit
+     * @param readLimit {@inheritDoc }
      */
     @Override
     public void mark(final int readLimit) {
@@ -102,8 +102,8 @@ public class FunnelInputStream extends InputStream {
      * Repositions this stream to the position at the time the {@code mark}
      * method was last called on this input stream.
      * <p/>
-     * The {@code reset} method of {@code FunnelInputStream} calls {@code reset}
-     * on {@code input}.
+     * The {@code reset()} method of {@code FunnelInputStream} calls
+     * {@link InputStream#reset()} on {@link #input}.
      *
      * @throws IOException {@inheritDoc }
      */
