@@ -26,16 +26,16 @@ public final class Classes {
 
 
     /**
-     * Checks that the specified object reference an instance of specified
+     * Checks that the specified object reference is an instance of specified
      * class.
      *
      * @param <T> the class type parameter
      * @param is the object reference to check castability
      * @param of the class for which the object reference is checked
      *
-     * @return casted {@code of} if castable and not {@code null}
+     * @return casted {@code is} if castable and not {@code null}
      *
-     * @throws NullPointerException if {@code to} is {@code null}
+     * @throws NullPointerException if {@code of} is {@code null}
      *
      * @throws IllegalArgumentException if {@code is} is {@code null} or is not
      * an instance of {@code of}
@@ -59,12 +59,15 @@ public final class Classes {
 
 
     /**
+     * Checks that the source class is assignable to the target class.
      *
-     * @param <T>
-     * @param from
-     * @param to
+     * @param <T> the class type parameter
+     * @param from the source class to check for assignability to the target
+     * class.
+     * @param to the target class to check for assignability from the source
+     * class.
      *
-     * @return the {@code from} as a subclass of {@code to}
+     * @return {@code from} as a subclass of {@code to} if assignable
      *
      * @see Class#isAssignableFrom(java.lang.Class)
      * @see Class#asSubclass(java.lang.Class)
