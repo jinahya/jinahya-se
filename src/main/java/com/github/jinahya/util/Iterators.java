@@ -69,25 +69,6 @@ public final class Iterators {
     }
 
 
-    public static <T extends Comparable<T>> void requireSortedAscending(
-        final Iterator<? extends T> iterator, final boolean requireUnique) {
-
-        Objects.requireNonNull(iterator, "null iterator");
-
-        requireSortedAscending(iterator, new ComparableComparator<T>(),
-                               requireUnique);
-    }
-
-
-    public static <T extends Comparable<T>> void requireSortedAscending(
-        final Collection<? extends T> collection, final boolean requireUnique) {
-
-        Objects.requireNonNull(collection, "null collection");
-
-        requireSortedAscending(collection.iterator(), requireUnique);
-    }
-
-
     public static <T> void requireSortedDescending(
         final Iterator<? extends T> iterator,
         final Comparator<? super T> comparator, final boolean requireUnique) {
@@ -123,25 +104,6 @@ public final class Iterators {
 
         requireSortedDescending(collection.iterator(), comparator,
                                 requireUnique);
-    }
-
-
-    public static <T extends Comparable<T>> void requireSortedDescending(
-        final Iterator<? extends T> iterator, final boolean requireUnique) {
-
-        Objects.requireNonNull(iterator, "null iterator");
-
-        requireSortedDescending(iterator, new ComparableComparator<T>(),
-                                requireUnique);
-    }
-
-
-    public static <T extends Comparable<T>> void requireSortedDescending(
-        final Collection<? extends T> collection, final boolean requireUnique) {
-
-        Objects.requireNonNull(collection, "null collection");
-
-        requireSortedDescending(collection.iterator(), requireUnique);
     }
 
 

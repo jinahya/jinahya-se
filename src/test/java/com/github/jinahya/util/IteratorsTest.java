@@ -37,10 +37,12 @@ public class IteratorsTest {
 
         final List<String> empty = Collections.emptyList();
 
-        Iterators.requireSortedAscending(empty, true);
-        Iterators.requireSortedAscending(empty, false);
-        Iterators.requireSortedDescending(empty, true);
-        Iterators.requireSortedDescending(empty, false);
+        final Comparator<String> comparator = new StringComparator();
+        
+        Iterators.requireSortedAscending(empty, comparator, true);
+        Iterators.requireSortedAscending(empty, comparator, false);
+        Iterators.requireSortedDescending(empty, comparator, true);
+        Iterators.requireSortedDescending(empty, comparator, false);
     }
 
 
@@ -49,10 +51,12 @@ public class IteratorsTest {
 
         final Set<String> single = Collections.singleton("");
 
-        Iterators.requireSortedAscending(single, true);
-        Iterators.requireSortedAscending(single, false);
-        Iterators.requireSortedDescending(single, true);
-        Iterators.requireSortedDescending(single, false);
+        final Comparator<String> comparator = new StringComparator();
+
+        Iterators.requireSortedAscending(single, comparator, true);
+        Iterators.requireSortedAscending(single, comparator, false);
+        Iterators.requireSortedDescending(single, comparator, true);
+        Iterators.requireSortedDescending(single, comparator, false);
     }
 
 
