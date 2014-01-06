@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <onacit at gmail.com>.
+ * Copyright 2013 <a href="mailto:onacit@gmail.com">Jin Kwon</a>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,31 +15,25 @@
  */
 
 
-package com.github.jinahya.sql.metadata;
+package com.github.jinahya.sql;
 
 
-import com.github.jinahya.xml.bind.MapValuesAdapter;
+import com.github.jinahya.lang.FieldEnumTest;
 
 
 /**
  *
- * @author Jin Kwon <onacit at gmail.com>
+ * @author <a href="mailto:onacit@gmail.com">Jin Kwon</a>
  */
-public class TableValuesAdapter
-    extends MapValuesAdapter<TableValues, String, Table> {
+public class DatabaseMetaDataAttributeNullableTest
+    extends FieldEnumTest<DatabaseMetaDataAttributeNullable, Integer> {
 
 
-    public TableValuesAdapter() {
+    public DatabaseMetaDataAttributeNullableTest() {
 
-        super(TableValues.class);
-    }
-
-
-    @Override
-    protected String getKey(final Table value) {
-
-        return value.getTableName();
+        super(DatabaseMetaDataAttributeNullable.class);
     }
 
 
 }
+

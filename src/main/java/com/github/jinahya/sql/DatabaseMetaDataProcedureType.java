@@ -27,37 +27,37 @@ import java.sql.DatabaseMetaData;
  *
  * @author Jin Kwon <onacit at gmail.com>
  */
-public enum DatabaseMetaDataFunctionType
-    implements FieldEnum<DatabaseMetaDataFunctionType, Integer> {
+public enum DatabaseMetaDataProcedureType
+    implements FieldEnum<DatabaseMetaDataProcedureType, Integer> {
 
 
     /**
-     * A constant for {@link DatabaseMetaData#functionResultUnknown}.
+     * A constant for {@link DatabaseMetaData#procedureResultUnknown}.
      */
-    functionResultUnknown(DatabaseMetaData.functionResultUnknown), // 0
+    procedureResultUnknown(DatabaseMetaData.procedureResultUnknown), // 0
     
     /**
-     * A constant for {@link DatabaseMetaData#functionReturnsTable}.
+     * A constant for {@link DatabaseMetaData#procedureNoResult}.
      */
-    functionReturnsTable(DatabaseMetaData.functionReturnsTable), // 2
+    procedureNoResult(DatabaseMetaData.procedureNoResult), // 1
     
     /**
-     * A constant for {@link DatabaseMetaData#functionReturn}.
+     * A constant for {@link DatabaseMetaData#procedureReturnsResult}.
      */
-    functionReturn(DatabaseMetaData.functionReturn); // 4
+    procedureReturnsResult(DatabaseMetaData.procedureReturnsResult); // 2
 
 
-    public static DatabaseMetaDataFunctionType fromFieldValue(
+    public static DatabaseMetaDataProcedureType fromFieldValue(
         final int fieldValue) {
 
         return FieldEnums.fromFieldValue(
-            DatabaseMetaDataFunctionType.class, Integer.valueOf(fieldValue));
+            DatabaseMetaDataProcedureType.class, Integer.valueOf(fieldValue));
     }
 
 
     public static Integer[] fieldValues() {
 
-        return FieldEnums.fieldValues(DatabaseMetaDataFunctionType.class,
+        return FieldEnums.fieldValues(DatabaseMetaDataProcedureType.class,
                                            Integer.class);
     }
 
@@ -67,7 +67,7 @@ public enum DatabaseMetaDataFunctionType
      *
      * @param fieldValue field value.
      */
-    private DatabaseMetaDataFunctionType(final int fieldValue) {
+    private DatabaseMetaDataProcedureType(final int fieldValue) {
 
         this.fieldValue = fieldValue;
     }

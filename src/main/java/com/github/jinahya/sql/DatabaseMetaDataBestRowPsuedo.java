@@ -27,47 +27,43 @@ import java.sql.DatabaseMetaData;
  *
  * @author Jin Kwon <onacit at gmail.com>
  */
-public enum DatabaseMetaDataFunctionType
-    implements FieldEnum<DatabaseMetaDataFunctionType, Integer> {
+public enum DatabaseMetaDataBestRowPsuedo
+    implements FieldEnum<DatabaseMetaDataBestRowPsuedo, Integer> {
 
 
     /**
-     * A constant for {@link DatabaseMetaData#functionResultUnknown}.
+     * A constant for {@link DatabaseMetaData#bestRowUnknown}.
      */
-    functionResultUnknown(DatabaseMetaData.functionResultUnknown), // 0
-    
+    bestRowUnknown(DatabaseMetaData.bestRowUnknown), // 0
+
     /**
-     * A constant for {@link DatabaseMetaData#functionReturnsTable}.
+     * A constant for {@link DatabaseMetaData#bestRowNotPseudo}.
      */
-    functionReturnsTable(DatabaseMetaData.functionReturnsTable), // 2
-    
+    bestRowNotPseudo(DatabaseMetaData.bestRowNotPseudo), // 1
+
     /**
-     * A constant for {@link DatabaseMetaData#functionReturn}.
+     * A constant for {@link DatabaseMetaData#bestRowPseudo}.
      */
-    functionReturn(DatabaseMetaData.functionReturn); // 4
+    bestRowPseudo(DatabaseMetaData.bestRowPseudo); // 2
 
 
-    public static DatabaseMetaDataFunctionType fromFieldValue(
+    public static DatabaseMetaDataBestRowPsuedo fromFieldValue(
         final int fieldValue) {
 
         return FieldEnums.fromFieldValue(
-            DatabaseMetaDataFunctionType.class, Integer.valueOf(fieldValue));
+            DatabaseMetaDataBestRowPsuedo.class,
+            Integer.valueOf(fieldValue));
     }
 
 
     public static Integer[] fieldValues() {
 
-        return FieldEnums.fieldValues(DatabaseMetaDataFunctionType.class,
-                                           Integer.class);
+        return FieldEnums.fieldValues(
+            DatabaseMetaDataBestRowPsuedo.class, Integer.class);
     }
 
 
-    /**
-     * Creates a new instance.
-     *
-     * @param fieldValue field value.
-     */
-    private DatabaseMetaDataFunctionType(final int fieldValue) {
+    private DatabaseMetaDataBestRowPsuedo(final int fieldValue) {
 
         this.fieldValue = fieldValue;
     }
@@ -87,3 +83,4 @@ public enum DatabaseMetaDataFunctionType
 
 
 }
+

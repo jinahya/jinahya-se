@@ -27,47 +27,43 @@ import java.sql.DatabaseMetaData;
  *
  * @author Jin Kwon <onacit at gmail.com>
  */
-public enum DatabaseMetaDataFunctionType
-    implements FieldEnum<DatabaseMetaDataFunctionType, Integer> {
+public enum DatabaseMetaDataBestRowScope
+    implements FieldEnum<DatabaseMetaDataBestRowScope, Integer> {
 
 
     /**
-     * A constant for {@link DatabaseMetaData#functionResultUnknown}.
+     * A constant for {@link DatabaseMetaData#bestRowTemporary}.
      */
-    functionResultUnknown(DatabaseMetaData.functionResultUnknown), // 0
-    
+    bestRowTemporary(DatabaseMetaData.bestRowTemporary), // 0
+
     /**
-     * A constant for {@link DatabaseMetaData#functionReturnsTable}.
+     * A constant for {@link DatabaseMetaData#bestRowTransaction}.
      */
-    functionReturnsTable(DatabaseMetaData.functionReturnsTable), // 2
-    
+    bestRowTransaction(DatabaseMetaData.bestRowTransaction), // 1
+
     /**
-     * A constant for {@link DatabaseMetaData#functionReturn}.
+     * A constant for {@link DatabaseMetaData#bestRowSession}.
      */
-    functionReturn(DatabaseMetaData.functionReturn); // 4
+    bestRowSession(DatabaseMetaData.bestRowSession); // 2
 
 
-    public static DatabaseMetaDataFunctionType fromFieldValue(
+    public static DatabaseMetaDataBestRowScope fromFieldValue(
         final int fieldValue) {
 
         return FieldEnums.fromFieldValue(
-            DatabaseMetaDataFunctionType.class, Integer.valueOf(fieldValue));
+            DatabaseMetaDataBestRowScope.class,
+            Integer.valueOf(fieldValue));
     }
 
 
     public static Integer[] fieldValues() {
 
-        return FieldEnums.fieldValues(DatabaseMetaDataFunctionType.class,
-                                           Integer.class);
+        return FieldEnums.fieldValues(
+            DatabaseMetaDataBestRowScope.class, Integer.class);
     }
 
 
-    /**
-     * Creates a new instance.
-     *
-     * @param fieldValue field value.
-     */
-    private DatabaseMetaDataFunctionType(final int fieldValue) {
+    private DatabaseMetaDataBestRowScope(final int fieldValue) {
 
         this.fieldValue = fieldValue;
     }
@@ -87,3 +83,4 @@ public enum DatabaseMetaDataFunctionType
 
 
 }
+

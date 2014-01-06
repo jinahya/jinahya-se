@@ -26,7 +26,7 @@ import java.lang.reflect.Array;
  *
  * @author Jin Kwon <jinahya at gmail.com>
  */
-public final class FieldEnumHelper {
+public final class FieldEnums {
 
 
     /**
@@ -44,24 +44,18 @@ public final class FieldEnumHelper {
         final Class<E> enumType, final Class<F> fieldType) {
 
         if (enumType == null) {
-            throw new NullPointerException("enumtype");
-        }
-
-        if (!enumType.isEnum()) {
-            // is this required?
-            throw new IllegalArgumentException(
-                "enumType(" + enumType + ") is not Enum");
+            throw new NullPointerException("null enumtype");
         }
 
         if (fieldType == null) {
-            throw new NullPointerException("fieldType");
+            throw new NullPointerException("null fieldType");
         }
 
         final E[] enumConstants = enumType.getEnumConstants();
 
         @SuppressWarnings("unchecked")
-        final F[] fieldValues =
-            (F[]) Array.newInstance(fieldType, enumConstants.length);
+        final F[] fieldValues
+            = (F[]) Array.newInstance(fieldType, enumConstants.length);
 
         for (int i = 0; i < fieldValues.length; i++) {
             fieldValues[i] = enumConstants[i].getFieldValue();
@@ -91,23 +85,17 @@ public final class FieldEnumHelper {
         final Class<E> enumType, final F fieldValue) {
 
         if (enumType == null) {
-            throw new NullPointerException("enumtype");
-        }
-
-        if (!enumType.isEnum()) {
-            // is this required?
-            throw new IllegalArgumentException(
-                "enumType(" + enumType + ") is not Enum");
+            throw new NullPointerException("null enumtype");
         }
 
         if (fieldValue == null) {
             // ok
         }
 
-        for (E enumConstant : enumType.getEnumConstants()) {
-            if (fieldValue == enumConstant.getFieldValue()
-                || (fieldValue != null
-                    && fieldValue.equals(enumConstant.getFieldValue()))) {
+        for (final E enumConstant : enumType.getEnumConstants()) {
+            final F constantFieldValue = enumConstant.getFieldValue();
+            if (constantFieldValue == null
+                ? fieldValue == null : constantFieldValue.equals(fieldValue)) {
                 return enumConstant;
             }
         }
@@ -119,10 +107,11 @@ public final class FieldEnumHelper {
     /**
      * Creates a new instance.
      */
-    private FieldEnumHelper() {
+    private FieldEnums() {
 
         super();
     }
 
 
 }
+

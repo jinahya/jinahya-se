@@ -19,7 +19,7 @@ package com.github.jinahya.sql;
 
 
 import com.github.jinahya.lang.FieldEnum;
-import com.github.jinahya.lang.FieldEnumHelper;
+import com.github.jinahya.lang.FieldEnums;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -53,7 +53,7 @@ public enum ResultSetConcurrency
      */
     public static ResultSetConcurrency fromFieldValue(final int fieldValue) {
 
-        return FieldEnumHelper.fromFieldValue(
+        return FieldEnums.fromFieldValue(
             ResultSetConcurrency.class, fieldValue);
     }
 
@@ -91,7 +91,7 @@ public enum ResultSetConcurrency
      */
     public static Integer[] fieldValues() {
 
-        return FieldEnumHelper.fieldValues(ResultSetConcurrency.class,
+        return FieldEnums.fieldValues(ResultSetConcurrency.class,
                                            Integer.class);
     }
 

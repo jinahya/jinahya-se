@@ -20,6 +20,8 @@ package com.github.jinahya.lang;
 
 import java.util.HashSet;
 import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -33,12 +35,16 @@ import org.testng.annotations.Test;
 public abstract class FieldEnumTest<E extends Enum<E> & FieldEnum<E, F>, F> {
 
 
+    private static final Logger LOGGER
+        = LoggerFactory.getLogger(FieldEnumTest.class);
+
+
     public FieldEnumTest(final Class<E> enumType) {
 
         super();
 
         if (enumType == null) {
-            throw new NullPointerException("enumType");
+            throw new NullPointerException("null enumType");
         }
 
         this.enumType = enumType;
@@ -46,7 +52,7 @@ public abstract class FieldEnumTest<E extends Enum<E> & FieldEnum<E, F>, F> {
 
 
     @Test
-    public void verifyUniqueFieldValues() {
+    public void assertUniqueFieldValues() {
 
         final Set<F> fieldValues = new HashSet<F>();
         for (final E enumConstant : enumType.getEnumConstants()) {
@@ -58,7 +64,11 @@ public abstract class FieldEnumTest<E extends Enum<E> & FieldEnum<E, F>, F> {
     }
 
 
+    /**
+     * enum type.
+     */
     protected final Class<E> enumType;
 
 
 }
+

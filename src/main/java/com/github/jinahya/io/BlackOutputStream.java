@@ -35,21 +35,34 @@ public class BlackOutputStream extends OutputStream {
     /**
      * Creates a new instance with specified limit.
      *
-     * @param limit the maximum number of bytes can be written; any negative for
+     * @param limit the maximum number of bytes can be written; {@code -1} for
      * no limit.
      */
     public BlackOutputStream(final long limit) {
 
         super();
 
+        if (limit < -1) {
+            throw new IllegalArgumentException("limit(" + limit + ") < -1");
+        }
+
         this.limit = limit;
     }
 
 
+    /**
+     * Writes given byte. This method does nothing. An {@link IOException} will
+     * be thrown if {@code limit} is set and the number of bytes written so far
+     * exceeds it.
+     *
+     * @param b the byte to write.
+     *
+     * @throws IOException {@inheritDoc }
+     */
     @Override
     public void write(final int b) throws IOException {
 
-        if (limit >= 0L && count >= limit) {
+        if (limit != -1 && count >= limit) {
             throw new IOException("limit(" + limit + ") exceeded");
         }
 
@@ -73,9 +86,10 @@ public class BlackOutputStream extends OutputStream {
 
 
     /**
-     * Returns the current value of {@link #limit}.
+     * Returns the maximum number of bytes can be written.
      *
-     * @return the current value of {@link #limit}.
+     * @return the maximum number of bytes can be written or {@code -1} if there
+     * is no limit.
      */
     public long getLimit() {
 

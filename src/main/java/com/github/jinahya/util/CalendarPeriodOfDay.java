@@ -18,7 +18,7 @@
 package com.github.jinahya.util;
 
 
-import com.github.jinahya.lang.FieldEnumHelper;
+import com.github.jinahya.lang.FieldEnums;
 import java.util.Calendar;
 
 
@@ -61,7 +61,7 @@ public enum CalendarPeriodOfDay
      */
     public static CalendarPeriodOfDay fromFieldValue(final int fieldValue) {
 
-        return FieldEnumHelper.fromFieldValue(
+        return FieldEnums.fromFieldValue(
             CalendarPeriodOfDay.class, fieldValue);
     }
 
@@ -93,7 +93,7 @@ public enum CalendarPeriodOfDay
      */
     public Integer[] fieldValues() {
 
-        return FieldEnumHelper.fieldValues(
+        return FieldEnums.fieldValues(
             CalendarPeriodOfDay.class, Integer.class);
     }
 

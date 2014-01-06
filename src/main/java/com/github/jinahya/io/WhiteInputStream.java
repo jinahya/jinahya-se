@@ -35,21 +35,33 @@ public class WhiteInputStream extends InputStream {
     /**
      * Creates a new instance with given {@code limit}.
      *
-     * @param limit the maximum number of bytes can be read; any negative for no
+     * @param limit the maximum number of bytes can be read; {@code -1} for no
      * limit.
      */
     public WhiteInputStream(final long limit) {
 
         super();
 
+        if (limit < -1) {
+            throw new IllegalArgumentException("limit(" + limit + ") < -1");
+        }
+
         this.limit = limit;
     }
 
 
+    /**
+     * Returns next byte.
+     *
+     * @return next byte or {@code -1} if {@code limit} is set and the number of
+     * byte read so far exceeds it.
+     *
+     * @throws IOException {@inheritDoc }
+     */
     @Override
     public int read() throws IOException {
 
-        if (limit >= 0L && count >= limit) {
+        if (limit != -1 && count >= limit) {
             return -1;
         }
 
@@ -75,9 +87,10 @@ public class WhiteInputStream extends InputStream {
 
 
     /**
-     * Returns the current value of {@link #limit}.
+     * Returns the maximum number of bytes can be read.
      *
-     * @return the current value of {@link #limit}.
+     * @return the maximum number of bytes can be read or {@code -1} if there is
+     * no limit.
      */
     public long getLimit() {
 

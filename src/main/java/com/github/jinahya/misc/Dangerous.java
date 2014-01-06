@@ -18,11 +18,7 @@
 package com.github.jinahya.misc;
 
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
-import java.lang.invoke.MethodType;
 import java.lang.reflect.Field;
-import java.util.concurrent.ConcurrentHashMap;
 import sun.misc.Unsafe;
 
 
@@ -42,55 +38,29 @@ public final class Dangerous {
 
     static {
 
-        final Class<?> clazz;
+        final Class<?> c;
         try {
-            clazz = Class.forName("sun.misc.Unsafe");
+            c = Class.forName("sun.misc.Unsafe");
         } catch (final ClassNotFoundException cnfe) {
             throw new InstantiationError(cnfe.getMessage());
         }
 
-        final Field field;
+        final Field f;
         try {
-            field = clazz.getDeclaredField("theUnsafe");
-        } catch (NoSuchFieldException nsfe) {
+            f = c.getDeclaredField("theUnsafe");
+        } catch (final NoSuchFieldException nsfe) {
             throw new InstantiationError(nsfe.getMessage());
         }
 
-        if (!field.isAccessible()) {
-            field.setAccessible(true);
+        if (!f.isAccessible()) {
+            f.setAccessible(true);
         }
 
         try {
-            UNSAFE = (Unsafe) field.get(null);
-        } catch (IllegalAccessException iae) {
+            UNSAFE = (Unsafe) f.get(null);
+        } catch (final IllegalAccessException iae) {
             throw new InstantiationError(iae.getMessage());
         }
-    }
-
-
-//    public static int getInt(final Object object, final int offset)
-//        throws Throwable {
-//
-//        final MethodType type
-//            = MethodType.methodType(Object.class, Integer.TYPE);
-//
-//        final MethodHandles.Lookup lookup = MethodHandles.lookup();
-//
-//        final MethodHandle handle
-//            = lookup.findVirtual(UNSAFE.getClass(), "getInt", type);
-//
-//        return ((Integer) handle.invokeExact(object, offset)).intValue();
-//    }
-
-
-    /**
-     * Creates a new instance.
-     */
-    public Dangerous() {
-
-        super();
-
-        cf2fo = new ConcurrentHashMap<Field, Long>();
     }
 
 
@@ -104,18 +74,9 @@ public final class Dangerous {
      *
      * @see Unsafe#getByte(java.lang.Object, long)
      */
-    public byte getByte(final Object object, final Field field) {
+    public static byte getByte(final Object object, final Field field) {
 
-        Long offset = cf2fo.get(field);
-        if (offset == null) {
-            offset = UNSAFE.objectFieldOffset(field);
-            cf2fo.putIfAbsent(field, offset);
-            return getByte(object, field);
-        }
-
-        assert offset != null;
-
-        return UNSAFE.getByte(object, offset);
+        return UNSAFE.getByte(object, UNSAFE.objectFieldOffset(field));
     }
 
 
@@ -128,122 +89,59 @@ public final class Dangerous {
      *
      * @see Unsafe#putByte(java.lang.Object, long, byte)
      */
-    public void putByte(final Object object, final Field field,
-                        final byte value) {
+    public static void putByte(final Object object, final Field field,
+                               final byte value) {
 
-        Long offset = cf2fo.get(field);
-        if (offset == null) {
-            offset = UNSAFE.objectFieldOffset(field);
-            cf2fo.putIfAbsent(field, offset);
-            putByte(object, field, value);
-            return;
-        }
-
-        assert offset != null;
-
-        UNSAFE.putByte(object, offset, value);
+        UNSAFE.putByte(object, UNSAFE.objectFieldOffset(field), value);
     }
 
 
-    public short getShort(final Object object, final Field field) {
+    public static short getShort(final Object object, final Field field) {
 
-        Long offset = cf2fo.get(field);
-        if (offset == null) {
-            offset = UNSAFE.objectFieldOffset(field);
-            cf2fo.putIfAbsent(field, offset);
-            return getShort(object, field);
-        }
-
-        assert offset != null;
-
-        return UNSAFE.getShort(object, offset);
+        return UNSAFE.getShort(object, UNSAFE.objectFieldOffset(field));
     }
 
 
     public void putShort(final Object object, final Field field,
                          final short value) {
 
-        Long offset = cf2fo.get(field);
-        if (offset == null) {
-            offset = UNSAFE.objectFieldOffset(field);
-            cf2fo.putIfAbsent(field, offset);
-            putShort(object, field, value);
-            return;
-        }
-
-        assert offset != null;
-
-        UNSAFE.putShort(object, offset, value);
+        UNSAFE.putShort(object, UNSAFE.objectFieldOffset(field), value);
     }
 
 
     public int getInt(final Object object, final Field field) {
 
-        Long offset = cf2fo.get(field);
-        if (offset == null) {
-            offset = UNSAFE.objectFieldOffset(field);
-            cf2fo.putIfAbsent(field, offset);
-            return getInt(object, field);
-        }
-
-        assert offset != null;
-
-        return UNSAFE.getInt(object, offset);
+        return UNSAFE.getInt(object, UNSAFE.objectFieldOffset(field));
     }
 
 
     public void putInt(final Object object, final Field field,
                        final int value) {
 
-        Long offset = cf2fo.get(field);
-        if (offset == null) {
-            offset = UNSAFE.objectFieldOffset(field);
-            cf2fo.putIfAbsent(field, offset);
-            putInt(object, field, value);
-            return;
-        }
-
-        assert offset != null;
-
-        UNSAFE.putInt(object, offset, value);
+        UNSAFE.putInt(object, UNSAFE.objectFieldOffset(field), value);
     }
 
 
-    public Object getObject(final Object instance, final Field field) {
+    public Object getObject(final Object object, final Field field) {
 
-        Long offset = cf2fo.get(field);
-        if (offset == null) {
-            offset = UNSAFE.objectFieldOffset(field);
-            cf2fo.putIfAbsent(field, offset);
-            return getObject(instance, field);
-        }
-
-        assert offset != null;
-
-        return UNSAFE.getObject(instance, offset);
+        return UNSAFE.getObject(object, UNSAFE.objectFieldOffset(field));
     }
 
 
-    public void putObject(final Object instance, final Field field,
+    public void putObject(final Object object, final Field field,
                           final Object value) {
 
-        Long offset = cf2fo.get(field);
-        if (offset == null) {
-            offset = UNSAFE.objectFieldOffset(field);
-            cf2fo.putIfAbsent(field, offset);
-            putObject(instance, field, value);
-            return;
-        }
-
-        assert offset != null;
-        UNSAFE.putObject(instance, offset, value);
+        UNSAFE.putObject(object, UNSAFE.objectFieldOffset(field), value);
     }
 
 
     /**
-     * class field -> field offset.
+     * Creates a new instance.
      */
-    private final ConcurrentHashMap<Field, Long> cf2fo;
+    private Dangerous() {
+
+        super();
+    }
 
 
 }

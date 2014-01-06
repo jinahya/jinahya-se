@@ -19,7 +19,7 @@ package com.github.jinahya.util.logging;
 
 
 import com.github.jinahya.lang.FieldEnum;
-import com.github.jinahya.lang.FieldEnumHelper;
+import com.github.jinahya.lang.FieldEnums;
 import java.util.logging.Level;
 
 
@@ -53,7 +53,7 @@ public enum LoggingLevel implements FieldEnum<LoggingLevel, Integer> {
      */
     public static LoggingLevel fromFieldValue(final int fieldValue) {
 
-        return FieldEnumHelper.fromFieldValue(LoggingLevel.class, fieldValue);
+        return FieldEnums.fromFieldValue(LoggingLevel.class, fieldValue);
     }
 
 
@@ -87,7 +87,7 @@ public enum LoggingLevel implements FieldEnum<LoggingLevel, Integer> {
      */
     public Integer[] fieldValues() {
 
-        return FieldEnumHelper.fieldValues(LoggingLevel.class, int.class);
+        return FieldEnums.fieldValues(LoggingLevel.class, int.class);
     }
 
 

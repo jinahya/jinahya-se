@@ -27,47 +27,52 @@ import java.sql.DatabaseMetaData;
  *
  * @author Jin Kwon <onacit at gmail.com>
  */
-public enum DatabaseMetaDataFunctionType
-    implements FieldEnum<DatabaseMetaDataFunctionType, Integer> {
+public enum DatabaseMetaDataForeignKeyRule
+    implements FieldEnum<DatabaseMetaDataForeignKeyRule, Integer> {
 
 
     /**
-     * A constant for {@link DatabaseMetaData#functionResultUnknown}.
+     * A constant for {@link DatabaseMetaData#importedKeyCascade}.
      */
-    functionResultUnknown(DatabaseMetaData.functionResultUnknown), // 0
-    
+    importedKeyCascade(DatabaseMetaData.importedKeyCascade), // 0
+
     /**
-     * A constant for {@link DatabaseMetaData#functionReturnsTable}.
+     * A constant for {@link DatabaseMetaData#importedKeyRestrict}.
      */
-    functionReturnsTable(DatabaseMetaData.functionReturnsTable), // 2
-    
+    importedKeyRestrict(DatabaseMetaData.importedKeyRestrict), // 1
+
     /**
-     * A constant for {@link DatabaseMetaData#functionReturn}.
+     * A constant for {@link DatabaseMetaData#importedKeySetNull}.
      */
-    functionReturn(DatabaseMetaData.functionReturn); // 4
+    importedKeySetNull(DatabaseMetaData.importedKeySetNull), // 2
+
+    /**
+     * A constant for {@link DatabaseMetaData#importedKeyNoAction}.
+     */
+    importedKeyNoAction(DatabaseMetaData.importedKeyNoAction), // 3
+
+    /**
+     * A constant for {@link DatabaseMetaData#importedKeySetDefault}.
+     */
+    importedKeySetDefault(DatabaseMetaData.importedKeySetDefault); // 4
 
 
-    public static DatabaseMetaDataFunctionType fromFieldValue(
+    public static DatabaseMetaDataForeignKeyRule fromFieldValue(
         final int fieldValue) {
 
         return FieldEnums.fromFieldValue(
-            DatabaseMetaDataFunctionType.class, Integer.valueOf(fieldValue));
+            DatabaseMetaDataForeignKeyRule.class, Integer.valueOf(fieldValue));
     }
 
 
     public static Integer[] fieldValues() {
 
-        return FieldEnums.fieldValues(DatabaseMetaDataFunctionType.class,
+        return FieldEnums.fieldValues(DatabaseMetaDataForeignKeyRule.class,
                                            Integer.class);
     }
 
 
-    /**
-     * Creates a new instance.
-     *
-     * @param fieldValue field value.
-     */
-    private DatabaseMetaDataFunctionType(final int fieldValue) {
+    private DatabaseMetaDataForeignKeyRule(final int fieldValue) {
 
         this.fieldValue = fieldValue;
     }
@@ -87,3 +92,4 @@ public enum DatabaseMetaDataFunctionType
 
 
 }
+

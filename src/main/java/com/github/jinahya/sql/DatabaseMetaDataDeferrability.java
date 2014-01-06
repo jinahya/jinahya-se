@@ -19,7 +19,7 @@ package com.github.jinahya.sql;
 
 
 import com.github.jinahya.lang.FieldEnum;
-import com.github.jinahya.lang.FieldEnumHelper;
+import com.github.jinahya.lang.FieldEnums;
 import java.sql.DatabaseMetaData;
 
 
@@ -35,12 +35,14 @@ public enum DatabaseMetaDataDeferrability
      * A constant for {@link DatabaseMetaData#importedKeyInitiallyDeferred}.
      */
     importedKeyInitiallyDeferred(
-    DatabaseMetaData.importedKeyInitiallyDeferred), // 5
+        DatabaseMetaData.importedKeyInitiallyDeferred), // 5
+
     /**
      * A constant for {@link DatabaseMetaData#importedKeyInitiallyImmediate}.
      */
     importedKeyInitiallyImmediate(
-    DatabaseMetaData.importedKeyInitiallyImmediate), // 6
+        DatabaseMetaData.importedKeyInitiallyImmediate), // 6
+
     /**
      * A constant for {@link DatabaseMetaData#importedKeyNotDeferrable}.
      */
@@ -50,15 +52,15 @@ public enum DatabaseMetaDataDeferrability
     public static DatabaseMetaDataDeferrability fromFieldValue(
         final int fieldValue) {
 
-        return FieldEnumHelper.fromFieldValue(
+        return FieldEnums.fromFieldValue(
             DatabaseMetaDataDeferrability.class, Integer.valueOf(fieldValue));
     }
 
 
     public static Integer[] fieldValues() {
 
-        return FieldEnumHelper.fieldValues(DatabaseMetaDataDeferrability.class,
-                                           Integer.class);
+        return FieldEnums.fieldValues(DatabaseMetaDataDeferrability.class,
+                                      Integer.class);
     }
 
 
@@ -82,3 +84,4 @@ public enum DatabaseMetaDataDeferrability
 
 
 }
+

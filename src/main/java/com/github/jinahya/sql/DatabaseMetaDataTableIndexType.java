@@ -19,7 +19,7 @@ package com.github.jinahya.sql;
 
 
 import com.github.jinahya.lang.FieldEnum;
-import com.github.jinahya.lang.FieldEnumHelper;
+import com.github.jinahya.lang.FieldEnums;
 import java.sql.DatabaseMetaData;
 
 
@@ -52,14 +52,14 @@ public enum DatabaseMetaDataTableIndexType
     public static DatabaseMetaDataTableIndexType fromFieldValue(
         final short fieldValue) {
 
-        return FieldEnumHelper.fromFieldValue(
+        return FieldEnums.fromFieldValue(
             DatabaseMetaDataTableIndexType.class, Short.valueOf(fieldValue));
     }
 
 
     public static Short[] fieldValues() {
 
-        return FieldEnumHelper.fieldValues(DatabaseMetaDataTableIndexType.class,
+        return FieldEnums.fieldValues(DatabaseMetaDataTableIndexType.class,
                                            Short.class);
     }
 

@@ -19,7 +19,7 @@ package com.github.jinahya.sql;
 
 
 import com.github.jinahya.lang.FieldEnum;
-import com.github.jinahya.lang.FieldEnumHelper;
+import com.github.jinahya.lang.FieldEnums;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -68,7 +68,7 @@ public enum ResultSetFetchDirection
      */
     public static ResultSetFetchDirection fromFieldValue(final int fieldValue) {
 
-        return FieldEnumHelper.fromFieldValue(
+        return FieldEnums.fromFieldValue(
             ResultSetFetchDirection.class, fieldValue);
     }
 
@@ -108,7 +108,7 @@ public enum ResultSetFetchDirection
      */
     public static Integer[] fieldValues() {
 
-        return FieldEnumHelper.fieldValues(ResultSetFetchDirection.class,
+        return FieldEnums.fieldValues(ResultSetFetchDirection.class,
                                            Integer.class);
     }
 

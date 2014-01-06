@@ -19,7 +19,7 @@ package com.github.jinahya.sql;
 
 
 import com.github.jinahya.lang.FieldEnum;
-import com.github.jinahya.lang.FieldEnumHelper;
+import com.github.jinahya.lang.FieldEnums;
 import java.sql.DatabaseMetaData;
 
 
@@ -48,7 +48,7 @@ public enum DatabaseMetaDataTypeNullability
     public static DatabaseMetaDataTypeNullability fromFieldValue(
         final int fieldValue) {
 
-        return FieldEnumHelper.fromFieldValue(
+        return FieldEnums.fromFieldValue(
             DatabaseMetaDataTypeNullability.class,
             Integer.valueOf(fieldValue));
     }
@@ -56,7 +56,7 @@ public enum DatabaseMetaDataTypeNullability
 
     public static Integer[] fieldValues() {
 
-        return FieldEnumHelper.fieldValues(
+        return FieldEnums.fieldValues(
             DatabaseMetaDataTypeNullability.class, Integer.class);
     }
 

@@ -19,7 +19,7 @@ package com.github.jinahya.sql;
 
 
 import com.github.jinahya.lang.FieldEnum;
-import com.github.jinahya.lang.FieldEnumHelper;
+import com.github.jinahya.lang.FieldEnums;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -65,7 +65,7 @@ public enum TransactionIsolationLevel
     public static TransactionIsolationLevel fromFieldValue(
         final int fieldValue) {
 
-        return FieldEnumHelper.fromFieldValue(
+        return FieldEnums.fromFieldValue(
             TransactionIsolationLevel.class, fieldValue);
     }
 
@@ -103,7 +103,7 @@ public enum TransactionIsolationLevel
      */
     public static Integer[] fieldValues() {
 
-        return FieldEnumHelper.fieldValues(
+        return FieldEnums.fieldValues(
             TransactionIsolationLevel.class, Integer.class);
     }
 

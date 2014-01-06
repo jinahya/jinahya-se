@@ -18,7 +18,7 @@
 package com.github.jinahya.util;
 
 
-import com.github.jinahya.lang.FieldEnumHelper;
+import com.github.jinahya.lang.FieldEnums;
 import java.util.Calendar;
 
 
@@ -49,7 +49,7 @@ public final class CalendarFieldEnumHelper {
             throw new NullPointerException("enumType");
         }
 
-        return FieldEnumHelper.fromFieldValue(enumType, calendar.get(field));
+        return FieldEnums.fromFieldValue(enumType, calendar.get(field));
     }
 
 

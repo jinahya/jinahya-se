@@ -19,7 +19,7 @@ package com.github.jinahya.sql;
 
 
 import com.github.jinahya.lang.FieldEnum;
-import com.github.jinahya.lang.FieldEnumHelper;
+import com.github.jinahya.lang.FieldEnums;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -54,7 +54,7 @@ public enum ResultSetHoldability
      */
     public static ResultSetHoldability fromFieldValue(final int fieldValue) {
 
-        return FieldEnumHelper.fromFieldValue(
+        return FieldEnums.fromFieldValue(
             ResultSetHoldability.class, fieldValue);
     }
 
@@ -77,7 +77,7 @@ public enum ResultSetHoldability
         throws SQLException {
 
         if (resultSet == null) {
-            throw new NullPointerException("resultSet");
+            throw new NullPointerException("null resultSet");
         }
 
         return fromFieldValue(resultSet.getHoldability());
@@ -91,8 +91,7 @@ public enum ResultSetHoldability
      */
     public static Integer[] fieldValues() {
 
-        return FieldEnumHelper.fieldValues(
-            ResultSetHoldability.class, int.class);
+        return FieldEnums.fieldValues(ResultSetHoldability.class, int.class);
     }
 
 
@@ -121,3 +120,4 @@ public enum ResultSetHoldability
 
 
 }
+

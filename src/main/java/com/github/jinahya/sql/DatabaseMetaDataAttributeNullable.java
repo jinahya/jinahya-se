@@ -27,47 +27,43 @@ import java.sql.DatabaseMetaData;
  *
  * @author Jin Kwon <onacit at gmail.com>
  */
-public enum DatabaseMetaDataFunctionType
-    implements FieldEnum<DatabaseMetaDataFunctionType, Integer> {
+public enum DatabaseMetaDataAttributeNullable
+    implements FieldEnum<DatabaseMetaDataAttributeNullable, Integer> {
 
 
     /**
-     * A constant for {@link DatabaseMetaData#functionResultUnknown}.
+     * A constant for {@link DatabaseMetaData#attributeNoNulls}.
      */
-    functionResultUnknown(DatabaseMetaData.functionResultUnknown), // 0
-    
+    attributeNoNulls(DatabaseMetaData.attributeNoNulls), // 0
+
     /**
-     * A constant for {@link DatabaseMetaData#functionReturnsTable}.
+     * A constant for {@link DatabaseMetaData#attributeNullable}.
      */
-    functionReturnsTable(DatabaseMetaData.functionReturnsTable), // 2
-    
+    attributeNullable(DatabaseMetaData.attributeNullable), // 1
+
     /**
-     * A constant for {@link DatabaseMetaData#functionReturn}.
+     * A constant for {@link DatabaseMetaData#attributeNullableUnknown}.
      */
-    functionReturn(DatabaseMetaData.functionReturn); // 4
+    attributeNullableUnknown(DatabaseMetaData.attributeNullableUnknown); // 2
 
 
-    public static DatabaseMetaDataFunctionType fromFieldValue(
+    public static DatabaseMetaDataAttributeNullable fromFieldValue(
         final int fieldValue) {
 
         return FieldEnums.fromFieldValue(
-            DatabaseMetaDataFunctionType.class, Integer.valueOf(fieldValue));
+            DatabaseMetaDataAttributeNullable.class,
+            Integer.valueOf(fieldValue));
     }
 
 
     public static Integer[] fieldValues() {
 
-        return FieldEnums.fieldValues(DatabaseMetaDataFunctionType.class,
-                                           Integer.class);
+        return FieldEnums.fieldValues(
+            DatabaseMetaDataAttributeNullable.class, Integer.class);
     }
 
 
-    /**
-     * Creates a new instance.
-     *
-     * @param fieldValue field value.
-     */
-    private DatabaseMetaDataFunctionType(final int fieldValue) {
+    private DatabaseMetaDataAttributeNullable(final int fieldValue) {
 
         this.fieldValue = fieldValue;
     }
@@ -87,3 +83,4 @@ public enum DatabaseMetaDataFunctionType
 
 
 }
+

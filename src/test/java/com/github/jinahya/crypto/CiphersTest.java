@@ -55,8 +55,19 @@ import org.testng.annotations.Test;
 public class CiphersTest {
 
 
-    private static final Logger LOGGER =
-        LoggerFactory.getLogger(CiphersTest.class);
+    private static final Logger LOGGER
+        = LoggerFactory.getLogger(CiphersTest.class);
+
+
+    @Test
+    public static void SUPPORTED_TRANSFORMATIONS()
+        throws NoSuchAlgorithmException, NoSuchPaddingException {
+
+        for (final String transformation
+             : Ciphers.SUPPORTED_TRANSFORMATIONS.keySet()) {
+            final Cipher cipher = Cipher.getInstance(transformation);
+        }
+    }
 
 
     private static Key newKey(final String algorithm, final int keySize)
@@ -110,16 +121,16 @@ public class CiphersTest {
 
         final Random random = ThreadLocalRandom.current();
 
-        final String algorithm =
-            transformation.substring(0, transformation.indexOf('/'));
+        final String algorithm
+            = transformation.substring(0, transformation.indexOf('/'));
         final Key key = newKey(algorithm, keySize);
         final Cipher cipher = Cipher.getInstance(transformation);
         final AlgorithmParameterSpec iv = requiresIv ? newIv(cipher) : null;
 
-        final byte[] expected =
-            noPadding
-            ? new byte[cipher.getBlockSize() * random.nextInt(512)]
-            : new byte[random.nextInt(65536)];
+        final byte[] expected
+            = noPadding
+              ? new byte[cipher.getBlockSize() * random.nextInt(512)]
+              : new byte[random.nextInt(65536)];
         random.nextBytes(expected);
 
         {
@@ -147,8 +158,8 @@ public class CiphersTest {
             final byte[] actual;
             {
                 cipher.init(Cipher.ENCRYPT_MODE, key, iv);
-                final ReadableByteChannel input =
-                    Channels.newChannel(new ByteArrayInputStream(expected));
+                final ReadableByteChannel input
+                    = Channels.newChannel(new ByteArrayInputStream(expected));
                 final ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 final WritableByteChannel output = Channels.newChannel(baos);
                 Ciphers.doFinal(cipher, input, output, ByteBuffer.allocate(71),
@@ -158,8 +169,8 @@ public class CiphersTest {
             }
             {
                 cipher.init(Cipher.DECRYPT_MODE, key, iv);
-                final ReadableByteChannel input =
-                    Channels.newChannel(new ByteArrayInputStream(encrypted));
+                final ReadableByteChannel input
+                    = Channels.newChannel(new ByteArrayInputStream(encrypted));
                 final ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 final WritableByteChannel output = Channels.newChannel(baos);
                 Ciphers.doFinal(cipher, input, output, ByteBuffer.allocate(29),
@@ -205,3 +216,4 @@ public class CiphersTest {
 
 
 }
+

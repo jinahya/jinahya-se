@@ -19,7 +19,7 @@ package com.github.jinahya.sql;
 
 
 import com.github.jinahya.lang.FieldEnum;
-import com.github.jinahya.lang.FieldEnumHelper;
+import com.github.jinahya.lang.FieldEnums;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.xml.bind.annotation.XmlEnum;
@@ -38,10 +38,12 @@ public enum ResultSetType implements FieldEnum<ResultSetType, Integer> {
      * Constant for {@link ResultSet#TYPE_FORWARD_ONLY}.
      */
     TYPE_FORWARD_ONLY(ResultSet.TYPE_FORWARD_ONLY), // 1003
+
     /**
      * Constant for {@link ResultSet#TYPE_SCROLL_INSENSITIVE}.
      */
     TYPE_SCROLL_INSENSITIVE(ResultSet.TYPE_SCROLL_INSENSITIVE), // 1004
+
     /**
      * Constant for {@link ResultSet#TYPE_SCROLL_SENSITIVE}.
      */
@@ -60,7 +62,7 @@ public enum ResultSetType implements FieldEnum<ResultSetType, Integer> {
      */
     public static ResultSetType fromFieldValue(final int fieldValue) {
 
-        return FieldEnumHelper.fromFieldValue(ResultSetType.class, fieldValue);
+        return FieldEnums.fromFieldValue(ResultSetType.class, fieldValue);
     }
 
 
@@ -84,7 +86,7 @@ public enum ResultSetType implements FieldEnum<ResultSetType, Integer> {
         throws SQLException {
 
         if (resultSet == null) {
-            throw new NullPointerException("resultSet");
+            throw new NullPointerException("null resultSet");
         }
 
         return fromFieldValue(resultSet.getType());
@@ -98,7 +100,7 @@ public enum ResultSetType implements FieldEnum<ResultSetType, Integer> {
      */
     public static Integer[] fieldValues() {
 
-        return FieldEnumHelper.fieldValues(ResultSetType.class, int.class);
+        return FieldEnums.fieldValues(ResultSetType.class, int.class);
     }
 
 
@@ -127,3 +129,4 @@ public enum ResultSetType implements FieldEnum<ResultSetType, Integer> {
 
 
 }
+

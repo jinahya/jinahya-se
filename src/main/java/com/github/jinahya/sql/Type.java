@@ -19,7 +19,7 @@ package com.github.jinahya.sql;
 
 
 import com.github.jinahya.lang.FieldEnum;
-import com.github.jinahya.lang.FieldEnumHelper;
+import com.github.jinahya.lang.FieldEnums;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -37,43 +37,53 @@ public enum Type implements FieldEnum<Type, Integer> {
      * Constant for {@link Types#LONGVARCHAR}.
      */
     LONGNVARCHAR(Types.LONGNVARCHAR), // -16
+
     /**
      * Constant for {@link Types#NCHAR}.
      */
     NCHAR(Types.NCHAR), // -15
+
     // -------------------------------------------------------------------------
     /**
      * Constant for {@link Types#NVARCHAR}.
      */
     NVARCHAR(Types.NVARCHAR), // -9
+
     /**
      * Constant for {@link Types#ROWID}.
      */
     ROWID(Types.ROWID), // -8
+
     /**
      * Constant for {@link Types#BIT}.
      */
     BIT(Types.BIT), // -7
+
     /**
      * Constant for {@link Types#TINYINT}.
      */
     TINYINT(Types.TINYINT), // -6
+
     /**
      * Constant for {@link Types#BIGINT}.
      */
     BIGINT(Types.BIGINT), // -5
+
     /**
      * Constant for {@link Types#LONGVARBINARY}.
      */
     LONGVARBINARY(Types.LONGVARBINARY), // -4
+
     /**
      * Constant for {@link Types#VARBINARY}.
      */
     VARBINARY(Types.VARBINARY), // -3
+
     /**
      * Constant for {@link Types#BINARY}.
      */
     BINARY(Types.BINARY), // -2
+
     /**
      * Constant for {@link Types#LONGVARCHAR}.
      */
@@ -82,96 +92,123 @@ public enum Type implements FieldEnum<Type, Integer> {
     //     * Constant for {@link Types#NULL}.
     //     */
     //    NULL(Types.NULL), // 0
+
     /**
      * Constant for {@link Types#CHAR}.
      */
     CHAR(Types.CHAR), // 1
+
     /**
      * Constant for {@link Types#NUMERIC}.
      */
     NUMERIC(Types.NUMERIC), // 2
+
     /**
      * Constant for {@link Types#DECIMAL}.
      */
     DECIMAL(Types.DECIMAL), // 3
+
     /**
      * Constant for {@link Types#INTEGER}.
      */
     INTEGER(Types.INTEGER), // 4
+
     /**
      * Constant for {@link Types#SMALLINT}.
      */
     SMALLINT(Types.SMALLINT), // 5
+
     /**
      * Constant for {@link Types#FLOAT}.
      */
     FLOAT(Types.FLOAT), // 6
+
     /**
      * Constant for {@link Types#REAL}.
      */
     REAL(Types.REAL), // 7
+
     /**
      * Constant for {@link Types#DOUBLE}.
      */
     DOUBLE(Types.DOUBLE), // 8
+
     // -------------------------------------------------------------------------
+
     /**
      * Constant for {@link Types#VARCHAR}.
      */
     VARCHAR(Types.VARCHAR), // 12
+
     // -------------------------------------------------------------------------
+
     /**
      * Constant for {@link Types#BOOLEAN}.
      */
     BOOLEAN(Types.BOOLEAN), // 16
+
     // -------------------------------------------------------------------------
+
     /**
      * Constant for {@link Types#DATALINK}.
      */
     DATALINK(Types.DATALINK), // 70
+
     // -------------------------------------------------------------------------
+
     /**
      * Constant for {@link Types#DATE}.
      */
     DATE(Types.DATE), // 91
+
     /**
      * Constant for {@link Types#TIME}.
      */
     TIME(Types.TIME), // 92
+
     /**
      * Constant for {@link Types#TIMESTAMP}.
      */
     TIMESTAMP(Types.TIMESTAMP), // 93
+
     // -------------------------------------------------------------------------
+
     //    /**
     //     * Constant for {@link Types#OTHER}.
     //     */
     //    OTHER(Types.OTHER), // 1111
     // -------------------------------------------------------------------------
+
     /**
      * Constant for {@link Types#JAVA_OBJECT}.
      */
     JAVA_OBJECT(Types.JAVA_OBJECT), // 2000
+
     /**
      * Constant for {@link Types#DISTINCT}.
      */
     DISTINCT(Types.DISTINCT), // 2001
+
     /**
      * Constant for {@link Types#STRUCT}.
      */
     STRUCT(Types.STRUCT), // 2002
+
     /**
      * Constant for {@link Types#ARRAY}.
      */
     ARRAY(Types.ARRAY), // 2003
+
     /**
      * Constant for {@link Types#BLOB}
      */
     BLOB(Types.BLOB), // 2004
+
     /**
      * Constant for {@link Types#CLOB}.
      */
     CLOB(Types.CLOB), // 2005
+
     /**
      * Constant for {@link Types#REF}.
      */
@@ -181,7 +218,9 @@ public enum Type implements FieldEnum<Type, Integer> {
      * Constant for {@link Types#SQLXML}.
      */
     SQLXML(Types.SQLXML), // 2009
+
     // -------------------------------------------------------------------------
+
     /**
      * Constant for {@link Types#NCLOB}.
      */
@@ -197,7 +236,7 @@ public enum Type implements FieldEnum<Type, Integer> {
      */
     public static Type fromFieldValue(final int fieldValue) {
 
-        return FieldEnumHelper.fromFieldValue(Type.class, fieldValue);
+        return FieldEnums.fromFieldValue(Type.class, fieldValue);
     }
 
 
@@ -208,7 +247,7 @@ public enum Type implements FieldEnum<Type, Integer> {
      */
     public static Integer[] fieldValues() {
 
-        return FieldEnumHelper.fieldValues(Type.class, int.class);
+        return FieldEnums.fieldValues(Type.class, int.class);
     }
 
 
@@ -259,8 +298,8 @@ public enum Type implements FieldEnum<Type, Integer> {
 
     /**
      * Invokes {@link PreparedStatement#setObject(int, java.lang.Object, int)}
-     * on given {@code preparedStatement} with
-     * {@code parameterIndex}, {@code x}, and {@code fieldValue}.
+     * on given {@code preparedStatement} with {@code parameterIndex},
+     * {@code x}, and {@code fieldValue}.
      *
      * @param preparedStatement prepared statement
      * @param parameterIndex parameter index
@@ -325,3 +364,4 @@ public enum Type implements FieldEnum<Type, Integer> {
 
 
 }
+

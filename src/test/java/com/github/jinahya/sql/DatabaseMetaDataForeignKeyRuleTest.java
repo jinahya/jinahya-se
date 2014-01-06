@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <onacit at gmail.com>.
+ * Copyright 2013 <a href="mailto:onacit@gmail.com">Jin Kwon</a>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,26 +15,25 @@
  */
 
 
-package com.github.jinahya.sql.metadata;
+package com.github.jinahya.sql;
 
 
-import com.github.jinahya.xml.bind.MapValues;
-import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
+import com.github.jinahya.lang.FieldEnumTest;
 
 
 /**
  *
- * @author Jin Kwon <onacit at gmail.com>
+ * @author <a href="mailto:onacit@gmail.com">Jin Kwon</a>
  */
-public class VersionColumnValues extends MapValues<VersionColumn> {
+public class DatabaseMetaDataForeignKeyRuleTest
+    extends FieldEnumTest<DatabaseMetaDataForeignKeyRule, Integer> {
 
 
-    @XmlElement
-    public List<VersionColumn> getVersionColumn() {
+    public DatabaseMetaDataForeignKeyRuleTest() {
 
-        return getValues();
+        super(DatabaseMetaDataForeignKeyRule.class);
     }
 
 
 }
+
