@@ -19,7 +19,11 @@ package com.github.jinahya.misc;
 
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.concurrent.ThreadLocalRandom;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -29,6 +33,13 @@ import org.testng.annotations.Test;
  * @author Jin Kwon <onacit at gmail.com>
  */
 public class DangerousTest {
+
+
+    /**
+     * logger.
+     */
+    private static final Logger LOGGER
+        = LoggerFactory.getLogger(DangerousTest.class);
 
 
     private static ThreadLocalRandom random() {
@@ -115,7 +126,28 @@ public class DangerousTest {
     }
 
 
-    private static final Object OBJECT = new MyObject();
+    @Test
+    public static void checkAllMethodsCovered()
+        throws ClassNotFoundException, NoSuchMethodException {
+
+        final Class<?> unsafeClass = Class.forName("sun.misc.Unsafe");
+        for (final Method method : unsafeClass.getMethods()) {
+            if (!method.getDeclaringClass().equals(unsafeClass)) {
+                continue;
+            }
+            final String name = method.getName();
+            final Class<?>[] parameterTypes = method.getParameterTypes();
+            try {
+                final Method wrapped
+                    = Dangerous.class.getDeclaredMethod(name, parameterTypes);
+                final int modifiers = wrapped.getModifiers();
+                Assert.assertTrue(Modifier.isStatic(modifiers));
+            } catch (final NoSuchMethodException nsme) {
+                LOGGER.error("method not covered: {}", method);
+                throw nsme;
+            }
+        }
+    }
 
 
     @Test(enabled = true)
@@ -359,7 +391,7 @@ public class DangerousTest {
         final Field field = MyObject.class.getDeclaredField("staticByte");
 
         final Object object = Dangerous.staticFieldBase(field);
-        
+
         final long offset = Dangerous.staticFieldOffset(field);
 
         final byte value = Dangerous.getByte(object, offset);
@@ -401,7 +433,7 @@ public class DangerousTest {
         final Field field = MyObject.class.getDeclaredField("staticShort");
 
         final Object object = Dangerous.staticFieldBase(field);
-        
+
         final long offset = Dangerous.staticFieldOffset(field);
 
         final short value = Dangerous.getShort(object, offset);
@@ -414,7 +446,7 @@ public class DangerousTest {
         final Field field = MyObject.class.getDeclaredField("staticShort");
 
         final Object object = Dangerous.staticFieldBase(field);
-        
+
         final long offset = Dangerous.staticFieldOffset(field);
 
         Dangerous.putShort(object, offset, (short) 0);
@@ -427,7 +459,7 @@ public class DangerousTest {
         final Field field = MyObject.class.getDeclaredField("staticShort");
 
         final Object object = Dangerous.staticFieldBase(field);
-        
+
         final long offset = Dangerous.staticFieldOffset(field);
 
         final short expected = nextShort();
@@ -443,7 +475,7 @@ public class DangerousTest {
         final Field field = MyObject.class.getDeclaredField("staticInt");
 
         final Object object = Dangerous.staticFieldBase(field);
-        
+
         final long offset = Dangerous.staticFieldOffset(field);
 
         final int value = Dangerous.getInt(object, offset);
