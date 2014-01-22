@@ -1357,8 +1357,9 @@ public final class Dangerous {
 
 
     /**
+     * Invokes {@code Unsafe#addressSize()} and returns result.
      *
-     * @return
+     * @return the result of {@code Unsafe#addressSize()}.
      */
     public int addressSize() {
 
@@ -1376,8 +1377,7 @@ public final class Dangerous {
         throws InstantiationException {
 
         try {
-            return (Integer) ALLOCATE_INSTANCE_METHOD.invoke(
-                unsafe, cls);
+            return ALLOCATE_INSTANCE_METHOD.invoke(unsafe, cls);
         } catch (final IllegalAccessException iae) {
             throw new RuntimeException(iae);
         } catch (final InvocationTargetException ite) {
@@ -1387,6 +1387,17 @@ public final class Dangerous {
             }
             throw new RuntimeException(ite);
         }
+    }
+
+
+    public <T> T allocateInstanceGeneric(final Class<T> cls)
+        throws InstantiationException {
+
+        if (cls == null) {
+            throw new NullPointerException("null cls");
+        }
+
+        return cls.cast(allocateInstance(cls));
     }
 
 

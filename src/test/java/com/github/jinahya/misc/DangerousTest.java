@@ -21,6 +21,7 @@ package com.github.jinahya.misc;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.text.Format;
 import java.util.concurrent.ThreadLocalRandom;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +39,7 @@ public class DangerousTest {
     /**
      * logger.
      */
-    private static final Logger LOGGER
+    private static final Logger logger
         = LoggerFactory.getLogger(DangerousTest.class);
 
 
@@ -105,6 +106,9 @@ public class DangerousTest {
         private static double staticDouble;
 
 
+        private static Object staticObject;
+
+
         private byte objectByte;
 
 
@@ -121,6 +125,9 @@ public class DangerousTest {
 
 
         private double objectDouble;
+
+
+        private Object objectObject;
 
 
     }
@@ -143,9 +150,309 @@ public class DangerousTest {
                 wrapped = Dangerous.class.getDeclaredMethod(
                     method.getName(), method.getParameterTypes());
             } catch (final NoSuchMethodException nsme) {
-                LOGGER.error("method not wrapped: {}", method);
+                logger.error("method not wrapped: {}", method);
                 throw nsme;
             }
+        }
+    }
+
+
+    @Test
+    public void addressSize_() {
+
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final int addressSize = dangerous.addressSize();
+        logger.info("addressSize: {}", addressSize);
+    }
+
+
+    @Test
+    public void allocateInstance_() throws InstantiationException {
+
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final Object instance = dangerous.allocateInstance(MyObject.class);
+        logger.debug("instance: {}", instance);
+        Assert.assertNotNull(instance);
+    }
+
+
+    @Test
+    public void allocateInstanceGeneric_() throws InstantiationException {
+
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final MyObject instance
+            = dangerous.allocateInstanceGeneric(MyObject.class);
+        logger.debug("instance: {}", instance);
+        Assert.assertNotNull(instance);
+    }
+
+
+    @Test
+    public void allocateMemory_() {
+
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        dangerous.allocateMemory(0L);
+
+        final long size = random().nextLong(1L, 1048576L + 1L);
+        final long address = dangerous.allocateMemory(size);
+        dangerous.freeMemory(address);
+    }
+
+
+    @Test
+    public void arrayBaseOffset_() {
+
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        logger.debug("arrayBaseOffset(Object[].class): {}",
+                     dangerous.arrayBaseOffset(Object[].class));
+
+        logger.debug("arrayBaseOffset(String[].class): {}",
+                     dangerous.arrayBaseOffset(String[].class));
+    }
+
+
+    @Test
+    public void arrayIndexScale_() {
+
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        logger.debug("arrayIndexScale(Object[].class): {}",
+                     dangerous.arrayIndexScale(Object[].class));
+
+        logger.debug("arrayIndexScale(String[].class): {}",
+                     dangerous.arrayIndexScale(String[].class));
+    }
+
+
+    @Test
+    public void compareAndSwapInt_()
+        throws NoSuchFieldException, IllegalAccessException {
+
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        if (false) {
+            final Field field = MyObject.class.getDeclaredField("staticInt");
+            field.setAccessible(true);
+
+            final long offset = dangerous.staticFieldOffset(field);
+
+            final Object o = null;
+
+            Assert.assertEquals(field.getInt(o), 0);
+            Assert.assertTrue(dangerous.compareAndSwapInt(o, offset, 0, 1));
+            Assert.assertEquals(field.getInt(o), 1);
+            Assert.assertFalse(dangerous.compareAndSwapInt(o, offset, 0, 1));
+        }
+
+        {
+            final Field field = MyObject.class.getDeclaredField("objectInt");
+            field.setAccessible(true);
+
+            final long offset = dangerous.objectFieldOffset(field);
+
+            final Object o = new MyObject();
+
+            Assert.assertEquals(field.getInt(o), 0);
+            Assert.assertTrue(dangerous.compareAndSwapInt(o, offset, 0, 1));
+            Assert.assertEquals(field.getInt(o), 1);
+            Assert.assertFalse(dangerous.compareAndSwapInt(o, offset, 0, 1));
+        }
+    }
+
+
+    @Test
+    public void compareAndSwapLong_()
+        throws NoSuchFieldException, IllegalAccessException {
+
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        if (false) {
+            final Field field = MyObject.class.getDeclaredField("staticLong");
+            field.setAccessible(true);
+
+            final long offset = dangerous.staticFieldOffset(field);
+
+            final Object o = null;
+
+            Assert.assertEquals(field.getLong(o), 0L);
+            Assert.assertTrue(dangerous.compareAndSwapLong(o, offset, 0L, 1L));
+            Assert.assertEquals(field.getLong(o), 1L);
+            Assert.assertFalse(dangerous.compareAndSwapLong(o, offset, 0L, 1L));
+        }
+
+        {
+            final Field field = MyObject.class.getDeclaredField("objectLong");
+            field.setAccessible(true);
+
+            final long offset = dangerous.objectFieldOffset(field);
+
+            final Object o = new MyObject();
+
+            Assert.assertEquals(field.getLong(o), 0L);
+            Assert.assertTrue(dangerous.compareAndSwapLong(o, offset, 0L, 1L));
+            Assert.assertEquals(field.getLong(o), 1L);
+            Assert.assertFalse(dangerous.compareAndSwapLong(o, offset, 0L, 1L));
+        }
+    }
+
+
+    @Test
+    public void compareAndSwapObject_()
+        throws NoSuchFieldException, IllegalAccessException {
+
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        if (false) {
+            final Field field = MyObject.class.getDeclaredField("staticObject");
+            field.setAccessible(true);
+
+            final long offset = dangerous.staticFieldOffset(field);
+
+            final Object o = null;
+
+            final Object x = new Object();
+
+            Assert.assertNull(field.get(o));
+            Assert.assertTrue(dangerous.compareAndSwapObject(
+                o, offset, null, x));
+            Assert.assertEquals(field.get(o), x);
+            Assert.assertFalse(dangerous.compareAndSwapObject(
+                o, offset, null, x));
+        }
+
+        {
+            final Field field = MyObject.class.getDeclaredField("objectObject");
+            field.setAccessible(true);
+
+            final long offset = dangerous.objectFieldOffset(field);
+
+            final Object o = new MyObject();
+
+            final Object x = new Object();
+
+            Assert.assertNull(field.get(o));
+            Assert.assertTrue(dangerous.compareAndSwapObject(
+                o, offset, null, x));
+            Assert.assertEquals(field.get(o), x);
+            Assert.assertFalse(dangerous.compareAndSwapObject(
+                o, offset, null, x));
+        }
+    }
+
+
+    @Test
+    public void copyMemory_() {
+
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final long address = dangerous.allocateMemory(8);
+        try {
+            dangerous.copyMemory(address, address + 4, 4);
+        } finally {
+            dangerous.freeMemory(address);
+        }
+    }
+
+
+    @Test(enabled = true, invocationCount = 1024)
+    public void copyMemory_int() {
+
+        final int intSizeInBytes = Integer.SIZE / 8;
+
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final long size = random().nextLong(intSizeInBytes * 2, 128L);
+        logger.debug("size: {}", size);
+        assert size >= intSizeInBytes * 2;
+
+        final long address = dangerous.allocateMemory(size);
+        try {
+            logger.debug("address: {} {}", address,
+                         String.format("%x", address));
+
+            final long srcAddressLeast = address;
+            final long srcAddressMost = address + size - intSizeInBytes * 2;
+            final long srcAddress
+                = srcAddressLeast == srcAddressMost
+                  ? srcAddressLeast
+                  : random().nextLong(srcAddressLeast, srcAddressMost);
+            logger.debug("srcAddress: {} {}", srcAddress,
+                         String.format("%x", srcAddress));
+            assert srcAddress >= address;
+            assert srcAddress < address + size - intSizeInBytes;
+
+            final long destAddessLeast = srcAddress + intSizeInBytes;
+            final long destAddressMost = address + size - intSizeInBytes;
+            assert destAddessLeast <= destAddressMost;
+            final long destAddress
+                = destAddessLeast == destAddressMost
+                  ? destAddessLeast
+                  : random().nextLong(destAddessLeast, destAddressMost);
+            logger.debug("destAddress: {}, {}", destAddress,
+                         String.format("%x", destAddress));
+            assert destAddress >= srcAddress + intSizeInBytes;
+            assert destAddress <= address + size - intSizeInBytes;
+
+            final int expected = random().nextInt();
+            dangerous.putInt(srcAddress, expected);
+            dangerous.copyMemory(srcAddress, destAddress, intSizeInBytes);
+            Assert.assertEquals(dangerous.getInt(destAddress), expected);
+        } finally {
+            dangerous.freeMemory(address);
+        }
+    }
+
+
+    @Test(enabled = true, invocationCount = 1024)
+    public void copyMemory_long() {
+
+        final int longSizeInBytes = Long.SIZE / 8;
+
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final long size = random().nextLong(longSizeInBytes * 2, 128L);
+        logger.debug("size: {}", size);
+        assert size >= longSizeInBytes * 2;
+
+        final long address = dangerous.allocateMemory(size);
+        try {
+            logger.debug("address: {} {}", address,
+                         String.format("%x", address));
+
+            final long srcAddressLeast = address;
+            final long srcAddressMost = address + size - longSizeInBytes * 2;
+            final long srcAddress
+                = srcAddressLeast == srcAddressMost
+                  ? srcAddressLeast
+                  : random().nextLong(srcAddressLeast, srcAddressMost);
+            logger.debug("srcAddress: {} {}", srcAddress,
+                         String.format("%x", srcAddress));
+            assert srcAddress >= address;
+            assert srcAddress < address + size - longSizeInBytes;
+
+            final long destAddessLeast = srcAddress + longSizeInBytes;
+            final long destAddressMost = address + size - longSizeInBytes;
+            assert destAddessLeast <= destAddressMost;
+            final long destAddress
+                = destAddessLeast == destAddressMost
+                  ? destAddessLeast
+                  : random().nextLong(destAddessLeast, destAddressMost);
+            logger.debug("destAddress: {}, {}", destAddress,
+                         String.format("%x", destAddress));
+            assert destAddress >= srcAddress + longSizeInBytes;
+            assert destAddress <= address + size - longSizeInBytes;
+
+            final long expected = random().nextLong();
+            dangerous.putLong(srcAddress, expected);
+            dangerous.copyMemory(srcAddress, destAddress, longSizeInBytes);
+            Assert.assertEquals(dangerous.getLong(destAddress), expected);
+        } finally {
+            dangerous.freeMemory(address);
         }
     }
 
@@ -860,7 +1167,6 @@ public class DangerousTest {
 //        Dangerous.putDouble(object, field, 0.f);
 //    }
 //
-
 //    @Test(enabled = true)
 //    public void double_object() throws NoSuchFieldException {
 //
@@ -873,5 +1179,6 @@ public class DangerousTest {
 //        final double actual = Dangerous.getDouble(object, field);
 //        Assert.assertEquals(actual, expected);
 //    }
+
 }
 
