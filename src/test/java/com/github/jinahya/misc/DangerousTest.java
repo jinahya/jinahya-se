@@ -127,7 +127,7 @@ public class DangerousTest {
 
 
     @Test
-    public static void checkAllMethodsCovered()
+    public static void checkAllMethodsWrapped()
         throws ClassNotFoundException, NoSuchMethodException {
 
         final Class<?> unsafeClass = Class.forName("sun.misc.Unsafe");
@@ -135,15 +135,15 @@ public class DangerousTest {
             if (!method.getDeclaringClass().equals(unsafeClass)) {
                 continue;
             }
-            final String name = method.getName();
-            final Class<?>[] parameterTypes = method.getParameterTypes();
+            if (!Modifier.isPublic(method.getModifiers())) {
+                continue;
+            }
+            final Method wrapped;
             try {
-                final Method wrapped
-                    = Dangerous.class.getDeclaredMethod(name, parameterTypes);
-                final int modifiers = wrapped.getModifiers();
-                Assert.assertTrue(Modifier.isStatic(modifiers));
+                wrapped = Dangerous.class.getDeclaredMethod(
+                    method.getName(), method.getParameterTypes());
             } catch (final NoSuchMethodException nsme) {
-                LOGGER.error("method not covered: {}", method);
+                LOGGER.error("method not wrapped: {}", method);
                 throw nsme;
             }
         }
@@ -153,11 +153,13 @@ public class DangerousTest {
     @Test(enabled = true)
     public void getByte_memory() {
 
-        final long address = Dangerous.allocateMemory(1);
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final long address = dangerous.allocateMemory(1);
         try {
-            final byte value = Dangerous.getByte(address);
+            final byte value = dangerous.getByte(address);
         } finally {
-            Dangerous.freeMemory(address);
+            dangerous.freeMemory(address);
         }
     }
 
@@ -165,11 +167,13 @@ public class DangerousTest {
     @Test(enabled = true)
     public void putByte_memory() {
 
-        final long address = Dangerous.allocateMemory(1);
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final long address = dangerous.allocateMemory(1);
         try {
-            Dangerous.putByte(address, (byte) 0);
+            dangerous.putByte(address, (byte) 0);
         } finally {
-            Dangerous.freeMemory(address);
+            dangerous.freeMemory(address);
         }
     }
 
@@ -177,14 +181,16 @@ public class DangerousTest {
     @Test(enabled = true)
     public void byte_memory() {
 
-        final long address = Dangerous.allocateMemory(2);
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final long address = dangerous.allocateMemory(2);
         try {
             final byte expected = nextByte();
-            Dangerous.putByte(address, expected);
-            final byte actual = Dangerous.getByte(address);
+            dangerous.putByte(address, expected);
+            final byte actual = dangerous.getByte(address);
             Assert.assertEquals(actual, expected);
         } finally {
-            Dangerous.freeMemory(address);
+            dangerous.freeMemory(address);
         }
     }
 
@@ -192,11 +198,13 @@ public class DangerousTest {
     @Test(enabled = true)
     public void getShort_memory() {
 
-        final long address = Dangerous.allocateMemory(2);
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final long address = dangerous.allocateMemory(2);
         try {
-            final short value = Dangerous.getShort(address);
+            final short value = dangerous.getShort(address);
         } finally {
-            Dangerous.freeMemory(address);
+            dangerous.freeMemory(address);
         }
     }
 
@@ -204,11 +212,13 @@ public class DangerousTest {
     @Test(enabled = true)
     public void putShort_memory() {
 
-        final long address = Dangerous.allocateMemory(2);
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final long address = dangerous.allocateMemory(2);
         try {
-            Dangerous.putShort(address, (short) 0);
+            dangerous.putShort(address, (short) 0);
         } finally {
-            Dangerous.freeMemory(address);
+            dangerous.freeMemory(address);
         }
     }
 
@@ -216,15 +226,17 @@ public class DangerousTest {
     @Test(enabled = true)
     public void short_memory() {
 
-        final long address = Dangerous.allocateMemory(2);
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final long address = dangerous.allocateMemory(2);
         try {
             final short expected
                 = (short) (ThreadLocalRandom.current().nextInt() & 0xFFFF);
-            Dangerous.putShort(address, expected);
-            final short actual = Dangerous.getShort(address);
+            dangerous.putShort(address, expected);
+            final short actual = dangerous.getShort(address);
             Assert.assertEquals(actual, expected);
         } finally {
-            Dangerous.freeMemory(address);
+            dangerous.freeMemory(address);
         }
     }
 
@@ -232,11 +244,13 @@ public class DangerousTest {
     @Test(enabled = true)
     public void getInt_memory() {
 
-        final long address = Dangerous.allocateMemory(4);
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final long address = dangerous.allocateMemory(4);
         try {
-            final int value = Dangerous.getInt(address);
+            final int value = dangerous.getInt(address);
         } finally {
-            Dangerous.freeMemory(address);
+            dangerous.freeMemory(address);
         }
     }
 
@@ -244,11 +258,13 @@ public class DangerousTest {
     @Test(enabled = true)
     public void putInt_memory() {
 
-        final long address = Dangerous.allocateMemory(4);
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final long address = dangerous.allocateMemory(4);
         try {
-            Dangerous.putInt(address, 0);
+            dangerous.putInt(address, 0);
         } finally {
-            Dangerous.freeMemory(address);
+            dangerous.freeMemory(address);
         }
     }
 
@@ -256,14 +272,16 @@ public class DangerousTest {
     @Test(enabled = true)
     public void int_memory() {
 
-        final long address = Dangerous.allocateMemory(4);
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final long address = dangerous.allocateMemory(4);
         try {
             final int expected = ThreadLocalRandom.current().nextInt();
-            Dangerous.putInt(address, expected);
-            final int actual = Dangerous.getInt(address);
+            dangerous.putInt(address, expected);
+            final int actual = dangerous.getInt(address);
             Assert.assertEquals(actual, expected);
         } finally {
-            Dangerous.freeMemory(address);
+            dangerous.freeMemory(address);
         }
     }
 
@@ -271,11 +289,13 @@ public class DangerousTest {
     @Test(enabled = true)
     public void getLong_memory() {
 
-        final long address = Dangerous.allocateMemory(8);
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final long address = dangerous.allocateMemory(8);
         try {
-            final long value = Dangerous.getLong(address);
+            final long value = dangerous.getLong(address);
         } finally {
-            Dangerous.freeMemory(address);
+            dangerous.freeMemory(address);
         }
     }
 
@@ -283,11 +303,13 @@ public class DangerousTest {
     @Test(enabled = true)
     public void putLong_memory() {
 
-        final long address = Dangerous.allocateMemory(8);
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final long address = dangerous.allocateMemory(8);
         try {
-            Dangerous.putLong(address, 0L);
+            dangerous.putLong(address, 0L);
         } finally {
-            Dangerous.freeMemory(address);
+            dangerous.freeMemory(address);
         }
     }
 
@@ -295,14 +317,16 @@ public class DangerousTest {
     @Test(enabled = true)
     public void long_memory() {
 
-        final long address = Dangerous.allocateMemory(8);
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final long address = dangerous.allocateMemory(8);
         try {
             final long expected = ThreadLocalRandom.current().nextLong();
-            Dangerous.putLong(address, expected);
-            final long actual = Dangerous.getLong(address);
+            dangerous.putLong(address, expected);
+            final long actual = dangerous.getLong(address);
             Assert.assertEquals(actual, expected);
         } finally {
-            Dangerous.freeMemory(address);
+            dangerous.freeMemory(address);
         }
     }
 
@@ -310,11 +334,13 @@ public class DangerousTest {
     @Test(enabled = true)
     public void getFloat_memory() {
 
-        final long address = Dangerous.allocateMemory(4);
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final long address = dangerous.allocateMemory(4);
         try {
-            final float value = Dangerous.getFloat(address);
+            final float value = dangerous.getFloat(address);
         } finally {
-            Dangerous.freeMemory(address);
+            dangerous.freeMemory(address);
         }
     }
 
@@ -322,11 +348,13 @@ public class DangerousTest {
     @Test(enabled = true)
     public void putFloat_memory() {
 
-        final long address = Dangerous.allocateMemory(4);
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final long address = dangerous.allocateMemory(4);
         try {
-            Dangerous.putFloat(address, .0f);
+            dangerous.putFloat(address, .0f);
         } finally {
-            Dangerous.freeMemory(address);
+            dangerous.freeMemory(address);
         }
     }
 
@@ -334,14 +362,16 @@ public class DangerousTest {
     @Test(enabled = true)
     public void float_memory() {
 
-        final long address = Dangerous.allocateMemory(4);
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final long address = dangerous.allocateMemory(4);
         try {
             final float expected = nextFloat();
-            Dangerous.putFloat(address, expected);
-            final float actual = Dangerous.getFloat(address);
+            dangerous.putFloat(address, expected);
+            final float actual = dangerous.getFloat(address);
             Assert.assertEquals(actual, expected);
         } finally {
-            Dangerous.freeMemory(address);
+            dangerous.freeMemory(address);
         }
     }
 
@@ -349,11 +379,13 @@ public class DangerousTest {
     @Test(enabled = true)
     public void getDouble_memory() {
 
-        final long address = Dangerous.allocateMemory(8);
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final long address = dangerous.allocateMemory(8);
         try {
-            final double value = Dangerous.getDouble(address);
+            final double value = dangerous.getDouble(address);
         } finally {
-            Dangerous.freeMemory(address);
+            dangerous.freeMemory(address);
         }
     }
 
@@ -361,11 +393,13 @@ public class DangerousTest {
     @Test(enabled = true)
     public void putDouble_memory() {
 
-        final long address = Dangerous.allocateMemory(8);
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final long address = dangerous.allocateMemory(8);
         try {
-            Dangerous.putDouble(address, .0d);
+            dangerous.putDouble(address, .0d);
         } finally {
-            Dangerous.freeMemory(address);
+            dangerous.freeMemory(address);
         }
     }
 
@@ -373,14 +407,16 @@ public class DangerousTest {
     @Test(enabled = true)
     public void double_memory() {
 
-        final long address = Dangerous.allocateMemory(8);
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final long address = dangerous.allocateMemory(8);
         try {
             final double expected = nextDouble();
-            Dangerous.putDouble(address, expected);
-            final double actual = Dangerous.getDouble(address);
+            dangerous.putDouble(address, expected);
+            final double actual = dangerous.getDouble(address);
             Assert.assertEquals(actual, expected);
         } finally {
-            Dangerous.freeMemory(address);
+            dangerous.freeMemory(address);
         }
     }
 
@@ -388,41 +424,47 @@ public class DangerousTest {
     @Test(enabled = true)
     public void getByte_static() throws NoSuchFieldException {
 
+        final Dangerous dangerous = Dangerous.newInstance();
+
         final Field field = MyObject.class.getDeclaredField("staticByte");
 
-        final Object object = Dangerous.staticFieldBase(field);
+        final Object object = dangerous.staticFieldBase(field);
 
-        final long offset = Dangerous.staticFieldOffset(field);
+        final long offset = dangerous.staticFieldOffset(field);
 
-        final byte value = Dangerous.getByte(object, offset);
+        final byte value = dangerous.getByte(object, offset);
     }
 
 
     @Test(enabled = true)
     public void putByte_static() throws NoSuchFieldException {
 
+        final Dangerous dangerous = Dangerous.newInstance();
+
         final Field field = MyObject.class.getDeclaredField("staticByte");
 
-        final Object object = Dangerous.staticFieldBase(field);
+        final Object object = dangerous.staticFieldBase(field);
 
-        final long offset = Dangerous.staticFieldOffset(field);
+        final long offset = dangerous.staticFieldOffset(field);
 
-        Dangerous.putByte(object, offset, (byte) 0);
+        dangerous.putByte(object, offset, (byte) 0);
     }
 
 
     @Test(enabled = true)
     public void byte_static() throws NoSuchFieldException {
 
+        final Dangerous dangerous = Dangerous.newInstance();
+
         final Field field = MyObject.class.getDeclaredField("staticByte");
 
-        final Object object = Dangerous.staticFieldBase(field);
+        final Object object = dangerous.staticFieldBase(field);
 
-        final long offset = Dangerous.staticFieldOffset(field);
+        final long offset = dangerous.staticFieldOffset(field);
 
         final byte expected = nextByte();
-        Dangerous.putByte(object, offset, expected);
-        final byte actual = Dangerous.getByte(object, offset);
+        dangerous.putByte(object, offset, expected);
+        final byte actual = dangerous.getByte(object, offset);
         Assert.assertEquals(actual, expected);
     }
 
@@ -430,41 +472,47 @@ public class DangerousTest {
     @Test(enabled = true)
     public void getShort_static() throws NoSuchFieldException {
 
+        final Dangerous dangerous = Dangerous.newInstance();
+
         final Field field = MyObject.class.getDeclaredField("staticShort");
 
-        final Object object = Dangerous.staticFieldBase(field);
+        final Object object = dangerous.staticFieldBase(field);
 
-        final long offset = Dangerous.staticFieldOffset(field);
+        final long offset = dangerous.staticFieldOffset(field);
 
-        final short value = Dangerous.getShort(object, offset);
+        final short value = dangerous.getShort(object, offset);
     }
 
 
     @Test(enabled = true)
     public void putShort_static() throws NoSuchFieldException {
 
+        final Dangerous dangerous = Dangerous.newInstance();
+
         final Field field = MyObject.class.getDeclaredField("staticShort");
 
-        final Object object = Dangerous.staticFieldBase(field);
+        final Object object = dangerous.staticFieldBase(field);
 
-        final long offset = Dangerous.staticFieldOffset(field);
+        final long offset = dangerous.staticFieldOffset(field);
 
-        Dangerous.putShort(object, offset, (short) 0);
+        dangerous.putShort(object, offset, (short) 0);
     }
 
 
     @Test(enabled = true)
     public void short_static() throws NoSuchFieldException {
 
+        final Dangerous dangerous = Dangerous.newInstance();
+
         final Field field = MyObject.class.getDeclaredField("staticShort");
 
-        final Object object = Dangerous.staticFieldBase(field);
+        final Object object = dangerous.staticFieldBase(field);
 
-        final long offset = Dangerous.staticFieldOffset(field);
+        final long offset = dangerous.staticFieldOffset(field);
 
         final short expected = nextShort();
-        Dangerous.putShort(object, offset, expected);
-        final short actual = Dangerous.getShort(object, offset);
+        dangerous.putShort(object, offset, expected);
+        final short actual = dangerous.getShort(object, offset);
         Assert.assertEquals(actual, expected);
     }
 
@@ -472,13 +520,15 @@ public class DangerousTest {
     @Test(enabled = true)
     public void getInt_static() throws NoSuchFieldException {
 
+        final Dangerous dangerous = Dangerous.newInstance();
+
         final Field field = MyObject.class.getDeclaredField("staticInt");
 
-        final Object object = Dangerous.staticFieldBase(field);
+        final Object object = dangerous.staticFieldBase(field);
 
-        final long offset = Dangerous.staticFieldOffset(field);
+        final long offset = dangerous.staticFieldOffset(field);
 
-        final int value = Dangerous.getInt(object, offset);
+        final int value = dangerous.getInt(object, offset);
     }
 
 //

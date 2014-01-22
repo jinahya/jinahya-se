@@ -36,7 +36,7 @@ public final class Dangerous {
     private static final Class<?> UNSAFE_CLASS;
 
 
-    private static final Object UNSAFE_INSTANCE;
+    private static final Constructor<?> UNSAFE_CONSTRUCTOR;
 
 
     static {
@@ -47,18 +47,21 @@ public final class Dangerous {
             throw new InstantiationError(cnfe.getMessage());
         }
 
-        final Constructor<?> constructor;
         try {
-            constructor = UNSAFE_CLASS.getDeclaredConstructor();
-            if (!constructor.isAccessible()) {
-                constructor.setAccessible(true);
+            UNSAFE_CONSTRUCTOR = UNSAFE_CLASS.getDeclaredConstructor();
+            if (!UNSAFE_CONSTRUCTOR.isAccessible()) {
+                UNSAFE_CONSTRUCTOR.setAccessible(true);
             }
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.getMessage());
         }
+    }
+
+
+    public static Object newUnsafeInstance() {
 
         try {
-            UNSAFE_INSTANCE = constructor.newInstance();
+            return UNSAFE_CONSTRUCTOR.newInstance();
         } catch (final InstantiationException ie) {
             throw new RuntimeException(ie);
         } catch (final IllegalAccessException iae) {
@@ -66,30 +69,7 @@ public final class Dangerous {
         } catch (final InvocationTargetException ite) {
             throw new RuntimeException(ite);
         }
-
-//        final Field f;
-//        try {
-//            f = UNSAFE_CLASS.getDeclaredField("theUnsafe");
-//        } catch (final NoSuchFieldException nsfe) {
-//            throw new InstantiationError(nsfe.getMessage());
-//        }
-//
-//        if (!f.isAccessible()) {
-//            f.setAccessible(true);
-//        }
-//
-//        try {
-//            UNSAFE_INSTANCE = f.get(null);
-//        } catch (final IllegalAccessException iae) {
-//            throw new InstantiationError(iae.getMessage());
-//        }
     }
-
-
-//    public static Object getUnsafeInstance() {
-//
-//        return UNSAFE_INSTANCE;
-//    }
 
 
     // ------------------------------------------------------------- addressSize
@@ -102,22 +82,6 @@ public final class Dangerous {
             ADDRESS_SIZE_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    /**
-     *
-     * @return
-     */
-    public static int addressSize() {
-
-        try {
-            return (Integer) ADDRESS_SIZE_METHOD.invoke(UNSAFE_INSTANCE);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -137,25 +101,6 @@ public final class Dangerous {
     }
 
 
-    public static Object allocateInstance(final Class<?> cls)
-        throws InstantiationException {
-
-        try {
-            return (Integer) ALLOCATE_INSTANCE_METHOD.invoke(
-                UNSAFE_INSTANCE, cls);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            final Throwable cause = ite.getCause();
-            if (cause instanceof InstantiationException) {
-                throw (InstantiationException) cause;
-            }
-            throw new RuntimeException(ite);
-        }
-
-    }
-
-
     // ---------------------------------------------------- allocateMemory(long)
     private static final Method ALLOCATE_MEMORY_METHOD;
 
@@ -167,18 +112,6 @@ public final class Dangerous {
             ALLOCATE_MEMORY_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static long allocateMemory(final long bytes) {
-
-        try {
-            return (Long) ALLOCATE_MEMORY_METHOD.invoke(UNSAFE_INSTANCE, bytes);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -198,19 +131,6 @@ public final class Dangerous {
     }
 
 
-    public static int arrayBaseOffset(final Class<?> arrayClass) {
-
-        try {
-            return (Integer) ARRAY_BASE_OFFSET_METHOD.invoke(
-                UNSAFE_INSTANCE, arrayClass);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // -------------------------------------------------- arrayIndexScale(Class)
     private static final Method ARRAY_INDEX_SCALE_METHOD;
 
@@ -222,19 +142,6 @@ public final class Dangerous {
             ARRAY_INDEX_SCALE_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static int arrayIndexScale(final Class<?> arrayClass) {
-
-        try {
-            return (Integer) ARRAY_BASE_OFFSET_METHOD.invoke(
-                UNSAFE_INSTANCE, arrayClass);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -255,31 +162,6 @@ public final class Dangerous {
     }
 
 
-    /**
-     * Invokes {@code Unsafe#comapreAndSwapInt(Object, long, int, int)} with
-     * given arguments.
-     *
-     * @param o
-     * @param offset
-     * @param expected
-     * @param x
-     *
-     * @return
-     */
-    public static boolean compareAndSwapInt(final Object o, final long offset,
-                                            final int expected, final int x) {
-
-        try {
-            return (Boolean) COMPARE_AND_SWAP_INT_METHOD.invoke(
-                UNSAFE_INSTANCE, o, offset, expected, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // ---------------------------- compareAndSwapLong(Object, long, long, long)
     private static final Method COMPARE_AND_SWAP_LONG_METHOD;
 
@@ -292,31 +174,6 @@ public final class Dangerous {
             COMPARE_AND_SWAP_LONG_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    /**
-     * Invokes {@code Unsafe#comapreAndSwapLong(Object, long, long, long)} with
-     * given arguments.
-     *
-     * @param o
-     * @param offset
-     * @param expected
-     * @param x
-     *
-     * @return
-     */
-    public static boolean compareAndSwapLong(final Object o, final long offset,
-                                             final long expected, final long x) {
-
-        try {
-            return (Boolean) COMPARE_AND_SWAP_LONG_METHOD.invoke(
-                UNSAFE_INSTANCE, o, offset, expected, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -337,33 +194,6 @@ public final class Dangerous {
     }
 
 
-    /**
-     * Invokes {@code Unsafe#comapreAndSwapObject(Object, long, Object, Object)}
-     * with given arguments.
-     *
-     * @param o
-     * @param offset
-     * @param expected
-     * @param x
-     *
-     * @return
-     */
-    public static boolean compareAndSwapObject(final Object o,
-                                               final long offset,
-                                               final Object expected,
-                                               final Object x) {
-
-        try {
-            return (Boolean) COMPARE_AND_SWAP_OBJECT_METHOD.invoke(
-                UNSAFE_INSTANCE, o, offset, expected, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // -------------------------------------------- copyMemory(long, long, long)
     private static final Method COPY_MEMORY_lll_METHOD;
 
@@ -375,27 +205,6 @@ public final class Dangerous {
             COPY_MEMORY_lll_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    /**
-     * Invokes {@code Unsafe#copyMemory(long, long, long)} with given arguments.
-     *
-     * @param srcAddress
-     * @param destAddress
-     * @param bytes
-     */
-    public static void copyMemory(final long srcAddress, final long destAddress,
-                                  final long bytes) {
-
-        try {
-            COPY_MEMORY_lll_METHOD.invoke(
-                UNSAFE_INSTANCE, srcAddress, destAddress, bytes);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -416,31 +225,6 @@ public final class Dangerous {
     }
 
 
-    /**
-     * Invokes {@code Unsafe#copyMemory(Object, long, Object, long, long)} with
-     * given arguments.
-     *
-     * @param srcBase
-     * @param srcAddress
-     * @param destBase
-     * @param destAddress
-     * @param bytes
-     */
-    public static void copyMemory(final Object srcBase, final long srcAddress,
-                                  final Object destBase, final long destAddress,
-                                  final long bytes) {
-
-        try {
-            COPY_MEMORY_OlOll_METHOD.invoke(
-                UNSAFE_INSTANCE, srcAddress, destAddress, bytes);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // --------------------------- defineAnonymousClass(Class, byte[], Object[])
     private static final Method DEFINE_ANONYMOUS_CLASS_METHOD;
 
@@ -454,28 +238,6 @@ public final class Dangerous {
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
         }
-    }
-
-
-    public static void defineAnonymousClass(final Class<?> hostClass,
-                                            final byte[] data,
-                                            final Object[] cpPatches) {
-
-        try {
-            DEFINE_ANONYMOUS_CLASS_METHOD.invoke(
-                UNSAFE_INSTANCE, hostClass, data, cpPatches);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
-    // ----------------------------------- defineClass(String, byte[], int, int)
-    @Deprecated
-    static Class defineClass(String name, byte[] b, int off, int len) {
-        throw new UnsupportedOperationException("deprecated");
     }
 
 
@@ -495,21 +257,6 @@ public final class Dangerous {
     }
 
 
-    public static Class<?> defineClass(
-        final String name, final byte[] b, final int off, final int len,
-        final ClassLoader loader, final ProtectionDomain protectionDomain) {
-
-        try {
-            return (Class<?>) DEFINE_CLASS_METHOD.invoke(
-                UNSAFE_INSTANCE, name, b, off, len, loader, protectionDomain);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // ------------------------------------------- ensureClassInitialized(Class)
     private static final Method ENSURE_CLASS_INITIALIZED_METHOD;
 
@@ -525,25 +272,6 @@ public final class Dangerous {
     }
 
 
-    public static void ensureClassInitialized(final Class<?> c) {
-
-        try {
-            ENSURE_CLASS_INITIALIZED_METHOD.invoke(UNSAFE_INSTANCE, c);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
-    // ------------------------------------------------------ fieldOffset(Field)
-    @Deprecated
-    static int fieldOffset(Field f) {
-        throw new UnsupportedOperationException("deprecated");
-    }
-
-
     // -------------------------------------------------------- freeMemory(long)
     private static final Method FREE_MEMORY_METHOD;
 
@@ -555,18 +283,6 @@ public final class Dangerous {
             FREE_MEMORY_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static void freeMemory(final long address) {
-
-        try {
-            FREE_MEMORY_METHOD.invoke(UNSAFE_INSTANCE, address);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -586,26 +302,6 @@ public final class Dangerous {
     }
 
 
-    public static long getAddress(final long address) {
-
-        try {
-            return (Long) GET_ADDRESS_METHOD.invoke(UNSAFE_INSTANCE, address);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
-    // ---------------------------------------------- getBoolean(Object, offset)
-    @Deprecated
-    static boolean getBoolean(final Object o, final int offset) {
-
-        throw new UnsupportedOperationException("deprecated");
-    }
-
-
     // ------------------------------------------------ getBoolean(Object, long)
     private static final Method GET_BOOLEAN_METHOD;
 
@@ -617,19 +313,6 @@ public final class Dangerous {
             GET_BOOLEAN_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static boolean getBoolean(final Object o, final long offset) {
-
-        try {
-            return (Boolean) GET_BOOLEAN_METHOD.invoke(
-                UNSAFE_INSTANCE, o, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -649,20 +332,6 @@ public final class Dangerous {
     }
 
 
-    public static boolean getBooleanVolatile(final Object o,
-                                             final long offset) {
-
-        try {
-            return (Boolean) GET_BOOLEAN_VOLATILE_METHOD.invoke(
-                UNSAFE_INSTANCE, o, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // ----------------------------------------------------------- getByte(long)
     private static final Method GET_BYTE_l_METHOD;
 
@@ -673,19 +342,6 @@ public final class Dangerous {
             GET_BYTE_l_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static byte getByte(final long offset) {
-
-        try {
-            return (Byte) GET_BYTE_l_METHOD.invoke(
-                UNSAFE_INSTANCE, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -705,27 +361,6 @@ public final class Dangerous {
     }
 
 
-    public static byte getByte(final Object object, final long offset) {
-
-        try {
-            return (Byte) GET_BYTE_Ol_METHOD.invoke(
-                UNSAFE_INSTANCE, object, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
-    // ---------------------------------------------------- getByte(Object, int)
-    @Deprecated
-    static byte getByte(final Object object, final int offset) {
-
-        throw new UnsupportedOperationException("deprecated");
-    }
-
-
     // ------------------------------------------- getByteVolatile(Object, long)
     private static final Method GET_BYTE_VOLATILE_METHOD;
 
@@ -737,19 +372,6 @@ public final class Dangerous {
             GET_BYTE_VOLATILE_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static byte getByteVolatile(final Object object, final long offset) {
-
-        try {
-            return (Byte) GET_BYTE_VOLATILE_METHOD.invoke(
-                UNSAFE_INSTANCE, object, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -768,26 +390,6 @@ public final class Dangerous {
     }
 
 
-    public static char getChar(final long offset) {
-
-        try {
-            return (Character) GET_CHAR_l_METHOD.invoke(
-                UNSAFE_INSTANCE, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
-    @Deprecated
-    static char getChar(final Object object, final int offset) {
-
-        throw new UnsupportedOperationException("deprecated");
-    }
-
-
     // --------------------------------------------------- getChar(Object, long)
     private static final Method GET_CHAR_Ol_METHOD;
 
@@ -799,19 +401,6 @@ public final class Dangerous {
             GET_CHAR_Ol_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static char getChar(final Object object, final long offset) {
-
-        try {
-            return (Character) GET_CHAR_Ol_METHOD.invoke(
-                UNSAFE_INSTANCE, object, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -831,19 +420,6 @@ public final class Dangerous {
     }
 
 
-    public static char getCharVolatile(final Object object, final long offset) {
-
-        try {
-            return (Character) GET_CHAR_VOLATILE_METHOD.invoke(
-                UNSAFE_INSTANCE, object, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // --------------------------------------------------------- getDouble(long)
     private static final Method GET_DOUBLE_l_METHOD;
 
@@ -859,31 +435,11 @@ public final class Dangerous {
     }
 
 
-    public static double getDouble(final long offset) {
-
-        try {
-            return (Double) GET_DOUBLE_l_METHOD.invoke(UNSAFE_INSTANCE, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
-    @Deprecated
-    static double getDouble(final Object object, final int offset) {
-
-        throw new UnsupportedOperationException("deprecated");
-    }
-
-
     // ------------------------------------------------- getDouble(Object, long)
     private static final Method GET_DOUBLE_Ol_METHOD;
 
 
     static {
-
         try {
             GET_DOUBLE_Ol_METHOD = UNSAFE_CLASS.getMethod(
                 "getDouble", Object.class, Long.TYPE);
@@ -894,45 +450,17 @@ public final class Dangerous {
     }
 
 
-    public static double getDouble(final Object object, final long offset) {
-
-        try {
-            return (Double) GET_DOUBLE_Ol_METHOD.invoke(
-                UNSAFE_INSTANCE, object, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // ----------------------------------------- getDoubleVolatile(Object, long)
     private static final Method GET_DOUBLE_VOLATILE_METHOD;
 
 
     static {
-
         try {
             GET_DOUBLE_VOLATILE_METHOD = UNSAFE_CLASS.getMethod(
                 "getDoubleVolatile", Object.class, Long.TYPE);
             GET_DOUBLE_VOLATILE_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static double getDoubleVolatile(final Object object,
-                                           final long offset) {
-
-        try {
-            return (Double) GET_DOUBLE_VOLATILE_METHOD.invoke(
-                UNSAFE_INSTANCE, object, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -951,25 +479,6 @@ public final class Dangerous {
     }
 
 
-    public static float getFloat(final long offset) {
-
-        try {
-            return (Float) GET_FLOAT_l_METHOD.invoke(UNSAFE_INSTANCE, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
-    @Deprecated
-    static float getFloat(final Object object, final int offset) {
-
-        throw new UnsupportedOperationException("deprecated");
-    }
-
-
     // -------------------------------------------------- getFloat(Object, long)
     private static final Method GET_FLOAT_Ol_METHOD;
 
@@ -985,45 +494,17 @@ public final class Dangerous {
     }
 
 
-    public static float getFloat(final Object object, final long offset) {
-
-        try {
-            return (Float) GET_FLOAT_Ol_METHOD.invoke(
-                UNSAFE_INSTANCE, object, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // ----------------------------------------- getFloatVolatile(Object, long)
     private static final Method GET_FLOAT_VOLATILE_METHOD;
 
 
     static {
-
         try {
             GET_FLOAT_VOLATILE_METHOD = UNSAFE_CLASS.getMethod(
                 "getFloatVolatile", Object.class, Long.TYPE);
             GET_FLOAT_VOLATILE_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static float getFloatVolatile(final Object object,
-                                         final long offset) {
-
-        try {
-            return (Float) GET_FLOAT_VOLATILE_METHOD.invoke(
-                UNSAFE_INSTANCE, object, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -1042,25 +523,6 @@ public final class Dangerous {
     }
 
 
-    public static int getInt(final long offset) {
-
-        try {
-            return (Integer) GET_INT_l_METHOD.invoke(UNSAFE_INSTANCE, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
-    @Deprecated
-    static int getInt(final Object object, final int offset) {
-
-        throw new UnsupportedOperationException("deprecated");
-    }
-
-
     // ---------------------------------------------------- getInt(Object, long)
     private static final Method GET_INT_Ol_METHOD;
 
@@ -1072,19 +534,6 @@ public final class Dangerous {
             GET_INT_Ol_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static int getInt(final Object object, final long offset) {
-
-        try {
-            return (Integer) GET_INT_Ol_METHOD.invoke(
-                UNSAFE_INSTANCE, object, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -1105,20 +554,6 @@ public final class Dangerous {
     }
 
 
-    public static int getIntVolatile(final Object object,
-                                     final long offset) {
-
-        try {
-            return (Integer) GET_INT_VOLATILE_METHOD.invoke(
-                UNSAFE_INSTANCE, object, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // ------------------------------------------- getLoadAverage(double[], int)
     private static final Method GET_LOAD_AVERAGE_METHOD;
 
@@ -1130,19 +565,6 @@ public final class Dangerous {
             GET_LOAD_AVERAGE_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static int getLoadAverage(final double[] loadavg, final int nelems) {
-
-        try {
-            return (Integer) GET_LOAD_AVERAGE_METHOD.invoke(
-                UNSAFE_INSTANCE, loadavg, nelems);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -1161,25 +583,6 @@ public final class Dangerous {
     }
 
 
-    public static long getLong(final long offset) {
-
-        try {
-            return (Long) GET_LONG_l_METHOD.invoke(UNSAFE_INSTANCE, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
-    @Deprecated
-    static long getLong(final Object object, final int offset) {
-
-        throw new UnsupportedOperationException("deprecated");
-    }
-
-
     // --------------------------------------------------- getLong(Object, long)
     private static final Method GET_LONG_Ol_METHOD;
 
@@ -1191,19 +594,6 @@ public final class Dangerous {
             GET_LONG_Ol_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static long getLong(final Object object, final long offset) {
-
-        try {
-            return (Long) GET_LONG_Ol_METHOD.invoke(
-                UNSAFE_INSTANCE, object, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -1223,19 +613,6 @@ public final class Dangerous {
     }
 
 
-    public static long getLongVolatile(final Object object, final long offset) {
-
-        try {
-            return (Long) GET_LONG_VOLATILE_METHOD.invoke(
-                UNSAFE_INSTANCE, object, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // ------------------------------------------------- getObject(Object, long)
     private static final Method GET_OBJECT_Ol_METHOD;
 
@@ -1248,26 +625,6 @@ public final class Dangerous {
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
         }
-    }
-
-
-    public static Object getObject(final Object object, final long offset) {
-
-        try {
-            return GET_OBJECT_Ol_METHOD.invoke(UNSAFE_INSTANCE, object, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
-    // -------------------------------------------------- getObject(Object, int)
-    @Deprecated
-    static Object getObject(final Object object, final int offset) {
-
-        throw new UnsupportedOperationException("deprecated");
     }
 
 
@@ -1286,20 +643,6 @@ public final class Dangerous {
     }
 
 
-    public static Object getObjectVolatile(final Object object,
-                                           final long offset) {
-
-        try {
-            return GET_OBJECT_VOLATILE_METHOD.invoke(
-                UNSAFE_INSTANCE, object, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // --------------------------------------------------------- getShort(short)
     private static final Method GET_SHORT_l_METHOD;
 
@@ -1314,25 +657,6 @@ public final class Dangerous {
     }
 
 
-    public static short getShort(final long offset) {
-
-        try {
-            return (Short) GET_SHORT_l_METHOD.invoke(UNSAFE_INSTANCE, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
-    @Deprecated
-    static short getShort(final Object object, final int offset) {
-
-        throw new UnsupportedOperationException("deprecated");
-    }
-
-
     // ------------------------------------------------- getShort(Object, short)
     private static final Method GET_SHORT_Ol_METHOD;
 
@@ -1344,19 +668,6 @@ public final class Dangerous {
             GET_SHORT_Ol_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static short getShort(final Object object, final long offset) {
-
-        try {
-            return (Short) GET_SHORT_Ol_METHOD.invoke(
-                UNSAFE_INSTANCE, object, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -1376,20 +687,6 @@ public final class Dangerous {
     }
 
 
-    public static short getShortVolatile(final Object object,
-                                         final long offset) {
-
-        try {
-            return (Short) GET_SHORT_VOLATILE_METHOD.invoke(
-                UNSAFE_INSTANCE, object, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // ---------------------------------------------------- monitorEnter(Object)
     private static final Method MONITOR_ENTER_METHOD;
 
@@ -1401,18 +698,6 @@ public final class Dangerous {
             MONITOR_ENTER_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static short monitorEnter(final Object o) {
-
-        try {
-            return (Short) MONITOR_ENTER_METHOD.invoke(UNSAFE_INSTANCE, o);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -1432,18 +717,6 @@ public final class Dangerous {
     }
 
 
-    public static short monitorExit(final Object o) {
-
-        try {
-            return (Short) MONITOR_EXIT_METHOD.invoke(UNSAFE_INSTANCE, o);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // ------------------------------------------------ objectFieldOffset(Field)
     private static final Method OBJECT_FIELD_OFFSET_METHOD;
 
@@ -1459,19 +732,6 @@ public final class Dangerous {
     }
 
 
-    public static long objectFieldOffset(final Field field) {
-
-        try {
-            return (Long) OBJECT_FIELD_OFFSET_METHOD.invoke(
-                UNSAFE_INSTANCE, field);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // -------------------------------------------------------------- pageSize()
     private static final Method PAGE_SIZE_METHOD;
 
@@ -1482,18 +742,6 @@ public final class Dangerous {
             PAGE_SIZE_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static int pageSize() {
-
-        try {
-            return (Integer) PAGE_SIZE_METHOD.invoke(UNSAFE_INSTANCE);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -1513,18 +761,6 @@ public final class Dangerous {
     }
 
 
-    public static void park(final boolean isAbsolute, final long time) {
-
-        try {
-            PARK_METHOD.invoke(UNSAFE_INSTANCE, isAbsolute, time);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // -------------------------------------------------- putAddress(long, long)
     private static final Method PUT_ADDRESS_METHOD;
 
@@ -1540,26 +776,6 @@ public final class Dangerous {
     }
 
 
-    public static void putAddress(final long address, final long time) {
-
-        try {
-            PUT_ADDRESS_METHOD.invoke(UNSAFE_INSTANCE, address, time);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
-    @Deprecated
-    static void putBoolean(final Object object, final int offset,
-                           final boolean x) {
-
-        throw new UnsupportedOperationException("deprecated");
-    }
-
-
     // --------------------------------------- putBoolean(Object, long, boolean)
     private static final Method PUT_BOOLEAN_Olb_METHOD;
 
@@ -1571,19 +787,6 @@ public final class Dangerous {
             PUT_BOOLEAN_Olb_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static void putBoolean(final Object object, final long offset,
-                                  final boolean x) {
-
-        try {
-            PUT_BOOLEAN_Olb_METHOD.invoke(UNSAFE_INSTANCE, object, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -1603,20 +806,6 @@ public final class Dangerous {
     }
 
 
-    public static void putBooleanVolatile(final Object object,
-                                          final long offset, final boolean x) {
-
-        try {
-            PUT_BOOLEAN_VOLATILE_METHOD.invoke(
-                UNSAFE_INSTANCE, object, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // ----------------------------------------------------- putByte(long, byte)
     private static final Method PUT_BYTE_lb_METHOD;
 
@@ -1632,26 +821,6 @@ public final class Dangerous {
     }
 
 
-    public static void putByte(final long offset, final byte x) {
-
-        try {
-            PUT_BYTE_lb_METHOD.invoke(UNSAFE_INSTANCE, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
-    @Deprecated
-    static void putByte(final Object object, final int offset,
-                        final byte x) {
-
-        throw new UnsupportedOperationException("deprecated");
-    }
-
-
     // --------------------------------------------- putByte(Object, long, byte)
     private static final Method PUT_BYTE_Olb_METHOD;
 
@@ -1663,19 +832,6 @@ public final class Dangerous {
             PUT_BYTE_Olb_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static void putByte(final Object object, final long offset,
-                               final byte x) {
-
-        try {
-            PUT_BYTE_Olb_METHOD.invoke(UNSAFE_INSTANCE, object, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -1695,19 +851,6 @@ public final class Dangerous {
     }
 
 
-    public static void putByteVolatile(final Object object,
-                                       final long offset, final byte x) {
-
-        try {
-            PUT_BYTE_VOLATILE_METHOD.invoke(UNSAFE_INSTANCE, object, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // ----------------------------------------------------- putChar(long, char)
     private static final Method PUT_CHAR_lb_METHOD;
 
@@ -1723,25 +866,6 @@ public final class Dangerous {
     }
 
 
-    public static void putChar(final long offset, final char x) {
-
-        try {
-            PUT_CHAR_lb_METHOD.invoke(UNSAFE_INSTANCE, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
-    @Deprecated
-    static void putChar(final Object object, final int offset, final char x) {
-
-        throw new UnsupportedOperationException("deprecated");
-    }
-
-
     // --------------------------------------------- putChar(Object, long, char)
     private static final Method PUT_CHAR_Olb_METHOD;
 
@@ -1753,19 +877,6 @@ public final class Dangerous {
             PUT_CHAR_Olb_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static void putChar(final Object object, final long offset,
-                               final char x) {
-
-        try {
-            PUT_CHAR_Olb_METHOD.invoke(UNSAFE_INSTANCE, object, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -1785,19 +896,6 @@ public final class Dangerous {
     }
 
 
-    public static void putCharVolatile(final Object object,
-                                       final long offset, final char x) {
-
-        try {
-            PUT_CHAR_VOLATILE_METHOD.invoke(UNSAFE_INSTANCE, object, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // ----------------------------------------------------- putDouble(long, double)
     private static final Method PUT_DOUBLE_lb_METHOD;
 
@@ -1813,26 +911,6 @@ public final class Dangerous {
     }
 
 
-    public static void putDouble(final long offset, final double x) {
-
-        try {
-            PUT_DOUBLE_lb_METHOD.invoke(UNSAFE_INSTANCE, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
-    @Deprecated
-    static void putDouble(final Object object, final int offset,
-                          final double x) {
-
-        throw new UnsupportedOperationException("deprecated");
-    }
-
-
     // ----------------------------------------- putDouble(Object, long, double)
     private static final Method PUT_DOUBLE_Olb_METHOD;
 
@@ -1844,19 +922,6 @@ public final class Dangerous {
             PUT_DOUBLE_Olb_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static void putDouble(final Object object, final long offset,
-                                 final double x) {
-
-        try {
-            PUT_DOUBLE_Olb_METHOD.invoke(UNSAFE_INSTANCE, object, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -1876,19 +941,6 @@ public final class Dangerous {
     }
 
 
-    public static void putDoubleVolatile(final Object object,
-                                         final long offset, final double x) {
-
-        try {
-            PUT_DOUBLE_VOLATILE_METHOD.invoke(UNSAFE_INSTANCE, object, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // --------------------------------------------------- putFloat(long, float)
     private static final Method PUT_FLOAT_lb_METHOD;
 
@@ -1904,25 +956,6 @@ public final class Dangerous {
     }
 
 
-    public static void putFloat(final long offset, final float x) {
-
-        try {
-            PUT_FLOAT_lb_METHOD.invoke(UNSAFE_INSTANCE, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
-    @Deprecated
-    static void putFloat(final Object object, final int offset, final float x) {
-
-        throw new UnsupportedOperationException("deprecated");
-    }
-
-
     // ------------------------------------------- putFloat(Object, long, float)
     private static final Method PUT_FLOAT_Olb_METHOD;
 
@@ -1934,19 +967,6 @@ public final class Dangerous {
             PUT_FLOAT_Olb_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static void putFloat(final Object object, final long offset,
-                                final float x) {
-
-        try {
-            PUT_FLOAT_Olb_METHOD.invoke(UNSAFE_INSTANCE, object, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -1966,20 +986,6 @@ public final class Dangerous {
     }
 
 
-    public static void putFloatVolatile(final Object object, final long offset,
-                                        final float x) {
-
-        try {
-            PUT_FLOAT_VOLATILE_METHOD.invoke(
-                UNSAFE_INSTANCE, object, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // ------------------------------------------------------- putInt(long, int)
     private static final Method PUT_INT_lb_METHOD;
 
@@ -1995,25 +1001,6 @@ public final class Dangerous {
     }
 
 
-    public static void putInt(final long offset, final int x) {
-
-        try {
-            PUT_INT_lb_METHOD.invoke(UNSAFE_INSTANCE, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
-    @Deprecated
-    static void putInt(final Object object, final int offset, final int x) {
-
-        throw new UnsupportedOperationException("deprecatd");
-    }
-
-
     // ----------------------------------------------- putInt(Object, long, int)
     private static final Method PUT_INT_Olb_METHOD;
 
@@ -2025,19 +1012,6 @@ public final class Dangerous {
             PUT_INT_Olb_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static void putInt(final Object object, final long offset,
-                              final int x) {
-
-        try {
-            PUT_INT_Olb_METHOD.invoke(UNSAFE_INSTANCE, object, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -2057,19 +1031,6 @@ public final class Dangerous {
     }
 
 
-    public static void putIntVolatile(final Object object, final long offset,
-                                      final int x) {
-
-        try {
-            PUT_INT_VOLATILE_METHOD.invoke(UNSAFE_INSTANCE, object, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // ----------------------------------------------------- putLong(long, long)
     private static final Method PUT_LONG_lb_METHOD;
 
@@ -2085,25 +1046,6 @@ public final class Dangerous {
     }
 
 
-    public static void putLong(final long offset, final long x) {
-
-        try {
-            PUT_LONG_lb_METHOD.invoke(UNSAFE_INSTANCE, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
-    @Deprecated
-    static void putLong(final Object object, final int offset, final long x) {
-
-        throw new UnsupportedOperationException("deprecated");
-    }
-
-
     // --------------------------------------------- putLong(Object, long, long)
     private static final Method PUT_LONG_Olb_METHOD;
 
@@ -2115,19 +1057,6 @@ public final class Dangerous {
             PUT_LONG_Olb_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static void putLong(final Object object, final long offset,
-                               final long x) {
-
-        try {
-            PUT_LONG_Olb_METHOD.invoke(UNSAFE_INSTANCE, object, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -2147,27 +1076,6 @@ public final class Dangerous {
     }
 
 
-    public static void putLongVolatile(final Object object, final long offset,
-                                       final long x) {
-
-        try {
-            PUT_LONG_VOLATILE_METHOD.invoke(UNSAFE_INSTANCE, object, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
-    @Deprecated
-    static void putObject(final Object object, final int offset,
-                          final Object x) {
-
-        throw new UnsupportedOperationException("deprecated");
-    }
-
-
     // --------------------------------------- putObject(Object, long, Object)
     private static final Method PUT_OBJECT_Olb_METHOD;
 
@@ -2179,19 +1087,6 @@ public final class Dangerous {
             PUT_OBJECT_Olb_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static void putObject(final Object object, final long offset,
-                                 final Object x) {
-
-        try {
-            PUT_OBJECT_Olb_METHOD.invoke(UNSAFE_INSTANCE, object, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -2211,20 +1106,6 @@ public final class Dangerous {
     }
 
 
-    public static void putObjectVolatile(final Object object, final long offset,
-                                         final Object x) {
-
-        try {
-            PUT_OBJECT_VOLATILE_METHOD.invoke(
-                UNSAFE_INSTANCE, object, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // ---------------------------------------- putOrderedInt(Object, long, int)
     private static final Method PUT_ORDERED_INT_METHOD;
 
@@ -2236,20 +1117,6 @@ public final class Dangerous {
             PUT_ORDERED_INT_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static void putOrderedInt(final Object object, final long offset,
-                                     final int x) {
-
-        try {
-            PUT_ORDERED_INT_METHOD.invoke(
-                UNSAFE_INSTANCE, object, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -2269,19 +1136,6 @@ public final class Dangerous {
     }
 
 
-    public static void putOrderedLong(final Object object, final long offset,
-                                      final long x) {
-
-        try {
-            PUT_ORDERED_LONG_METHOD.invoke(UNSAFE_INSTANCE, object, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // ---------------------------------- putOrderedObject(Object, long, Object)
     private static final Method PUT_ORDERED_OBJECT_METHOD;
 
@@ -2293,20 +1147,6 @@ public final class Dangerous {
             PUT_ORDERED_OBJECT_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static void putOrderedObject(final Object object, final long offset,
-                                        final Object x) {
-
-        try {
-            PUT_ORDERED_OBJECT_METHOD.invoke(
-                UNSAFE_INSTANCE, object, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -2326,25 +1166,6 @@ public final class Dangerous {
     }
 
 
-    public static void putShort(final long offset, final short x) {
-
-        try {
-            PUT_SHORT_lb_METHOD.invoke(UNSAFE_INSTANCE, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
-    @Deprecated
-    static void putShort(final Object object, final int offset, final short x) {
-
-        throw new UnsupportedOperationException("deprecated");
-    }
-
-
     // ------------------------------------------- putShort(Object, long, short)
     private static final Method PUT_SHORT_Olb_METHOD;
 
@@ -2356,19 +1177,6 @@ public final class Dangerous {
             PUT_SHORT_Olb_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static void putShort(final Object object, final long offset,
-                                final short x) {
-
-        try {
-            PUT_SHORT_Olb_METHOD.invoke(UNSAFE_INSTANCE, object, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -2388,19 +1196,6 @@ public final class Dangerous {
     }
 
 
-    public static void putShortVolatile(final Object object,
-                                        final long offset, final short x) {
-
-        try {
-            PUT_SHORT_VOLATILE_METHOD.invoke(UNSAFE_INSTANCE, object, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // -------------------------------------------- reallocateMemory(long, long)
     private static final Method REALLOCATE_MEMORY_METHOD;
 
@@ -2412,19 +1207,6 @@ public final class Dangerous {
             REALLOCATE_MEMORY_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static long reallocateMemory(final long address, final long bytes) {
-
-        try {
-            return (Long) REALLOCATE_MEMORY_METHOD.invoke(
-                UNSAFE_INSTANCE, address, bytes);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -2444,19 +1226,6 @@ public final class Dangerous {
     }
 
 
-    public static void setMemory(final long address, final long bytes,
-                                 final byte value) {
-
-        try {
-            SET_MEMORY_llb_METHOD.invoke(UNSAFE_INSTANCE, address, bytes, value);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // ------------------------------------- setMemory(Object, long, long, byte)
     private static final Method SET_MEMORY_Ollb_METHOD;
 
@@ -2468,20 +1237,6 @@ public final class Dangerous {
             SET_MEMORY_Ollb_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static void setMemory(final Object o, final long address,
-                                 final long bytes, final byte value) {
-
-        try {
-            SET_MEMORY_Ollb_METHOD.invoke(
-                UNSAFE_INSTANCE, o, address, bytes, value);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -2501,18 +1256,6 @@ public final class Dangerous {
     }
 
 
-    public static void shouldBeInitialized(final Class<?> c) {
-
-        try {
-            SHOULD_BE_INITIALIZED_METHOD.invoke(UNSAFE_INSTANCE, c);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // -------------------------------------------------- staticFieldBase(Field)
     private static final Method STATIC_FIELD_BASE_METHOD;
 
@@ -2528,25 +1271,6 @@ public final class Dangerous {
     }
 
 
-    public static Object staticFieldBase(final Field field) {
-
-        try {
-            return STATIC_FIELD_BASE_METHOD.invoke(UNSAFE_INSTANCE, field);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
-    @Deprecated
-    static Object staticFieldBase(final Class c) {
-
-        throw new UnsupportedOperationException("deprecated");
-    }
-
-
     // ------------------------------------------------ staticFieldOffset(Field)
     private static final Method STATIC_FIELD_OFFSET_METHOD;
 
@@ -2558,19 +1282,6 @@ public final class Dangerous {
             STATIC_FIELD_OFFSET_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static long staticFieldOffset(final Field field) {
-
-        try {
-            return (Long) STATIC_FIELD_OFFSET_METHOD.invoke(
-                UNSAFE_INSTANCE, field);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -2590,18 +1301,6 @@ public final class Dangerous {
     }
 
 
-    public static long throwException(final Throwable ee) {
-
-        try {
-            return (Long) THROW_EXCEPTION_METHOD.invoke(UNSAFE_INSTANCE, ee);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
-    }
-
-
     // ------------------------------------------------- tryMonitorEnter(Object)
     private static final Method TRY_MONITOR_ENTER_METHOD;
 
@@ -2613,18 +1312,6 @@ public final class Dangerous {
             TRY_MONITOR_ENTER_METHOD.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.toString());
-        }
-    }
-
-
-    public static long tryMonitorEnter(final Object o) {
-
-        try {
-            return (Long) TRY_MONITOR_ENTER_METHOD.invoke(UNSAFE_INSTANCE, o);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
         }
     }
 
@@ -2643,10 +1330,40 @@ public final class Dangerous {
     }
 
 
-    public static long unpark(final Object thread) {
+    /**
+     * Creates a new instance.
+     *
+     * @return a new instance.
+     */
+    public static Dangerous newInstance() {
+
+        return new Dangerous(newUnsafeInstance());
+    }
+
+
+    /**
+     * Creates a new instance.
+     */
+    private Dangerous(final Object unsafe) {
+
+        super();
+
+        if (unsafe == null) {
+            throw new NullPointerException("null unsafe");
+        }
+
+        this.unsafe = unsafe;
+    }
+
+
+    /**
+     *
+     * @return
+     */
+    public int addressSize() {
 
         try {
-            return (Long) UNPARK_METHOD.invoke(UNSAFE_INSTANCE, thread);
+            return (Integer) ADDRESS_SIZE_METHOD.invoke(unsafe);
         } catch (final IllegalAccessException iae) {
             throw new RuntimeException(iae);
         } catch (final InvocationTargetException ite) {
@@ -2655,38 +1372,1259 @@ public final class Dangerous {
     }
 
 
-//    // --------------------------------------------------------- wait(long, int)
-//    private static final Method WAIT_METHOD;
-//
-//
-//    static {
-//        try {
-//            WAIT_METHOD = UNSAFE_CLASS.getMethod("wait", Long.TYPE, Integer.TYPE);
-//            WAIT_METHOD.setAccessible(true);
-//        } catch (final NoSuchMethodException nsme) {
-//            throw new InstantiationError(nsme.toString());
-//        }
-//    }
-//
-//
-//    public static Object wait(final long l, final int i) {
-//
-//        try {
-//            return UNPARK_METHOD.invoke(UNSAFE_INSTANCE, l, i);
-//        } catch (final IllegalAccessException iae) {
-//            throw new RuntimeException(iae);
-//        } catch (final InvocationTargetException ite) {
-//            throw new RuntimeException(ite);
-//        }
-//    }
-//
-    /**
-     * Creates a new instance.
-     */
-    private Dangerous() {
+    public Object allocateInstance(final Class<?> cls)
+        throws InstantiationException {
 
-        super();
+        try {
+            return (Integer) ALLOCATE_INSTANCE_METHOD.invoke(
+                unsafe, cls);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            final Throwable cause = ite.getCause();
+            if (cause instanceof InstantiationException) {
+                throw (InstantiationException) cause;
+            }
+            throw new RuntimeException(ite);
+        }
     }
+
+
+    public long allocateMemory(final long bytes) {
+
+        try {
+            return (Long) ALLOCATE_MEMORY_METHOD.invoke(unsafe, bytes);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public int arrayBaseOffset(final Class<?> arrayClass) {
+
+        try {
+            return (Integer) ARRAY_BASE_OFFSET_METHOD.invoke(
+                unsafe, arrayClass);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public int arrayIndexScale(final Class<?> arrayClass) {
+
+        try {
+            return (Integer) ARRAY_BASE_OFFSET_METHOD.invoke(
+                unsafe, arrayClass);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    /**
+     * Invokes {@code Unsafe#comapreAndSwapInt(Object, long, int, int)} with
+     * given arguments.
+     *
+     * @param o
+     * @param offset
+     * @param expected
+     * @param x
+     *
+     * @return
+     */
+    public boolean compareAndSwapInt(final Object o, final long offset,
+                                     final int expected, final int x) {
+
+        try {
+            return (Boolean) COMPARE_AND_SWAP_INT_METHOD.invoke(
+                unsafe, o, offset, expected, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    /**
+     * Invokes {@code Unsafe#comapreAndSwapLong(Object, long, long, long)} with
+     * given arguments.
+     *
+     * @param o
+     * @param offset
+     * @param expected
+     * @param x
+     *
+     * @return
+     */
+    public boolean compareAndSwapLong(final Object o, final long offset,
+                                      final long expected, final long x) {
+
+        try {
+            return (Boolean) COMPARE_AND_SWAP_LONG_METHOD.invoke(
+                unsafe, o, offset, expected, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    /**
+     * Invokes {@code Unsafe#comapreAndSwapObject(Object, long, Object, Object)}
+     * with given arguments.
+     *
+     * @param o
+     * @param offset
+     * @param expected
+     * @param x
+     *
+     * @return
+     */
+    public boolean compareAndSwapObject(final Object o, final long offset,
+                                        final Object expected, final Object x) {
+
+        try {
+            return (Boolean) COMPARE_AND_SWAP_OBJECT_METHOD.invoke(
+                unsafe, o, offset, expected, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    /**
+     * Invokes {@code Unsafe#copyMemory(long, long, long)} with given arguments.
+     *
+     * @param srcAddress
+     * @param destAddress
+     * @param bytes
+     */
+    public void copyMemory(final long srcAddress, final long destAddress,
+                           final long bytes) {
+
+        try {
+            COPY_MEMORY_lll_METHOD.invoke(
+                unsafe, srcAddress, destAddress, bytes);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    /**
+     * Invokes {@code Unsafe#copyMemory(Object, long, Object, long, long)} with
+     * given arguments.
+     *
+     * @param srcBase
+     * @param srcAddress
+     * @param destBase
+     * @param destAddress
+     * @param bytes
+     */
+    public void copyMemory(final Object srcBase, final long srcAddress,
+                           final Object destBase, final long destAddress,
+                           final long bytes) {
+
+        try {
+            COPY_MEMORY_OlOll_METHOD.invoke(
+                unsafe, srcAddress, destAddress, bytes);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public void defineAnonymousClass(final Class<?> hostClass,
+                                     final byte[] data,
+                                     final Object[] cpPatches) {
+
+        try {
+            DEFINE_ANONYMOUS_CLASS_METHOD.invoke(
+                unsafe, hostClass, data, cpPatches);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    @Deprecated
+    Class defineClass(String name, byte[] b, int off, int len) {
+        throw new UnsupportedOperationException("deprecated");
+    }
+
+
+    public Class<?> defineClass(final String name, final byte[] b,
+                                final int off, final int len,
+                                final ClassLoader loader,
+                                final ProtectionDomain protectionDomain) {
+
+        try {
+            return (Class<?>) DEFINE_CLASS_METHOD.invoke(
+                unsafe, name, b, off, len, loader, protectionDomain);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public void ensureClassInitialized(final Class<?> c) {
+
+        try {
+            ENSURE_CLASS_INITIALIZED_METHOD.invoke(unsafe, c);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    // ------------------------------------------------------ fieldOffset(Field)
+    @Deprecated
+    int fieldOffset(Field f) {
+        throw new UnsupportedOperationException("deprecated");
+    }
+
+
+    public void freeMemory(final long address) {
+
+        try {
+            FREE_MEMORY_METHOD.invoke(unsafe, address);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public long getAddress(final long address) {
+
+        try {
+            return (Long) GET_ADDRESS_METHOD.invoke(unsafe, address);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    @Deprecated
+    boolean getBoolean(final Object o, final int offset) {
+
+        throw new UnsupportedOperationException("deprecated");
+    }
+
+
+    public boolean getBoolean(final Object o, final long offset) {
+
+        try {
+            return (Boolean) GET_BOOLEAN_METHOD.invoke(
+                unsafe, o, offset);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public boolean getBooleanVolatile(final Object o, final long offset) {
+
+        try {
+            return (Boolean) GET_BOOLEAN_VOLATILE_METHOD.invoke(
+                unsafe, o, offset);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public byte getByte(final long offset) {
+
+        try {
+            return (Byte) GET_BYTE_l_METHOD.invoke(
+                unsafe, offset);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public byte getByte(final Object object, final long offset) {
+
+        try {
+            return (Byte) GET_BYTE_Ol_METHOD.invoke(
+                unsafe, object, offset);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    @Deprecated
+    byte getByte(final Object object, final int offset) {
+
+        throw new UnsupportedOperationException("deprecated");
+    }
+
+
+    public byte getByteVolatile(final Object object, final long offset) {
+
+        try {
+            return (Byte) GET_BYTE_VOLATILE_METHOD.invoke(
+                unsafe, object, offset);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public char getChar(final long offset) {
+
+        try {
+            return (Character) GET_CHAR_l_METHOD.invoke(unsafe, offset);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    @Deprecated
+    char getChar(final Object object, final int offset) {
+
+        throw new UnsupportedOperationException("deprecated");
+    }
+
+
+    public char getChar(final Object object, final long offset) {
+
+        try {
+            return (Character) GET_CHAR_Ol_METHOD.invoke(
+                unsafe, object, offset);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public char getCharVolatile(final Object object, final long offset) {
+
+        try {
+            return (Character) GET_CHAR_VOLATILE_METHOD.invoke(
+                unsafe, object, offset);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public double getDouble(final long offset) {
+
+        try {
+            return (Double) GET_DOUBLE_l_METHOD.invoke(unsafe, offset);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    @Deprecated
+    double getDouble(final Object object, final int offset) {
+
+        throw new UnsupportedOperationException("deprecated");
+    }
+
+
+    public double getDouble(final Object object, final long offset) {
+
+        try {
+            return (Double) GET_DOUBLE_Ol_METHOD.invoke(
+                unsafe, object, offset);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public double getDoubleVolatile(final Object object, final long offset) {
+
+        try {
+            return (Double) GET_DOUBLE_VOLATILE_METHOD.invoke(
+                unsafe, object, offset);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public float getFloat(final long offset) {
+
+        try {
+            return (Float) GET_FLOAT_l_METHOD.invoke(unsafe, offset);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    @Deprecated
+    float getFloat(final Object object, final int offset) {
+
+        throw new UnsupportedOperationException("deprecated");
+    }
+
+
+    public float getFloat(final Object object, final long offset) {
+
+        try {
+            return (Float) GET_FLOAT_Ol_METHOD.invoke(unsafe, object, offset);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public float getFloatVolatile(final Object object, final long offset) {
+
+        try {
+            return (Float) GET_FLOAT_VOLATILE_METHOD.invoke(
+                unsafe, object, offset);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public int getInt(final long offset) {
+
+        try {
+            return (Integer) GET_INT_l_METHOD.invoke(unsafe, offset);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    @Deprecated
+    int getInt(final Object object, final int offset) {
+
+        throw new UnsupportedOperationException("deprecated");
+    }
+
+
+    public int getInt(final Object object, final long offset) {
+
+        try {
+            return (Integer) GET_INT_Ol_METHOD.invoke(unsafe, object, offset);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public int getIntVolatile(final Object object, final long offset) {
+
+        try {
+            return (Integer) GET_INT_VOLATILE_METHOD.invoke(
+                unsafe, object, offset);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public int getLoadAverage(final double[] loadavg, final int nelems) {
+
+        try {
+            return (Integer) GET_LOAD_AVERAGE_METHOD.invoke(
+                unsafe, loadavg, nelems);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public long getLong(final long offset) {
+
+        try {
+            return (Long) GET_LONG_l_METHOD.invoke(unsafe, offset);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    @Deprecated
+    long getLong(final Object object, final int offset) {
+
+        throw new UnsupportedOperationException("deprecated");
+    }
+
+
+    public long getLong(final Object object, final long offset) {
+
+        try {
+            return (Long) GET_LONG_Ol_METHOD.invoke(unsafe, object, offset);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public long getLongVolatile(final Object object, final long offset) {
+
+        try {
+            return (Long) GET_LONG_VOLATILE_METHOD.invoke(
+                unsafe, object, offset);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public Object getObject(final Object object, final long offset) {
+
+        try {
+            return GET_OBJECT_Ol_METHOD.invoke(unsafe, object, offset);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    @Deprecated
+    Object getObject(final Object object, final int offset) {
+
+        throw new UnsupportedOperationException("deprecated");
+    }
+
+
+    public Object getObjectVolatile(final Object object, final long offset) {
+
+        try {
+            return GET_OBJECT_VOLATILE_METHOD.invoke(unsafe, object, offset);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public short getShort(final long offset) {
+
+        try {
+            return (Short) GET_SHORT_l_METHOD.invoke(unsafe, offset);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    @Deprecated
+    short getShort(final Object object, final int offset) {
+
+        throw new UnsupportedOperationException("deprecated");
+    }
+
+
+    public short getShort(final Object object, final long offset) {
+
+        try {
+            return (Short) GET_SHORT_Ol_METHOD.invoke(unsafe, object, offset);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public short getShortVolatile(final Object object, final long offset) {
+
+        try {
+            return (Short) GET_SHORT_VOLATILE_METHOD.invoke(
+                unsafe, object, offset);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public short monitorEnter(final Object o) {
+
+        try {
+            return (Short) MONITOR_ENTER_METHOD.invoke(unsafe, o);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public short monitorExit(final Object o) {
+
+        try {
+            return (Short) MONITOR_EXIT_METHOD.invoke(unsafe, o);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public long objectFieldOffset(final Field field) {
+
+        try {
+            return (Long) OBJECT_FIELD_OFFSET_METHOD.invoke(unsafe, field);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public int pageSize() {
+
+        try {
+            return (Integer) PAGE_SIZE_METHOD.invoke(unsafe);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public void park(final boolean isAbsolute, final long time) {
+
+        try {
+            PARK_METHOD.invoke(unsafe, isAbsolute, time);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public void putAddress(final long address, final long time) {
+
+        try {
+            PUT_ADDRESS_METHOD.invoke(unsafe, address, time);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    @Deprecated
+    void putBoolean(final Object object, final int offset, final boolean x) {
+
+        throw new UnsupportedOperationException("deprecated");
+    }
+
+
+    public void putBoolean(final Object object, final long offset,
+                           final boolean x) {
+
+        try {
+            PUT_BOOLEAN_Olb_METHOD.invoke(unsafe, object, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public void putBooleanVolatile(final Object object, final long offset,
+                                   final boolean x) {
+
+        try {
+            PUT_BOOLEAN_VOLATILE_METHOD.invoke(unsafe, object, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public void putByte(final long offset, final byte x) {
+
+        try {
+            PUT_BYTE_lb_METHOD.invoke(unsafe, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    @Deprecated
+    void putByte(final Object object, final int offset, final byte x) {
+
+        throw new UnsupportedOperationException("deprecated");
+    }
+
+
+    public void putByte(final Object object, final long offset, final byte x) {
+
+        try {
+            PUT_BYTE_Olb_METHOD.invoke(unsafe, object, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public void putByteVolatile(final Object object, final long offset,
+                                final byte x) {
+
+        try {
+            PUT_BYTE_VOLATILE_METHOD.invoke(unsafe, object, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public void putChar(final long offset, final char x) {
+
+        try {
+            PUT_CHAR_lb_METHOD.invoke(unsafe, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    @Deprecated
+    void putChar(final Object object, final int offset, final char x) {
+
+        throw new UnsupportedOperationException("deprecated");
+    }
+
+
+    public void putChar(final Object object, final long offset, final char x) {
+
+        try {
+            PUT_CHAR_Olb_METHOD.invoke(unsafe, object, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public void putCharVolatile(final Object object, final long offset,
+                                final char x) {
+
+        try {
+            PUT_CHAR_VOLATILE_METHOD.invoke(unsafe, object, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public void putDouble(final long offset, final double x) {
+
+        try {
+            PUT_DOUBLE_lb_METHOD.invoke(unsafe, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    @Deprecated
+    void putDouble(final Object object, final int offset, final double x) {
+
+        throw new UnsupportedOperationException("deprecated");
+    }
+
+
+    public void putDouble(final Object object, final long offset,
+                          final double x) {
+
+        try {
+            PUT_DOUBLE_Olb_METHOD.invoke(unsafe, object, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public void putDoubleVolatile(final Object object, final long offset,
+                                  final double x) {
+
+        try {
+            PUT_DOUBLE_VOLATILE_METHOD.invoke(unsafe, object, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public void putFloat(final long offset, final float x) {
+
+        try {
+            PUT_FLOAT_lb_METHOD.invoke(unsafe, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    @Deprecated
+    void putFloat(final Object object, final int offset, final float x) {
+
+        throw new UnsupportedOperationException("deprecated");
+    }
+
+
+    public void putFloat(final Object object, final long offset,
+                         final float x) {
+
+        try {
+            PUT_FLOAT_Olb_METHOD.invoke(unsafe, object, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public void putFloatVolatile(final Object object, final long offset,
+                                 final float x) {
+
+        try {
+            PUT_FLOAT_VOLATILE_METHOD.invoke(unsafe, object, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public void putInt(final long offset, final int x) {
+
+        try {
+            PUT_INT_lb_METHOD.invoke(unsafe, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    @Deprecated
+    void putInt(final Object object, final int offset, final int x) {
+
+        throw new UnsupportedOperationException("deprecatd");
+    }
+
+
+    public void putInt(final Object object, final long offset, final int x) {
+
+        try {
+            PUT_INT_Olb_METHOD.invoke(unsafe, object, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public void putIntVolatile(final Object object, final long offset,
+                               final int x) {
+
+        try {
+            PUT_INT_VOLATILE_METHOD.invoke(unsafe, object, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public void putLong(final long offset, final long x) {
+
+        try {
+            PUT_LONG_lb_METHOD.invoke(unsafe, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    @Deprecated
+    void putLong(final Object object, final int offset, final long x) {
+
+        throw new UnsupportedOperationException("deprecated");
+    }
+
+
+    public void putLong(final Object object, final long offset, final long x) {
+
+        try {
+            PUT_LONG_Olb_METHOD.invoke(unsafe, object, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public void putLongVolatile(final Object object, final long offset,
+                                final long x) {
+
+        try {
+            PUT_LONG_VOLATILE_METHOD.invoke(unsafe, object, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    @Deprecated
+    void putObject(final Object object, final int offset, final Object x) {
+
+        throw new UnsupportedOperationException("deprecated");
+    }
+
+
+    public void putObject(final Object object, final long offset,
+                          final Object x) {
+
+        try {
+            PUT_OBJECT_Olb_METHOD.invoke(unsafe, object, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public void putObjectVolatile(final Object object, final long offset,
+                                  final Object x) {
+
+        try {
+            PUT_OBJECT_VOLATILE_METHOD.invoke(unsafe, object, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public void putOrderedInt(final Object object, final long offset,
+                              final int x) {
+
+        try {
+            PUT_ORDERED_INT_METHOD.invoke(unsafe, object, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public void putOrderedLong(final Object object, final long offset,
+                               final long x) {
+
+        try {
+            PUT_ORDERED_LONG_METHOD.invoke(unsafe, object, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public void putOrderedObject(final Object object, final long offset,
+                                 final Object x) {
+
+        try {
+            PUT_ORDERED_OBJECT_METHOD.invoke(unsafe, object, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public void putShort(final long offset, final short x) {
+
+        try {
+            PUT_SHORT_lb_METHOD.invoke(unsafe, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    @Deprecated
+    void putShort(final Object object, final int offset, final short x) {
+
+        throw new UnsupportedOperationException("deprecated");
+    }
+
+
+    public void putShort(final Object object, final long offset,
+                         final short x) {
+
+        try {
+            PUT_SHORT_Olb_METHOD.invoke(unsafe, object, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public void putShortVolatile(final Object object, final long offset,
+                                 final short x) {
+
+        try {
+            PUT_SHORT_VOLATILE_METHOD.invoke(unsafe, object, offset, x);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public long reallocateMemory(final long address, final long bytes) {
+
+        try {
+            return (Long) REALLOCATE_MEMORY_METHOD.invoke(
+                unsafe, address, bytes);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public void setMemory(final long address, final long bytes,
+                          final byte value) {
+
+        try {
+            SET_MEMORY_llb_METHOD.invoke(unsafe, address, bytes, value);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public void setMemory(final Object o, final long address, final long bytes,
+                          final byte value) {
+
+        try {
+            SET_MEMORY_Ollb_METHOD.invoke(unsafe, o, address, bytes, value);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public void shouldBeInitialized(final Class<?> c) {
+
+        try {
+            SHOULD_BE_INITIALIZED_METHOD.invoke(unsafe, c);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public Object staticFieldBase(final Field field) {
+
+        try {
+            return STATIC_FIELD_BASE_METHOD.invoke(unsafe, field);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    @Deprecated
+    Object staticFieldBase(final Class c) {
+
+        throw new UnsupportedOperationException("deprecated");
+    }
+
+
+    public long staticFieldOffset(final Field field) {
+
+        try {
+            return (Long) STATIC_FIELD_OFFSET_METHOD.invoke(unsafe, field);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public long throwException(final Throwable ee) {
+
+        try {
+            return (Long) THROW_EXCEPTION_METHOD.invoke(unsafe, ee);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public long tryMonitorEnter(final Object o) {
+
+        try {
+            return (Long) TRY_MONITOR_ENTER_METHOD.invoke(unsafe, o);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    public long unpark(final Object thread) {
+
+        try {
+            return (Long) UNPARK_METHOD.invoke(unsafe, thread);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
+        }
+    }
+
+
+    private final Object unsafe;
 
 
 }
