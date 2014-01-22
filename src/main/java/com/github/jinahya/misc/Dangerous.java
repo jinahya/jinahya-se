@@ -18,10 +18,10 @@
 package com.github.jinahya.misc;
 
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.security.ProtectionDomain;
 
 
@@ -47,29 +47,49 @@ public final class Dangerous {
             throw new InstantiationError(cnfe.getMessage());
         }
 
-        final Field f;
+        final Constructor<?> constructor;
         try {
-            f = UNSAFE_CLASS.getDeclaredField("theUnsafe");
-        } catch (final NoSuchFieldException nsfe) {
-            throw new InstantiationError(nsfe.getMessage());
+            constructor = UNSAFE_CLASS.getDeclaredConstructor();
+            if (!constructor.isAccessible()) {
+                constructor.setAccessible(true);
+            }
+        } catch (final NoSuchMethodException nsme) {
+            throw new InstantiationError(nsme.getMessage());
         }
 
-        if (!f.isAccessible()) {
-            f.setAccessible(true);
-        }
-
         try {
-            UNSAFE_INSTANCE = f.get(null);
+            UNSAFE_INSTANCE = constructor.newInstance();
+        } catch (final InstantiationException ie) {
+            throw new RuntimeException(ie);
         } catch (final IllegalAccessException iae) {
-            throw new InstantiationError(iae.getMessage());
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            throw new RuntimeException(ite);
         }
+
+//        final Field f;
+//        try {
+//            f = UNSAFE_CLASS.getDeclaredField("theUnsafe");
+//        } catch (final NoSuchFieldException nsfe) {
+//            throw new InstantiationError(nsfe.getMessage());
+//        }
+//
+//        if (!f.isAccessible()) {
+//            f.setAccessible(true);
+//        }
+//
+//        try {
+//            UNSAFE_INSTANCE = f.get(null);
+//        } catch (final IllegalAccessException iae) {
+//            throw new InstantiationError(iae.getMessage());
+//        }
     }
 
 
-    public static Object getUnsafeInstance() {
-
-        return UNSAFE_INSTANCE;
-    }
+//    public static Object getUnsafeInstance() {
+//
+//        return UNSAFE_INSTANCE;
+//    }
 
 
     // ------------------------------------------------------------- addressSize
@@ -454,7 +474,7 @@ public final class Dangerous {
 
     // ----------------------------------- defineClass(String, byte[], int, int)
     @Deprecated
-static    Class defineClass(String name, byte[] b, int off, int len) {
+    static Class defineClass(String name, byte[] b, int off, int len) {
         throw new UnsupportedOperationException("deprecated");
     }
 
@@ -519,7 +539,7 @@ static    Class defineClass(String name, byte[] b, int off, int len) {
 
     // ------------------------------------------------------ fieldOffset(Field)
     @Deprecated
-static    int fieldOffset(Field f) {
+    static int fieldOffset(Field f) {
         throw new UnsupportedOperationException("deprecated");
     }
 
@@ -2660,7 +2680,6 @@ static    int fieldOffset(Field f) {
 //        }
 //    }
 //
-
     /**
      * Creates a new instance.
      */

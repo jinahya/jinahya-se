@@ -35,15 +35,20 @@ public final class Classes {
      *
      * @return casted {@code is} if castable and not {@code null}
      *
-     * @throws NullPointerException if {@code of} is {@code null}
+     * @throws NullPointerException if either {@code is} or {@code of} is
+     * {@code null}
      *
-     * @throws IllegalArgumentException if {@code is} is {@code null} or is not
-     * an instance of {@code of}
+     * @throws IllegalArgumentException if {@code is} is not an instance of
+     * {@code of}.
      *
      * @see Class#isInstance(java.lang.Object)
      * @see Class#cast(java.lang.Object)
      */
     public static <T> T requireInstanceOf(final Object is, final Class<T> of) {
+
+        if (is == null) {
+            throw new NullPointerException("null is");
+        }
 
         if (of == null) {
             throw new NullPointerException("null of");
@@ -62,33 +67,36 @@ public final class Classes {
      * Checks that the source class is assignable to the target class.
      *
      * @param <T> the class type parameter
-     * @param from the source class to check for assignability to the target
+     * @param is the source class to check for assignability to the target
      * class.
      * @param to the target class to check for assignability from the source
      * class.
      *
-     * @return {@code from} as a subclass of {@code to} if assignable
+     * @return {@code is} as a subclass of {@code to} if assignable
+     *
+     * @throws IllegalArgumentException if {@code is} is not assignable to
+     * {@code to}.
      *
      * @see Class#isAssignableFrom(java.lang.Class)
      * @see Class#asSubclass(java.lang.Class)
      */
     public static <T> Class<? extends T> requireAssignableTo(
-        final Class<?> from, final Class<T> to) {
+        final Class<?> is, final Class<T> to) {
 
-        if (from == null) {
-            throw new NullPointerException("null from");
+        if (is == null) {
+            throw new NullPointerException("null is");
         }
 
         if (to == null) {
             throw new NullPointerException("null to");
         }
 
-        if (!to.isAssignableFrom(from)) {
+        if (!to.isAssignableFrom(is)) {
             throw new IllegalArgumentException(
-                from + " is not assignable to " + to);
+                is + " is not assignable to " + to);
         }
 
-        return from.asSubclass(to);
+        return is.asSubclass(to);
     }
 
 

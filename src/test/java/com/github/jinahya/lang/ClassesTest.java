@@ -18,7 +18,7 @@
 package com.github.jinahya.lang;
 
 
-import junit.framework.Assert;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 
@@ -29,102 +29,78 @@ import org.testng.annotations.Test;
 public class ClassesTest {
 
 
+    @Test(expectedExceptions = {NullPointerException.class})
+    public static void requireIntanceOf_nullIs() {
+
+        Classes.requireInstanceOf(null, Object.class);
+    }
+
+
+    @Test(expectedExceptions = {NullPointerException.class})
+    public static void requireIntanceOf_nullOf() {
+
+        Classes.requireInstanceOf(new Object(), null);
+    }
+
+
     @Test
     public static void requireIntanceOf_() {
 
-        // String is an instance of Object.class
-        {
-            final Object is = "";
-            final Class<?> of = Object.class;
-            final Object casted = Classes.requireInstanceOf(is, of);
+        // a String is an instance of Object.class
+        Classes.requireInstanceOf("", Object.class);
 
-        }
+        // a String is an instance of String.class
+        Classes.requireInstanceOf("", String.class);
 
-        // String is an instance of String.class
-        {
-            final String is = "";
-            final Class<String> of = String.class;
-            final String casted = Classes.requireInstanceOf(is, of);
-        }
+        // an Integer is an instance of Object.class
+        Classes.requireInstanceOf(new Integer(0), Object.class);
 
-        // Integer is an instance of Number.class
-        {
-            final Integer is = new Integer(0);
-            final Class<Number> of = Number.class;
-            final Number casted = Classes.requireInstanceOf(is, of);
-        }
+        // an Integer is an instance of Number.class
+        Classes.requireInstanceOf(new Integer(0), Number.class);
 
         // an Object is not an instance of String.class
-        {
-            try {
-                Classes.requireInstanceOf(new Object(), String.class);
-                Assert.fail("passed: requireInstanceOf(Object, String.class)");
-            } catch (final IllegalArgumentException iae) {
-                // expected;
-            }
+        try {
+            Classes.requireInstanceOf(new Object(), String.class);
+            Assert.fail("passed: requireInstanceOf(Object, String.class)");
+        } catch (final IllegalArgumentException iae) {
+            // expected;
         }
+    }
 
-        // null is not an instance of Object.class
-        {
-            try {
-                Classes.requireInstanceOf(null, Object.class);
-                Assert.fail("passed: requireInstanceOf(null, Object.class)");
-            } catch (final IllegalArgumentException iae) {
-                // expected;
-            }
-        }
+
+    @Test(expectedExceptions = {NullPointerException.class})
+    public static void requireAssignableTo_nullIs() {
+
+        Classes.requireAssignableTo(null, Object.class);
+    }
+
+
+    @Test(expectedExceptions = {NullPointerException.class})
+    public static void requireAssignableTo_nullTo() {
+
+        Classes.requireAssignableTo(Object.class, null);
     }
 
 
     @Test
     public static void requireAssignableTo_() {
 
-        // String.class is assignable to Object.class
-        {
-            final Class<String> from = String.class;
-            final Class<Object> to = Object.class;
-            final Class<? extends Object> casted
-                = Classes.requireAssignableTo(from, to);
+        // Object.class is assignable to Object.class
+        Classes.requireAssignableTo(Object.class, Object.class);
 
-        }
+        // String.class is assignable to Object.class
+        Classes.requireAssignableTo(String.class, Object.class);
 
         // Integer.class is assignable to Number.class
-        {
-            final Class<Integer> from = Integer.class;
-            final Class<Number> of = Number.class;
-            final Class<? extends Number> casted
-                = Classes.requireAssignableTo(from, of);
-        }
+        Classes.requireAssignableTo(Integer.class, Number.class);
 
         // Object.class is not assignble to String.class
-        {
-            final Class<Object> from = Object.class;
-            final Class<String> to = String.class;
-            try {
-                Classes.requireAssignableTo(from, to);
-                Assert.fail(
-                    "passed: requireAssignableTo(Object.class, String.class)");
-            } catch (final IllegalArgumentException aie) {
-                // expected;
-            }
-        }
-
-        {
-            try {
-                Classes.requireAssignableTo(null, Object.class);
-                Assert.fail("passed: requireAssignableTo(null, Object.class)");
-            } catch (final NullPointerException npe) {
-                // expected;
-            }
-        }
-
-        {
-            try {
-                Classes.requireAssignableTo(String.class, null);
-                Assert.fail("passed: requireAssignableTo(String.class, null)");
-            } catch (final NullPointerException npe) {
-                // expected;
-            }
+        try {
+            Classes.requireAssignableTo(Object.class, String.class);
+            Assert.fail(
+                "passed: requireAssignableTo(Object.class, String.class)");
+        } catch (final IllegalArgumentException aie) {
+            // expected;
         }
     }
 
