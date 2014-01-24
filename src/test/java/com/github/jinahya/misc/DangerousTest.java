@@ -21,7 +21,6 @@ package com.github.jinahya.misc;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.text.Format;
 import java.util.concurrent.ThreadLocalRandom;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -88,7 +87,16 @@ public class DangerousTest {
     private static class MyObject {
 
 
+        private static boolean staticBoolean;
+
+
+        private static volatile boolean staticBooleanVolatile;
+
+
         private static byte staticByte;
+
+
+        private static volatile boolean staticByteVolatile;
 
 
         private static short staticShort;
@@ -109,16 +117,25 @@ public class DangerousTest {
         private static Object staticObject;
 
 
-        private byte objectByte;
+        private boolean objectBoolean;
+
+
+        private volatile boolean objectBooleanVolatile;
+
+
+        private byte instanceByte;
+
+
+        private volatile byte instanceByteVolatile;
 
 
         private short objectShort;
 
 
-        private int objectInt;
+        private int instanceInt;
 
 
-        private long objectLong;
+        private long instanceLong;
 
 
         private float objectFloat;
@@ -173,7 +190,7 @@ public class DangerousTest {
         final Dangerous dangerous = Dangerous.newInstance();
 
         final Object instance = dangerous.allocateInstance(MyObject.class);
-        logger.debug("instance: {}", instance);
+
         Assert.assertNotNull(instance);
     }
 
@@ -185,7 +202,7 @@ public class DangerousTest {
 
         final MyObject instance
             = dangerous.allocateInstanceGeneric(MyObject.class);
-        logger.debug("instance: {}", instance);
+
         Assert.assertNotNull(instance);
     }
 
@@ -199,7 +216,10 @@ public class DangerousTest {
 
         final long size = random().nextLong(1L, 1048576L + 1L);
         final long address = dangerous.allocateMemory(size);
-        dangerous.freeMemory(address);
+        try {
+        } finally {
+            dangerous.freeMemory(address);
+        }
     }
 
 
@@ -208,10 +228,10 @@ public class DangerousTest {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
-        logger.debug("arrayBaseOffset(Object[].class): {}",
+        logger.trace("arrayBaseOffset(Object[].class): {}",
                      dangerous.arrayBaseOffset(Object[].class));
 
-        logger.debug("arrayBaseOffset(String[].class): {}",
+        logger.trace("arrayBaseOffset(String[].class): {}",
                      dangerous.arrayBaseOffset(String[].class));
     }
 
@@ -221,83 +241,121 @@ public class DangerousTest {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
-        logger.debug("arrayIndexScale(Object[].class): {}",
+        logger.trace("arrayIndexScale(Object[].class): {}",
                      dangerous.arrayIndexScale(Object[].class));
 
-        logger.debug("arrayIndexScale(String[].class): {}",
+        logger.trace("arrayIndexScale(String[].class): {}",
                      dangerous.arrayIndexScale(String[].class));
     }
 
 
     @Test
-    public void compareAndSwapInt_()
-        throws NoSuchFieldException, IllegalAccessException {
+    public void staticCompareAndSwapInt_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
-        if (false) {
-            final Field field = MyObject.class.getDeclaredField("staticInt");
-            field.setAccessible(true);
+        final Field field = MyObject.class.getDeclaredField("staticInt");
 
-            final long offset = dangerous.staticFieldOffset(field);
+        dangerous.staticCompareAndSwapInt(field, 0, 0);
+    }
 
-            final Object o = null;
 
-            Assert.assertEquals(field.getInt(o), 0);
-            Assert.assertTrue(dangerous.compareAndSwapInt(o, offset, 0, 1));
-            Assert.assertEquals(field.getInt(o), 1);
-            Assert.assertFalse(dangerous.compareAndSwapInt(o, offset, 0, 1));
-        }
+    @Test(expectedExceptions = {NullPointerException.class})
+    public void staticCompareAndSwapInt_nullField()
+        throws NoSuchFieldException {
 
-        {
-            final Field field = MyObject.class.getDeclaredField("objectInt");
-            field.setAccessible(true);
+        Dangerous.newInstance().staticCompareAndSwapInt(null, 0, 0);
+    }
 
-            final long offset = dangerous.objectFieldOffset(field);
 
-            final Object o = new MyObject();
+    @Test(expectedExceptions = {IllegalArgumentException.class})
+    public void staticCompareAndSwapInt_instanceField()
+        throws NoSuchFieldException {
 
-            Assert.assertEquals(field.getInt(o), 0);
-            Assert.assertTrue(dangerous.compareAndSwapInt(o, offset, 0, 1));
-            Assert.assertEquals(field.getInt(o), 1);
-            Assert.assertFalse(dangerous.compareAndSwapInt(o, offset, 0, 1));
-        }
+        Dangerous.newInstance().staticCompareAndSwapInt(
+            MyObject.class.getDeclaredField("instanceInt"), 0, 0);
     }
 
 
     @Test
-    public void compareAndSwapLong_()
-        throws NoSuchFieldException, IllegalAccessException {
+    public void instanceCompareAndSwapInt_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
-        if (false) {
-            final Field field = MyObject.class.getDeclaredField("staticLong");
-            field.setAccessible(true);
+        final Field field = MyObject.class.getDeclaredField("instanceInt");
 
-            final long offset = dangerous.staticFieldOffset(field);
+        dangerous.instanceCompareAndSwapInt(new MyObject(), field, 0, 0);
+    }
 
-            final Object o = null;
 
-            Assert.assertEquals(field.getLong(o), 0L);
-            Assert.assertTrue(dangerous.compareAndSwapLong(o, offset, 0L, 1L));
-            Assert.assertEquals(field.getLong(o), 1L);
-            Assert.assertFalse(dangerous.compareAndSwapLong(o, offset, 0L, 1L));
-        }
+    @Test(expectedExceptions = {NullPointerException.class})
+    public void instanceCompareAndSwapInt_nullField() {
 
-        {
-            final Field field = MyObject.class.getDeclaredField("objectLong");
-            field.setAccessible(true);
+        Dangerous.newInstance().instanceCompareAndSwapInt(null, null, 0, 0);
+    }
 
-            final long offset = dangerous.objectFieldOffset(field);
 
-            final Object o = new MyObject();
+    @Test(expectedExceptions = {IllegalArgumentException.class})
+    public void instanceCompareAndSwapInt_staticField()
+        throws NoSuchFieldException {
 
-            Assert.assertEquals(field.getLong(o), 0L);
-            Assert.assertTrue(dangerous.compareAndSwapLong(o, offset, 0L, 1L));
-            Assert.assertEquals(field.getLong(o), 1L);
-            Assert.assertFalse(dangerous.compareAndSwapLong(o, offset, 0L, 1L));
-        }
+        Dangerous.newInstance().instanceCompareAndSwapInt(
+            null, MyObject.class.getDeclaredField("staticInt"), 0, 0);
+    }
+
+
+    @Test
+    public void staticCompareAndSwapLong_() throws NoSuchFieldException {
+
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final Field field = MyObject.class.getDeclaredField("staticLong");
+
+        dangerous.staticCompareAndSwapLong(field, 0L, 0L);
+    }
+
+
+    @Test(expectedExceptions = {NullPointerException.class})
+    public void staticCompareAndSwapLong_nullField()
+        throws NoSuchFieldException {
+
+        Dangerous.newInstance().staticCompareAndSwapInt(null, 0, 0);
+    }
+
+
+    @Test(expectedExceptions = {IllegalArgumentException.class})
+    public void staticCompareAndSwapLong_instanceField()
+        throws NoSuchFieldException {
+
+        Dangerous.newInstance().staticCompareAndSwapInt(
+            MyObject.class.getDeclaredField("instanceLong"), 0, 0);
+    }
+
+
+    @Test
+    public void instanceCompareAndSwapLong_() throws NoSuchFieldException {
+
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final Field field = MyObject.class.getDeclaredField("instanceLong");
+
+        dangerous.instanceCompareAndSwapLong(new MyObject(), field, 0L, 0L);
+    }
+
+
+    @Test(expectedExceptions = {NullPointerException.class})
+    public void instanceCompareAndSwapLong_nullField() {
+
+        Dangerous.newInstance().instanceCompareAndSwapInt(null, null, 0, 0);
+    }
+
+
+    @Test(expectedExceptions = {IllegalArgumentException.class})
+    public void instanceCompareAndSwapLong_staticField()
+        throws NoSuchFieldException {
+
+        Dangerous.newInstance().instanceCompareAndSwapInt(
+            null, MyObject.class.getDeclaredField("staticLong"), 0, 0);
     }
 
 
@@ -346,7 +404,7 @@ public class DangerousTest {
 
 
     @Test
-    public void copyMemory_() {
+    public void copyMemory_address() {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
@@ -359,8 +417,8 @@ public class DangerousTest {
     }
 
 
-    @Test(enabled = true, invocationCount = 1024)
-    public void copyMemory_int() {
+    @Test(enabled = true, invocationCount = 1)
+    public void copyMemory_address_int() {
 
         final int intSizeInBytes = Integer.SIZE / 8;
 
@@ -408,8 +466,8 @@ public class DangerousTest {
     }
 
 
-    @Test(enabled = true, invocationCount = 1024)
-    public void copyMemory_long() {
+    @Test(enabled = true, invocationCount = 1)
+    public void copyMemory_address_long() {
 
         final int longSizeInBytes = Long.SIZE / 8;
 
@@ -457,8 +515,182 @@ public class DangerousTest {
     }
 
 
+    @Test(enabled = false)
+    public void copyMemory_object_() {
+
+        // @todo implement this
+    }
+
+
+    @Test(enabled = false)
+    public void defineAnonymousClass_() {
+
+        // @todo implement this
+    }
+
+
+    @Test(enabled = false)
+    public void defineClass_() {
+
+        // @todo implement this
+    }
+
+
+    @Test(enabled = false)
+    public void ensureClassInitialized_() {
+    }
+
+
     @Test(enabled = true)
-    public void getByte_memory() {
+    public void freeMemory_() {
+
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        dangerous.freeMemory(0);
+    }
+
+
+    @Test
+    public void getAddress_() {
+
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final long address = dangerous.allocateMemory(1);
+        logger.info("address: {}", address);
+
+        final long pointer = dangerous.getAddress(address);
+        logger.info("pointer: {}", pointer);
+    }
+
+
+    @Test
+    public void getBoolean_() throws NoSuchFieldException {
+
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        if (true) {
+            final Field field = MyObject.class.getDeclaredField("staticBoolean");
+            final long offset = dangerous.staticFieldOffset(field);
+            final Object o = dangerous.staticFieldBase(field);
+            Assert.assertFalse(dangerous.getBoolean(o, offset));
+        }
+
+        if (true) {
+            final Field field
+                = MyObject.class.getDeclaredField("objectBoolean");
+            final long offset = dangerous.objectFieldOffset(field);
+            final Object o = new MyObject();
+            Assert.assertFalse(dangerous.getBoolean(o, offset));
+        }
+    }
+
+
+    @Test
+    public void getStaticBoolean_() throws NoSuchFieldException {
+
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final Field field = MyObject.class.getDeclaredField("staticBoolean");
+
+        Assert.assertFalse(dangerous.getStaticBoolean(field));
+    }
+
+
+    public void getInstanceBoolean_() throws NoSuchFieldException {
+
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final Field field = MyObject.class.getDeclaredField("staticBoolean");
+
+        Assert.assertFalse(dangerous.getInstanceBoolean(field, new MyObject()));
+    }
+
+
+    @Test
+    public void getBooleanVolatile_() throws NoSuchFieldException {
+
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        if (true) {
+            final Field field
+                = MyObject.class.getDeclaredField("staticBooleanVolatile");
+            final long offset = dangerous.staticFieldOffset(field);
+            final Object o = dangerous.staticFieldBase(field);
+            Assert.assertFalse(dangerous.getBoolean(o, offset));
+        }
+
+        if (true) {
+            final Field field
+                = MyObject.class.getDeclaredField("objectBooleanVolatile");
+            final long offset = dangerous.objectFieldOffset(field);
+            final Object o = new MyObject();
+            Assert.assertFalse(dangerous.getBoolean(o, offset));
+        }
+    }
+
+
+    @Test
+    public void getStaticBooleanVolatile_() throws NoSuchFieldException {
+
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final Field field
+            = MyObject.class.getDeclaredField("staticBooleanVolatile");
+
+        Assert.assertFalse(dangerous.getStaticBooleanVolatile(field));
+    }
+
+
+    @Test(expectedExceptions = {IllegalArgumentException.class})
+    public void getStaticBooleanVolatile_instanceField()
+        throws NoSuchFieldException {
+
+        Dangerous.newInstance().getStaticBooleanVolatile(
+            MyObject.class.getDeclaredField("objectBooleanVolatile"));
+    }
+
+
+    @Test(expectedExceptions = {IllegalArgumentException.class})
+    public void getStaticBooleanVolatile_nonVolatileField()
+        throws NoSuchFieldException {
+
+        Dangerous.newInstance().getStaticBooleanVolatile(
+            MyObject.class.getDeclaredField("staticBoolean"));
+    }
+
+
+    public void getInstanceBooleanVolatile_() throws NoSuchFieldException {
+
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final Field field
+            = MyObject.class.getDeclaredField("staticBooleanVolatile");
+
+        Assert.assertFalse(dangerous.getInstanceBooleanVolatile(
+            field, new MyObject()));
+    }
+
+
+    @Test(expectedExceptions = {IllegalArgumentException.class})
+    public void getInstanceBooleanVolatile_staticField()
+        throws NoSuchFieldException {
+
+        Dangerous.newInstance().getInstanceBooleanVolatile(
+            MyObject.class.getDeclaredField("staticBooleanVolatile"), null);
+    }
+
+
+    @Test(expectedExceptions = {IllegalArgumentException.class})
+    public void getInstanceBooleanVolatile_nonVolatileField()
+        throws NoSuchFieldException {
+
+        Dangerous.newInstance().getInstanceBooleanVolatile(
+            MyObject.class.getDeclaredField("objectBoolean"), null);
+    }
+
+
+    @Test(enabled = true)
+    public void getByte_() {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
@@ -468,6 +700,101 @@ public class DangerousTest {
         } finally {
             dangerous.freeMemory(address);
         }
+    }
+
+
+    @Test
+    public void getStaticByte_() throws NoSuchFieldException {
+
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final Field field = MyObject.class.getDeclaredField("staticByte");
+
+        final byte value = dangerous.getStaticByte(field);
+    }
+
+
+    @Test(expectedExceptions = {IllegalArgumentException.class})
+    public void getStaticByte_instanceField() throws NoSuchFieldException {
+
+        Dangerous.newInstance().getStaticByte(
+            MyObject.class.getDeclaredField("instanceByte"));
+    }
+
+
+    @Test
+    public void getInstanceByte_() throws NoSuchFieldException {
+
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final Field field = MyObject.class.getDeclaredField("instanceByte");
+        final Object base = new MyObject();
+
+        final byte value = dangerous.getInstanceByte(field, base);
+    }
+
+
+    @Test(expectedExceptions = {IllegalArgumentException.class})
+    public void getInstanceByte_staticField() throws NoSuchFieldException {
+
+        Dangerous.newInstance().getInstanceByte(
+            MyObject.class.getDeclaredField("staticByte"), null);
+    }
+
+
+    @Test
+    public void getStaticByteVolatile_() throws NoSuchFieldException {
+
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final Field field
+            = MyObject.class.getDeclaredField("staticByteVolatile");
+
+        final byte value = dangerous.getStaticByteVolatile(field);
+    }
+
+
+    @Test(expectedExceptions = {IllegalArgumentException.class})
+    public void getStaticByteVolatile_instanceField()
+        throws NoSuchFieldException {
+
+        Dangerous.newInstance().getStaticByteVolatile(
+            MyObject.class.getDeclaredField("instanceByteVolatile"));
+    }
+
+
+    @Test(expectedExceptions = {IllegalArgumentException.class})
+    public void getStaticByteVolatile_nonVolatileField()
+        throws NoSuchFieldException {
+
+        Dangerous.newInstance().getStaticByteVolatile(
+            MyObject.class.getDeclaredField("staticByte"));
+    }
+
+
+    public void getInstanceByteVolatile_() throws NoSuchFieldException {
+
+        Dangerous.newInstance().getInstanceByteVolatile(
+            MyObject.class.getDeclaredField("instanceByteVolatile"),
+            new MyObject());
+    }
+
+
+    @Test(expectedExceptions = {IllegalArgumentException.class})
+    public void getInstanceByteVolatile_staticField()
+        throws NoSuchFieldException {
+
+        Dangerous.newInstance().getInstanceByteVolatile(
+            MyObject.class.getDeclaredField("staticByte"), null);
+    }
+
+
+    @Test(expectedExceptions = {IllegalArgumentException.class})
+    public void getInstanceByteVolatile_nonVolatileField()
+        throws NoSuchFieldException {
+
+        Dangerous.newInstance().getInstanceByteVolatile(
+            MyObject.class.getDeclaredField("instanceByte"), null);
     }
 
 

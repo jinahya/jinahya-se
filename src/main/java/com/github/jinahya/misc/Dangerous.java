@@ -22,6 +22,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.security.ProtectionDomain;
 
 
@@ -1356,6 +1357,23 @@ public final class Dangerous {
     }
 
 
+    private Object invoke(final Method method, final Object object,
+                          final Object... parameters) {
+
+        try {
+            return method.invoke(object, parameters);
+        } catch (final IllegalAccessException iae) {
+            throw new RuntimeException(iae);
+        } catch (final InvocationTargetException ite) {
+            final Throwable cause = ite.getCause();
+            if (RuntimeException.class.isInstance(cause)) {
+                throw (RuntimeException) cause;
+            }
+            throw new RuntimeException(ite);
+        }
+    }
+
+
     /**
      * Invokes {@code Unsafe#addressSize()} and returns result.
      *
@@ -1363,13 +1381,7 @@ public final class Dangerous {
      */
     public int addressSize() {
 
-        try {
-            return (Integer) ADDRESS_SIZE_METHOD.invoke(unsafe);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
+        return (Integer) invoke(ADDRESS_SIZE_METHOD, unsafe);
     }
 
 
@@ -1403,114 +1415,162 @@ public final class Dangerous {
 
     public long allocateMemory(final long bytes) {
 
-        try {
-            return (Long) ALLOCATE_MEMORY_METHOD.invoke(unsafe, bytes);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
+        return (Long) invoke(ALLOCATE_MEMORY_METHOD, unsafe, bytes);
     }
 
 
     public int arrayBaseOffset(final Class<?> arrayClass) {
 
-        try {
-            return (Integer) ARRAY_BASE_OFFSET_METHOD.invoke(
-                unsafe, arrayClass);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
+        return (Integer) invoke(ARRAY_BASE_OFFSET_METHOD, unsafe, arrayClass);
     }
 
 
     public int arrayIndexScale(final Class<?> arrayClass) {
 
-        try {
-            return (Integer) ARRAY_BASE_OFFSET_METHOD.invoke(
-                unsafe, arrayClass);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
+        return (Integer) invoke(ARRAY_INDEX_SCALE_METHOD, unsafe, arrayClass);
     }
 
 
-    /**
-     * Invokes {@code Unsafe#comapreAndSwapInt(Object, long, int, int)} with
-     * given arguments.
-     *
-     * @param o
-     * @param offset
-     * @param expected
-     * @param x
-     *
-     * @return
-     */
     public boolean compareAndSwapInt(final Object o, final long offset,
                                      final int expected, final int x) {
 
-        try {
-            return (Boolean) COMPARE_AND_SWAP_INT_METHOD.invoke(
-                unsafe, o, offset, expected, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
+        return (Boolean) invoke(COMPARE_AND_SWAP_INT_METHOD, unsafe, o, offset,
+                                expected, x);
     }
 
 
     /**
-     * Invokes {@code Unsafe#comapreAndSwapLong(Object, long, long, long)} with
-     * given arguments.
      *
-     * @param o
-     * @param offset
+     * @param field
      * @param expected
      * @param x
      *
      * @return
+     *
+     * @throws NullPointerException if {@code field} is {@code null}
+     * @throws IllegalArgumentException if {@code field} is not a static field.
      */
+    public boolean staticCompareAndSwapInt(final Field field,
+                                           final int expected, final int x) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
+        }
+
+        final int modifiers = field.getModifiers();
+
+        if (!Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("non-static field");
+        }
+
+        return compareAndSwapInt(staticFieldBase(field),
+                                 staticFieldOffset(field), expected, x);
+    }
+
+
+    /**
+     *
+     * @param base
+     * @param field
+     * @param expected
+     * @param x
+     *
+     * @return
+     *
+     * @throws NullPointerException if {@code field} is {@code null}.
+     * @throws IllegalArgumentException if {@code field} is a static field.
+     */
+    public boolean instanceCompareAndSwapInt(final Object base,
+                                             final Field field,
+                                             final int expected, final int x) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
+        }
+
+        final int modifiers = field.getModifiers();
+
+        if (Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("static field");
+        }
+
+        return compareAndSwapInt(base, objectFieldOffset(field), expected, x);
+    }
+
+
     public boolean compareAndSwapLong(final Object o, final long offset,
                                       final long expected, final long x) {
 
-        try {
-            return (Boolean) COMPARE_AND_SWAP_LONG_METHOD.invoke(
-                unsafe, o, offset, expected, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
+        return (Boolean) invoke(COMPARE_AND_SWAP_LONG_METHOD, unsafe, o, offset,
+                                expected, x);
     }
 
 
     /**
-     * Invokes {@code Unsafe#comapreAndSwapObject(Object, long, Object, Object)}
-     * with given arguments.
      *
-     * @param o
-     * @param offset
+     * @param field
      * @param expected
      * @param x
      *
      * @return
+     *
+     * @throws NullPointerException if {@code field} is {@code null}
+     * @throws IllegalArgumentException if {@code field} is not a static field.
      */
+    public boolean staticCompareAndSwapLong(final Field field,
+                                            final long expected, final long x) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
+        }
+
+        final int modifiers = field.getModifiers();
+
+        if (!Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("non-static field");
+        }
+
+        return compareAndSwapLong(staticFieldBase(field),
+                                  staticFieldOffset(field), expected, x);
+    }
+
+
+    /**
+     *
+     * @param base
+     * @param field
+     * @param expected
+     * @param x
+     *
+     * @return
+     *
+     * @throws NullPointerException if {@code field} is {@code null}
+     * @throws IllegalArgumentException if {@code field} is a static field.
+     */
+    public boolean instanceCompareAndSwapLong(final Object base,
+                                              final Field field,
+                                              final long expected,
+                                              final long x) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
+        }
+
+        final int modifiers = field.getModifiers();
+
+        if (Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("static field");
+        }
+
+        return compareAndSwapLong(base, objectFieldOffset(field), expected, x);
+    }
+
+
     public boolean compareAndSwapObject(final Object o, final long offset,
                                         final Object expected, final Object x) {
 
-        try {
-            return (Boolean) COMPARE_AND_SWAP_OBJECT_METHOD.invoke(
-                unsafe, o, offset, expected, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
+        return (Boolean) invoke(COMPARE_AND_SWAP_OBJECT_METHOD, unsafe, o,
+                                offset, expected, x);
     }
 
 
@@ -1524,14 +1584,7 @@ public final class Dangerous {
     public void copyMemory(final long srcAddress, final long destAddress,
                            final long bytes) {
 
-        try {
-            COPY_MEMORY_lll_METHOD.invoke(
-                unsafe, srcAddress, destAddress, bytes);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
+        invoke(COPY_MEMORY_lll_METHOD, unsafe, srcAddress, destAddress, bytes);
     }
 
 
@@ -1549,14 +1602,16 @@ public final class Dangerous {
                            final Object destBase, final long destAddress,
                            final long bytes) {
 
-        try {
-            COPY_MEMORY_OlOll_METHOD.invoke(
-                unsafe, srcAddress, destAddress, bytes);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
+        invoke(COPY_MEMORY_OlOll_METHOD, unsafe, srcAddress, srcAddress,
+               destBase, destAddress, bytes);
+    }
+
+
+    public <T> void copyMemoryGeneric(final T srcBase, final long srcAddress,
+                                      final T destBase, final long destAddress,
+                                      final long bytes) {
+
+        copyMemory(srcBase, srcAddress, destBase, destAddress, bytes);
     }
 
 
@@ -1564,14 +1619,8 @@ public final class Dangerous {
                                      final byte[] data,
                                      final Object[] cpPatches) {
 
-        try {
-            DEFINE_ANONYMOUS_CLASS_METHOD.invoke(
-                unsafe, hostClass, data, cpPatches);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
+        invoke(DEFINE_ANONYMOUS_CLASS_METHOD, unsafe, hostClass, data,
+               cpPatches);
     }
 
 
@@ -1586,26 +1635,14 @@ public final class Dangerous {
                                 final ClassLoader loader,
                                 final ProtectionDomain protectionDomain) {
 
-        try {
-            return (Class<?>) DEFINE_CLASS_METHOD.invoke(
-                unsafe, name, b, off, len, loader, protectionDomain);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
+        return (Class<?>) invoke(DEFINE_CLASS_METHOD, unsafe, name, b, off, len,
+                                 loader, protectionDomain);
     }
 
 
     public void ensureClassInitialized(final Class<?> c) {
 
-        try {
-            ENSURE_CLASS_INITIALIZED_METHOD.invoke(unsafe, c);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
+        invoke(ENSURE_CLASS_INITIALIZED_METHOD, unsafe, c);
     }
 
 
@@ -1616,27 +1653,24 @@ public final class Dangerous {
     }
 
 
+    /**
+     * Disposes of a block of native memory, as obtained from
+     * {@link #allocateMemory} or {@link #reallocateMemory}. The address passed
+     * to this method may be null, in which case no action is taken.
+     *
+     * @param address
+     *
+     * @see #allocateMemory
+     */
     public void freeMemory(final long address) {
 
-        try {
-            FREE_MEMORY_METHOD.invoke(unsafe, address);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
+        invoke(FREE_MEMORY_METHOD, unsafe, address);
     }
 
 
     public long getAddress(final long address) {
 
-        try {
-            return (Long) GET_ADDRESS_METHOD.invoke(unsafe, address);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
+        return (Long) invoke(GET_ADDRESS_METHOD, unsafe, address);
     }
 
 
@@ -1649,53 +1683,169 @@ public final class Dangerous {
 
     public boolean getBoolean(final Object o, final long offset) {
 
-        try {
-            return (Boolean) GET_BOOLEAN_METHOD.invoke(
-                unsafe, o, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
+        return (Boolean) invoke(GET_BOOLEAN_METHOD, unsafe, o, offset);
+    }
+
+
+    public boolean getStaticBoolean(final Field field) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
         }
+
+        final int modifiers = field.getModifiers();
+
+        if (!Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("instance field");
+        }
+
+        return getBoolean(staticFieldBase(field), staticFieldOffset(field));
+    }
+
+
+    public boolean getInstanceBoolean(final Field field, final Object base) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
+        }
+
+        final int modifiers = field.getModifiers();
+
+        if (Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("static field");
+        }
+
+        return getBoolean(base, objectFieldOffset(field));
     }
 
 
     public boolean getBooleanVolatile(final Object o, final long offset) {
 
-        try {
-            return (Boolean) GET_BOOLEAN_VOLATILE_METHOD.invoke(
-                unsafe, o, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
+        return (Boolean) invoke(GET_BOOLEAN_VOLATILE_METHOD, unsafe, o, offset);
+    }
+
+
+    /**
+     * Reads the boolean value from given static field.
+     *
+     * @param field the volatile static boolean field to read.
+     *
+     * @return the boolean value.
+     *
+     * @see #getBooleanVolatile(java.lang.Object, long)
+     */
+    public boolean getStaticBooleanVolatile(final Field field) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
         }
+
+        final int modifiers = field.getModifiers();
+
+        if (!Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("instance field");
+        }
+
+        if (!Modifier.isVolatile(modifiers)) {
+            throw new IllegalArgumentException("non-volatile field");
+        }
+
+        return getBooleanVolatile(staticFieldBase(field),
+                                  staticFieldOffset(field));
+    }
+
+
+    /**
+     * Reads the volatile boolean value from given instance field.
+     *
+     * @param field the volatile boolean field to read.
+     * @param base the base object reference.
+     *
+     * @return the boolean value.
+     *
+     * @see #getBooleanVolatile(java.lang.Object, long)
+     */
+    public boolean getInstanceBooleanVolatile(final Field field,
+                                              final Object base) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
+        }
+
+        final int modifiers = field.getModifiers();
+
+        if (Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("static field");
+        }
+
+        if (!Modifier.isVolatile(modifiers)) {
+            throw new IllegalArgumentException("non-volatile field");
+        }
+
+        return getBooleanVolatile(base, objectFieldOffset(field));
     }
 
 
     public byte getByte(final long offset) {
 
-        try {
-            return (Byte) GET_BYTE_l_METHOD.invoke(
-                unsafe, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
+        return (Byte) invoke(GET_BYTE_l_METHOD, unsafe, offset);
     }
 
 
     public byte getByte(final Object object, final long offset) {
 
-        try {
-            return (Byte) GET_BYTE_Ol_METHOD.invoke(
-                unsafe, object, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
+        return (Byte) invoke(GET_BYTE_Ol_METHOD, unsafe, object, offset);
+    }
+
+
+    /**
+     *
+     * @param field
+     *
+     * @return
+     *
+     * @throws NullPointerException if {@code field} is {@code null}.
+     * @throws IllegalArgumentException if {@code field} is not a static field.
+     */
+    public byte getStaticByte(final Field field) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
         }
+
+        final int modifiers = field.getModifiers();
+
+        if (!Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("instance field");
+        }
+
+        return getByte(staticFieldBase(field), staticFieldOffset(field));
+    }
+
+
+    /**
+     *
+     * @param field
+     * @param base
+     *
+     * @return
+     *
+     * @throws NullPointerException if {@code field} is {@code null}.
+     * @throws IllegalArgumentException if {@code field} is a static field
+     */
+    public byte getInstanceByte(final Field field, final Object base) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
+        }
+
+        final int modifiers = field.getModifiers();
+
+        if (Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("static field");
+        }
+
+        return getByte(base, objectFieldOffset(field));
     }
 
 
@@ -1708,14 +1858,48 @@ public final class Dangerous {
 
     public byte getByteVolatile(final Object object, final long offset) {
 
-        try {
-            return (Byte) GET_BYTE_VOLATILE_METHOD.invoke(
-                unsafe, object, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
+        return (Byte) invoke(GET_BYTE_VOLATILE_METHOD, unsafe, object, offset);
+    }
+
+
+    public byte getStaticByteVolatile(final Field field) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
         }
+
+        final int modifiers = field.getModifiers();
+
+        if (!Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("instance field");
+        }
+
+        if (!Modifier.isVolatile(modifiers)) {
+            throw new IllegalArgumentException("non-volatile field");
+        }
+
+        return getByteVolatile(staticFieldBase(field),
+                               staticFieldOffset(field));
+    }
+
+
+    public byte getInstanceByteVolatile(final Field field, final Object base) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
+        }
+
+        final int modifiers = field.getModifiers();
+
+        if (Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("static field");
+        }
+
+        if (!Modifier.isVolatile(modifiers)) {
+            throw new IllegalArgumentException("non-volatile field");
+        }
+
+        return getByteVolatile(base, objectFieldOffset(field));
     }
 
 
@@ -1954,6 +2138,16 @@ public final class Dangerous {
     }
 
 
+    /**
+     * Fetches a reference value from a given Java variable.
+     *
+     * @param object
+     * @param offset
+     *
+     * @return
+     *
+     * @see #getInt(Object, long)
+     */
     public Object getObject(final Object object, final long offset) {
 
         try {
@@ -2407,6 +2601,20 @@ public final class Dangerous {
     }
 
 
+    /**
+     * Stores a reference value into a given Java variable.
+     *
+     * Unless the reference {@code x} being stored is either null or matches the
+     * field type, the results are undefined. If the reference {@code o} is
+     * non-null, car marks or other store barriers for that object (if the VM
+     * requires them) are updated.
+     *
+     * @param object
+     * @param offset
+     * @param x
+     *
+     * @see #putInt(Object, int, int)
+     */
     public void putObject(final Object object, final long offset,
                           final Object x) {
 
