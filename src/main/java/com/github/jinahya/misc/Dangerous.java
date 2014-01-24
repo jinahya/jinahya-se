@@ -2017,6 +2017,20 @@ public final class Dangerous {
     }
 
 
+    /**
+     *
+     * @param field
+     *
+     * @return
+     *
+     * @throws NullPointerException if {@code field} is {@code null}.
+     * @throws IllegalArgumentException if {@code field} is neither static nor
+     * volatile.
+     *
+     * @see #staticFieldBase(java.lang.reflect.Field)
+     * @see #staticFieldOffset(java.lang.reflect.Field)
+     * @see #getByteVolatile(java.lang.Object, long)
+     */
     public byte getStaticByteVolatile(final Field field) {
 
         if (field == null) {
@@ -2026,7 +2040,7 @@ public final class Dangerous {
         final int modifiers = field.getModifiers();
 
         if (!Modifier.isStatic(modifiers)) {
-            throw new IllegalArgumentException("instance field");
+            throw new IllegalArgumentException("non-static field");
         }
 
         if (!Modifier.isVolatile(modifiers)) {
@@ -2038,7 +2052,20 @@ public final class Dangerous {
     }
 
 
-    public byte getInstanceByteVolatile(final Field field, final Object base) {
+    /**
+     *
+     * @param base
+     * @param field
+     *
+     * @return
+     *
+     * @throws NullPointerException if {@code field} is {@code null}.
+     * @throws IllegalArgumentException if {@code field} is static or non-volatile.
+     *
+     * @see #objectFieldOffset(java.lang.reflect.Field)
+     * @see #getByteVolatile(java.lang.Object, long)      *
+     */
+    public byte getInstanceByteVolatile(final Object base, final Field field) {
 
         if (field == null) {
             throw new NullPointerException("null field");
