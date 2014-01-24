@@ -2060,10 +2060,11 @@ public final class Dangerous {
      * @return
      *
      * @throws NullPointerException if {@code field} is {@code null}.
-     * @throws IllegalArgumentException if {@code field} is static or non-volatile.
+     * @throws IllegalArgumentException if {@code field} is static or
+     * non-volatile.
      *
      * @see #objectFieldOffset(java.lang.reflect.Field)
-     * @see #getByteVolatile(java.lang.Object, long)      *
+     * @see #getByteVolatile(java.lang.Object, long) *
      */
     public byte getInstanceByteVolatile(final Object base, final Field field) {
 
@@ -2087,13 +2088,7 @@ public final class Dangerous {
 
     public char getChar(final long offset) {
 
-        try {
-            return (Character) GET_CHAR_l_METHOD.invoke(unsafe, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
+        return (Character) invoke(GET_CHAR_l_METHOD, unsafe, offset);
     }
 
 
@@ -2106,27 +2101,100 @@ public final class Dangerous {
 
     public char getChar(final Object object, final long offset) {
 
-        try {
-            return (Character) GET_CHAR_Ol_METHOD.invoke(
-                unsafe, object, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
+        return (Character) invoke(GET_CHAR_Ol_METHOD, unsafe, object, offset);
+    }
+
+
+    public char getStaticChar(final Field field) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
         }
+
+        final int modifiers = field.getModifiers();
+
+        if (!Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("non-static field");
+        }
+
+        return getChar(staticFieldBase(field), staticFieldOffset(field));
+    }
+
+
+    /**
+     *
+     * @param base
+     * @param field
+     *
+     * @return
+     *
+     * @throws NullPointerException if {@code field} is {@code null}.
+     * @throws IllegalArgumentException if {@code field} is static.
+     *
+     * @see #objectFieldOffset(java.lang.reflect.Field)
+     * @see #getChar(java.lang.Object, long)
+     */
+    public char getInstanceChar(final Object base, final Field field) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
+        }
+
+        final int modifiers = field.getModifiers();
+
+        if (Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("static field");
+        }
+
+        return getChar(base, objectFieldOffset(field));
     }
 
 
     public char getCharVolatile(final Object object, final long offset) {
 
-        try {
-            return (Character) GET_CHAR_VOLATILE_METHOD.invoke(
-                unsafe, object, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
+        return (Character) invoke(GET_CHAR_VOLATILE_METHOD, unsafe, object,
+                                  offset);
+    }
+
+
+    public char getStaticCharVolatile(final Field field) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
         }
+
+        final int modifiers = field.getModifiers();
+
+        if (!Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("non-static field");
+        }
+
+        if (!Modifier.isVolatile(modifiers)) {
+            throw new IllegalArgumentException("non-volatile field");
+        }
+
+        return getCharVolatile(staticFieldBase(field),
+                               staticFieldOffset(field));
+    }
+
+
+    public char getInstanceCharVolatile(final Object base, final Field field) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
+        }
+
+        final int modifiers = field.getModifiers();
+
+        if (Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("static field");
+        }
+
+        if (!Modifier.isVolatile(modifiers)) {
+            throw new IllegalArgumentException("non-volatile field");
+        }
+
+        return getCharVolatile(base, objectFieldOffset(field));
     }
 
 
