@@ -1575,12 +1575,144 @@ public final class Dangerous {
 
 
     /**
-     * Invokes {@code Unsafe#copyMemory(long, long, long)} with given arguments.
      *
-     * @param srcAddress
-     * @param destAddress
-     * @param bytes
+     * @param field
+     * @param expected
+     * @param x
+     *
+     * @return
+     *
+     * @throws NullPointerException if {@code field} is {@code null}.
+     *
+     * @see #compareAndSwapObject(java.lang.Object, long, java.lang.Object,
+     * java.lang.Object)
      */
+    public boolean staticCompareAndSwapObject(final Field field,
+                                              final Object expected,
+                                              final Object x) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
+        }
+
+        final int modifiers = field.getModifiers();
+
+        if (!Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("non-static field");
+        }
+
+        return compareAndSwapObject(staticFieldBase(field),
+                                    staticFieldOffset(field), expected, x);
+    }
+
+
+    /**
+     *
+     * @param <T>
+     * @param field
+     * @param type
+     * @param expected
+     * @param x
+     *
+     * @return
+     *
+     * @throws NullPointerException if {@code field} is {@code null}.
+     *
+     * @see Field#getType()
+     * @see Class#isAssignableFrom(java.lang.Class)
+     * @see #staticCompareAndSwapObject(java.lang.reflect.Field,
+     * java.lang.Object, java.lang.Object)
+     */
+    public <T> boolean staticCompareAndSwapObjectGeneric(
+        final Field field, final Class<T> type, final T expected, final T x) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
+        }
+
+        if (!field.getType().isAssignableFrom(type)) {
+            throw new IllegalArgumentException(
+                "field.type(" + field.getType()
+                + ") is not assignable from type(" + type + ")");
+        }
+
+        return staticCompareAndSwapObject(field, expected, x);
+    }
+
+
+    /**
+     *
+     * @param base
+     * @param field
+     * @param expected
+     * @param x
+     *
+     * @return
+     *
+     * @throws NullPointerException if {@code field} is {@code null}.
+     * @throws IllegalArgumentException if {@code field} is a static field.
+     *
+     * @see #compareAndSwapObject(java.lang.Object, long, java.lang.Object,
+     * java.lang.Object)
+     */
+    public boolean instanceCompareAndSwapObject(final Object base,
+                                                final Field field,
+                                                final Object expected,
+                                                final Object x) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
+        }
+
+        final int modifiers = field.getModifiers();
+
+        if (Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("static field");
+        }
+
+        return compareAndSwapObject(
+            base, objectFieldOffset(field), expected, x);
+    }
+
+
+    /**
+     *
+     * @param <T>
+     * @param base
+     * @param field
+     * @param type
+     * @param expected
+     * @param x
+     *
+     * @return
+     *
+     * @throws NullPointerException if {@code field} is {@code null}.
+     * @throws IllegalArgumentException if {@code field.type} is not assignable
+     * to {@code type}.
+     *
+     * @see Field#getType()
+     * @see Class#isAssignableFrom(java.lang.Class)
+     * @see #instanceCompareAndSwapObject(java.lang.Object,
+     * java.lang.reflect.Field, java.lang.Object, java.lang.Object)
+     */
+    public <T> boolean instanceCompareAndSwapObjectGeneric(
+        final Object base, final Field field, final Class<T> type,
+        final T expected, final T x) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
+        }
+
+        if (!field.getType().isAssignableFrom(type)) {
+            throw new IllegalArgumentException(
+                "field.type(" + field.getType()
+                + ") is not assignable from type(" + type + ")");
+        }
+
+        return instanceCompareAndSwapObject(base, field, expected, x);
+    }
+
+
     public void copyMemory(final long srcAddress, final long destAddress,
                            final long bytes) {
 
@@ -1588,30 +1720,12 @@ public final class Dangerous {
     }
 
 
-    /**
-     * Invokes {@code Unsafe#copyMemory(Object, long, Object, long, long)} with
-     * given arguments.
-     *
-     * @param srcBase
-     * @param srcAddress
-     * @param destBase
-     * @param destAddress
-     * @param bytes
-     */
     public void copyMemory(final Object srcBase, final long srcAddress,
                            final Object destBase, final long destAddress,
                            final long bytes) {
 
         invoke(COPY_MEMORY_OlOll_METHOD, unsafe, srcAddress, srcAddress,
                destBase, destAddress, bytes);
-    }
-
-
-    public <T> void copyMemoryGeneric(final T srcBase, final long srcAddress,
-                                      final T destBase, final long destAddress,
-                                      final long bytes) {
-
-        copyMemory(srcBase, srcAddress, destBase, destAddress, bytes);
     }
 
 
@@ -1687,6 +1801,19 @@ public final class Dangerous {
     }
 
 
+    /**
+     *
+     * @param field
+     *
+     * @return
+     *
+     * @throws NullPointerException if {@code field} is {@code null}.
+     * @throws IllegalArgumentException if {@code field} is not a static field.
+     *
+     * @see #staticFieldBase(java.lang.reflect.Field)
+     * @see #staticFieldOffset(java.lang.reflect.Field)
+     * @see #getBoolean(java.lang.Object, long)
+     */
     public boolean getStaticBoolean(final Field field) {
 
         if (field == null) {
@@ -1703,7 +1830,19 @@ public final class Dangerous {
     }
 
 
-    public boolean getInstanceBoolean(final Field field, final Object base) {
+    /**
+     *
+     * @param base
+     * @param field
+     *
+     * @return
+     *
+     * @throws NullPointerException if {@code field} is {@code null}.
+     * @throws IllegalArgumentException if {@code field} is a static field.
+     *
+     * @see #getBoolean(java.lang.Object, long)
+     */
+    public boolean getInstanceBoolean(final Object base, final Field field) {
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -1732,6 +1871,11 @@ public final class Dangerous {
      *
      * @return the boolean value.
      *
+     * @throws NullPointerException if {@code field} is {@code null}.
+     * @throws IllegalArgumentException if {@code field} is not a static field.
+     *
+     * @see #staticFieldBase(java.lang.reflect.Field)
+     * @see #staticFieldOffset(java.lang.reflect.Field)
      * @see #getBooleanVolatile(java.lang.Object, long)
      */
     public boolean getStaticBooleanVolatile(final Field field) {
@@ -1758,15 +1902,19 @@ public final class Dangerous {
     /**
      * Reads the volatile boolean value from given instance field.
      *
-     * @param field the volatile boolean field to read.
      * @param base the base object reference.
+     * @param field the volatile boolean field to read.
      *
      * @return the boolean value.
      *
+     * @throws NullPointerException if {@code field} is {@code null}.
+     * @throws IllegalArgumentException if {@code field} is a static field.
+     *
+     * @see #objectFieldOffset(java.lang.reflect.Field)
      * @see #getBooleanVolatile(java.lang.Object, long)
      */
-    public boolean getInstanceBooleanVolatile(final Field field,
-                                              final Object base) {
+    public boolean getInstanceBooleanVolatile(final Object base,
+                                              final Field field) {
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -1806,6 +1954,10 @@ public final class Dangerous {
      *
      * @throws NullPointerException if {@code field} is {@code null}.
      * @throws IllegalArgumentException if {@code field} is not a static field.
+     *
+     * @see #staticFieldBase(java.lang.reflect.Field)
+     * @see #staticFieldOffset(java.lang.reflect.Field)
+     * @see #getByte(java.lang.Object, long)
      */
     public byte getStaticByte(final Field field) {
 
@@ -1825,15 +1977,18 @@ public final class Dangerous {
 
     /**
      *
-     * @param field
      * @param base
+     * @param field
      *
      * @return
      *
      * @throws NullPointerException if {@code field} is {@code null}.
-     * @throws IllegalArgumentException if {@code field} is a static field
+     * @throws IllegalArgumentException if {@code field} is a static field.
+     *
+     * @see #objectFieldOffset(java.lang.reflect.Field)
+     * @see #getByte(java.lang.Object, long)
      */
-    public byte getInstanceByte(final Field field, final Object base) {
+    public byte getInstanceByte(final Object base, final Field field) {
 
         if (field == null) {
             throw new NullPointerException("null field");
