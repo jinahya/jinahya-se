@@ -117,10 +117,13 @@ public class DangerousTest {
         private static volatile float staticFloatVolatile;
 
 
-        private static short staticShort;
-
-
         private static int staticInt;
+
+
+        private static volatile int staticIntVolatile;
+
+
+        private static short staticShort;
 
 
         private static long staticLong;
@@ -159,10 +162,13 @@ public class DangerousTest {
         private volatile float instanceFloatVolatile;
 
 
-        private short objectShort;
-
-
         private int instanceInt;
+
+
+        private volatile int instanceIntVolatile;
+
+
+        private short objectShort;
 
 
         private long instanceLong;
@@ -1883,7 +1889,7 @@ public class DangerousTest {
         assert Modifier.isVolatile(field.getModifiers());
 
         Assert.assertEquals(
-            dangerous.getInstanceIntVolatile(base, field), .0f);
+            dangerous.getInstanceIntVolatile(base, field), 0);
     }
 
 
@@ -1928,6 +1934,19 @@ public class DangerousTest {
         assert !Modifier.isVolatile(field.getModifiers());
 
         dangerous.getInstanceIntVolatile(base, field);
+    }
+
+
+    @Test
+    public void loadAverage_() {
+
+        final Dangerous dangerous = Dangerous.newInstance();
+
+        final double[] loadavg = new double[3];
+
+        final int loadAverage
+            = dangerous.getLoadAverage(loadavg, loadavg.length);
+        logger.debug("loadAverage: {}", loadAverage);
     }
 
 

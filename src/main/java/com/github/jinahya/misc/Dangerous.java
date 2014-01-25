@@ -2479,7 +2479,7 @@ public final class Dangerous {
      * @see #staticFieldOffset(java.lang.reflect.Field)
      * @see #getInt(java.lang.Object, long)
      */
-    public double getStaticInt(final Field field) {
+    public int getStaticInt(final Field field) {
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -2508,7 +2508,7 @@ public final class Dangerous {
      * @see #objectFieldOffset(java.lang.reflect.Field)
      * @see #getInt(java.lang.Object, long)
      */
-    public double getInstanceInt(final Object base, final Field field) {
+    public int getInstanceInt(final Object base, final Field field) {
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -2531,7 +2531,7 @@ public final class Dangerous {
     }
 
 
-    public float getStaticIntVolatile(final Field field) {
+    public int getStaticIntVolatile(final Field field) {
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -2552,8 +2552,7 @@ public final class Dangerous {
     }
 
 
-    public float getInstanceIntVolatile(final Object base,
-                                        final Field field) {
+    public int getInstanceIntVolatile(final Object base, final Field field) {
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -2575,14 +2574,8 @@ public final class Dangerous {
 
     public int getLoadAverage(final double[] loadavg, final int nelems) {
 
-        try {
-            return (Integer) GET_LOAD_AVERAGE_METHOD.invoke(
-                unsafe, loadavg, nelems);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
+        return (Integer) invoke(GET_LOAD_AVERAGE_METHOD, unsafe, loadavg,
+                                nelems);
     }
 
 
