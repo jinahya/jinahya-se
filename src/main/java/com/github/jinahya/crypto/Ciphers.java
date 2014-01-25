@@ -47,7 +47,7 @@ public final class Ciphers {
      * A map of transformations and lists of available key sizes that every
      * implementation of the Java platform is required to support.
      *
-     * @see {@link Cipher}
+     * @see Cipher
      */
     public static final Map<String, List<Integer>> SUPPORTED_TRANSFORMATIONS;
 

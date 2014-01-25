@@ -1449,6 +1449,8 @@ public final class Dangerous {
      *
      * @throws NullPointerException if {@code field} is {@code null}
      * @throws IllegalArgumentException if {@code field} is not a static field.
+     *
+     * @see #compareAndSwapInt(java.lang.Object, long, int, int)
      */
     public boolean staticCompareAndSwapInt(final Field field,
                                            final int expected, final int x) {
@@ -1479,6 +1481,8 @@ public final class Dangerous {
      *
      * @throws NullPointerException if {@code field} is {@code null}.
      * @throws IllegalArgumentException if {@code field} is a static field.
+     *
+     * @see #compareAndSwapInt(java.lang.Object, long, int, int)
      */
     public boolean instanceCompareAndSwapInt(final Object base,
                                              final Field field,
@@ -1516,6 +1520,8 @@ public final class Dangerous {
      *
      * @throws NullPointerException if {@code field} is {@code null}
      * @throws IllegalArgumentException if {@code field} is not a static field.
+     *
+     * @see #compareAndSwapLong(java.lang.Object, long, long, long)
      */
     public boolean staticCompareAndSwapLong(final Field field,
                                             final long expected, final long x) {
@@ -1546,6 +1552,8 @@ public final class Dangerous {
      *
      * @throws NullPointerException if {@code field} is {@code null}
      * @throws IllegalArgumentException if {@code field} is a static field.
+     *
+     * @see #compareAndSwapLong(java.lang.Object, long, long, long)
      */
     public boolean instanceCompareAndSwapLong(final Object base,
                                               final Field field,
@@ -1583,6 +1591,7 @@ public final class Dangerous {
      * @return
      *
      * @throws NullPointerException if {@code field} is {@code null}.
+     * @throws IllegalArgumentException if {@code field} is not a static field.
      *
      * @see #compareAndSwapObject(java.lang.Object, long, java.lang.Object,
      * java.lang.Object)
@@ -1652,6 +1661,7 @@ public final class Dangerous {
      * @throws NullPointerException if {@code field} is {@code null}.
      * @throws IllegalArgumentException if {@code field} is a static field.
      *
+     * @see #objectFieldOffset(java.lang.reflect.Field)
      * @see #compareAndSwapObject(java.lang.Object, long, java.lang.Object,
      * java.lang.Object)
      */
@@ -1670,8 +1680,8 @@ public final class Dangerous {
             throw new IllegalArgumentException("static field");
         }
 
-        return compareAndSwapObject(
-            base, objectFieldOffset(field), expected, x);
+        final long offset = objectFieldOffset(field);
+        return compareAndSwapObject(base, offset, expected, x);
     }
 
 
@@ -2200,13 +2210,7 @@ public final class Dangerous {
 
     public double getDouble(final long offset) {
 
-        try {
-            return (Double) GET_DOUBLE_l_METHOD.invoke(unsafe, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
+        return (Double) invoke(GET_DOUBLE_l_METHOD, unsafe, offset);
     }
 
 
@@ -2219,39 +2223,107 @@ public final class Dangerous {
 
     public double getDouble(final Object object, final long offset) {
 
-        try {
-            return (Double) GET_DOUBLE_Ol_METHOD.invoke(
-                unsafe, object, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
+        return (Double) invoke(GET_DOUBLE_Ol_METHOD, unsafe, object, offset);
+    }
+
+
+    public double getStaticDouble(final Field field) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
         }
+
+        final int modifiers = field.getModifiers();
+
+        if (!Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("non-static field");
+        }
+
+        return getDouble(staticFieldBase(field), staticFieldOffset(field));
+    }
+
+
+    /**
+     *
+     * @param base
+     * @param field
+     *
+     * @return
+     *
+     * @throws NullPointerException if {@code field} is {@code null}.
+     * @throws IllegalArgumentException if {@code field} is static.
+     *
+     * @see #objectFieldOffset(java.lang.reflect.Field)
+     * @see #getDouble(java.lang.Object, long)
+     */
+    public double getInstanceDouble(final Object base, final Field field) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
+        }
+
+        final int modifiers = field.getModifiers();
+
+        if (Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("static field");
+        }
+
+        return getDouble(base, objectFieldOffset(field));
     }
 
 
     public double getDoubleVolatile(final Object object, final long offset) {
 
-        try {
-            return (Double) GET_DOUBLE_VOLATILE_METHOD.invoke(
-                unsafe, object, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
+        return (Double) invoke(GET_DOUBLE_VOLATILE_METHOD, unsafe, object,
+                               offset);
+    }
+
+
+    public double getStaticDoubleVolatile(final Field field) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
         }
+
+        final int modifiers = field.getModifiers();
+
+        if (!Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("non-static field");
+        }
+
+        if (!Modifier.isVolatile(modifiers)) {
+            throw new IllegalArgumentException("non-volatile field");
+        }
+
+        return getDoubleVolatile(staticFieldBase(field),
+                                 staticFieldOffset(field));
+    }
+
+
+    public double getInstanceDoubleVolatile(final Object base,
+                                            final Field field) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
+        }
+
+        final int modifiers = field.getModifiers();
+
+        if (Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("static field");
+        }
+
+        if (!Modifier.isVolatile(modifiers)) {
+            throw new IllegalArgumentException("non-volatile field");
+        }
+
+        return getDoubleVolatile(base, objectFieldOffset(field));
     }
 
 
     public float getFloat(final long offset) {
 
-        try {
-            return (Float) GET_FLOAT_l_METHOD.invoke(unsafe, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
+        return (Float) invoke(GET_FLOAT_l_METHOD, unsafe, offset);
     }
 
 
@@ -2264,38 +2336,120 @@ public final class Dangerous {
 
     public float getFloat(final Object object, final long offset) {
 
-        try {
-            return (Float) GET_FLOAT_Ol_METHOD.invoke(unsafe, object, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
+        return (Float) invoke(GET_FLOAT_Ol_METHOD, unsafe, object, offset);
+    }
+
+
+    /**
+     *
+     * @param field
+     *
+     * @return
+     *
+     * @throws NullPointerException if {@code field} is {@code null}.
+     * @throws IllegalArgumentException if {@code field} is not a static field.
+     *
+     * @see #staticFieldBase(java.lang.reflect.Field)
+     * @see #staticFieldOffset(java.lang.reflect.Field)
+     * @see #getFloat(java.lang.Object, long)
+     */
+    public double getStaticFloat(final Field field) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
         }
+
+        final int modifiers = field.getModifiers();
+
+        if (!Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("non-static field");
+        }
+
+        return getFloat(staticFieldBase(field), staticFieldOffset(field));
+    }
+
+
+    /**
+     *
+     * @param base
+     * @param field
+     *
+     * @return
+     *
+     * @throws NullPointerException if {@code field} is {@code null}.
+     * @throws IllegalArgumentException if {@code field} is static.
+     *
+     * @see #objectFieldOffset(java.lang.reflect.Field)
+     * @see #getFloat(java.lang.Object, long)
+     */
+    public double getInstanceFloat(final Object base, final Field field) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
+        }
+
+        final int modifiers = field.getModifiers();
+
+        if (Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("static field");
+        }
+
+        return getFloat(base, objectFieldOffset(field));
     }
 
 
     public float getFloatVolatile(final Object object, final long offset) {
 
-        try {
-            return (Float) GET_FLOAT_VOLATILE_METHOD.invoke(
-                unsafe, object, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
+        return (Float) invoke(GET_FLOAT_VOLATILE_METHOD, unsafe, object,
+                              offset);
+    }
+
+
+    public float getStaticFloatVolatile(final Field field) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
         }
+
+        final int modifiers = field.getModifiers();
+
+        if (!Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("non-static field");
+        }
+
+        if (!Modifier.isVolatile(modifiers)) {
+            throw new IllegalArgumentException("non-volatile field");
+        }
+
+        return getFloatVolatile(staticFieldBase(field),
+                                staticFieldOffset(field));
+    }
+
+
+    public float getInstanceFloatVolatile(final Object base,
+                                          final Field field) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
+        }
+
+        final int modifiers = field.getModifiers();
+
+        if (Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("static field");
+        }
+
+        if (!Modifier.isVolatile(modifiers)) {
+            throw new IllegalArgumentException("non-volatile field");
+        }
+
+        return getFloatVolatile(base, objectFieldOffset(field));
     }
 
 
     public int getInt(final long offset) {
 
-        try {
-            return (Integer) GET_INT_l_METHOD.invoke(unsafe, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
+        return (Integer) invoke(GET_INT_l_METHOD, unsafe, offset);
     }
 
 
@@ -2308,26 +2462,114 @@ public final class Dangerous {
 
     public int getInt(final Object object, final long offset) {
 
-        try {
-            return (Integer) GET_INT_Ol_METHOD.invoke(unsafe, object, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
+        return (Integer) invoke(GET_INT_Ol_METHOD, unsafe, object, offset);
+    }
+
+
+    /**
+     *
+     * @param field
+     *
+     * @return
+     *
+     * @throws NullPointerException if {@code field} is {@code null}.
+     * @throws IllegalArgumentException if {@code field} is not a static field.
+     *
+     * @see #staticFieldBase(java.lang.reflect.Field)
+     * @see #staticFieldOffset(java.lang.reflect.Field)
+     * @see #getInt(java.lang.Object, long)
+     */
+    public double getStaticInt(final Field field) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
         }
+
+        final int modifiers = field.getModifiers();
+
+        if (!Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("non-static field");
+        }
+
+        return getInt(staticFieldBase(field), staticFieldOffset(field));
+    }
+
+
+    /**
+     *
+     * @param base
+     * @param field
+     *
+     * @return
+     *
+     * @throws NullPointerException if {@code field} is {@code null}.
+     * @throws IllegalArgumentException if {@code field} is static.
+     *
+     * @see #objectFieldOffset(java.lang.reflect.Field)
+     * @see #getInt(java.lang.Object, long)
+     */
+    public double getInstanceInt(final Object base, final Field field) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
+        }
+
+        final int modifiers = field.getModifiers();
+
+        if (Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("static field");
+        }
+
+        return getInt(base, objectFieldOffset(field));
     }
 
 
     public int getIntVolatile(final Object object, final long offset) {
 
-        try {
-            return (Integer) GET_INT_VOLATILE_METHOD.invoke(
-                unsafe, object, offset);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
+        return (Integer) invoke(GET_INT_VOLATILE_METHOD, unsafe, object,
+                                offset);
+    }
+
+
+    public float getStaticIntVolatile(final Field field) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
         }
+
+        final int modifiers = field.getModifiers();
+
+        if (!Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("non-static field");
+        }
+
+        if (!Modifier.isVolatile(modifiers)) {
+            throw new IllegalArgumentException("non-volatile field");
+        }
+
+        return getIntVolatile(staticFieldBase(field),
+                              staticFieldOffset(field));
+    }
+
+
+    public float getInstanceIntVolatile(final Object base,
+                                        final Field field) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
+        }
+
+        final int modifiers = field.getModifiers();
+
+        if (Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("static field");
+        }
+
+        if (!Modifier.isVolatile(modifiers)) {
+            throw new IllegalArgumentException("non-volatile field");
+        }
+
+        return getIntVolatile(base, objectFieldOffset(field));
     }
 
 
