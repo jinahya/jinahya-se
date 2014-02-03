@@ -20,6 +20,8 @@ package com.github.jinahya.util;
 
 import com.github.jinahya.lang.FieldEnums;
 import java.util.Calendar;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -43,6 +45,10 @@ public enum CalendarMonth implements CalendarFieldEnum<CalendarMonth, Integer> {
     NOVEMBER(Calendar.NOVEMBER), // 10
     DECEMBER(Calendar.DECEMBER); // 11
     //UNDECIMBER(Calendar.UNDECIMBER); // 12
+
+
+    private static final Logger logger
+        = LoggerFactory.getLogger(CalendarMonth.class);
 
 
     /**
@@ -82,8 +88,8 @@ public enum CalendarMonth implements CalendarFieldEnum<CalendarMonth, Integer> {
      */
     public static CalendarMonth fromCalendar(final Calendar calendar) {
 
-        return CalendarFieldEnumHelper.get(CalendarMonth.class, calendar,
-                                           CALENDAR_FIELD);
+        return CalendarFieldEnums.get(CalendarMonth.class, calendar,
+                                      CALENDAR_FIELD);
     }
 
 
@@ -121,7 +127,9 @@ public enum CalendarMonth implements CalendarFieldEnum<CalendarMonth, Integer> {
     @Override
     public void set(final Calendar calendar) {
 
-        CalendarFieldEnumHelper.set(calendar, CALENDAR_FIELD, this);
+        logger.debug("set({})", calendar);
+
+        CalendarFieldEnums.set(calendar, CALENDAR_FIELD, this);
     }
 
 
@@ -132,3 +140,4 @@ public enum CalendarMonth implements CalendarFieldEnum<CalendarMonth, Integer> {
 
 
 }
+

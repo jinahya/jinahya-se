@@ -25,6 +25,8 @@ import java.util.Calendar;
 /**
  *
  * @author Jin Kwon <onacit at gmail.com>
+ * @param <E> enum type parameter
+ * @param <F> field value type parameter
  */
 public interface CalendarFieldEnum<E extends Enum<E>, F>
     extends FieldEnum<E, F> {
@@ -34,3 +36,4 @@ public interface CalendarFieldEnum<E extends Enum<E>, F>
 
 
 }
+

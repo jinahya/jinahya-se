@@ -20,13 +20,19 @@ package com.github.jinahya.util;
 
 import com.github.jinahya.lang.FieldEnums;
 import java.util.Calendar;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
  *
  * @author Jin Kwon <onacit at gmail.com>
  */
-public final class CalendarFieldEnumHelper {
+public final class CalendarFieldEnums {
+
+
+    private static final Logger logger
+        = LoggerFactory.getLogger(CalendarFieldEnums.class);
 
 
     /**
@@ -71,17 +77,24 @@ public final class CalendarFieldEnumHelper {
             throw new NullPointerException("value");
         }
 
+        final int p = calendar.get(field);
+        logger.debug("p: {}", p);
+        
         calendar.set(field, value.getFieldValue());
+
+        final int n = calendar.get(field);
+        logger.debug("n: {}", n);
     }
 
 
     /**
      * protected constructor.
      */
-    private CalendarFieldEnumHelper() {
+    private CalendarFieldEnums() {
 
         super();
     }
 
 
 }
+

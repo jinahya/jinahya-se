@@ -79,7 +79,7 @@ public enum CalendarPeriodOfDay
      */
     public static CalendarPeriodOfDay fromCalendar(final Calendar calendar) {
 
-        return CalendarFieldEnumHelper.get(CalendarPeriodOfDay.class, calendar,
+        return CalendarFieldEnums.get(CalendarPeriodOfDay.class, calendar,
                                            CALENDAR_FIELD);
     }
 
@@ -119,7 +119,7 @@ public enum CalendarPeriodOfDay
     @Override
     public void set(final Calendar calendar) {
 
-        CalendarFieldEnumHelper.set(calendar, CALENDAR_FIELD, this);
+        CalendarFieldEnums.set(calendar, CALENDAR_FIELD, this);
     }
 
 

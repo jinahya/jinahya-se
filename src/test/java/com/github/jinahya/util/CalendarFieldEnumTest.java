@@ -44,7 +44,7 @@ public abstract class CalendarFieldEnumTest<E extends Enum<E> & CalendarFieldEnu
 
 
     @Test
-    public void testSet() {
+    public void set_() {
 
         final Calendar calendar = Calendar.getInstance();
 
@@ -52,9 +52,6 @@ public abstract class CalendarFieldEnumTest<E extends Enum<E> & CalendarFieldEnu
 
         for (final E enumConstant : enumConstants) {
             enumConstant.set(calendar);
-            Assert.assertEquals(Integer.valueOf(calendar.get(calendarField)),
-                                enumConstant.getFieldValue());
-            System.out.println(calendar.getTime());
         }
     }
 
@@ -63,3 +60,4 @@ public abstract class CalendarFieldEnumTest<E extends Enum<E> & CalendarFieldEnu
 
 
 }
+

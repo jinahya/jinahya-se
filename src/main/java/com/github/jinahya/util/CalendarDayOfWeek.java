@@ -99,7 +99,7 @@ public enum CalendarDayOfWeek
      */
     public static CalendarDayOfWeek fromCalendar(final Calendar calendar) {
 
-        return CalendarFieldEnumHelper.get(CalendarDayOfWeek.class, calendar,
+        return CalendarFieldEnums.get(CalendarDayOfWeek.class, calendar,
                                            CALENDAR_FIELD);
     }
 
@@ -142,7 +142,7 @@ public enum CalendarDayOfWeek
             throw new NullPointerException("calendar");
         }
 
-        CalendarFieldEnumHelper.set(calendar, CALENDAR_FIELD, this);
+        CalendarFieldEnums.set(calendar, CALENDAR_FIELD, this);
     }
 
 
