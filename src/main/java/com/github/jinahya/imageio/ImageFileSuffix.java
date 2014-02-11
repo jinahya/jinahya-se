@@ -18,6 +18,12 @@
 package com.github.jinahya.imageio;
 
 
+import static com.oracle.nio.BufferSecrets.instance;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.imageio.ImageIO;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
@@ -27,4 +33,38 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class ImageFileSuffix extends ImageFeature {
+
+
+    public static List<ImageFileSuffix> getAvaiableInstances() {
+
+        final List<ImageFileSuffix> list = new ArrayList<ImageFileSuffix>();
+
+        final Map<String, ImageFileSuffix> map
+            = new HashMap<String, ImageFileSuffix>();
+
+        for (final String readerFileSuffix : ImageIO.getReaderFileSuffixes()) {
+            ImageFileSuffix imageFileSuffix = map.get(readerFileSuffix);
+            if (imageFileSuffix == null) {
+                imageFileSuffix = new ImageFileSuffix();
+                map.put(readerFileSuffix, imageFileSuffix);
+            }
+            imageFileSuffix.setReadable(true);
+            imageFileSuffix.setValue(readerFileSuffix);
+        }
+
+        for (final String writerFileSuffix : ImageIO.getWriterFileSuffixes()) {
+            ImageFileSuffix imageFileSuffix = map.get(writerFileSuffix);
+            if (imageFileSuffix == null) {
+                imageFileSuffix = new ImageFileSuffix();
+                map.put(writerFileSuffix, imageFileSuffix);
+            }
+            imageFileSuffix.setWritable(true);
+            imageFileSuffix.setValue(writerFileSuffix);
+        }
+
+        return list;
+    }
+
+
 }
+

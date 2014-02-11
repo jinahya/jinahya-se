@@ -3020,7 +3020,10 @@ public final class Dangerous {
             throw new IllegalArgumentException("non-static field");
         }
 
-        putBoolean(staticFieldBase(field), staticFieldOffset(field), x);
+        final Object base = staticFieldBase(field);
+        final long offset = staticFieldOffset(field);
+
+        putBoolean(base, offset, x);
     }
 
 
@@ -3037,32 +3040,68 @@ public final class Dangerous {
             throw new IllegalArgumentException("static field");
         }
 
-        putBoolean(base, objectFieldOffset(field), x);
+        final long offset = objectFieldOffset(field);
+
+        putBoolean(base, offset, x);
     }
 
 
     public void putBooleanVolatile(final Object object, final long offset,
                                    final boolean x) {
 
-        try {
-            PUT_BOOLEAN_VOLATILE_METHOD.invoke(unsafe, object, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
+        invoke(PUT_BOOLEAN_VOLATILE_METHOD, unsafe, object, offset, x);
+    }
+
+
+    public void putStaticBooleanVolatile(final Field field, final boolean x) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
         }
+
+        final int modifiers = field.getModifiers();
+
+        if (!Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("non-static field");
+        }
+
+        if (!Modifier.isVolatile(modifiers)) {
+            throw new IllegalArgumentException("non-volatile field");
+        }
+
+        final Object base = staticFieldBase(field);
+        final long offset = staticFieldOffset(field);
+
+        putBoolean(base, offset, x);
+    }
+
+
+    public void putInstanceBooleanVolatile(final Object base, final Field field,
+                                           final boolean x) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
+        }
+
+        final int modifiers = field.getModifiers();
+
+        if (Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("static field");
+        }
+
+        if (!Modifier.isVolatile(modifiers)) {
+            throw new IllegalArgumentException("non-volatile field");
+        }
+
+        final long offset = objectFieldOffset(field);
+
+        putBoolean(base, offset, x);
     }
 
 
     public void putByte(final long offset, final byte x) {
 
-        try {
-            PUT_BYTE_lb_METHOD.invoke(unsafe, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
+        invoke(PUT_BYTE_lb_METHOD, unsafe, offset, x);
     }
 
 
@@ -3075,26 +3114,98 @@ public final class Dangerous {
 
     public void putByte(final Object object, final long offset, final byte x) {
 
-        try {
-            PUT_BYTE_Olb_METHOD.invoke(unsafe, object, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
+        invoke(PUT_BYTE_Olb_METHOD, unsafe, object, offset, x);
+    }
+
+
+    public void putStaticByte(final Field field, final byte x) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
         }
+
+        final int modifiers = field.getModifiers();
+
+        if (!Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("non-static field");
+        }
+
+        final Object base = staticFieldBase(field);
+        final long offset = staticFieldOffset(field);
+
+        putByte(base, offset, x);
+    }
+
+
+    public void putInstanceByte(final Object base, final Field field,
+                                final byte x) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
+        }
+
+        final int modifiers = field.getModifiers();
+
+        if (Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("static field");
+        }
+
+        final long offset = objectFieldOffset(field);
+
+        putByte(base, offset, x);
     }
 
 
     public void putByteVolatile(final Object object, final long offset,
                                 final byte x) {
 
-        try {
-            PUT_BYTE_VOLATILE_METHOD.invoke(unsafe, object, offset, x);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
+        invoke(PUT_BYTE_VOLATILE_METHOD, unsafe, object, offset, x);
+    }
+
+
+    public void putStaticByteVolatile(final Field field, final byte x) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
         }
+
+        final int modifiers = field.getModifiers();
+
+        if (!Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("non-static field");
+        }
+
+        if (!Modifier.isVolatile(modifiers)) {
+            throw new IllegalArgumentException("non-volatile field");
+        }
+
+        final Object base = staticFieldBase(field);
+        final long offset = staticFieldOffset(field);
+
+        putByte(base, offset, x);
+    }
+
+
+    public void putInstanceByteVolatile(final Object base, final Field field,
+                                        final byte x) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
+        }
+
+        final int modifiers = field.getModifiers();
+
+        if (Modifier.isStatic(modifiers)) {
+            throw new IllegalArgumentException("static field");
+        }
+
+        if (!Modifier.isVolatile(modifiers)) {
+            throw new IllegalArgumentException("non-volatile field");
+        }
+
+        final long offset = objectFieldOffset(field);
+
+        putByte(base, offset, x);
     }
 
 

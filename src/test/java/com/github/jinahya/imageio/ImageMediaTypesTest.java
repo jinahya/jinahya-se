@@ -18,11 +18,6 @@
 package com.github.jinahya.imageio;
 
 
-import com.github.jinahya.imageio.ImageMediaTypes;
-import com.github.jinahya.imageio.ImageMediaType;
-
-
-
 /**
  *
  * @author Jin Kwon <onacit at gmail.com>
@@ -38,10 +33,11 @@ public class ImageMediaTypesTest
 
 
     @Override
-    protected ImageMediaTypes newInstance() {
+    protected ImageMediaTypes newImageFeaturesInstance() {
 
         return ImageMediaTypes.newInstance();
     }
 
 
 }
+

@@ -18,6 +18,11 @@
 package com.github.jinahya.imageio;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.imageio.ImageIO;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
@@ -27,4 +32,38 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class ImageMediaType extends ImageFeature {
+
+
+    public static List<ImageMediaType> getAvailableInstances() {
+
+        final List<ImageMediaType> list = new ArrayList<ImageMediaType>();
+
+        final Map<String, ImageMediaType> map
+            = new HashMap<String, ImageMediaType>();
+
+        for (final String readerMIMEType : ImageIO.getReaderMIMETypes()) {
+            ImageMediaType imageMediaType = map.get(readerMIMEType);
+            if (imageMediaType == null) {
+                imageMediaType = new ImageMediaType();
+                map.put(readerMIMEType, imageMediaType);
+            }
+            imageMediaType.setReadable(true);
+            imageMediaType.setValue(readerMIMEType);
+        }
+
+        for (final String writerMIMEType : ImageIO.getWriterMIMETypes()) {
+            ImageMediaType imageMediaType = map.get(writerMIMEType);
+            if (imageMediaType == null) {
+                imageMediaType = new ImageMediaType();
+                map.put(writerMIMEType, imageMediaType);
+            }
+            imageMediaType.setWritable(true);
+            imageMediaType.setValue(writerMIMEType);
+        }
+
+        return list;
+    }
+
+
 }
+

@@ -18,10 +18,19 @@
 package com.github.jinahya.imageio;
 
 
-import com.github.jinahya.imageio.ImageFeatures;
-import com.github.jinahya.imageio.ImageFeature;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.AnnotationIntrospector;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.type.TypeFactory;
+import com.fasterxml.jackson.module.jaxb.JaxbAnnotationIntrospector;
+import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
+import com.fasterxml.jackson.module.jsonSchema.factories.SchemaFactoryWrapper;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -29,6 +38,8 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 
 
@@ -41,26 +52,33 @@ import org.testng.annotations.Test;
 public abstract class ImageFeaturesTest<T extends ImageFeatures<U>, U extends ImageFeature> {
 
 
-    public ImageFeaturesTest(final Class<T> imageDescriptorsType) {
+    private static final Logger logger
+        = LoggerFactory.getLogger(ImageFeaturesTest.class);
+
+
+    public ImageFeaturesTest(final Class<T> imageFeaturesType) {
 
         super();
 
-        this.imageDescriptorsType = imageDescriptorsType;
+        this.imageFeaturesType = imageFeaturesType;
     }
+
+
+    protected abstract T newImageFeaturesInstance();
 
 
     @Test
     public void marshalUnmarshal() throws JAXBException {
 
-        final T expected = newInstance();
+        final T expected = newImageFeaturesInstance();
 
         final JAXBContext context = JAXBContext.newInstance(
-            imageDescriptorsType.getPackage().getName());
+            imageFeaturesType.getPackage().getName());
 
         final Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        final String jaxbEncoding =
-            (String) marshaller.getProperty(Marshaller.JAXB_ENCODING);
+        final String jaxbEncoding
+            = (String) marshaller.getProperty(Marshaller.JAXB_ENCODING);
 
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         marshaller.marshal(expected, baos);
@@ -70,9 +88,9 @@ public abstract class ImageFeaturesTest<T extends ImageFeatures<U>, U extends Im
 
         final Unmarshaller unmarshaller = context.createUnmarshaller();
 
-        final Source source =
-            new StreamSource(new ByteArrayInputStream(baos.toByteArray()));
-        final T actual = unmarshaller.unmarshal(source, imageDescriptorsType)
+        final Source source
+            = new StreamSource(new ByteArrayInputStream(baos.toByteArray()));
+        final T actual = unmarshaller.unmarshal(source, imageFeaturesType)
             .getValue();
 
         for (U imageDescriptor : actual.getImageFeatureList()) {
@@ -81,10 +99,47 @@ public abstract class ImageFeaturesTest<T extends ImageFeatures<U>, U extends Im
     }
 
 
-    protected abstract T newInstance();
+    @Test
+    public void json_instance_() throws JsonMappingException, IOException {
+
+        final ObjectMapper mapper = new ObjectMapper();
+        final AnnotationIntrospector introspector
+            = new JaxbAnnotationIntrospector();
+        mapper.setAnnotationIntrospector(introspector);
+
+        mapper.writeValue(System.out, newImageFeaturesInstance());
+    }
 
 
-    private final Class<T> imageDescriptorsType;
+    @Test
+    public void json_schema_()
+        throws JsonMappingException, JsonProcessingException {
+
+        final ObjectMapper mapper = new ObjectMapper();
+        final TypeFactory factory = TypeFactory.defaultInstance();
+        final AnnotationIntrospector introspector
+            = new JaxbAnnotationIntrospector(factory);
+        mapper.setAnnotationIntrospector(introspector);
+
+        final SchemaFactoryWrapper visitor = new SchemaFactoryWrapper();
+        final JavaType type = mapper.constructType(imageFeaturesType);
+        mapper.acceptJsonFormatVisitor(type, visitor);
+        final JsonSchema schema = visitor.finalSchema();
+
+        final ObjectWriter writer = mapper.writerWithDefaultPrettyPrinter();
+        final String string = writer.writeValueAsString(schema);
+
+        logger.info("{}.schema: {}", imageFeaturesType.getSimpleName(), string);
+    }
+
+
+    @Test
+    public void json_validate_() {
+    }
+
+
+    private final Class<T> imageFeaturesType;
 
 
 }
+

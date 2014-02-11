@@ -28,8 +28,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  *
  * @author Jin Kwon <onacit at gmail.com>
+ * @deprecated
  */
 @XmlRootElement
+@Deprecated
 public class ImageFormatNames extends ImageFeatures<ImageFormatName> {
 
 
@@ -38,8 +40,8 @@ public class ImageFormatNames extends ImageFeatures<ImageFormatName> {
         final ImageFormatNames instance = new ImageFormatNames();
 
         for (final String readerFormatName : ImageIO.getReaderFormatNames()) {
-            ImageFormatName imageFormatName =
-                instance.getImageFeatures().get(readerFormatName);
+            ImageFormatName imageFormatName
+                = instance.getImageFeatures().get(readerFormatName);
             if (imageFormatName == null) {
                 imageFormatName = new ImageFormatName();
                 instance.getImageFeatures().put(
@@ -50,8 +52,8 @@ public class ImageFormatNames extends ImageFeatures<ImageFormatName> {
         }
 
         for (final String writerFileSuffix : ImageIO.getWriterFileSuffixes()) {
-            ImageFormatName imageFormatName =
-                instance.getImageFeatures().get(writerFileSuffix);
+            ImageFormatName imageFormatName
+                = instance.getImageFeatures().get(writerFileSuffix);
             if (imageFormatName == null) {
                 imageFormatName = new ImageFormatName();
                 instance.getImageFeatures().put(
@@ -86,3 +88,4 @@ public class ImageFormatNames extends ImageFeatures<ImageFormatName> {
 
 
 }
+

@@ -28,8 +28,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  *
  * @author Jin Kwon <onacit at gmail.com>
+ * @deprecated
  */
 @XmlRootElement
+@Deprecated
 public class ImageMediaTypes extends ImageFeatures<ImageMediaType> {
 
 
@@ -38,8 +40,8 @@ public class ImageMediaTypes extends ImageFeatures<ImageMediaType> {
         final ImageMediaTypes instance = new ImageMediaTypes();
 
         for (final String readerMIMEType : ImageIO.getReaderMIMETypes()) {
-            ImageMediaType imageMediaType =
-                instance.getImageFeatures().get(readerMIMEType);
+            ImageMediaType imageMediaType
+                = instance.getImageFeatures().get(readerMIMEType);
             if (imageMediaType == null) {
                 imageMediaType = new ImageMediaType();
                 instance.getImageFeatures().put(
@@ -50,8 +52,8 @@ public class ImageMediaTypes extends ImageFeatures<ImageMediaType> {
         }
 
         for (final String writerMIMEType : ImageIO.getWriterMIMETypes()) {
-            ImageMediaType imageMediaType =
-                instance.getImageFeatures().get(writerMIMEType);
+            ImageMediaType imageMediaType
+                = instance.getImageFeatures().get(writerMIMEType);
             if (imageMediaType == null) {
                 imageMediaType = new ImageMediaType();
                 instance.getImageFeatures().put(
@@ -86,3 +88,4 @@ public class ImageMediaTypes extends ImageFeatures<ImageMediaType> {
 
 
 }
+

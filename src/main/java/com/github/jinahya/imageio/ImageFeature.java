@@ -31,25 +31,6 @@ import javax.xml.bind.annotation.XmlValue;
 public abstract class ImageFeature {
 
 
-//    protected static <I extends ImageAspect> I newInstance(
-//        final Class<I> type, final boolean readable, final boolean writable,
-//        final String key) {
-//
-//        try {
-//            final I instance = type.newInstance();
-//            instance.setReadable(readable);
-//            instance.setWritable(writable);
-//            instance.setKey(key);
-//            return instance;
-//        } catch (InstantiationException ie) {
-//            throw new RuntimeException(ie);
-//        } catch (IllegalAccessException iae) {
-//            throw new RuntimeException(iae);
-//        }
-//    }
-//    protected ImageAspect() {
-//        super();
-//    }
     public boolean isReadable() {
 
         return readable;
@@ -108,3 +89,4 @@ public abstract class ImageFeature {
 
 
 }
+

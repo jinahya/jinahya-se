@@ -30,8 +30,11 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author Jin Kwon <onacit at gmail.com>
  * @param <T>
+ * 
+ * @deprecated 
  */
 @XmlTransient
+@Deprecated
 public abstract class ImageFeatures<T extends ImageFeature> {
 
 

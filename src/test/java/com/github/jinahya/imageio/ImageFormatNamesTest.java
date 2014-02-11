@@ -18,11 +18,6 @@
 package com.github.jinahya.imageio;
 
 
-import com.github.jinahya.imageio.ImageFormatNames;
-import com.github.jinahya.imageio.ImageFormatName;
-
-
-
 /**
  *
  * @author Jin Kwon <onacit at gmail.com>
@@ -38,10 +33,11 @@ public class ImageFormatNamesTest
 
 
     @Override
-    protected ImageFormatNames newInstance() {
+    protected ImageFormatNames newImageFeaturesInstance() {
 
         return ImageFormatNames.newInstance();
     }
 
 
 }
+

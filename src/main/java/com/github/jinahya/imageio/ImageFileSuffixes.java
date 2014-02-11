@@ -28,8 +28,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  *
  * @author Jin Kwon <onacit at gmail.com>
+ * 
+ * @deprecated 
  */
 @XmlRootElement
+@Deprecated
 public class ImageFileSuffixes extends ImageFeatures<ImageFileSuffix> {
 
 

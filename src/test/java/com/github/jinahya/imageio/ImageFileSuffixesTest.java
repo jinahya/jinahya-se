@@ -18,11 +18,6 @@
 package com.github.jinahya.imageio;
 
 
-import com.github.jinahya.imageio.ImageFileSuffix;
-import com.github.jinahya.imageio.ImageFileSuffixes;
-
-
-
 /**
  *
  * @author Jin Kwon <onacit at gmail.com>
@@ -38,10 +33,11 @@ public class ImageFileSuffixesTest
 
 
     @Override
-    protected ImageFileSuffixes newInstance() {
+    protected ImageFileSuffixes newImageFeaturesInstance() {
 
         return ImageFileSuffixes.newInstance();
     }
 
 
 }
+

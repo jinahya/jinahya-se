@@ -18,6 +18,11 @@
 package com.github.jinahya.imageio;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.imageio.ImageIO;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
@@ -27,4 +32,38 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class ImageFormatName extends ImageFeature {
+
+
+    public static List<ImageFormatName> getAvailableInstances() {
+
+        final List<ImageFormatName> list = new ArrayList<ImageFormatName>();
+
+        final Map<String, ImageFormatName> map
+            = new HashMap<String, ImageFormatName>();
+
+        for (final String readerFormatName : ImageIO.getReaderFormatNames()) {
+            ImageFormatName imageFormatName = map.get(readerFormatName);
+            if (imageFormatName == null) {
+                imageFormatName = new ImageFormatName();
+                map.put(readerFormatName, imageFormatName);
+            }
+            imageFormatName.setReadable(true);
+            imageFormatName.setValue(readerFormatName);
+        }
+
+        for (final String writerFileSuffix : ImageIO.getWriterFileSuffixes()) {
+            ImageFormatName imageFormatName = map.get(writerFileSuffix);
+            if (imageFormatName == null) {
+                imageFormatName = new ImageFormatName();
+                map.put(writerFileSuffix, imageFormatName);
+            }
+            imageFormatName.setWritable(true);
+            imageFormatName.setValue(writerFileSuffix);
+        }
+
+        return list;
+    }
+
+
 }
+
