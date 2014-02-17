@@ -18,20 +18,18 @@
 package com.github.jinahya.imageio;
 
 
-import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 /**
  *
  * @author Jin Kwon <onacit at gmail.com>
- * @deprecated
  */
 @XmlRootElement
-@Deprecated
 public class ImageFormatNames extends ImageFeatures<ImageFormatName> {
 
 
@@ -68,19 +66,7 @@ public class ImageFormatNames extends ImageFeatures<ImageFormatName> {
 
 
     @XmlElement(name = "imageFormatName")
-    private List<ImageFormatName> getImageFormatNameList() {
-
-        return getImageFeatureList();
-    }
-
-
-    private void setImageFormatNameList(
-        final List<ImageFormatName> imageFormatNameList) {
-
-        setImageFeatureList(imageFormatNameList);
-    }
-
-
+    @XmlJavaTypeAdapter(ImageFormatNameMapValuesAdapter.class)
     public Map<String, ImageFormatName> getImageFormatNames() {
 
         return getImageFeatures();

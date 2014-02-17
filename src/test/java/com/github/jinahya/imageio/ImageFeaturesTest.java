@@ -93,8 +93,8 @@ public abstract class ImageFeaturesTest<T extends ImageFeatures<U>, U extends Im
         final T actual = unmarshaller.unmarshal(source, imageFeaturesType)
             .getValue();
 
-        for (U imageDescriptor : actual.getImageFeatureList()) {
-            System.out.println("unmarshalled: " + imageDescriptor);
+        for (U imageFeature : actual.getImageFeatures().values()) {
+            System.out.println("unmarshalled: " + imageFeature);
         }
     }
 

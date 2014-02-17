@@ -18,9 +18,6 @@
 package com.github.jinahya.imageio;
 
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.xml.bind.annotation.XmlTransient;
@@ -30,32 +27,9 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author Jin Kwon <onacit at gmail.com>
  * @param <T>
- * 
- * @deprecated 
  */
 @XmlTransient
-@Deprecated
 public abstract class ImageFeatures<T extends ImageFeature> {
-
-
-    List<T> getImageFeatureList() {
-
-        final Collection<T> values = getImageFeatures().values();
-
-        if (values instanceof List) {
-            return (List<T>) values;
-        }
-
-        return new ArrayList<T>(values);
-    }
-
-
-    void setImageFeatureList(final List<T> imageFeatureList) {
-
-        for (T imageFeature : imageFeatureList) {
-            getImageFeatures().put(imageFeature.getValue(), imageFeature);
-        }
-    }
 
 
     Map<String, T> getImageFeatures() {
@@ -72,3 +46,4 @@ public abstract class ImageFeatures<T extends ImageFeature> {
 
 
 }
+

@@ -42,6 +42,12 @@ import org.testng.annotations.Test;
  *
  * @author Jin Kwon <jinahya at gmail.com>
  */
+/**
+ *
+ * @author Jin Kwon <onacit at gmail.com>
+ * @param <P>
+ * @param <S>
+ */
 public abstract class PluralTest<P extends Plural<S>, S> {
 
 
@@ -114,8 +120,10 @@ public abstract class PluralTest<P extends Plural<S>, S> {
                         return suggestedFileName;
                     }
 
+
                 };
             }
+
 
         });
     }
@@ -163,8 +171,8 @@ public abstract class PluralTest<P extends Plural<S>, S> {
 
         final JAXBContext context = newJAXBContext();
 
-        final JSONConfiguration configuration =
-            JSONConfiguration.natural().build();
+        final JSONConfiguration configuration
+            = JSONConfiguration.natural().build();
 
         final P expected = newPlural();
 
@@ -172,8 +180,8 @@ public abstract class PluralTest<P extends Plural<S>, S> {
             expected.getSingular().add(newSingular());
         }
 
-        final JSONMarshaller marshaller =
-            new BaseJSONMarshaller(context, configuration);
+        final JSONMarshaller marshaller
+            = new BaseJSONMarshaller(context, configuration);
         marshaller.setProperty(JSONMarshaller.FORMATTED, Boolean.TRUE);
 
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -183,8 +191,8 @@ public abstract class PluralTest<P extends Plural<S>, S> {
 
         System.out.println(new String(baos.toByteArray(), "UTF-8"));
 
-        final JSONUnmarshaller unmarshaller =
-            new BaseJSONUnmarshaller(context, configuration);
+        final JSONUnmarshaller unmarshaller
+            = new BaseJSONUnmarshaller(context, configuration);
 
         final P actual = unmarshaller.unmarshalFromJSON(
             new ByteArrayInputStream(baos.toByteArray()), pluralType);
@@ -207,3 +215,4 @@ public abstract class PluralTest<P extends Plural<S>, S> {
 
 
 }
+

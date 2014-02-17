@@ -18,7 +18,7 @@
       <dependency>
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-classic</artifactId>
-        <version>1.1.0</version>
+        <version>1.1.1</version>
       </dependency>
       <dependency>
         <groupId>com.fasterxml.jackson.module</groupId>
@@ -35,11 +35,13 @@
         <artifactId>jersey-json</artifactId>
         <version>1.18</version>
       </dependency>
+      <!--
       <dependency>
         <groupId>com.sun.jersey</groupId>
         <artifactId>jersey-server</artifactId>
         <version>1.18</version>
       </dependency>
+      -->
       <dependency>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-lang3</artifactId>
@@ -53,7 +55,7 @@
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
-        <version>1.7.5</version>
+        <version>1.7.6</version>
       </dependency>
       <dependency>
         <groupId>org.testng</groupId>
@@ -115,6 +117,7 @@
 
   <!-- Build Settings -->
   <build>
+    <!--
     <extensions>
       <extension>
         <groupId>org.apache.maven.wagon</groupId>
@@ -122,6 +125,7 @@
         <version>2.4</version>
       </extension>
     </extensions>
+    -->
     <pluginManagement>
       <plugins>
         <plugin>

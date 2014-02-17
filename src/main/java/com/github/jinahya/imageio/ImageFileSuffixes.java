@@ -18,21 +18,18 @@
 package com.github.jinahya.imageio;
 
 
-import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 /**
  *
  * @author Jin Kwon <onacit at gmail.com>
- * 
- * @deprecated 
  */
 @XmlRootElement
-@Deprecated
 public class ImageFileSuffixes extends ImageFeatures<ImageFileSuffix> {
 
 
@@ -41,8 +38,8 @@ public class ImageFileSuffixes extends ImageFeatures<ImageFileSuffix> {
         final ImageFileSuffixes instance = new ImageFileSuffixes();
 
         for (final String readerFileSuffix : ImageIO.getReaderFileSuffixes()) {
-            ImageFileSuffix imageFileSuffix =
-                instance.getImageFeatures().get(readerFileSuffix);
+            ImageFileSuffix imageFileSuffix
+                = instance.getImageFeatures().get(readerFileSuffix);
             if (imageFileSuffix == null) {
                 imageFileSuffix = new ImageFileSuffix();
                 instance.getImageFeatures().put(
@@ -53,8 +50,8 @@ public class ImageFileSuffixes extends ImageFeatures<ImageFileSuffix> {
         }
 
         for (final String writerFileSuffix : ImageIO.getWriterFileSuffixes()) {
-            ImageFileSuffix imageFileSuffix =
-                instance.getImageFeatures().get(writerFileSuffix);
+            ImageFileSuffix imageFileSuffix
+                = instance.getImageFeatures().get(writerFileSuffix);
             if (imageFileSuffix == null) {
                 imageFileSuffix = new ImageFileSuffix();
                 instance.getImageFeatures().put(
@@ -69,19 +66,7 @@ public class ImageFileSuffixes extends ImageFeatures<ImageFileSuffix> {
 
 
     @XmlElement(name = "imageFileSuffix")
-    private List<ImageFileSuffix> getImageFileSuffixList() {
-
-        return getImageFeatureList();
-    }
-
-
-    private void setImageFileSuffixList(
-        final List<ImageFileSuffix> iamgeFileSuffixList) {
-
-        setImageFeatureList(iamgeFileSuffixList);
-    }
-
-
+    @XmlJavaTypeAdapter(ImageFileSuffixMapValuesAdapter.class)
     public Map<String, ImageFileSuffix> getImageFileSuffixes() {
 
         return getImageFeatures();
@@ -89,3 +74,4 @@ public class ImageFileSuffixes extends ImageFeatures<ImageFileSuffix> {
 
 
 }
+

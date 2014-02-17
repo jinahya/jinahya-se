@@ -18,7 +18,6 @@
 package com.github.jinahya.imageio;
 
 
-import static com.oracle.nio.BufferSecrets.instance;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
