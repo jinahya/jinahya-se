@@ -401,7 +401,7 @@ public class DangerousTest {
     }
 
 
-    @Test(expectedExceptions = {IllegalArgumentException.class})
+    @Test
     public void getBoolean_instanceField() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
@@ -410,8 +410,7 @@ public class DangerousTest {
         final Field field = MyObject.class.getDeclaredField("instanceBoolean");
         assert !Modifier.isStatic(field.getModifiers());
 
-        Assert.assertFalse(
-            dangerous.getBoolean(object, field));
+        Assert.assertFalse(dangerous.getBoolean(object, field));
     }
 
 
@@ -428,8 +427,7 @@ public class DangerousTest {
         assert !Modifier.isStatic(field.getModifiers());
         assert Modifier.isVolatile(field.getModifiers());
 
-        Assert.assertFalse(
-            dangerous.getBoolean(object, field));
+        Assert.assertFalse(dangerous.getBoolean(object, field));
     }
 
 
@@ -471,7 +469,7 @@ public class DangerousTest {
     }
 
 
-    @Test(expectedExceptions = {IllegalArgumentException.class})
+    @Test
     public void getByte_instanceField() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
@@ -480,8 +478,7 @@ public class DangerousTest {
         final Field field = MyObject.class.getDeclaredField("instanceBoolean");
         assert !Modifier.isStatic(field.getModifiers());
 
-        Assert.assertEquals(
-            dangerous.getByte(object, field), (byte) 0);
+        Assert.assertEquals(dangerous.getByte(object, field), (byte) 0);
     }
 
 
