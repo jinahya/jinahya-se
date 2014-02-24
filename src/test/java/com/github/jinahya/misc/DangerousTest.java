@@ -198,63 +198,41 @@ public class DangerousTest {
     }
 
 
-    @Test(enabled = false)
-    public static void checkAllMethodsWrapped()
-        throws ClassNotFoundException, NoSuchMethodException {
-
-        final Class<?> unsafeClass = Class.forName("sun.misc.Unsafe");
-        for (final Method method : unsafeClass.getMethods()) {
-            if (!method.getDeclaringClass().equals(unsafeClass)) {
-                continue;
-            }
-            if (!Modifier.isPublic(method.getModifiers())) {
-                continue;
-            }
-            final Method wrapped;
-            try {
-                wrapped = Dangerous.class.getDeclaredMethod(
-                    method.getName(), method.getParameterTypes());
-            } catch (final NoSuchMethodException nsme) {
-                logger.error("method not wrapped: {}", method);
-                throw nsme;
-            }
-        }
-    }
-
-
     @Test
     public void allocateInstance_() throws InstantiationException {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
-        final MyObject instance
-            = dangerous.allocateInstance(MyObject.class);
+        final MyObject instance = dangerous.allocateInstance(MyObject.class);
 
         Assert.assertNotNull(instance);
     }
 
 
     @Test
-    public void compareAndSwapInt_instanceField() throws NoSuchFieldException {
+    public void compareAndSwapInt_instance_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
         final Object object = new MyObject();
         final Field field = MyObject.class.getDeclaredField("instanceInt");
+        assert !Modifier.isStatic(field.getModifiers());
         final int expected = 0;
         final int x = 0;
 
-        dangerous.compareAndSwapInt(object, field, expected, x);
+        Assert.assertTrue(
+            dangerous.compareAndSwapInt(object, field, expected, x));
     }
 
 
     @Test
-    public void compareAndSwapInt_staticField() throws NoSuchFieldException {
+    public void compareAndSwapInt_static_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
         final Object object = null;
         final Field field = MyObject.class.getDeclaredField("staticInt");
+        assert Modifier.isStatic(field.getModifiers());
         final int expected = 0;
         final int x = 0;
 
@@ -262,27 +240,14 @@ public class DangerousTest {
     }
 
 
-    @Test(expectedExceptions = {NullPointerException.class})
-    public void compareAndSwapInt_nullField() {
-
-        final Dangerous dangerous = Dangerous.newInstance();
-
-        final Object object = new MyObject();
-        final Field field = null;
-        final int expected = 0;
-        final int x = 0;
-
-        dangerous.compareAndSwapInt(object, null, expected, x);
-    }
-
-
     @Test
-    public void compareAndSwapLong_instanceField() throws NoSuchFieldException {
+    public void compareAndSwapLong_instance_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
         final Object base = new MyObject();
         final Field field = MyObject.class.getDeclaredField("instanceLong");
+        assert !Modifier.isStatic(field.getModifiers());
         final long expected = 0L;
         final long x = 0L;
 
@@ -292,7 +257,7 @@ public class DangerousTest {
 
 
     @Test
-    public void compareAndSwapLong_staticField() throws NoSuchFieldException {
+    public void compareAndSwapLong_static_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
@@ -306,28 +271,14 @@ public class DangerousTest {
     }
 
 
-    @Test(expectedExceptions = {NullPointerException.class})
-    public void compareAndSwapLong_nullField() throws NoSuchFieldException {
-
-        final Dangerous dangerous = Dangerous.newInstance();
-
-        final Object object = null;
-        final Field field = null;
-        final long expected = 0L;
-        final long x = 0L;
-
-        dangerous.compareAndSwapLong(object, field, expected, x);
-    }
-
-
     @Test
-    public void compareAndSwapObject_instanceField()
-        throws NoSuchFieldException {
+    public void compareAndSwapObject_instance_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
         final Object object = new MyObject();
         final Field field = MyObject.class.getDeclaredField("instanceObject");
+        assert !Modifier.isStatic(field.getModifiers());
         final Object expected = null;
         final Object x = new Object();
 
@@ -337,35 +288,22 @@ public class DangerousTest {
 
 
     @Test
-    public void compareAndSwapObject_staticField() throws NoSuchFieldException {
+    public void compareAndSwapObject_static_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
         final Object object = null;
         final Field field = MyObject.class.getDeclaredField("staticObject");
+        assert Modifier.isStatic(field.getModifiers());
         final Object expected = null;
-        final Object x = new Object();
-
-        dangerous.compareAndSwapObject(object, field, expected, x);
-    }
-
-
-    @Test(expectedExceptions = {NullPointerException.class})
-    public void compareAndSwapObject_nullField() {
-
-        final Dangerous dangerous = Dangerous.newInstance();
-
-        final Object object = null;
-        final Field field = null;
-        final Object expected = new Object();
-        final Object x = new Object();
+        final Object x = null;
 
         dangerous.compareAndSwapObject(object, field, expected, x);
     }
 
 
     @Test
-    public void compareAndSwapObject_generic_instanceField()
+    public void compareAndSwapObject_generic_instance_()
         throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
@@ -384,7 +322,7 @@ public class DangerousTest {
 
 
     @Test
-    public void compareAndSwapObject_generic_staticField()
+    public void compareAndSwapObject_generic_static_()
         throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
@@ -402,7 +340,7 @@ public class DangerousTest {
 
 
     @Test
-    public void getBoolean_instanceField() throws NoSuchFieldException {
+    public void getBoolean_instance_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
@@ -415,13 +353,12 @@ public class DangerousTest {
 
 
     @Test
-    public void getBoolean_instanceField_volatile()
+    public void getBoolean_instance_volatile_()
         throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
         final Object object = new MyObject();
-
         final Field field
             = MyObject.class.getDeclaredField("instanceBooleanVolatile");
         assert !Modifier.isStatic(field.getModifiers());
@@ -432,7 +369,7 @@ public class DangerousTest {
 
 
     @Test
-    public void getBoolean_staticField() throws NoSuchFieldException {
+    public void getBoolean_static_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
@@ -445,7 +382,7 @@ public class DangerousTest {
 
 
     @Test
-    public void getBoolean_staticField_volatile() throws NoSuchFieldException {
+    public void getBoolean_static_volatile() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
@@ -457,20 +394,8 @@ public class DangerousTest {
     }
 
 
-    @Test(expectedExceptions = {NullPointerException.class})
-    public void getBoolean_nullField() throws NoSuchFieldException {
-
-        final Dangerous dangerous = Dangerous.newInstance();
-
-        final Object object = null;
-        final Field field = null;
-
-        dangerous.getBoolean(object, field);
-    }
-
-
     @Test
-    public void getByte_instanceField() throws NoSuchFieldException {
+    public void getByte_instance_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
@@ -483,25 +408,22 @@ public class DangerousTest {
 
 
     @Test
-    public void getByte_instanceField_volatile()
-        throws NoSuchFieldException {
+    public void getByte_instance_volatile_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
         final Object object = new MyObject();
-
         final Field field
             = MyObject.class.getDeclaredField("instanceBooleanVolatile");
         assert !Modifier.isStatic(field.getModifiers());
         assert Modifier.isVolatile(field.getModifiers());
 
-        Assert.assertEquals(
-            dangerous.getByte(object, field), 0b00);
+        Assert.assertEquals(dangerous.getByte(object, field), 0b00);
     }
 
 
     @Test
-    public void getByte_staticField() throws NoSuchFieldException {
+    public void getByte_static_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
@@ -514,25 +436,13 @@ public class DangerousTest {
 
 
     @Test
-    public void getByte_staticField_volatile() throws NoSuchFieldException {
+    public void getByte_static_volatile_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
         final Object object = null;
         final Field field
             = MyObject.class.getDeclaredField("staticBooleanVolatile");
-
-        dangerous.getByte(object, field);
-    }
-
-
-    @Test(expectedExceptions = {NullPointerException.class})
-    public void getByte_nullField() throws NoSuchFieldException {
-
-        final Dangerous dangerous = Dangerous.newInstance();
-
-        final Object object = null;
-        final Field field = null;
 
         dangerous.getByte(object, field);
     }
