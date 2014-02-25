@@ -19,6 +19,7 @@ package com.github.jinahya.lang;
 
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,32 +30,45 @@ import org.testng.annotations.Test;
 /**
  *
  * @author Jin Kwon <onacit at gmail.com>
- * @param <E>
- * @param <F>
+ * @param <E> enum type parameter
+ * @param <F> field type parameter
  */
 public abstract class FieldEnumTest<E extends Enum<E> & FieldEnum<E, F>, F> {
 
 
-    private static final Logger LOGGER
+    private static final Logger logger
         = LoggerFactory.getLogger(FieldEnumTest.class);
 
 
-    public FieldEnumTest(final Class<E> enumType) {
+    public FieldEnumTest(final Class<E> enumType, final Class<F> fieldType) {
 
         super();
 
-        if (enumType == null) {
-            throw new NullPointerException("null enumType");
-        }
+        Objects.requireNonNull(enumType, "null enumType");
+        //Objects.requireNonNull(fieldType, "null fieldType");
 
         this.enumType = enumType;
+        this.fieldType = fieldType;
+    }
+
+
+    /**
+     *
+     * @param enumType
+     *
+     * @deprecated
+     */
+    @Deprecated
+    public FieldEnumTest(final Class<E> enumType) {
+
+        this(enumType, null);
     }
 
 
     @Test
     public void assertUniqueFieldValues() {
-
-        final Set<F> fieldValues = new HashSet<F>();
+        
+        final Set<F> fieldValues = new HashSet<>();
         for (final E enumConstant : enumType.getEnumConstants()) {
             final F fieldValue = enumConstant.getFieldValue();
             if (!fieldValues.add(fieldValue)) {
@@ -68,6 +82,12 @@ public abstract class FieldEnumTest<E extends Enum<E> & FieldEnum<E, F>, F> {
      * enum type.
      */
     protected final Class<E> enumType;
+
+
+    /**
+     * field type.
+     */
+    protected final Class<F> fieldType;
 
 
 }

@@ -34,7 +34,7 @@ public class TypeTest extends FieldEnumTest<Type, Integer> {
 
     public TypeTest() {
 
-        super(Type.class);
+        super(Type.class, Integer.class);
     }
 
 

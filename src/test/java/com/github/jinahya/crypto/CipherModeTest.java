@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 <a href="mailto:onacit@gmail.com">Jin Kwon</a>.
+ * Copyright 2014 Jin Kwon <onacit at gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,23 +15,18 @@
  */
 
 
-package com.github.jinahya.sql;
+package com.github.jinahya.crypto;
 
 
 import com.github.jinahya.lang.FieldEnumTest;
 
 
-/**
- *
- * @author <a href="mailto:onacit@gmail.com">Jin Kwon</a>
- */
-public class DatabaseMetaDataAttributeNullableTest
-    extends FieldEnumTest<DatabaseMetaDataAttributeNullable, Integer> {
+public class CipherModeTest extends FieldEnumTest<CipherMode, Integer> {
 
 
-    public DatabaseMetaDataAttributeNullableTest() {
+    public CipherModeTest() {
 
-        super(DatabaseMetaDataAttributeNullable.class, Integer.class);
+        super(CipherMode.class, Integer.class);
     }
 
 

@@ -35,7 +35,7 @@ public class ResultSetHoldabilityTest
 
     public ResultSetHoldabilityTest() {
 
-        super(ResultSetHoldability.class);
+        super(ResultSetHoldability.class, Integer.class);
     }
 
 

@@ -48,9 +48,23 @@ public class NumbersTest {
     }
 
 
+    private static float newFloat() {
+
+        final float value = 2.f * ThreadLocalRandom.current().nextFloat() - 1.f;
+        return value * (value < .0f ? Float.MIN_VALUE : Float.MAX_VALUE);
+    }
+
+
     private static long newLong() {
 
         return ThreadLocalRandom.current().nextLong();
+    }
+
+
+    private static double newDouble() {
+
+        final double value = 2d * ThreadLocalRandom.current().nextDouble() - 1d;
+        return value * (value < .0d ? Double.MIN_VALUE : Double.MAX_VALUE);
     }
 
 
@@ -63,6 +77,26 @@ public class NumbersTest {
         }
 
         return builder.toString();
+    }
+
+
+    private static void copyBegins(final byte[] src, final int index,
+                                   final byte[] dest) {
+
+        final int srcPos = index;
+        final int destPos = 0;
+        final int length = Math.min(dest.length, src.length - index);
+        System.arraycopy(src, srcPos, dest, destPos, length);
+    }
+
+
+    private static void copyEnds(final byte[] src, final int index,
+                                 final byte[] dest) {
+
+        final int srcPos = Math.max(index - dest.length + 1, 0);
+        final int destPos = Math.max(dest.length - index - 1, 0);
+        final int length = Math.min(dest.length, index + 1);
+        System.arraycopy(src, srcPos, dest, destPos, length);
     }
 
 
@@ -79,19 +113,32 @@ public class NumbersTest {
 
 
     @Test
-    public static void toShort_() {
+    public static void toShortBegins_() {
 
         final byte[] bytes = new byte[128];
         ThreadLocalRandom.current().nextBytes(bytes);
 
-        for (int limit = 1; limit <= bytes.length; limit++) {
-            final short value = Numbers.toShort(bytes, limit);
+        for (int index = 0; index < bytes.length; index++) {
+            final short value = Numbers.toShortBegins(bytes, index);
             final byte[] actual = Numbers.toBytes(value);
             final byte[] expected = new byte[Numbers.SHORT_BYTES];
-            final int srcPos = Math.max(limit - expected.length, 0);
-            final int destPos = Math.max(expected.length - limit, 0);
-            final int length = Math.min(expected.length, limit);
-            System.arraycopy(bytes, srcPos, expected, destPos, length);
+            copyBegins(bytes, index, expected);
+            Assert.assertEquals(actual, expected);
+        }
+    }
+
+
+    @Test
+    public static void toShortEnds_() {
+
+        final byte[] bytes = new byte[128];
+        ThreadLocalRandom.current().nextBytes(bytes);
+
+        for (int index = 0; index < bytes.length; index++) {
+            final short value = Numbers.toShortEnds(bytes, index);
+            final byte[] actual = Numbers.toBytes(value);
+            final byte[] expected = new byte[Numbers.SHORT_BYTES];
+            copyEnds(bytes, index, expected);
             Assert.assertEquals(actual, expected);
         }
     }
@@ -110,18 +157,63 @@ public class NumbersTest {
 
 
     @Test
-    public static void toInt_() {
+    public static void toIntBegins_() {
 
         final byte[] bytes = new byte[128];
         ThreadLocalRandom.current().nextBytes(bytes);
 
-        for (int limit = 1; limit <= bytes.length; limit++) {
-            final int value = Numbers.toInt(bytes, limit);
+        for (int index = 0; index < bytes.length; index++) {
+            final int value = Numbers.toIntBegins(bytes, index);
             final byte[] actual = Numbers.toBytes(value);
-            final byte[] expected = new byte[Integer.SIZE / Byte.SIZE];
-            final int srcPos = Math.max(limit - expected.length, 0);
-            final int destPos = Math.max(expected.length - limit, 0);
-            final int length = Math.min(expected.length, limit);
+            final byte[] expected = new byte[Numbers.INTEGER_BYTES];
+            copyBegins(bytes, index, expected);
+            Assert.assertEquals(actual, expected);
+        }
+    }
+
+
+    @Test
+    public static void toIntEnds_() {
+
+        final byte[] bytes = new byte[128];
+        ThreadLocalRandom.current().nextBytes(bytes);
+
+        for (int index = 0; index < bytes.length; index++) {
+            final int value = Numbers.toIntEnds(bytes, index);
+            final byte[] actual = Numbers.toBytes(value);
+            final byte[] expected = new byte[Numbers.INTEGER_BYTES];
+            copyEnds(bytes, index, expected);
+            Assert.assertEquals(actual, expected);
+        }
+    }
+
+
+    @Test(enabled = true, invocationCount = 128)
+    public static void toBytes_float_() {
+
+        final float value = newFloat();
+        final byte[] bytes = Numbers.toBytes(value);
+
+        final String actual = hex(bytes);
+        final String expected
+            = String.format("%1$08x", Float.floatToRawIntBits(value));
+        Assert.assertEquals(actual, expected);
+    }
+
+
+    @Test(enabled = true)
+    public static void toFloat_() {
+
+        final byte[] bytes = new byte[128];
+        ThreadLocalRandom.current().nextBytes(bytes);
+
+        for (int index = 0; index < bytes.length; index++) {
+            final float value = Numbers.toFloatEnds(bytes, index);
+            final byte[] actual = Numbers.toBytes(value);
+            final byte[] expected = new byte[Numbers.FLOAT_BYTES];
+            final int srcPos = Math.max(index - expected.length + 1, 0);
+            final int destPos = Math.max(expected.length - index - 1, 0);
+            final int length = Math.min(expected.length, index + 1);
             System.arraycopy(bytes, srcPos, expected, destPos, length);
             Assert.assertEquals(actual, expected);
         }
@@ -142,21 +234,78 @@ public class NumbersTest {
 
 
     @Test
-    public static void toLong_() {
+    public static void toLongBegins_() {
 
         final byte[] bytes = new byte[128];
         ThreadLocalRandom.current().nextBytes(bytes);
 
-        for (int limit = 1; limit <= bytes.length; limit++) {
-            final long value = Numbers.toLong(bytes, limit);
+        for (int index = 0; index < bytes.length; index++) {
+            final long value = Numbers.toLongBegins(bytes, index);
             final byte[] actual = Numbers.toBytes(value);
             final byte[] expected = new byte[Numbers.LONG_BYTES];
-            logger.debug("actual: {}", actual);
-            final int srcPos = Math.max(limit - expected.length, 0);
-            final int destPos = Math.max(expected.length - limit, 0);
-            final int length = Math.min(expected.length, limit);
-            System.arraycopy(bytes, srcPos, expected, destPos, length);
-            logger.debug("expected: {}", expected);
+            copyBegins(bytes, index, expected);
+            Assert.assertEquals(actual, expected);
+        }
+    }
+
+
+    @Test
+    public static void toLongEnds_() {
+
+        final byte[] bytes = new byte[128];
+        ThreadLocalRandom.current().nextBytes(bytes);
+
+        for (int index = 0; index < bytes.length; index++) {
+            final long value = Numbers.toLongEnds(bytes, index);
+            final byte[] actual = Numbers.toBytes(value);
+            final byte[] expected = new byte[Numbers.LONG_BYTES];
+            copyEnds(bytes, index, expected);
+            Assert.assertEquals(actual, expected);
+        }
+    }
+
+
+    @Test(invocationCount = 128)
+    public static void toBytes_double_() {
+
+        final double value = newDouble();
+        final byte[] bytes = Numbers.toBytes(value);
+        Assert.assertEquals(bytes.length, Numbers.DOUBLE_BYTES);
+
+        final String actual = hex(bytes);
+        final String expected
+            = String.format("%1$016x", Double.doubleToRawLongBits(value));
+        Assert.assertEquals(actual, expected);
+    }
+
+
+    @Test
+    public static void toDoubleBegins_() {
+
+        final byte[] bytes = new byte[128];
+        ThreadLocalRandom.current().nextBytes(bytes);
+
+        for (int index = 0; index < bytes.length; index++) {
+            final double value = Numbers.toDoubleBegins(bytes, index);
+            final byte[] actual = Numbers.toBytes(value);
+            final byte[] expected = new byte[Numbers.DOUBLE_BYTES];
+            copyBegins(bytes, index, expected);
+            Assert.assertEquals(actual, expected);
+        }
+    }
+
+
+    @Test
+    public static void toDoubleEnds_() {
+
+        final byte[] bytes = new byte[128];
+        ThreadLocalRandom.current().nextBytes(bytes);
+
+        for (int index = 0; index < bytes.length; index++) {
+            final double value = Numbers.toDoubleEnds(bytes, index);
+            final byte[] actual = Numbers.toBytes(value);
+            final byte[] expected = new byte[Numbers.DOUBLE_BYTES];
+            copyEnds(bytes, index, expected);
             Assert.assertEquals(actual, expected);
         }
     }

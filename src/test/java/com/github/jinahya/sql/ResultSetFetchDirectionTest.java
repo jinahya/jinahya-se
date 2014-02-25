@@ -35,7 +35,7 @@ public class ResultSetFetchDirectionTest
 
     public ResultSetFetchDirectionTest() {
 
-        super(ResultSetFetchDirection.class);
+        super(ResultSetFetchDirection.class, Integer.class);
     }
 
 

@@ -35,11 +35,27 @@ public abstract class CalendarFieldEnumTest<E extends Enum<E> & CalendarFieldEnu
 
 
     public CalendarFieldEnumTest(final Class<E> enumType,
+                                 final Class<F> fieldType,
                                  final int calendarField) {
 
-        super(enumType);
+        super(enumType, fieldType);
 
         this.calendarField = calendarField;
+    }
+
+
+    /**
+     *
+     * @param enumType
+     * @param calendarField
+     *
+     * @deprecated
+     */
+    @Deprecated
+    public CalendarFieldEnumTest(final Class<E> enumType,
+                                 final int calendarField) {
+
+        this(enumType, null, calendarField);
     }
 
 

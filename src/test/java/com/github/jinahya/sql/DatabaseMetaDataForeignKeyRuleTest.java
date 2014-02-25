@@ -31,7 +31,7 @@ public class DatabaseMetaDataForeignKeyRuleTest
 
     public DatabaseMetaDataForeignKeyRuleTest() {
 
-        super(DatabaseMetaDataForeignKeyRule.class);
+        super(DatabaseMetaDataForeignKeyRule.class, Integer.class);
     }
 
 

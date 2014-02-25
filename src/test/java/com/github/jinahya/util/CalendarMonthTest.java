@@ -18,7 +18,6 @@
 package com.github.jinahya.util;
 
 
-
 /**
  *
  * @author Jin Kwon <onacit at gmail.com>
@@ -29,8 +28,10 @@ public class CalendarMonthTest
 
     public CalendarMonthTest() {
 
-        super(CalendarMonth.class, CalendarMonth.CALENDAR_FIELD);
+        super(CalendarMonth.class, Integer.class,
+              CalendarMonth.CALENDAR_FIELD);
     }
 
 
 }
+

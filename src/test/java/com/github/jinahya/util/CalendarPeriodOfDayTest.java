@@ -18,7 +18,6 @@
 package com.github.jinahya.util;
 
 
-
 /**
  *
  * @author Jin Kwon <onacit at gmail.com>
@@ -29,8 +28,10 @@ public class CalendarPeriodOfDayTest
 
     public CalendarPeriodOfDayTest() {
 
-        super(CalendarPeriodOfDay.class, CalendarPeriodOfDay.CALENDAR_FIELD);
+        super(CalendarPeriodOfDay.class, Integer.class,
+              CalendarPeriodOfDay.CALENDAR_FIELD);
     }
 
 
 }
+

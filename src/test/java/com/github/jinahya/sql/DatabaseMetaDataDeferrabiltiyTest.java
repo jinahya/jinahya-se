@@ -31,7 +31,7 @@ public class DatabaseMetaDataDeferrabiltiyTest
 
     public DatabaseMetaDataDeferrabiltiyTest() {
 
-        super(DatabaseMetaDataDeferrability.class);
+        super(DatabaseMetaDataDeferrability.class, Integer.class);
     }
 
 

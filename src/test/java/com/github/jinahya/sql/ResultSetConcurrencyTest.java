@@ -35,7 +35,7 @@ public class ResultSetConcurrencyTest
 
     public ResultSetConcurrencyTest() {
 
-        super(ResultSetConcurrency.class);
+        super(ResultSetConcurrency.class, Integer.class);
     }
 
 

@@ -18,7 +18,6 @@
 package com.github.jinahya.util;
 
 
-
 /**
  *
  * @author Jin Kwon <onacit at gmail.com>
@@ -29,8 +28,10 @@ public class CalendarDayOfWeekTest
 
     public CalendarDayOfWeekTest() {
 
-        super(CalendarDayOfWeek.class, CalendarDayOfWeek.CALENDAR_FIELD);
+        super(CalendarDayOfWeek.class, Integer.class,
+              CalendarDayOfWeek.CALENDAR_FIELD);
     }
 
 
 }
+

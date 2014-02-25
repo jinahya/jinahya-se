@@ -34,7 +34,7 @@ public class ResultSetTypeTest extends FieldEnumTest<ResultSetType, Integer> {
 
     public ResultSetTypeTest() {
 
-        super(ResultSetType.class);
+        super(ResultSetType.class, Integer.class);
     }
 
 

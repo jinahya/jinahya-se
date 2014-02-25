@@ -65,6 +65,12 @@ public final class Numbers {
     public static final int DOUBLE_BYTES = Double.SIZE / Byte.SIZE;
 
 
+    /**
+     *
+     * @param value
+     *
+     * @return
+     */
     public static byte[] toBytes(short value) {
 
         final byte[] bytes = new byte[SHORT_BYTES];
@@ -78,20 +84,7 @@ public final class Numbers {
     }
 
 
-    /**
-     *
-     * @param bytes the byte array to convert
-     * @param limit the left most byte index; must be greater than {@code 0} and
-     * less than or equals to {@code bytes.length}.
-     *
-     * @return
-     *
-     * @throws NullPointerException if {@code bytes} is {@code null}.
-     * @throws IllegalArgumentException if {@code bytes} is empty
-     * @throws IllegalArgumentException {@code limit} is less than or equals to
-     * {@code 0} or greater than {@code bytes.length}.
-     */
-    public static short toShort(final byte[] bytes, final int limit) {
+    public static short toShortBegins(final byte[] bytes, final int index) {
 
         if (bytes == null) {
             throw new NullPointerException("null bytes");
@@ -101,21 +94,23 @@ public final class Numbers {
             throw new IllegalArgumentException("empty bytes");
         }
 
-        if (limit <= 0) {
-            throw new IllegalArgumentException("limit(" + limit + ") <= 0");
+        if (index < 0) {
+            throw new IllegalArgumentException("index(" + index + ") < 0");
         }
 
-        if (limit > bytes.length) {
+        if (index >= bytes.length) {
             throw new IllegalArgumentException(
-                "limit(" + limit + ") > bytes.length(" + bytes.length + ")");
+                "index(" + index + ") >= bytes.length(" + bytes.length + ")");
         }
 
         short value = 0;
 
-        final int size = SHORT_BYTES;
-        assert size == 2;
-        for (int i = Math.max(limit - size, 0); i < limit; i++) {
+        final int end = index + SHORT_BYTES;
+        for (int i = index; i < end; i++) {
             value <<= Byte.SIZE;
+            if (i >= bytes.length) {
+                continue;
+            }
             value |= (bytes[i] & 0xFF);
         }
 
@@ -123,16 +118,79 @@ public final class Numbers {
     }
 
 
-    public static short toShort(final byte[] bytes) {
+    public static short toShortBegins(final byte[] bytes) {
 
-        return toShort(bytes, bytes.length);
+        return toShortBegins(bytes, 0);
     }
 
 
+    /**
+     *
+     * @param bytes the byte array to convert
+     * @param index
+     *
+     * @return
+     *
+     * @throws NullPointerException if {@code bytes} is {@code null}.
+     * @throws IllegalArgumentException if {@code bytes.length} is zero.
+     * @throws IllegalArgumentException {@code limit} is less than zero, or
+     * greater than or equals to {@code bytes.length}.
+     */
+    public static short toShortEnds(final byte[] bytes, final int index) {
+
+        if (bytes == null) {
+            throw new NullPointerException("null bytes");
+        }
+
+        if (bytes.length == 0) {
+            throw new IllegalArgumentException("empty bytes");
+        }
+
+        if (index < 0) {
+            throw new IllegalArgumentException("index(" + index + ") <= 0");
+        }
+
+        if (index >= bytes.length) {
+            throw new IllegalArgumentException(
+                "index(" + index + ") >= bytes.length(" + bytes.length + ")");
+        }
+
+        short value = 0;
+
+        for (int i = index - SHORT_BYTES + 1; i <= index; i++) {
+            value <<= Byte.SIZE;
+            if (i < 0) {
+                continue;
+            }
+            value |= (bytes[i] & 0xFF);
+        }
+
+        return value;
+    }
+
+
+    /**
+     *
+     * @param bytes
+     *
+     * @return
+     */
+    public static short toShortEnds(final byte[] bytes) {
+
+        return toShortEnds(bytes, bytes.length - 1);
+    }
+
+
+    /**
+     * Converts given int value to an array of {@value #INTEGER_BYTES} bytes.
+     *
+     * @param value the int value to convert.
+     *
+     * @return an array of {@value #INTEGER_BYTES} bytes.
+     */
     public static byte[] toBytes(int value) {
 
         final byte[] bytes = new byte[INTEGER_BYTES];
-        assert bytes.length == 4;
 
         for (int i = bytes.length - 1; i >= 0; i--) {
             bytes[i] = (byte) (value & 0xFF);
@@ -143,7 +201,20 @@ public final class Numbers {
     }
 
 
-    public static int toInt(final byte[] bytes, final int limit) {
+    /**
+     *
+     * @param bytes
+     * @param index the starting index in {@code bytes} between 0 (inclusive)
+     * and {@code bytes.length} (exclusive).
+     *
+     * @return
+     *
+     * @throws NullPointerException if {@code bytes} is {@code null}.
+     * @throws IllegalArgumentException if {@code bytes.length} is zero.
+     * @throws IllegalArgumentException if {@code position} is less than zero,
+     * or greater than or equals to {@code bytes.length}.
+     */
+    public static int toIntBegins(final byte[] bytes, final int index) {
 
         if (bytes == null) {
             throw new NullPointerException("null bytes");
@@ -153,21 +224,23 @@ public final class Numbers {
             throw new IllegalArgumentException("empty bytes");
         }
 
-        if (limit <= 0) {
-            throw new IllegalArgumentException("limit(" + limit + ") <= 0");
+        if (index < 0) {
+            throw new IllegalArgumentException("index(" + index + ") < 0");
         }
 
-        if (limit > bytes.length) {
+        if (index >= bytes.length) {
             throw new IllegalArgumentException(
-                "limit(" + limit + ") > bytes.length(" + bytes.length + ")");
+                "index(" + index + ") >= bytes.length(" + bytes.length + ")");
         }
 
         int value = 0;
 
-        final int size = INTEGER_BYTES;
-        assert size == 4;
-        for (int i = Math.max(limit - size, 0); i < limit; i++) {
+        final int end = index + INTEGER_BYTES;
+        for (int i = index; i < end; i++) {
             value <<= Byte.SIZE;
+            if (i >= bytes.length) {
+                continue;
+            }
             value |= (bytes[i] & 0xFF);
         }
 
@@ -175,9 +248,85 @@ public final class Numbers {
     }
 
 
-    public static int toInt(final byte[] bytes) {
+    public static int toIntBegins(final byte[] bytes) {
 
-        return toInt(bytes, bytes.length);
+        return toIntBegins(bytes, 0);
+    }
+
+
+    /**
+     *
+     * @param bytes
+     * @param index
+     *
+     * @return
+     */
+    public static int toIntEnds(final byte[] bytes, final int index) {
+
+        if (bytes == null) {
+            throw new NullPointerException("null bytes");
+        }
+
+        if (bytes.length == 0) {
+            throw new IllegalArgumentException("empty bytes");
+        }
+
+        if (index < 0) {
+            throw new IllegalArgumentException("index(" + index + ") < 0");
+        }
+
+        if (index >= bytes.length) {
+            throw new IllegalArgumentException(
+                "index(" + index + ") >= bytes.length(" + bytes.length + ")");
+        }
+
+        int value = 0;
+
+        for (int i = index - INTEGER_BYTES + 1; i <= index; i++) {
+            value <<= Byte.SIZE;
+            if (i < 0) {
+                continue;
+            }
+            value |= (bytes[i] & 0xFF);
+        }
+
+        return value;
+    }
+
+
+    public static int toIntEnds(final byte[] bytes) {
+
+        return toIntEnds(bytes, bytes.length - 1);
+    }
+
+
+    public static byte[] toBytes(final float value) {
+
+        return toBytes(Float.floatToRawIntBits(value));
+    }
+
+
+    public static float toFloatBegins(final byte[] bytes, final int index) {
+
+        return Float.intBitsToFloat(toIntBegins(bytes, index));
+    }
+
+
+    public static float toFloatBegins(final byte[] bytes) {
+
+        return toFloatBegins(bytes, bytes.length - 1);
+    }
+
+
+    public static float toFloatEnds(final byte[] bytes, final int index) {
+
+        return Float.intBitsToFloat(toIntEnds(bytes, index));
+    }
+
+
+    public static float toFloatEnds(final byte[] bytes) {
+
+        return toFloatEnds(bytes, bytes.length - 1);
     }
 
 
@@ -194,7 +343,7 @@ public final class Numbers {
     }
 
 
-    public static long toLong(final byte[] bytes, final int limit) {
+    public static long toLongBegins(final byte[] bytes, final int index) {
 
         if (bytes == null) {
             throw new NullPointerException("null bytes");
@@ -204,21 +353,23 @@ public final class Numbers {
             throw new IllegalArgumentException("empty bytes");
         }
 
-        if (limit <= 0) {
-            throw new IllegalArgumentException("limit(" + limit + ") <= 0");
+        if (index < 0) {
+            throw new IllegalArgumentException("index(" + index + ") < 0");
         }
 
-        if (limit > bytes.length) {
+        if (index >= bytes.length) {
             throw new IllegalArgumentException(
-                "limit(" + limit + ") > bytes.length(" + bytes.length + ")");
+                "index(" + index + ") >= bytes.length(" + bytes.length + ")");
         }
 
         long value = 0;
 
-        final int size = LONG_BYTES;
-        assert size == 8;
-        for (int i = Math.max(limit - size, 0); i < limit; i++) {
+        final int end = index + LONG_BYTES;
+        for (int i = index; i < end; i++) {
             value <<= Byte.SIZE;
+            if (i >= bytes.length) {
+                continue;
+            }
             value |= (bytes[i] & 0xFF);
         }
 
@@ -226,9 +377,78 @@ public final class Numbers {
     }
 
 
-    public static long toLong(final byte[] bytes) {
+    public static long toLongBegins(final byte[] bytes) {
 
-        return toLong(bytes, bytes.length);
+        return toLongBegins(bytes, 0);
+    }
+
+
+    public static long toLongEnds(final byte[] bytes, final int index) {
+
+        if (bytes == null) {
+            throw new NullPointerException("null bytes");
+        }
+
+        if (bytes.length == 0) {
+            throw new IllegalArgumentException("empty bytes");
+        }
+
+        if (index < 0) {
+            throw new IllegalArgumentException("index(" + index + ") < 0");
+        }
+
+        if (index >= bytes.length) {
+            throw new IllegalArgumentException(
+                "index(" + index + ") >= bytes.length(" + bytes.length + ")");
+        }
+
+        long value = 0;
+
+        for (int i = index - LONG_BYTES + 1; i <= index; i++) {
+            value <<= Byte.SIZE;
+            if (i < 0) {
+                continue;
+            }
+            value |= (bytes[i] & 0xFF);
+        }
+
+        return value;
+    }
+
+
+    public static long toLongEnds(final byte[] bytes) {
+
+        return toLongEnds(bytes, bytes.length - 1);
+    }
+
+
+    public static byte[] toBytes(final double value) {
+
+        return toBytes(Double.doubleToRawLongBits(value));
+    }
+
+
+    public static double toDoubleBegins(final byte[] bytes, final int index) {
+
+        return Double.longBitsToDouble(toLongBegins(bytes, index));
+    }
+
+
+    public static double toDoubleBegin(final byte[] bytes) {
+
+        return toDoubleBegins(bytes, bytes.length - 1);
+    }
+
+
+    public static double toDoubleEnds(final byte[] bytes, final int index) {
+
+        return Double.longBitsToDouble(toLongEnds(bytes, index));
+    }
+
+
+    public static double toDoubleEnds(final byte[] bytes) {
+
+        return toDoubleEnds(bytes, bytes.length - 1);
     }
 
 
