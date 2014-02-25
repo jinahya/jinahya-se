@@ -302,7 +302,7 @@ public final class Dangerous {
 
         final long offset;
         if (static_) {
-            if (base != null) {
+            if (base == null) {
                 base = unsafe.staticFieldBase(field);
             }
             offset = unsafe.staticFieldOffset(field);

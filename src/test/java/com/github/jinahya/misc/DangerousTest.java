@@ -19,7 +19,6 @@ package com.github.jinahya.misc;
 
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.concurrent.ThreadLocalRandom;
 import org.slf4j.Logger;
@@ -214,14 +213,17 @@ public class DangerousTest {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
-        final Object object = new MyObject();
+        final Object base = new MyObject();
         final Field field = MyObject.class.getDeclaredField("instanceInt");
+        if (!field.isAccessible()) {
+            field.setAccessible(true);
+        }
         assert !Modifier.isStatic(field.getModifiers());
         final int expected = 0;
         final int x = 0;
 
         Assert.assertTrue(
-            dangerous.compareAndSwapInt(object, field, expected, x));
+            dangerous.compareAndSwapInt(base, field, expected, x));
     }
 
 
@@ -230,13 +232,16 @@ public class DangerousTest {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
-        final Object object = null;
+        final Object base = null;
         final Field field = MyObject.class.getDeclaredField("staticInt");
+        if (!field.isAccessible()) {
+            field.setAccessible(true);
+        }
         assert Modifier.isStatic(field.getModifiers());
         final int expected = 0;
         final int x = 0;
 
-        dangerous.compareAndSwapInt(object, field, expected, x);
+        dangerous.compareAndSwapInt(base, field, expected, x);
     }
 
 
@@ -247,6 +252,9 @@ public class DangerousTest {
 
         final Object base = new MyObject();
         final Field field = MyObject.class.getDeclaredField("instanceLong");
+        if (!field.isAccessible()) {
+            field.setAccessible(true);
+        }
         assert !Modifier.isStatic(field.getModifiers());
         final long expected = 0L;
         final long x = 0L;
@@ -261,13 +269,16 @@ public class DangerousTest {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
-        final Object object = null;
+        final Object base = null;
         final Field field = MyObject.class.getDeclaredField("staticLong");
+        if (!field.isAccessible()) {
+            field.setAccessible(true);
+        }
         assert Modifier.isStatic(field.getModifiers());
         final long expected = 0L;
         final long x = 0L;
 
-        dangerous.compareAndSwapLong(object, field, expected, x);
+        dangerous.compareAndSwapLong(base, field, expected, x);
     }
 
 
@@ -278,6 +289,9 @@ public class DangerousTest {
 
         final Object object = new MyObject();
         final Field field = MyObject.class.getDeclaredField("instanceObject");
+        if (!field.isAccessible()) {
+            field.setAccessible(true);
+        }
         assert !Modifier.isStatic(field.getModifiers());
         final Object expected = null;
         final Object x = new Object();
@@ -294,6 +308,9 @@ public class DangerousTest {
 
         final Object object = null;
         final Field field = MyObject.class.getDeclaredField("staticObject");
+        if (!field.isAccessible()) {
+            field.setAccessible(true);
+        }
         assert Modifier.isStatic(field.getModifiers());
         final Object expected = null;
         final Object x = null;
@@ -310,6 +327,9 @@ public class DangerousTest {
 
         final Object object = new MyObject();
         final Field field = MyObject.class.getDeclaredField("instanceObject");
+        if (!field.isAccessible()) {
+            field.setAccessible(true);
+        }
         assert !Modifier.isStatic(field.getModifiers());
         final Class<Object> type = Object.class;
         assert field.getType().equals(type);
@@ -329,6 +349,9 @@ public class DangerousTest {
 
         final Object object = null;
         final Field field = MyObject.class.getDeclaredField("staticObject");
+        if (!field.isAccessible()) {
+            field.setAccessible(true);
+        }
         assert Modifier.isStatic(field.getModifiers());
         final Class<Object> type = Object.class;
         assert field.getType().equals(type);
@@ -346,6 +369,9 @@ public class DangerousTest {
 
         final Object object = new MyObject();
         final Field field = MyObject.class.getDeclaredField("instanceBoolean");
+        if (!field.isAccessible()) {
+            field.setAccessible(true);
+        }
         assert !Modifier.isStatic(field.getModifiers());
 
         Assert.assertFalse(dangerous.getBoolean(object, field));
@@ -353,14 +379,16 @@ public class DangerousTest {
 
 
     @Test
-    public void getBoolean_instance_volatile_()
-        throws NoSuchFieldException {
+    public void getBoolean_instance_volatile_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
         final Object object = new MyObject();
         final Field field
             = MyObject.class.getDeclaredField("instanceBooleanVolatile");
+        if (!field.isAccessible()) {
+            field.setAccessible(true);
+        }
         assert !Modifier.isStatic(field.getModifiers());
         assert Modifier.isVolatile(field.getModifiers());
 
@@ -375,6 +403,9 @@ public class DangerousTest {
 
         final Object object = null;
         final Field field = MyObject.class.getDeclaredField("staticBoolean");
+        if (!field.isAccessible()) {
+            field.setAccessible(true);
+        }
         assert Modifier.isStatic(field.getModifiers());
 
         dangerous.getBoolean(object, field);
@@ -389,6 +420,9 @@ public class DangerousTest {
         final Object object = null;
         final Field field
             = MyObject.class.getDeclaredField("staticBooleanVolatile");
+        if (!field.isAccessible()) {
+            field.setAccessible(true);
+        }
 
         dangerous.getBoolean(object, field);
     }
@@ -401,6 +435,9 @@ public class DangerousTest {
 
         final Object object = new MyObject();
         final Field field = MyObject.class.getDeclaredField("instanceBoolean");
+        if (!field.isAccessible()) {
+            field.setAccessible(true);
+        }
         assert !Modifier.isStatic(field.getModifiers());
 
         Assert.assertEquals(dangerous.getByte(object, field), (byte) 0);
@@ -415,6 +452,9 @@ public class DangerousTest {
         final Object object = new MyObject();
         final Field field
             = MyObject.class.getDeclaredField("instanceBooleanVolatile");
+        if (!field.isAccessible()) {
+            field.setAccessible(true);
+        }
         assert !Modifier.isStatic(field.getModifiers());
         assert Modifier.isVolatile(field.getModifiers());
 
@@ -429,6 +469,9 @@ public class DangerousTest {
 
         final Object object = null;
         final Field field = MyObject.class.getDeclaredField("staticBoolean");
+        if (!field.isAccessible()) {
+            field.setAccessible(true);
+        }
         assert Modifier.isStatic(field.getModifiers());
 
         dangerous.getByte(object, field);
@@ -443,6 +486,9 @@ public class DangerousTest {
         final Object object = null;
         final Field field
             = MyObject.class.getDeclaredField("staticBooleanVolatile");
+        if (!field.isAccessible()) {
+            field.setAccessible(true);
+        }
 
         dangerous.getByte(object, field);
     }
