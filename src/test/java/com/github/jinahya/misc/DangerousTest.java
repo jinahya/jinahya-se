@@ -83,141 +83,27 @@ public class DangerousTest {
     }
 
 
-    private static class MyObject {
-
-
-        private static boolean staticBoolean;
-
-
-        private static volatile boolean staticBooleanVolatile;
-
-
-        private static byte staticByte;
-
-
-        private static volatile byte staticByteVolatile;
-
-
-        private static char staticChar;
-
-
-        private static volatile char staticCharVolatile;
-
-
-        private static double staticDouble;
-
-
-        private static volatile double staticDoubleVolatile;
-
-
-        private static float staticFloat;
-
-
-        private static volatile float staticFloatVolatile;
-
-
-        private static int staticInt;
-
-
-        private static volatile int staticIntVolatile;
-
-
-        private static long staticLong;
-
-
-        private static volatile long staticLongVolatile;
-
-
-        private static Object staticObject;
-
-
-        private static volatile Object staticObjectVolatile;
-
-
-        private static short staticShort;
-
-
-        private static volatile short staticShortVolatile;
-
-
-        private boolean instanceBoolean;
-
-
-        private volatile boolean instanceBooleanVolatile;
-
-
-        private byte instanceByte;
-
-
-        private volatile byte instanceByteVolatile;
-
-
-        private char instanceChar;
-
-
-        private volatile char instanceCharVolatile;
-
-
-        private double instanceDouble;
-
-
-        private volatile double instanceDoubleVolatile;
-
-
-        private float instanceFloat;
-
-
-        private volatile float instanceFloatVolatile;
-
-
-        private int instanceInt;
-
-
-        private volatile int instanceIntVolatile;
-
-
-        private long instanceLong;
-
-
-        private volatile long instanceLongVolatile;
-
-
-        private Object instanceObject;
-
-
-        private volatile Object instanceObjectVolatile;
-
-
-        private short instanceShort;
-
-
-        private volatile short instanceShortVolatile;
-
-
-    }
-
-
     @Test
     public void allocateInstance_() throws InstantiationException {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
-        final MyObject instance = dangerous.allocateInstance(MyObject.class);
+        final Untouchable instance
+            = dangerous.allocateInstance(Untouchable.class);
 
         Assert.assertNotNull(instance);
     }
 
 
     @Test
-    public void compareAndSwapInt_instance_() throws NoSuchFieldException {
+    public void compareAndSwapInt_instance_()
+        throws InstantiationException, NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
-        final Object base = new MyObject();
-        final Field field = MyObject.class.getDeclaredField("instanceInt");
-        if (!field.isAccessible()) {
-            field.setAccessible(true);
-        }
+        final Object base
+            = dangerous.unsafe.allocateInstance(Untouchable.class);
+        final Field field = Untouchable.class.getDeclaredField("instanceInt");
         assert !Modifier.isStatic(field.getModifiers());
         final int expected = 0;
         final int x = 0;
@@ -233,10 +119,7 @@ public class DangerousTest {
         final Dangerous dangerous = Dangerous.newInstance();
 
         final Object base = null;
-        final Field field = MyObject.class.getDeclaredField("staticInt");
-        if (!field.isAccessible()) {
-            field.setAccessible(true);
-        }
+        final Field field = Untouchable.class.getDeclaredField("staticInt");
         assert Modifier.isStatic(field.getModifiers());
         final int expected = 0;
         final int x = 0;
@@ -246,15 +129,13 @@ public class DangerousTest {
 
 
     @Test
-    public void compareAndSwapLong_instance_() throws NoSuchFieldException {
+    public void compareAndSwapLong_instance_() throws InstantiationException, NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
-        final Object base = new MyObject();
-        final Field field = MyObject.class.getDeclaredField("instanceLong");
-        if (!field.isAccessible()) {
-            field.setAccessible(true);
-        }
+        final Object base
+            = dangerous.unsafe().allocateInstance(Untouchable.class);
+        final Field field = Untouchable.class.getDeclaredField("instanceLong");
         assert !Modifier.isStatic(field.getModifiers());
         final long expected = 0L;
         final long x = 0L;
@@ -270,10 +151,7 @@ public class DangerousTest {
         final Dangerous dangerous = Dangerous.newInstance();
 
         final Object base = null;
-        final Field field = MyObject.class.getDeclaredField("staticLong");
-        if (!field.isAccessible()) {
-            field.setAccessible(true);
-        }
+        final Field field = Untouchable.class.getDeclaredField("staticLong");
         assert Modifier.isStatic(field.getModifiers());
         final long expected = 0L;
         final long x = 0L;
@@ -283,21 +161,21 @@ public class DangerousTest {
 
 
     @Test
-    public void compareAndSwapObject_instance_() throws NoSuchFieldException {
+    public void compareAndSwapObject_instance_()
+        throws InstantiationException, NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
-        final Object object = new MyObject();
-        final Field field = MyObject.class.getDeclaredField("instanceObject");
-        if (!field.isAccessible()) {
-            field.setAccessible(true);
-        }
+        final Object base
+            = dangerous.unsafe.allocateInstance(Untouchable.class);
+        final Field field
+            = Untouchable.class.getDeclaredField("instanceObject");
         assert !Modifier.isStatic(field.getModifiers());
         final Object expected = null;
         final Object x = new Object();
 
         Assert.assertTrue(
-            dangerous.compareAndSwapObject(object, field, expected, x));
+            dangerous.compareAndSwapObject(base, field, expected, x));
     }
 
 
@@ -306,30 +184,26 @@ public class DangerousTest {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
-        final Object object = null;
-        final Field field = MyObject.class.getDeclaredField("staticObject");
-        if (!field.isAccessible()) {
-            field.setAccessible(true);
-        }
+        final Object base = null;
+        final Field field = Untouchable.class.getDeclaredField("staticObject");
         assert Modifier.isStatic(field.getModifiers());
         final Object expected = null;
         final Object x = null;
 
-        dangerous.compareAndSwapObject(object, field, expected, x);
+        dangerous.compareAndSwapObject(base, field, expected, x);
     }
 
 
     @Test
     public void compareAndSwapObject_generic_instance_()
-        throws NoSuchFieldException {
+        throws InstantiationException, NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
-        final Object object = new MyObject();
-        final Field field = MyObject.class.getDeclaredField("instanceObject");
-        if (!field.isAccessible()) {
-            field.setAccessible(true);
-        }
+        final Object base
+            = dangerous.unsafe.allocateInstance(Untouchable.class);
+        final Field field
+            = Untouchable.class.getDeclaredField("instanceObject");
         assert !Modifier.isStatic(field.getModifiers());
         final Class<Object> type = Object.class;
         assert field.getType().equals(type);
@@ -337,7 +211,7 @@ public class DangerousTest {
         final Object x = new Object();
 
         Assert.assertTrue(
-            dangerous.compareAndSwapObject(object, field, type, expected, x));
+            dangerous.compareAndSwapObject(base, field, type, expected, x));
     }
 
 
@@ -347,52 +221,48 @@ public class DangerousTest {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
-        final Object object = null;
-        final Field field = MyObject.class.getDeclaredField("staticObject");
-        if (!field.isAccessible()) {
-            field.setAccessible(true);
-        }
+        final Object base = null;
+        final Field field = Untouchable.class.getDeclaredField("staticObject");
         assert Modifier.isStatic(field.getModifiers());
         final Class<Object> type = Object.class;
         assert field.getType().equals(type);
         final Object expected = null;
         final Object x = new Object();
 
-        dangerous.compareAndSwapObject(object, field, type, expected, x);
+        dangerous.compareAndSwapObject(base, field, type, expected, x);
     }
 
 
     @Test
-    public void getBoolean_instance_() throws NoSuchFieldException {
+    public void getBoolean_instance_()
+        throws InstantiationException, NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
-        final Object object = new MyObject();
-        final Field field = MyObject.class.getDeclaredField("instanceBoolean");
-        if (!field.isAccessible()) {
-            field.setAccessible(true);
-        }
+        final Object base
+            = dangerous.unsafe.allocateInstance(Untouchable.class);
+        final Field field
+            = Untouchable.class.getDeclaredField("instanceBoolean");
         assert !Modifier.isStatic(field.getModifiers());
 
-        Assert.assertFalse(dangerous.getBoolean(object, field));
+        Assert.assertFalse(dangerous.getBoolean(base, field));
     }
 
 
     @Test
-    public void getBoolean_instance_volatile_() throws NoSuchFieldException {
+    public void getBoolean_instance_volatile_()
+        throws InstantiationException, NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
-        final Object object = new MyObject();
+        final Object base
+            = dangerous.unsafe.allocateInstance(Untouchable.class);
         final Field field
-            = MyObject.class.getDeclaredField("instanceBooleanVolatile");
-        if (!field.isAccessible()) {
-            field.setAccessible(true);
-        }
+            = Untouchable.class.getDeclaredField("instanceBooleanVolatile");
         assert !Modifier.isStatic(field.getModifiers());
         assert Modifier.isVolatile(field.getModifiers());
 
-        Assert.assertFalse(dangerous.getBoolean(object, field));
+        Assert.assertFalse(dangerous.getBoolean(base, field));
     }
 
 
@@ -401,14 +271,11 @@ public class DangerousTest {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
-        final Object object = null;
-        final Field field = MyObject.class.getDeclaredField("staticBoolean");
-        if (!field.isAccessible()) {
-            field.setAccessible(true);
-        }
+        final Object base = null;
+        final Field field = Untouchable.class.getDeclaredField("staticBoolean");
         assert Modifier.isStatic(field.getModifiers());
 
-        dangerous.getBoolean(object, field);
+        dangerous.getBoolean(base, field);
     }
 
 
@@ -419,46 +286,42 @@ public class DangerousTest {
 
         final Object object = null;
         final Field field
-            = MyObject.class.getDeclaredField("staticBooleanVolatile");
-        if (!field.isAccessible()) {
-            field.setAccessible(true);
-        }
+            = Untouchable.class.getDeclaredField("staticBooleanVolatile");
 
         dangerous.getBoolean(object, field);
     }
 
 
     @Test
-    public void getByte_instance_() throws NoSuchFieldException {
+    public void getByte_instance_()
+        throws InstantiationException, NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
-        final Object object = new MyObject();
-        final Field field = MyObject.class.getDeclaredField("instanceBoolean");
-        if (!field.isAccessible()) {
-            field.setAccessible(true);
-        }
+        final Object base
+            = dangerous.unsafe.allocateInstance(Untouchable.class);
+        final Field field
+            = Untouchable.class.getDeclaredField("instanceBoolean");
         assert !Modifier.isStatic(field.getModifiers());
 
-        Assert.assertEquals(dangerous.getByte(object, field), (byte) 0);
+        Assert.assertEquals(dangerous.getByte(base, field), (byte) 0);
     }
 
 
     @Test
-    public void getByte_instance_volatile_() throws NoSuchFieldException {
+    public void getByte_instance_volatile_()
+        throws InstantiationException, NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
-        final Object object = new MyObject();
+        final Object base
+            = dangerous.unsafe.allocateInstance(Untouchable.class);
         final Field field
-            = MyObject.class.getDeclaredField("instanceBooleanVolatile");
-        if (!field.isAccessible()) {
-            field.setAccessible(true);
-        }
+            = Untouchable.class.getDeclaredField("instanceBooleanVolatile");
         assert !Modifier.isStatic(field.getModifiers());
         assert Modifier.isVolatile(field.getModifiers());
 
-        Assert.assertEquals(dangerous.getByte(object, field), 0b00);
+        Assert.assertEquals(dangerous.getByte(base, field), 0b00);
     }
 
 
@@ -467,14 +330,11 @@ public class DangerousTest {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
-        final Object object = null;
-        final Field field = MyObject.class.getDeclaredField("staticBoolean");
-        if (!field.isAccessible()) {
-            field.setAccessible(true);
-        }
+        final Object base = null;
+        final Field field = Untouchable.class.getDeclaredField("staticBoolean");
         assert Modifier.isStatic(field.getModifiers());
 
-        dangerous.getByte(object, field);
+        dangerous.getByte(base, field);
     }
 
 
@@ -483,14 +343,11 @@ public class DangerousTest {
 
         final Dangerous dangerous = Dangerous.newInstance();
 
-        final Object object = null;
+        final Object base = null;
         final Field field
-            = MyObject.class.getDeclaredField("staticBooleanVolatile");
-        if (!field.isAccessible()) {
-            field.setAccessible(true);
-        }
+            = Untouchable.class.getDeclaredField("staticBooleanVolatile");
 
-        dangerous.getByte(object, field);
+        dangerous.getByte(base, field);
     }
 
 
