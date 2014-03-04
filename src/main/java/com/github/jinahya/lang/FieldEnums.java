@@ -58,7 +58,7 @@ public final class FieldEnums {
             = (F[]) Array.newInstance(fieldType, enumConstants.length);
 
         for (int i = 0; i < fieldValues.length; i++) {
-            fieldValues[i] = enumConstants[i].getFieldValue();
+            fieldValues[i] = enumConstants[i].fieldValue();
         }
 
         return fieldValues;
@@ -93,7 +93,7 @@ public final class FieldEnums {
         }
 
         for (final E enumConstant : enumType.getEnumConstants()) {
-            final F constantFieldValue = enumConstant.getFieldValue();
+            final F constantFieldValue = enumConstant.fieldValue();
             if (constantFieldValue == null
                 ? fieldValue == null : constantFieldValue.equals(fieldValue)) {
                 return enumConstant;

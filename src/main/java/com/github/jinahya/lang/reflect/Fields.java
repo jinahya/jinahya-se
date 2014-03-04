@@ -18,6 +18,7 @@
 package com.github.jinahya.lang.reflect;
 
 
+import com.github.jinahya.lang.Classes;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
@@ -29,6 +30,18 @@ import java.lang.reflect.Modifier;
 public final class Fields {
 
 
+    /**
+     *
+     * @param field
+     * @param delta
+     *
+     * @return
+     *
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     * @deprecated
+     */
+    @Deprecated
     public static Field removeModifiers(final Field field, final int delta)
         throws NoSuchFieldException, IllegalAccessException {
 
@@ -44,7 +57,7 @@ public final class Fields {
         final Field reflected = Field.class.getDeclaredField("modifiers");
         reflected.setAccessible(true);
         reflected.setInt(field, modifiers);
-        
+
         return field;
     }
 
@@ -60,6 +73,61 @@ public final class Fields {
         throws NoSuchFieldException, IllegalAccessException {
 
         return removeModifiers(field, Modifier.FINAL);
+    }
+
+
+    /**
+     *
+     * @param field
+     * @param type
+     *
+     * @return
+     */
+    public static Field requireTypeIsAssignableTo(final Field field,
+                                                  final Class<?> type) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
+        }
+
+        if (type == null) {
+            throw new NullPointerException("null type");
+        }
+
+        Classes.requireAssignableTo(field.getType(), type);
+
+        return field;
+    }
+
+
+    /**
+     * Check if the type of given field is assignable from specified child type.
+     *
+     * @param field the field whose type requires to be assignable from
+     * {@code type}.
+     * @param type the type requires to be assignable to {@code field}'s type.
+     *
+     * @return given field.
+     *
+     * @throws NullPointerException if {@code field} is {@code null}
+     * @throws NullPointerException if {@code type} is {@code null}
+     * @throws IllegalArgumentException if {@code field}'s type is not
+     * assignable from {@code type}.
+     */
+    public static Field requireTypeIsAssignableFrom(final Field field,
+                                                    final Class<?> type) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
+        }
+
+        if (type == null) {
+            throw new NullPointerException("null type");
+        }
+
+        Classes.requireAssignableFrom(field.getType(), type);
+
+        return field;
     }
 
 

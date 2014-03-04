@@ -71,7 +71,7 @@ public enum DatabaseMetaDataTableIndexType
 
 
     @Override
-    public Short getFieldValue() {
+    public Short fieldValue() {
 
         return fieldValue;
     }

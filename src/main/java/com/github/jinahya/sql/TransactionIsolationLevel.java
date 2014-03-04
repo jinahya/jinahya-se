@@ -120,7 +120,7 @@ public enum TransactionIsolationLevel
 
 
     @Override
-    public Integer getFieldValue() {
+    public Integer fieldValue() {
 
         return fieldValue;
     }

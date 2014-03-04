@@ -73,7 +73,7 @@ public enum CipherUnwrappedKey
 
 
     @Override
-    public Integer getFieldValue() {
+    public Integer fieldValue() {
 
         return fieldValue;
     }

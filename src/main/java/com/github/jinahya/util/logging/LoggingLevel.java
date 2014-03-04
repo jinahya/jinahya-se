@@ -104,7 +104,7 @@ public enum LoggingLevel implements FieldEnum<LoggingLevel, Integer> {
 
 
     @Override
-    public Integer getFieldValue() {
+    public Integer fieldValue() {
 
         return fieldValue;
     }

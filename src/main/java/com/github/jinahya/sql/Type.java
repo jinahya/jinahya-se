@@ -263,7 +263,7 @@ public enum Type implements FieldEnum<Type, Integer> {
 
 
     @Override
-    public Integer getFieldValue() {
+    public Integer fieldValue() {
 
         return fieldValue;
     }

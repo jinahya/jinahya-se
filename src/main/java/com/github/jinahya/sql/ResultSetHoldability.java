@@ -107,7 +107,7 @@ public enum ResultSetHoldability
 
 
     @Override
-    public Integer getFieldValue() {
+    public Integer fieldValue() {
 
         return fieldValue;
     }

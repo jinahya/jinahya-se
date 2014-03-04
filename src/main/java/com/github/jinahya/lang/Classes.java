@@ -37,7 +37,6 @@ public final class Classes {
      *
      * @throws NullPointerException if either {@code is} or {@code of} is
      * {@code null}
-     *
      * @throws IllegalArgumentException if {@code is} is not an instance of
      * {@code of}.
      *
@@ -97,6 +96,39 @@ public final class Classes {
         }
 
         return is.asSubclass(to);
+    }
+
+
+    /**
+     *
+     * @param <T>
+     * @param is
+     * @param from
+     *
+     * @return
+     *
+     * @throws NullPointerException if {@code is} is {@code null}.
+     * @throws NullPointerException if {@code from} is {@code null}.
+     * @throws IllegalArgumentException if {@code is} is not assignable from
+     * {@code from}.
+     */
+    public static <T> Class<? extends T> requireAssignableFrom(
+        final Class<?> is, final Class<T> from) {
+
+        if (is == null) {
+            throw new NullPointerException("null is");
+        }
+
+        if (from == null) {
+            throw new NullPointerException("null from");
+        }
+
+        if (!is.isAssignableFrom(from)) {
+            throw new IllegalArgumentException(
+                is + " is not assignable from " + from);
+        }
+
+        return is.asSubclass(from);
     }
 
 

@@ -49,11 +49,11 @@ public class ResultSetHoldabilityTest
             final String name = value.name();
             {
                 final Field field = ResultSet.class.getField(name);
-                Assert.assertEquals(field.get(null), value.getFieldValue());
+                Assert.assertEquals(field.get(null), value.fieldValue());
             }
 
             // locate by field, compare name
-            final int fieldValue = value.getFieldValue();
+            final int fieldValue = value.fieldValue();
             for (Field field : ResultSet.class.getFields()) {
                 if (field.getInt(null) == fieldValue) {
                     Assert.assertEquals(field.getName(), value.name());
@@ -76,7 +76,7 @@ public class ResultSetHoldabilityTest
                 try {
                     final ResultSetHoldability type =
                         ResultSetHoldability.valueOf(name);
-                    Assert.assertEquals(type.getFieldValue(),
+                    Assert.assertEquals(type.fieldValue(),
                                         field.get(null));
                 } catch (IllegalArgumentException iae) {
                 }

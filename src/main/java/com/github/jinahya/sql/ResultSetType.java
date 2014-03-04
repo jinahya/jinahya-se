@@ -116,7 +116,7 @@ public enum ResultSetType implements FieldEnum<ResultSetType, Integer> {
 
 
     @Override
-    public Integer getFieldValue() {
+    public Integer fieldValue() {
 
         return fieldValue;
     }

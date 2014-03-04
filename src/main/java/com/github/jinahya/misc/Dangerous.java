@@ -18,11 +18,11 @@
 package com.github.jinahya.misc;
 
 
+import com.github.jinahya.lang.reflect.Fields;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
-import javax.security.sasl.Sasl;
 import sun.misc.Unsafe;
 
 
@@ -31,7 +31,7 @@ import sun.misc.Unsafe;
  *
  * @author Jin Kwon <onacit at gmail.com>
  */
-public final class Dangerous {
+public class Dangerous {
 
 
     private static final Unsafe THE_UNSAFE;
@@ -40,9 +40,8 @@ public final class Dangerous {
     static {
         try {
             final Field field = Unsafe.class.getDeclaredField("theUnsafe");
-            if (!field.isAccessible()) {
-                field.setAccessible(true);
-            }
+            assert !field.isAccessible();
+            field.setAccessible(true);
             try {
                 THE_UNSAFE = (Unsafe) field.get(null);
             } catch (final IllegalAccessException iae) {
@@ -65,15 +64,17 @@ public final class Dangerous {
     }
 
 
+    /**
+     * The default constructor of {@link sun.misc.Unsafe}.
+     */
     private static final Constructor<Unsafe> UNSAFE_CONSTRUCTOR;
 
 
     static {
         try {
             UNSAFE_CONSTRUCTOR = Unsafe.class.getDeclaredConstructor();
-            if (!UNSAFE_CONSTRUCTOR.isAccessible()) {
-                UNSAFE_CONSTRUCTOR.setAccessible(true);
-            }
+            assert !UNSAFE_CONSTRUCTOR.isAccessible();
+            UNSAFE_CONSTRUCTOR.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.getMessage());
         }
@@ -83,7 +84,7 @@ public final class Dangerous {
     /**
      * Creates and returns a new instance of {@link sun.misc.Unsafe} class.
      *
-     * @return a new instance of {@link sun.misc.Unsafe}.
+     * @return a new instance of {@link sun.misc.Unsafe} class.
      */
     public static Unsafe newUnsafeInstance() {
 
@@ -110,145 +111,12 @@ public final class Dangerous {
     }
 
 
-    private static void check(final Field field,
-                              final Class<?> typeAssignableTo,
-                              final Class<?> typeAssignableFrom,
-                              final Integer requiredModifiers,
-                              final Class<?> declaringClassAssignableTo,
-                              final Class<?> declaringClassAssignableFrom) {
-
-        if (field == null) {
-            throw new NullPointerException("null field");
-        }
-
-        if (requiredModifiers != null) {
-            if ((field.getModifiers() & requiredModifiers)
-                != requiredModifiers) {
-                throw new IllegalArgumentException("unmatched modifiers");
-            }
-        }
-
-        if (typeAssignableTo != null) {
-            final Class<?> type = field.getType();
-            if (!typeAssignableTo.isAssignableFrom(type)) {
-                throw new IllegalArgumentException(
-                    "type(" + type + ") is  not assignable to "
-                    + typeAssignableTo);
-            }
-        }
-
-        if (typeAssignableFrom != null) {
-            final Class<?> type = field.getType();
-            if (!type.isAssignableFrom(typeAssignableFrom)) {
-                throw new IllegalArgumentException(
-                    "type(" + type + ") is  not assignable from "
-                    + typeAssignableFrom);
-            }
-        }
-
-        if (declaringClassAssignableTo != null) {
-            final Class<?> declaringClass = field.getDeclaringClass();
-            if (!declaringClassAssignableTo.isAssignableFrom(declaringClass)) {
-                throw new IllegalArgumentException(
-                    "declaring class(" + declaringClass
-                    + ") is  not assignable to " + declaringClassAssignableTo);
-            }
-        }
-
-        if (declaringClassAssignableFrom != null) {
-            final Class<?> declaringClass = field.getDeclaringClass();
-            if (!declaringClassAssignableFrom.isAssignableFrom(
-                declaringClass)) {
-                throw new IllegalArgumentException(
-                    "declaring class(" + declaringClass
-                    + ") is  not assignable from "
-                    + declaringClassAssignableFrom);
-            }
-        }
-    }
-
-
-    /**
-     *
-     * @param field
-     * @param declaringClassAssignableTo
-     * @param fieldTypeAssignableTo
-     * @param modifierStatic
-     * @param modifierVolatile
-     *
-     * @deprecated
-     */
-    @Deprecated
-    private static void check(final Field field,
-                              final Class<?> declaringClassAssignableTo,
-                              final Class<?> fieldTypeAssignableTo,
-                              final Boolean modifierStatic,
-                              final Boolean modifierVolatile) {
-
-        if (field == null) {
-            throw new NullPointerException("null field");
-        }
-
-        if (declaringClassAssignableTo != null) {
-            final Class<?> declaringClass = field.getDeclaringClass();
-            if (!declaringClassAssignableTo.isAssignableFrom(declaringClass)) {
-                throw new IllegalArgumentException(
-                    "field's declaring class(" + declaringClass
-                    + ") is  not assignable to " + declaringClassAssignableTo);
-            }
-        }
-
-        if (fieldTypeAssignableTo != null) {
-            final Class<?> fieldType = field.getType();
-            if (!fieldTypeAssignableTo.isAssignableFrom(fieldType)) {
-                throw new IllegalArgumentException(
-                    "field's type(" + fieldType + ") is  not assignable to "
-                    + fieldTypeAssignableTo);
-            }
-        }
-
-        final int modifiers = field.getModifiers();
-
-        if (modifierStatic != null && modifierStatic.booleanValue()
-            && !Modifier.isStatic(modifiers)) {
-            throw new IllegalArgumentException("non-static field");
-        }
-
-        if (modifierVolatile != null && modifierVolatile.booleanValue()
-            && !Modifier.isVolatile(modifiers)) {
-            throw new IllegalArgumentException("non-volatile field");
-        }
-    }
-
-
-    /**
-     *
-     * @param field
-     * @param fieldTypeAssignableTo
-     * @param modifierStatic
-     * @param modifierVolatile
-     *
-     * @deprecated
-     */
-    @Deprecated
-    private static void check(final Field field,
-                              final Class<?> fieldTypeAssignableTo,
-                              final Boolean modifierStatic,
-                              final Boolean modifierVolatile) {
-
-        if (field == null) {
-            throw new NullPointerException("null field");
-        }
-
-        check(field, null, fieldTypeAssignableTo, modifierStatic,
-              modifierVolatile);
-    }
-
-
     /**
      * Creates a new instance.
      *
      * @param unsafe
+     *
+     * @throws NullPointerException if {@code unsafe} is {@code null}.
      */
     public Dangerous(final Unsafe unsafe) {
 
@@ -293,14 +161,15 @@ public final class Dangerous {
      */
     public boolean compareAndSwapInt(Object base, final Field field,
                                      final int expected, final int x) {
+
         if (field == null) {
             throw new NullPointerException("null field");
         }
 
         final int modifiers = field.getModifiers();
-        final boolean static_ = Modifier.isStatic(modifiers);
 
         final long offset;
+        final boolean static_ = Modifier.isStatic(modifiers);
         if (static_) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
@@ -308,7 +177,8 @@ public final class Dangerous {
             offset = unsafe.staticFieldOffset(field);
         } else {
             if (base == null) {
-                throw new NullPointerException("null base for instance field");
+                throw new NullPointerException(
+                    "null base for an instance field");
             }
             offset = unsafe.objectFieldOffset(field);
         }
@@ -333,17 +203,18 @@ public final class Dangerous {
         }
 
         final int modifiers = field.getModifiers();
-        final boolean static_ = Modifier.isStatic(modifiers);
 
         final long offset;
-        if (static_) {
+        //final boolean static_ = Modifier.isStatic(modifiers);
+        if (Modifier.isStatic(modifiers)) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
             }
             offset = unsafe.staticFieldOffset(field);
         } else {
             if (base == null) {
-                throw new NullPointerException("null base for instance field");
+                throw new NullPointerException(
+                    "null base for an instance field");
             }
             offset = unsafe.objectFieldOffset(field);
         }
@@ -354,36 +225,38 @@ public final class Dangerous {
 
     /**
      *
-     * @param object
+     * @param base
      * @param field
      * @param expected
      * @param x
      *
      * @return
      */
-    public boolean compareAndSwapObject(Object object, final Field field,
+    public boolean compareAndSwapObject(Object base, final Field field,
                                         final Object expected, final Object x) {
+
         if (field == null) {
             throw new NullPointerException("null field");
         }
 
         final int modifiers = field.getModifiers();
-        final boolean static_ = Modifier.isStatic(modifiers);
 
         final long offset;
-        if (static_) {
-            if (object == null) {
-                object = unsafe.staticFieldBase(field);
+        //final boolean static_ = Modifier.isStatic(modifiers);
+        if (Modifier.isStatic(modifiers)) {
+            if (base == null) {
+                base = unsafe.staticFieldBase(field);
             }
             offset = unsafe.staticFieldOffset(field);
         } else {
-            if (object == null) {
-                throw new NullPointerException("null base for instance field");
+            if (base == null) {
+                throw new NullPointerException(
+                    "null base for an instance field");
             }
             offset = unsafe.objectFieldOffset(field);
         }
 
-        return unsafe.compareAndSwapObject(object, offset, expected, x);
+        return unsafe.compareAndSwapObject(base, offset, expected, x);
     }
 
 
@@ -391,7 +264,7 @@ public final class Dangerous {
                                             final Class<T> type,
                                             final T expected, final T x) {
 
-        check(field, null, type, null, null);
+        Fields.requireTypeIsAssignableFrom(field, type);
 
         return compareAndSwapObject(base, field, expected, x);
     }
@@ -412,11 +285,10 @@ public final class Dangerous {
         }
 
         final int modifiers = field.getModifiers();
-        final boolean static_ = Modifier.isStatic(modifiers);
-        final boolean volatile_ = Modifier.isVolatile(modifiers);
 
         final long offset;
-        if (static_) {
+        //final boolean static_ = Modifier.isStatic(modifiers);
+        if (Modifier.isStatic(modifiers)) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
             }
@@ -428,7 +300,8 @@ public final class Dangerous {
             offset = unsafe.objectFieldOffset(field);
         }
 
-        if (volatile_) {
+        //final boolean volatile_ = Modifier.isVolatile(modifiers);
+        if (Modifier.isVolatile(modifiers)) {
             return unsafe.getBooleanVolatile(base, offset);
         } else {
             return unsafe.getBoolean(base, offset);
@@ -443,23 +316,24 @@ public final class Dangerous {
         }
 
         final int modifiers = field.getModifiers();
-        final boolean static_ = Modifier.isStatic(modifiers);
-        final boolean volatile_ = Modifier.isVolatile(modifiers);
 
         final long offset;
-        if (static_) {
+        //final boolean static_ = Modifier.isStatic(modifiers);
+        if (Modifier.isStatic(modifiers)) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
             }
             offset = unsafe.staticFieldOffset(field);
         } else {
             if (base == null) {
-                throw new NullPointerException("null base for instance field");
+                throw new NullPointerException(
+                    "null base for an instance field");
             }
             offset = unsafe.objectFieldOffset(field);
         }
 
-        if (volatile_) {
+        //final boolean volatile_ = Modifier.isVolatile(modifiers);
+        if (Modifier.isVolatile(modifiers)) {
             return unsafe.getByteVolatile(base, offset);
         } else {
             return unsafe.getByte(base, offset);
@@ -467,6 +341,17 @@ public final class Dangerous {
     }
 
 
+    /**
+     *
+     * @param base
+     * @param field
+     *
+     * @return
+     *
+     * @throws NullPointerException if {@code base} is {@code null} while
+     * {@code field} is an instance field.
+     * @throws NullPointerException if {@code field} is {@code null}.
+     */
     public char getChar(Object base, final Field field) {
 
         if (field == null) {
@@ -474,23 +359,22 @@ public final class Dangerous {
         }
 
         final int modifiers = field.getModifiers();
-        final boolean static_ = Modifier.isStatic(modifiers);
-        final boolean volatile_ = Modifier.isVolatile(modifiers);
 
         final long offset;
-        if (static_) {
+        if (Modifier.isStatic(modifiers)) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
             }
             offset = unsafe.staticFieldOffset(field);
         } else {
             if (base == null) {
-                throw new NullPointerException("null base for instance field");
+                throw new NullPointerException(
+                    "null base for an instance field");
             }
             offset = unsafe.objectFieldOffset(field);
         }
 
-        if (volatile_) {
+        if (Modifier.isVolatile(modifiers)) {
             return unsafe.getCharVolatile(base, offset);
         } else {
             return unsafe.getChar(base, offset);
@@ -505,23 +389,22 @@ public final class Dangerous {
         }
 
         final int modifiers = field.getModifiers();
-        final boolean static_ = Modifier.isStatic(modifiers);
-        final boolean volatile_ = Modifier.isVolatile(modifiers);
 
         final long offset;
-        if (static_) {
+        if (Modifier.isStatic(modifiers)) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
             }
             offset = unsafe.staticFieldOffset(field);
         } else {
             if (base == null) {
-                throw new NullPointerException("null base for instance field");
+                throw new NullPointerException(
+                    "null base for an instance field");
             }
             offset = unsafe.objectFieldOffset(field);
         }
 
-        if (volatile_) {
+        if (Modifier.isVolatile(modifiers)) {
             return unsafe.getDoubleVolatile(base, offset);
         } else {
             return unsafe.getDouble(base, offset);
@@ -529,33 +412,32 @@ public final class Dangerous {
     }
 
 
-    public float getFloat(Object object, final Field field) {
+    public float getFloat(Object base, final Field field) {
 
         if (field == null) {
             throw new NullPointerException("null field");
         }
 
         final int modifiers = field.getModifiers();
-        final boolean static_ = Modifier.isStatic(modifiers);
-        final boolean volatile_ = Modifier.isVolatile(modifiers);
 
         final long offset;
-        if (static_) {
-            if (object == null) {
-                object = unsafe.staticFieldBase(field);
+        if (Modifier.isStatic(modifiers)) {
+            if (base == null) {
+                base = unsafe.staticFieldBase(field);
             }
             offset = unsafe.staticFieldOffset(field);
         } else {
-            if (object == null) {
-                throw new NullPointerException("null base for instance field");
+            if (base == null) {
+                throw new NullPointerException(
+                    "null base for an instance field");
             }
             offset = unsafe.objectFieldOffset(field);
         }
 
-        if (volatile_) {
-            return unsafe.getFloatVolatile(object, offset);
+        if (Modifier.isVolatile(modifiers)) {
+            return unsafe.getFloatVolatile(base, offset);
         } else {
-            return unsafe.getFloat(object, offset);
+            return unsafe.getFloat(base, offset);
         }
     }
 
@@ -567,23 +449,22 @@ public final class Dangerous {
         }
 
         final int modifiers = field.getModifiers();
-        final boolean static_ = Modifier.isStatic(modifiers);
-        final boolean volatile_ = Modifier.isVolatile(modifiers);
 
         final long offset;
-        if (static_) {
+        if (Modifier.isStatic(modifiers)) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
             }
             offset = unsafe.staticFieldOffset(field);
         } else {
             if (base == null) {
-                throw new NullPointerException("null base for instance field");
+                throw new NullPointerException(
+                    "null base for an instance field");
             }
             offset = unsafe.objectFieldOffset(field);
         }
 
-        if (volatile_) {
+        if (Modifier.isVolatile(modifiers)) {
             return unsafe.getIntVolatile(base, offset);
         } else {
             return unsafe.getInt(base, offset);
@@ -591,6 +472,13 @@ public final class Dangerous {
     }
 
 
+    /**
+     *
+     * @param base
+     * @param field
+     *
+     * @return
+     */
     public long getLong(Object base, final Field field) {
 
         if (field == null) {
@@ -598,28 +486,22 @@ public final class Dangerous {
         }
 
         final int modifiers = field.getModifiers();
-        final boolean static_ = Modifier.isStatic(modifiers);
-        final boolean volatile_ = Modifier.isVolatile(modifiers);
 
         final long offset;
-        if (static_) {
+        if (Modifier.isStatic(modifiers)) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
             }
             offset = unsafe.staticFieldOffset(field);
-            if (volatile_) {
-                return unsafe.getLongVolatile(base, offset);
-            } else {
-                return unsafe.getLong(base, offset);
-            }
         } else {
             if (base == null) {
-                throw new NullPointerException("null base for instance field");
+                throw new NullPointerException(
+                    "null base for an instance field");
             }
             offset = unsafe.objectFieldOffset(field);
         }
 
-        if (volatile_) {
+        if (Modifier.isVolatile(modifiers)) {
             return unsafe.getLongVolatile(base, offset);
         } else {
             return unsafe.getLong(base, offset);
@@ -634,28 +516,22 @@ public final class Dangerous {
         }
 
         final int modifiers = field.getModifiers();
-        final boolean static_ = Modifier.isStatic(modifiers);
-        final boolean volatile_ = Modifier.isVolatile(modifiers);
 
         final long offset;
-        if (static_) {
+        if (Modifier.isStatic(modifiers)) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
             }
             offset = unsafe.staticFieldOffset(field);
-            if (volatile_) {
-                return unsafe.getObjectVolatile(base, offset);
-            } else {
-                return unsafe.getObject(base, offset);
-            }
         } else {
             if (base == null) {
-                throw new NullPointerException("null base for instance field");
+                throw new NullPointerException(
+                    "null base for an instance field");
             }
             offset = unsafe.objectFieldOffset(field);
         }
 
-        if (volatile_) {
+        if (Modifier.isVolatile(modifiers)) {
             return unsafe.getObjectVolatile(base, offset);
         } else {
             return unsafe.getObject(base, offset);
@@ -663,6 +539,13 @@ public final class Dangerous {
     }
 
 
+    /**
+     *
+     * @param base
+     * @param field
+     *
+     * @return
+     */
     public short getShort(Object base, final Field field) {
 
         if (field == null) {
@@ -670,23 +553,22 @@ public final class Dangerous {
         }
 
         final int modifiers = field.getModifiers();
-        final boolean static_ = Modifier.isStatic(modifiers);
-        final boolean volatile_ = Modifier.isVolatile(modifiers);
 
         final long offset;
-        if (static_) {
+        if (Modifier.isStatic(modifiers)) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
             }
             offset = unsafe.staticFieldOffset(field);
         } else {
             if (base == null) {
-                throw new NullPointerException("null base for instance field");
+                throw new NullPointerException(
+                    "null base for an instance field");
             }
             offset = unsafe.objectFieldOffset(field);
         }
 
-        if (volatile_) {
+        if (Modifier.isVolatile(modifiers)) {
             return unsafe.getShortVolatile(base, offset);
         } else {
             return unsafe.getShort(base, offset);
@@ -707,23 +589,22 @@ public final class Dangerous {
         }
 
         final int modifiers = field.getModifiers();
-        final boolean static_ = Modifier.isStatic(modifiers);
-        final boolean volatile_ = Modifier.isVolatile(modifiers);
 
         final long offset;
-        if (static_) {
+        if (Modifier.isStatic(modifiers)) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
             }
             offset = unsafe.staticFieldOffset(field);
         } else {
             if (base == null) {
-                throw new NullPointerException("null base for instance field");
+                throw new NullPointerException(
+                    "null base for an instance field");
             }
             offset = unsafe.objectFieldOffset(field);
         }
 
-        if (volatile_) {
+        if (Modifier.isVolatile(modifiers)) {
             unsafe.putBooleanVolatile(base, offset, x);
         } else {
             unsafe.putBoolean(base, offset, x);
@@ -744,23 +625,24 @@ public final class Dangerous {
         }
 
         final int modifiers = field.getModifiers();
-        final boolean static_ = Modifier.isStatic(modifiers);
-        final boolean volatile_ = Modifier.isVolatile(modifiers);
 
         final long offset;
-        if (static_) {
+        //final boolean static_ = Modifier.isStatic(modifiers);
+        if (Modifier.isStatic(modifiers)) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
             }
             offset = unsafe.staticFieldOffset(field);
         } else {
             if (base == null) {
-                throw new NullPointerException("null base");
+                throw new NullPointerException(
+                    "null base for an instance field");
             }
             offset = unsafe.objectFieldOffset(field);
         }
 
-        if (volatile_) {
+        //final boolean volatile_ = Modifier.isVolatile(modifiers);
+        if (Modifier.isVolatile(modifiers)) {
             unsafe.putByteVolatile(base, offset, x);
         } else {
             unsafe.putByte(base, offset, x);
@@ -770,255 +652,287 @@ public final class Dangerous {
 
     /**
      *
-     * @param object
+     * @param base
      * @param field
      * @param x
      */
-    public void putChar(Object object, final Field field, final char x) {
+    public void putChar(Object base, final Field field, final char x) {
 
         if (field == null) {
             throw new NullPointerException("null field");
         }
 
         final int modifiers = field.getModifiers();
-        final boolean static_ = Modifier.isStatic(modifiers);
-        final boolean volatile_ = Modifier.isVolatile(modifiers);
 
-        if (static_) {
-            object = unsafe.staticFieldBase(field);
-            final long offset = unsafe.staticFieldOffset(field);
-            if (volatile_) {
-                unsafe.putCharVolatile(object, offset, x);
-            } else {
-                unsafe.putChar(object, offset, x);
+        final long offset;
+        //final boolean static_ = Modifier.isStatic(modifiers);
+        if (Modifier.isStatic(modifiers)) {
+            if (base == null) {
+                base = unsafe.staticFieldBase(field);
             }
+            offset = unsafe.staticFieldOffset(field);
         } else {
-            final long offset = unsafe.objectFieldOffset(field);
-            if (volatile_) {
-                unsafe.putCharVolatile(object, offset, x);
-            } else {
-                unsafe.putChar(object, offset, x);
+            if (base == null) {
+                throw new NullPointerException(
+                    "null base for an instance field");
             }
+            offset = unsafe.objectFieldOffset(field);
+        }
+
+        //final boolean volatile_ = Modifier.isVolatile(modifiers);
+        if (Modifier.isVolatile(modifiers)) {
+            unsafe.putCharVolatile(base, offset, x);
+        } else {
+            unsafe.putChar(base, offset, x);
         }
     }
 
 
     /**
      *
-     * @param object
+     * @param base
      * @param field
      * @param x
      */
-    public void putDouble(Object object, final Field field, final double x) {
+    public void putDouble(Object base, final Field field, final double x) {
 
         if (field == null) {
             throw new NullPointerException("null field");
         }
 
         final int modifiers = field.getModifiers();
-        final boolean static_ = Modifier.isStatic(modifiers);
-        final boolean volatile_ = Modifier.isVolatile(modifiers);
 
-        if (static_) {
-            object = unsafe.staticFieldBase(field);
-            final long offset = unsafe.staticFieldOffset(field);
-            if (volatile_) {
-                unsafe.putDoubleVolatile(object, offset, x);
-            } else {
-                unsafe.putDouble(object, offset, x);
+        final long offset;
+        //final boolean static_ = Modifier.isStatic(modifiers);
+        if (Modifier.isStatic(modifiers)) {
+            if (base == null) {
+                base = unsafe.staticFieldBase(field);
             }
+            offset = unsafe.staticFieldOffset(field);
         } else {
-            final long offset = unsafe.objectFieldOffset(field);
-            if (volatile_) {
-                unsafe.putDoubleVolatile(object, offset, x);
-            } else {
-                unsafe.putDouble(object, offset, x);
+            if (base == null) {
+                throw new NullPointerException(
+                    "null base for an instance field");
             }
+            offset = unsafe.objectFieldOffset(field);
+        }
+
+        //final boolean volatile_ = Modifier.isVolatile(modifiers);
+        if (Modifier.isVolatile(modifiers)) {
+            unsafe.putDoubleVolatile(base, offset, x);
+        } else {
+            unsafe.putDouble(base, offset, x);
         }
     }
 
 
     /**
      *
-     * @param object
+     * @param base
      * @param field
      * @param x
      */
-    public void putFloat(Object object, final Field field, final float x) {
+    public void putFloat(Object base, final Field field, final float x) {
 
         if (field == null) {
             throw new NullPointerException("null field");
         }
 
         final int modifiers = field.getModifiers();
-        final boolean static_ = Modifier.isStatic(modifiers);
-        final boolean volatile_ = Modifier.isVolatile(modifiers);
 
-        if (static_) {
-            object = unsafe.staticFieldBase(field);
-            final long offset = unsafe.staticFieldOffset(field);
-            if (volatile_) {
-                unsafe.putFloatVolatile(object, offset, x);
-            } else {
-                unsafe.putFloat(object, offset, x);
+        final long offset;
+        //final boolean static_ = Modifier.isStatic(modifiers);
+        if (Modifier.isStatic(modifiers)) {
+            if (base == null) {
+                base = unsafe.staticFieldBase(field);
             }
+            offset = unsafe.staticFieldOffset(field);
         } else {
-            final long offset = unsafe.objectFieldOffset(field);
-            if (volatile_) {
-                unsafe.putFloatVolatile(object, offset, x);
-            } else {
-                unsafe.putFloat(object, offset, x);
+            if (base == null) {
+                throw new NullPointerException(
+                    "null base for an instance field");
             }
+            offset = unsafe.objectFieldOffset(field);
+        }
+
+        //final boolean volatile_ = Modifier.isVolatile(modifiers);
+        if (Modifier.isVolatile(modifiers)) {
+            unsafe.putFloatVolatile(base, offset, x);
+        } else {
+            unsafe.putFloat(base, offset, x);
         }
     }
 
 
-    public void putInt(Object object, final Field field, final int x) {
+    public void putInt(Object base, final Field field, final int x) {
 
         if (field == null) {
             throw new NullPointerException("null field");
         }
 
         final int modifiers = field.getModifiers();
-        final boolean static_ = Modifier.isStatic(modifiers);
-        final boolean volatile_ = Modifier.isVolatile(modifiers);
 
-        if (static_) {
-            object = unsafe.staticFieldBase(field);
-            final long offset = unsafe.staticFieldOffset(field);
-            if (volatile_) {
-                unsafe.putIntVolatile(object, offset, x);
-            } else {
-                unsafe.putInt(object, offset, x);
+        final long offset;
+        //final boolean static_ = Modifier.isStatic(modifiers);
+        if (Modifier.isStatic(modifiers)) {
+            if (base == null) {
+                base = unsafe.staticFieldBase(field);
             }
+            offset = unsafe.staticFieldOffset(field);
         } else {
-            final long offset = unsafe.objectFieldOffset(field);
-            if (volatile_) {
-                unsafe.putIntVolatile(object, offset, x);
-            } else {
-                unsafe.putInt(object, offset, x);
+            if (base == null) {
+                throw new NullPointerException(
+                    "null base for an instance field");
             }
+            offset = unsafe.objectFieldOffset(field);
+        }
+
+        //final boolean volatile_ = Modifier.isVolatile(modifiers);
+        if (Modifier.isVolatile(modifiers)) {
+            unsafe.putIntVolatile(base, offset, x);
+        } else {
+            unsafe.putInt(base, offset, x);
         }
     }
 
 
-    public void putLong(Object object, final Field field, final long x) {
+    public void putLong(Object base, final Field field, final long x) {
 
         if (field == null) {
             throw new NullPointerException("null field");
         }
 
         final int modifiers = field.getModifiers();
-        final boolean static_ = Modifier.isStatic(modifiers);
-        final boolean volatile_ = Modifier.isVolatile(modifiers);
 
-        if (static_) {
-            object = unsafe.staticFieldBase(field);
-            final long offset = unsafe.staticFieldOffset(field);
-            if (volatile_) {
-                unsafe.putLongVolatile(object, offset, x);
-            } else {
-                unsafe.putLong(object, offset, x);
+        final long offset;
+        //final boolean static_ = Modifier.isStatic(modifiers);
+        if (Modifier.isStatic(modifiers)) {
+            if (base == null) {
+                base = unsafe.staticFieldBase(field);
             }
+            offset = unsafe.staticFieldOffset(field);
         } else {
-            final long offset = unsafe.objectFieldOffset(field);
-            if (volatile_) {
-                unsafe.putLongVolatile(object, offset, x);
-            } else {
-                unsafe.putLong(object, offset, x);
+            if (base == null) {
+                throw new NullPointerException(
+                    "null base for an instance field");
             }
+            offset = unsafe.objectFieldOffset(field);
+        }
+
+        //final boolean volatile_ = Modifier.isVolatile(modifiers);
+        if (Modifier.isVolatile(modifiers)) {
+            unsafe.putLongVolatile(base, offset, x);
+        } else {
+            unsafe.putLong(base, offset, x);
         }
     }
 
 
     /**
      *
-     * @param object
+     * @param base
      * @param field
      * @param x
      */
-    public void putObject(Object object, final Field field, final Object x) {
+    public void putObject(Object base, final Field field, final Object x) {
 
         if (field == null) {
             throw new NullPointerException("null field");
         }
 
         final int modifiers = field.getModifiers();
-        final boolean static_ = Modifier.isStatic(modifiers);
-        final boolean volatile_ = Modifier.isVolatile(modifiers);
 
-        if (static_) {
-            object = unsafe.staticFieldBase(field);
-            final long offset = unsafe.staticFieldOffset(field);
-            if (volatile_) {
-                unsafe.putObjectVolatile(object, offset, x);
-            } else {
-                unsafe.putObject(object, offset, x);
+        final long offset;
+        //final boolean static_ = Modifier.isStatic(modifiers);
+        if (Modifier.isStatic(modifiers)) {
+            if (base == null) {
+                base = unsafe.staticFieldBase(field);
             }
+            offset = unsafe.staticFieldOffset(field);
         } else {
-            final long offset = unsafe.objectFieldOffset(field);
-            if (volatile_) {
-                unsafe.putObjectVolatile(object, offset, x);
-            } else {
-                unsafe.putObject(object, offset, x);
+            if (base == null) {
+                throw new NullPointerException(
+                    "null base for an instance field");
             }
+            offset = unsafe.objectFieldOffset(field);
+        }
+
+        //final boolean volatile_ = Modifier.isVolatile(modifiers);
+        if (Modifier.isVolatile(modifiers)) {
+            unsafe.putObjectVolatile(base, offset, x);
+        } else {
+            unsafe.putObject(base, offset, x);
         }
     }
 
 
-    public void putOrderedInt(Object object, final Field field, final int x) {
+    public void putOrderedInt(Object base, final Field field, final int x) {
 
         if (field == null) {
             throw new NullPointerException("null field");
         }
 
         final int modifiers = field.getModifiers();
-        final boolean static_ = Modifier.isStatic(modifiers);
 
-        if (static_) {
-            object = unsafe.staticFieldBase(field);
-            final long offset = unsafe.staticFieldOffset(field);
-            unsafe.putOrderedInt(object, offset, x);
+        final long offset;
+        //final boolean static_ = Modifier.isStatic(modifiers);
+        if (Modifier.isStatic(modifiers)) {
+            if (base == null) {
+                base = unsafe.staticFieldBase(field);
+            }
+            offset = unsafe.staticFieldOffset(field);
         } else {
-            final long offset = unsafe.objectFieldOffset(field);
-            unsafe.putOrderedInt(object, offset, x);
+            if (base == null) {
+                throw new NullPointerException(
+                    "null base for an instance field");
+            }
+            offset = unsafe.objectFieldOffset(field);
         }
+
+        unsafe.putOrderedInt(base, offset, x);
     }
 
 
     /**
      *
-     * @param object
+     * @param base
      * @param field
      * @param x
      */
-    public void putOrderedLong(Object object, final Field field, final long x) {
+    public void putOrderedLong(Object base, final Field field, final long x) {
 
         if (field == null) {
             throw new NullPointerException("null field");
         }
 
         final int modifiers = field.getModifiers();
-        final boolean static_ = Modifier.isStatic(modifiers);
 
-        if (static_) {
-            object = unsafe.staticFieldBase(field);
-            final long offset = unsafe.staticFieldOffset(field);
-            unsafe.putOrderedLong(object, offset, x);
+        final long offset;
+        //final boolean static_ = Modifier.isStatic(modifiers);
+        if (Modifier.isStatic(modifiers)) {
+            if (base == null) {
+                base = unsafe.staticFieldBase(field);
+            }
+            offset = unsafe.staticFieldOffset(field);
         } else {
-            final long offset = unsafe.objectFieldOffset(field);
-            unsafe.putOrderedLong(object, offset, x);
+            if (base == null) {
+                throw new NullPointerException(
+                    "null base for an instance field");
+            }
+            offset = unsafe.objectFieldOffset(field);
         }
+
+        unsafe.putOrderedLong(base, offset, x);
     }
 
 
     /**
      *
-     * @param object
+     * @param base
      * @param field
      * @param x
      */
-    public void putOrderedObject(Object object, final Field field,
+    public void putOrderedObject(Object base, final Field field,
                                  final Object x) {
 
         if (field == null) {
@@ -1026,64 +940,61 @@ public final class Dangerous {
         }
 
         final int modifiers = field.getModifiers();
-        final boolean static_ = Modifier.isStatic(modifiers);
 
-        if (static_) {
-            object = unsafe.staticFieldBase(field);
-            final long offset = unsafe.staticFieldOffset(field);
-            unsafe.putOrderedObject(object, offset, x);
+        final long offset;
+        //final boolean static_ = Modifier.isStatic(modifiers);
+        if (Modifier.isStatic(modifiers)) {
+            if (base == null) {
+                base = unsafe.staticFieldBase(field);
+            }
+            offset = unsafe.staticFieldOffset(field);
         } else {
-            final long offset = unsafe.objectFieldOffset(field);
-            unsafe.putOrderedObject(object, offset, x);
+            if (base == null) {
+                throw new NullPointerException(
+                    "null base for an instance field");
+            }
+            offset = unsafe.objectFieldOffset(field);
         }
+
+        unsafe.putOrderedObject(base, offset, x);
     }
 
 
     /**
      *
-     * @param object
+     * @param base
      * @param field
      * @param x
      */
-    public void putShort(Object object, final Field field, final short x) {
+    public void putShort(Object base, final Field field, final short x) {
 
         if (field == null) {
             throw new NullPointerException("null field");
         }
 
         final int modifiers = field.getModifiers();
-        final boolean static_ = Modifier.isStatic(modifiers);
-        final boolean volatile_ = Modifier.isVolatile(modifiers);
 
-        if (static_) {
-            object = unsafe.staticFieldBase(field);
-            final long offset = unsafe.staticFieldOffset(field);
-            if (volatile_) {
-                unsafe.putShortVolatile(object, offset, x);
-            } else {
-                unsafe.putShort(object, offset, x);
+        final long offset;
+        //final boolean static_ = Modifier.isStatic(modifiers);
+        if (Modifier.isStatic(modifiers)) {
+            if (base == null) {
+                base = unsafe.staticFieldBase(field);
             }
+            offset = unsafe.staticFieldOffset(field);
         } else {
-            final long offset = unsafe.objectFieldOffset(field);
-            if (volatile_) {
-                unsafe.putShortVolatile(object, offset, x);
-            } else {
-                unsafe.putShort(object, offset, x);
+            if (base == null) {
+                throw new NullPointerException(
+                    "null base for an instance field");
             }
+            offset = unsafe.objectFieldOffset(field);
         }
-    }
 
-
-    /**
-     *
-     * @param object
-     * @param field
-     * @param bytes
-     * @param value
-     */
-    public void setMemory(final Object object, final Field field,
-                          final long bytes, final byte value) {
-        // @todo: implement
+        //final boolean volatile_ = Modifier.isVolatile(modifiers);
+        if (Modifier.isVolatile(modifiers)) {
+            unsafe.putShortVolatile(base, offset, x);
+        } else {
+            unsafe.putShort(base, offset, x);
+        }
     }
 
 

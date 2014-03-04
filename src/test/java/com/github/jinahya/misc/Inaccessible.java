@@ -22,7 +22,7 @@ package com.github.jinahya.misc;
  *
  * @author Jin Kwon <onacit at gmail.com>
  */
-class Untouchable {
+class Inaccessible {
 
 
     private static final boolean staticBoolean = false;
@@ -133,7 +133,7 @@ class Untouchable {
     private volatile short instanceShortVolatile;
 
 
-    private Untouchable() {
+    private Inaccessible() {
 
         super();
     }

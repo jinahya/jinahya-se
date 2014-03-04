@@ -33,7 +33,7 @@ public interface FieldEnum<E extends Enum<E>, F> {
      *
      * @return field value.
      */
-    F getFieldValue();
+    F fieldValue();
 
 
 }

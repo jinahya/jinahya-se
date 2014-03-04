@@ -71,7 +71,7 @@ public enum DatabaseMetaDataDeferrability
 
 
     @Override
-    public Integer getFieldValue() {
+    public Integer fieldValue() {
 
         return fieldValue;
     }

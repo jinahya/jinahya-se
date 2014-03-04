@@ -80,7 +80,7 @@ public final class CalendarFieldEnums {
         final int p = calendar.get(field);
         logger.debug("p: {}", p);
         
-        calendar.set(field, value.getFieldValue());
+        calendar.set(field, value.fieldValue());
 
         final int n = calendar.get(field);
         logger.debug("n: {}", n);

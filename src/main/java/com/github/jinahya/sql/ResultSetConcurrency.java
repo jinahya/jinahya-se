@@ -108,7 +108,7 @@ public enum ResultSetConcurrency
 
 
     @Override
-    public Integer getFieldValue() {
+    public Integer fieldValue() {
 
         return fieldValue;
     }

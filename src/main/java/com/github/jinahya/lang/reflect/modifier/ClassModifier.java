@@ -18,7 +18,6 @@
 package com.github.jinahya.lang.reflect.modifier;
 
 
-import com.github.jinahya.lang.FieldEnum;
 import java.lang.reflect.Modifier;
 
 
@@ -26,8 +25,7 @@ import java.lang.reflect.Modifier;
  *
  * @author Jin Kwon <onacit at gmail.com>
  */
-public enum ClassModifier
-    implements FieldEnum<ClassModifier, Integer> {
+public enum ClassModifier implements ModifierFieldEnum<ClassModifier> {
 
 
     PUBLIC(Modifier.PUBLIC), // 1
@@ -35,12 +33,7 @@ public enum ClassModifier
     PROTECTED(Modifier.PROTECTED), // 4
     STATIC(Modifier.STATIC), // 8
     FINAL(Modifier.FINAL), // 16
-    //SYNCHRONIZED(Modifier.SYNCHRONIZED), //32
-    //VOLATILE(Modifier.VOLATILE), // 64
-    //TRANSIENT(Modifier.TRANSIENT), // 128
-    //NATIVE(Modifier.NATIVE), // 256
-    //INTERFACE(Modifier.INTERFACE), // 512
-    //ABSTRACT(Modifier.ABSTRACT), // 1024
+    ABSTRACT(Modifier.ABSTRACT), // 1024
     STRICT(Modifier.STRICT); // 2048
 
 
@@ -51,9 +44,30 @@ public enum ClassModifier
 
 
     @Override
-    public Integer getFieldValue() {
+    public Integer fieldValue() {
 
         return fieldValue;
+    }
+
+
+    @Override
+    public boolean is(final int modifiers) {
+
+        return ModifierFieldEnums.isAll(modifiers, this);
+    }
+
+
+    @Override
+    public int add(final int modifers) {
+
+        return ModifierFieldEnums.add(modifers, this);
+    }
+
+
+    @Override
+    public int remove(final int modifers) {
+
+        return ModifierFieldEnums.remove(modifers, this);
     }
 
 

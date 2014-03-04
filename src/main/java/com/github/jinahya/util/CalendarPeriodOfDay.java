@@ -110,7 +110,7 @@ public enum CalendarPeriodOfDay
 
 
     @Override
-    public Integer getFieldValue() {
+    public Integer fieldValue() {
 
         return fieldValue;
     }

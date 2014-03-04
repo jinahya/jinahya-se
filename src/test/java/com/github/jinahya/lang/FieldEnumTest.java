@@ -45,32 +45,19 @@ public abstract class FieldEnumTest<E extends Enum<E> & FieldEnum<E, F>, F> {
         super();
 
         Objects.requireNonNull(enumType, "null enumType");
-        //Objects.requireNonNull(fieldType, "null fieldType");
+        Objects.requireNonNull(fieldType, "null fieldType");
 
         this.enumType = enumType;
         this.fieldType = fieldType;
     }
 
 
-    /**
-     *
-     * @param enumType
-     *
-     * @deprecated
-     */
-    @Deprecated
-    public FieldEnumTest(final Class<E> enumType) {
-
-        this(enumType, null);
-    }
-
-
     @Test
     public void assertUniqueFieldValues() {
-        
+
         final Set<F> fieldValues = new HashSet<>();
         for (final E enumConstant : enumType.getEnumConstants()) {
-            final F fieldValue = enumConstant.getFieldValue();
+            final F fieldValue = enumConstant.fieldValue();
             if (!fieldValues.add(fieldValue)) {
                 Assert.fail("duplicate field value: " + fieldValue);
             }

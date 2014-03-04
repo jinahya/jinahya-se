@@ -68,7 +68,7 @@ public enum DatabaseMetaDataTypeNullability
 
 
     @Override
-    public Integer getFieldValue() {
+    public Integer fieldValue() {
 
         return fieldValue;
     }

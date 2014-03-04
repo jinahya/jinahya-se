@@ -74,7 +74,7 @@ public enum DatabaseMetaDataFunctionType
 
 
     @Override
-    public Integer getFieldValue() {
+    public Integer fieldValue() {
 
         return fieldValue;
     }

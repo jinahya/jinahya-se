@@ -49,11 +49,11 @@ public class TypeTest extends FieldEnumTest<Type, Integer> {
             {
                 final Field field = Types.class.getField(name);
                 Assert.assertEquals(field.getInt(null),
-                                    value.getFieldValue().intValue());
+                                    value.fieldValue().intValue());
             }
 
             // locate by field, compare name
-            final int fieldValue = value.getFieldValue();
+            final int fieldValue = value.fieldValue();
             for (Field field : Types.class.getFields()) {
                 if (field.getInt(null) == fieldValue) {
                     Assert.assertEquals(field.getName(), value.name());
@@ -80,7 +80,7 @@ public class TypeTest extends FieldEnumTest<Type, Integer> {
             }
             {
                 final Type type = Type.valueOf(name);
-                Assert.assertEquals(type.getFieldValue(), field.get(null));
+                Assert.assertEquals(type.fieldValue(), field.get(null));
             }
 
             // locate by raw, compare name

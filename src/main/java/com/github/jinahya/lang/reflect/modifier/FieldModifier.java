@@ -18,7 +18,6 @@
 package com.github.jinahya.lang.reflect.modifier;
 
 
-import com.github.jinahya.lang.FieldEnum;
 import java.lang.reflect.Modifier;
 
 
@@ -26,7 +25,7 @@ import java.lang.reflect.Modifier;
  *
  * @author Jin Kwon <onacit at gmail.com>
  */
-public enum FieldModifier implements FieldEnum<FieldModifier, Integer> {
+public enum FieldModifier implements ModifierFieldEnum<FieldModifier> {
 
 
     PUBLIC(Modifier.PUBLIC),
@@ -45,9 +44,28 @@ public enum FieldModifier implements FieldEnum<FieldModifier, Integer> {
 
 
     @Override
-    public Integer getFieldValue() {
+    public Integer fieldValue() {
 
         return fieldValue;
+    }
+
+    @Override
+    public boolean is(final int modifiers) {
+
+        return ModifierFieldEnums.isAll(modifiers, this);
+    }
+
+    @Override
+    public int add(int modifers) {
+
+        return ModifierFieldEnums.add(modifers, this);
+    }
+
+
+    @Override
+    public int remove(int modifers) {
+
+        return ModifierFieldEnums.remove(modifers, this);
     }
 
 
