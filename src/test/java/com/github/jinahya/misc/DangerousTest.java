@@ -42,6 +42,126 @@ public class DangerousTest {
         = LoggerFactory.getLogger(DangerousTest.class);
 
 
+    private static class Inaccessible {
+
+
+        private static final boolean staticBoolean = false;
+
+
+        private static volatile boolean staticBooleanVolatile;
+
+
+        private static final byte staticByte = 0;
+
+
+        private static volatile byte staticByteVolatile;
+
+
+        private static final char staticChar = '0';
+
+
+        private static volatile char staticCharVolatile;
+
+
+        private static final double staticDouble = .0d;
+
+
+        private static volatile double staticDoubleVolatile;
+
+
+        private static final float staticFloat = .0f;
+
+
+        private static volatile float staticFloatVolatile;
+
+
+        private static final int staticInt = 0;
+
+
+        private static volatile int staticIntVolatile;
+
+
+        private static final long staticLong = 0L;
+
+
+        private static volatile long staticLongVolatile;
+
+
+        private static final Object staticObject = null;
+
+
+        private static volatile Object staticObjectVolatile;
+
+
+        private static final short staticShort = 0;
+
+
+        private static volatile short staticShortVolatile;
+
+
+        private final boolean instanceBoolean = false;
+
+
+        private volatile boolean instanceBooleanVolatile;
+
+
+        private final byte instanceByte = 0;
+
+
+        private volatile byte instanceByteVolatile;
+
+
+        private final char instanceChar = '0';
+
+
+        private volatile char instanceCharVolatile;
+
+
+        private final double instanceDouble = .0d;
+
+
+        private volatile double instanceDoubleVolatile;
+
+
+        private final float instanceFloat = .0f;
+
+
+        private volatile float instanceFloatVolatile;
+
+
+        private final int instanceInt = 0;
+
+
+        private volatile int instanceIntVolatile;
+
+
+        private final long instanceLong = 0L;
+
+
+        private volatile long instanceLongVolatile;
+
+
+        private final Object instanceObject = null;
+
+
+        private volatile Object instanceObjectVolatile;
+
+
+        private final short instanceShort = 0;
+
+
+        private volatile short instanceShortVolatile;
+
+
+        private Inaccessible() {
+
+            super();
+        }
+
+
+    }
+
+
     private static ThreadLocalRandom random() {
 
         return ThreadLocalRandom.current();
@@ -88,7 +208,7 @@ public class DangerousTest {
     public void theUnsafeInstance_()
         throws NoSuchFieldException, IllegalAccessException {
 
-        final Unsafe actual = Dangerous.theUnsafeInstance();
+        final Unsafe actual = Dangerous.theUnsafe();
 
         final Field field = Unsafe.class.getDeclaredField("theUnsafe");
         field.setAccessible(true);
@@ -102,7 +222,7 @@ public class DangerousTest {
     public void newUnsafeInstance_()
         throws NoSuchFieldException, IllegalAccessException {
 
-        final Unsafe unsafe = Dangerous.newUnsafeInstance();
+        final Unsafe unsafe = Dangerous.newUnsafe();
     }
 
 

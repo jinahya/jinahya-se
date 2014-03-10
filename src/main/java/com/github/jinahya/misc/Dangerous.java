@@ -54,30 +54,30 @@ public class Dangerous {
 
 
     /**
-     * Returns the {@code theUnsafe} instance of {@link sun.misc.Unsafe} class.
-     *
-     * @return the {@code theUnsafe} instance.
-     */
-    public static Unsafe theUnsafeInstance() {
-
-        return THE_UNSAFE;
-    }
-
-
-    /**
      * The default constructor of {@link sun.misc.Unsafe}.
      */
-    private static final Constructor<Unsafe> UNSAFE_CONSTRUCTOR;
+    private static final Constructor<Unsafe> NEW_UNSAFE;
 
 
     static {
         try {
-            UNSAFE_CONSTRUCTOR = Unsafe.class.getDeclaredConstructor();
-            assert !UNSAFE_CONSTRUCTOR.isAccessible();
-            UNSAFE_CONSTRUCTOR.setAccessible(true);
+            NEW_UNSAFE = Unsafe.class.getDeclaredConstructor();
+            assert !NEW_UNSAFE.isAccessible();
+            NEW_UNSAFE.setAccessible(true);
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.getMessage());
         }
+    }
+
+
+    /**
+     * Returns the {@code theUnsafe} instance of {@link sun.misc.Unsafe} class.
+     *
+     * @return the {@code theUnsafe} instance.
+     */
+    public static Unsafe theUnsafe() {
+
+        return THE_UNSAFE;
     }
 
 
@@ -86,10 +86,10 @@ public class Dangerous {
      *
      * @return a new instance of {@link sun.misc.Unsafe} class.
      */
-    public static Unsafe newUnsafeInstance() {
+    public static Unsafe newUnsafe() {
 
         try {
-            return UNSAFE_CONSTRUCTOR.newInstance();
+            return NEW_UNSAFE.newInstance();
         } catch (final InstantiationException ie) {
             throw new RuntimeException(ie);
         } catch (final IllegalAccessException iae) {
@@ -100,6 +100,27 @@ public class Dangerous {
     }
 
 
+    private static class Holder {
+
+
+        private static final Dangerous INSTANCE = new Dangerous(theUnsafe());
+
+
+        private Holder() {
+
+            super();
+        }
+
+
+    }
+
+
+    public static Dangerous theInstance() {
+
+        return Holder.INSTANCE;
+    }
+
+
     /**
      * Creates a new instance.
      *
@@ -107,14 +128,14 @@ public class Dangerous {
      */
     public static Dangerous newInstance() {
 
-        return new Dangerous(newUnsafeInstance());
+        return new Dangerous(newUnsafe());
     }
 
 
     /**
-     * Creates a new instance.
+     * Creates a new instance wrapping specified unsafe instance.
      *
-     * @param unsafe
+     * @param unsafe the unsafe instance
      *
      * @throws NullPointerException if {@code unsafe} is {@code null}.
      */
@@ -264,7 +285,7 @@ public class Dangerous {
                                             final Class<T> type,
                                             final T expected, final T x) {
 
-        Fields.requireTypeIsAssignableFrom(field, type);
+        Fields.requireTypeAssignableFrom(field, type);
 
         return compareAndSwapObject(base, field, expected, x);
     }
@@ -703,7 +724,6 @@ public class Dangerous {
         final int modifiers = field.getModifiers();
 
         final long offset;
-        //final boolean static_ = Modifier.isStatic(modifiers);
         if (Modifier.isStatic(modifiers)) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
@@ -717,7 +737,6 @@ public class Dangerous {
             offset = unsafe.objectFieldOffset(field);
         }
 
-        //final boolean volatile_ = Modifier.isVolatile(modifiers);
         if (Modifier.isVolatile(modifiers)) {
             unsafe.putDoubleVolatile(base, offset, x);
         } else {
@@ -741,7 +760,6 @@ public class Dangerous {
         final int modifiers = field.getModifiers();
 
         final long offset;
-        //final boolean static_ = Modifier.isStatic(modifiers);
         if (Modifier.isStatic(modifiers)) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
@@ -755,7 +773,6 @@ public class Dangerous {
             offset = unsafe.objectFieldOffset(field);
         }
 
-        //final boolean volatile_ = Modifier.isVolatile(modifiers);
         if (Modifier.isVolatile(modifiers)) {
             unsafe.putFloatVolatile(base, offset, x);
         } else {
@@ -773,7 +790,6 @@ public class Dangerous {
         final int modifiers = field.getModifiers();
 
         final long offset;
-        //final boolean static_ = Modifier.isStatic(modifiers);
         if (Modifier.isStatic(modifiers)) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
@@ -787,7 +803,6 @@ public class Dangerous {
             offset = unsafe.objectFieldOffset(field);
         }
 
-        //final boolean volatile_ = Modifier.isVolatile(modifiers);
         if (Modifier.isVolatile(modifiers)) {
             unsafe.putIntVolatile(base, offset, x);
         } else {
@@ -805,7 +820,6 @@ public class Dangerous {
         final int modifiers = field.getModifiers();
 
         final long offset;
-        //final boolean static_ = Modifier.isStatic(modifiers);
         if (Modifier.isStatic(modifiers)) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
@@ -819,7 +833,6 @@ public class Dangerous {
             offset = unsafe.objectFieldOffset(field);
         }
 
-        //final boolean volatile_ = Modifier.isVolatile(modifiers);
         if (Modifier.isVolatile(modifiers)) {
             unsafe.putLongVolatile(base, offset, x);
         } else {
@@ -843,7 +856,6 @@ public class Dangerous {
         final int modifiers = field.getModifiers();
 
         final long offset;
-        //final boolean static_ = Modifier.isStatic(modifiers);
         if (Modifier.isStatic(modifiers)) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
@@ -857,7 +869,6 @@ public class Dangerous {
             offset = unsafe.objectFieldOffset(field);
         }
 
-        //final boolean volatile_ = Modifier.isVolatile(modifiers);
         if (Modifier.isVolatile(modifiers)) {
             unsafe.putObjectVolatile(base, offset, x);
         } else {
@@ -875,7 +886,6 @@ public class Dangerous {
         final int modifiers = field.getModifiers();
 
         final long offset;
-        //final boolean static_ = Modifier.isStatic(modifiers);
         if (Modifier.isStatic(modifiers)) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
@@ -908,7 +918,6 @@ public class Dangerous {
         final int modifiers = field.getModifiers();
 
         final long offset;
-        //final boolean static_ = Modifier.isStatic(modifiers);
         if (Modifier.isStatic(modifiers)) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
@@ -942,7 +951,6 @@ public class Dangerous {
         final int modifiers = field.getModifiers();
 
         final long offset;
-        //final boolean static_ = Modifier.isStatic(modifiers);
         if (Modifier.isStatic(modifiers)) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
@@ -975,7 +983,6 @@ public class Dangerous {
         final int modifiers = field.getModifiers();
 
         final long offset;
-        //final boolean static_ = Modifier.isStatic(modifiers);
         if (Modifier.isStatic(modifiers)) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
@@ -989,7 +996,6 @@ public class Dangerous {
             offset = unsafe.objectFieldOffset(field);
         }
 
-        //final boolean volatile_ = Modifier.isVolatile(modifiers);
         if (Modifier.isVolatile(modifiers)) {
             unsafe.putShortVolatile(base, offset, x);
         } else {

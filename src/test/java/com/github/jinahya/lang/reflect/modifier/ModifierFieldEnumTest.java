@@ -18,7 +18,7 @@
 package com.github.jinahya.lang.reflect.modifier;
 
 
-import com.github.jinahya.lang.FieldEnumTest;
+import com.github.jinahya.lang.ComparableFieldEnumTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -29,7 +29,7 @@ import org.testng.annotations.Test;
  * @param <E> enum type parameter
  */
 public abstract class ModifierFieldEnumTest<E extends Enum<E> & ModifierFieldEnum<E>>
-    extends FieldEnumTest<E, Integer> {
+    extends ComparableFieldEnumTest<E, Integer> {
 
 
     public ModifierFieldEnumTest(final Class<E> enumType, final int modifiers) {

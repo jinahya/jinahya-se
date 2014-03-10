@@ -105,5 +105,34 @@ public class ClassesTest {
     }
 
 
+    @Test
+    public static void requireAssignableFrom_() {
+
+        // Object.class is assignable to Object.class
+        Assert.assertEquals(
+            Classes.requireAssignableFrom(Object.class, Object.class),
+            Object.class);
+
+        // String.class is assignable to Object.class
+        Assert.assertEquals(
+            Classes.requireAssignableFrom(Object.class, String.class),
+            Object.class);
+
+        // Integer.class is assignable to Number.class
+        Assert.assertEquals(
+            Classes.requireAssignableFrom(Number.class, Integer.class),
+            Number.class);
+
+        // Object.class is not assignble to String.class
+        try {
+            Classes.requireAssignableFrom(String.class, Object.class);
+            Assert.fail(
+                "passed: requireAssignableFrom(String.class, Object.class)");
+        } catch (final IllegalArgumentException aie) {
+            // expected;
+        }
+    }
+
+
 }
 

@@ -77,60 +77,92 @@ public final class Fields {
 
 
     /**
+     * Checks that the specified field's type is assignable to specified type.
+     * This method is designed primarily for doing parameter validation in
+     * methods and constructors, as demonstrated below:
+     * <blockquote><pre>
+     * {@code
+     * public void foo(Field field) {
+     *     Fields.requireTypeAssignableTo(field, CharSequence.class));
+     * }
+     * }
+     * </pre></blockquote>
      *
-     * @param field
-     * @param type
+     * @param field the field whose type requires to be assignable to
+     * {@code to}.
+     * @param to the type requires to be assignable from {@code field}'s type
      *
-     * @return
+     * @return {@code field} if its type is assignable to {@code to}.
+     *
+     * @throws NullPointerException if {@code field} is {@code null}.
+     * @throws NullPointerException if {@code type} is {@code null}.
+     * @throws IllegalArgumentException if {@code field}'s type is not
+     * assignable to {@code to}.
+     *
+     * @see Field#getType()
+     * @see Classes#requireAssignableTo(java.lang.Class, java.lang.Class)
      */
-    public static Field requireTypeIsAssignableTo(final Field field,
-                                                  final Class<?> type) {
+    public static Field requireTypeAssignableTo(final Field field,
+                                                final Class<?> to) {
 
         if (field == null) {
             throw new NullPointerException("null field");
         }
 
-        if (type == null) {
-            throw new NullPointerException("null type");
+        if (to == null) {
+            throw new NullPointerException("null to");
         }
 
-        Classes.requireAssignableTo(field.getType(), type);
+        Classes.requireAssignableTo(field.getType(), to);
 
         return field;
     }
 
 
     /**
-     * Check if the type of given field is assignable from specified child type.
+     * Checks that the specified field's type is assignable from specified type.
+     * This method is designed primarily for doing parameter validation in
+     * methods and constructors, as demonstrated below:
+     * <blockquote><pre>
+     * {@code
+     * public void foo(Field field) {
+     *     Fields.requireTypeAssignableFrom(field, String.class);
+     * }
+     * }
+     * </pre></blockquote>
+     *
      *
      * @param field the field whose type requires to be assignable from
      * {@code type}.
-     * @param type the type requires to be assignable to {@code field}'s type.
+     * @param from the type requires to be assignable to {@code field}'s type.
      *
-     * @return given field.
+     * @return {@code field} if its type is assignable from {@code from}.
      *
      * @throws NullPointerException if {@code field} is {@code null}
      * @throws NullPointerException if {@code type} is {@code null}
      * @throws IllegalArgumentException if {@code field}'s type is not
-     * assignable from {@code type}.
+     * assignable from {@code from}.
      */
-    public static Field requireTypeIsAssignableFrom(final Field field,
-                                                    final Class<?> type) {
+    public static Field requireTypeAssignableFrom(final Field field,
+                                                  final Class<?> from) {
 
         if (field == null) {
             throw new NullPointerException("null field");
         }
 
-        if (type == null) {
-            throw new NullPointerException("null type");
+        if (from == null) {
+            throw new NullPointerException("null from");
         }
 
-        Classes.requireAssignableFrom(field.getType(), type);
+        Classes.requireAssignableFrom(field.getType(), from);
 
         return field;
     }
 
 
+    /**
+     * Creates a new instance.
+     */
     private Fields() {
 
         super();

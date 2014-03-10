@@ -34,7 +34,7 @@ public class Hammer3B {
 
         final Field field = Untouchable3.class.getDeclaredField("SECRET");
 
-        final Unsafe unsafe = Dangerous.theUnsafeInstance();
+        final Unsafe unsafe = Dangerous.theUnsafe();
         final Object base = unsafe.staticFieldBase(field);
         final long offset = unsafe.staticFieldOffset(field);
         final Object value = unsafe.getObject(base, offset);

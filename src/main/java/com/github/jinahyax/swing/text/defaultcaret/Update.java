@@ -15,27 +15,39 @@
  */
 
 
-package com.github.jinahya.misc.untouchables;
+package com.github.jinahyax.swing.text.defaultcaret;
 
 
-import com.github.jinahya.misc.Dangerous;
-import sun.misc.Unsafe;
+import com.github.jinahya.lang.FieldEnum;
+import javax.swing.text.DefaultCaret;
 
 
 /**
  *
  * @author Jin Kwon <onacit at gmail.com>
  */
-public class Untouchable2Work {
+public enum Update implements FieldEnum<Update, Integer> {
 
 
-    public static void main(final String[] args) throws InstantiationException {
+    WHEN_ON_EDT(DefaultCaret.UPDATE_WHEN_ON_EDT),
+    NEVER(DefaultCaret.NEVER_UPDATE),
+    ALWAYS(DefaultCaret.ALWAYS_UPDATE);
 
-        final Unsafe unsafe = Dangerous.theUnsafe();
-        final Untouchable2 untouchable2
-            = (Untouchable2) unsafe.allocateInstance(Untouchable2.class);
-        untouchable2.secret();
+
+    private Update(final int fieldValue) {
+
+        this.fieldValue = fieldValue;
     }
+
+
+    @Override
+    public Integer fieldValue() {
+
+        return fieldValue;
+    }
+
+
+    private final int fieldValue;
 
 
 }

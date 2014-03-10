@@ -19,6 +19,7 @@ package com.github.jinahya.lang;
 
 
 import java.lang.reflect.Array;
+import java.util.Collection;
 
 
 /**
@@ -62,6 +63,23 @@ public final class FieldEnums {
         }
 
         return fieldValues;
+    }
+
+
+    public static <E extends Enum<E> & FieldEnum<E, F>, F> void fieldValues(
+        final Class<E> enumType, final Collection<? super F> fieldValues) {
+
+        if (enumType == null) {
+            throw new NullPointerException("null enumtype");
+        }
+
+        if (fieldValues == null) {
+            throw new NullPointerException("null fieldValues");
+        }
+
+        for (final E enumConstant : enumType.getEnumConstants()) {
+            fieldValues.add(enumConstant.fieldValue());
+        }
     }
 
 

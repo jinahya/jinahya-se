@@ -65,7 +65,6 @@ public final class Classes {
     /**
      * Checks that the source class is assignable to the target class.
      *
-     * @param <T> the class type parameter
      * @param is the source class to check for assignability to the target
      * class.
      * @param to the target class to check for assignability from the source
@@ -79,8 +78,8 @@ public final class Classes {
      * @see Class#isAssignableFrom(java.lang.Class)
      * @see Class#asSubclass(java.lang.Class)
      */
-    public static <T> Class<? extends T> requireAssignableTo(
-        final Class<?> is, final Class<T> to) {
+    public static Class<?> requireAssignableTo(final Class<?> is,
+                                               final Class<?> to) {
 
         if (is == null) {
             throw new NullPointerException("null is");
@@ -95,25 +94,24 @@ public final class Classes {
                 is + " is not assignable to " + to);
         }
 
-        return is.asSubclass(to);
+        return is;
     }
 
 
     /**
      *
-     * @param <T>
      * @param is
      * @param from
      *
-     * @return
+     * @return {@code is} if assignable from {@code from}.
      *
      * @throws NullPointerException if {@code is} is {@code null}.
      * @throws NullPointerException if {@code from} is {@code null}.
      * @throws IllegalArgumentException if {@code is} is not assignable from
      * {@code from}.
      */
-    public static <T> Class<? extends T> requireAssignableFrom(
-        final Class<?> is, final Class<T> from) {
+    public static Class<?> requireAssignableFrom(final Class<?> is,
+                                                 final Class<?> from) {
 
         if (is == null) {
             throw new NullPointerException("null is");
@@ -128,7 +126,7 @@ public final class Classes {
                 is + " is not assignable from " + from);
         }
 
-        return is.asSubclass(from);
+        return is;
     }
 
 

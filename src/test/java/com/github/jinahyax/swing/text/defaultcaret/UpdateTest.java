@@ -15,26 +15,22 @@
  */
 
 
-package com.github.jinahya.misc.untouchables;
+package com.github.jinahyax.swing.text.defaultcaret;
 
 
-import com.github.jinahya.misc.Dangerous;
-import sun.misc.Unsafe;
+import com.github.jinahya.lang.ComparableFieldEnumTest;
 
 
 /**
  *
  * @author Jin Kwon <onacit at gmail.com>
  */
-public class Untouchable2Work {
+public class UpdateTest extends ComparableFieldEnumTest<Update, Integer> {
 
 
-    public static void main(final String[] args) throws InstantiationException {
+    public UpdateTest() {
 
-        final Unsafe unsafe = Dangerous.theUnsafe();
-        final Untouchable2 untouchable2
-            = (Untouchable2) unsafe.allocateInstance(Untouchable2.class);
-        untouchable2.secret();
+        super(Update.class, Integer.class);
     }
 
 

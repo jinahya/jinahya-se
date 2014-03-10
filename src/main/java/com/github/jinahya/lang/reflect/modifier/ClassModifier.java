@@ -28,15 +28,47 @@ import java.lang.reflect.Modifier;
 public enum ClassModifier implements ModifierFieldEnum<ClassModifier> {
 
 
+    /**
+     * Constant for {@link Modifier#PUBLIC}.
+     */
     PUBLIC(Modifier.PUBLIC), // 1
+
+    /**
+     * Constant for {@link Modifier#PRIVATE}.
+     */
     PRIVATE(Modifier.PRIVATE),//2
+
+    /**
+     * Constant for {@link Modifier#PROTECTED}.
+     */
     PROTECTED(Modifier.PROTECTED), // 4
+
+    /**
+     * Constant for {@link Modifier#STATIC}.
+     */
     STATIC(Modifier.STATIC), // 8
+
+    /**
+     * Constant for {@link Modifier#FINAL}.
+     */
     FINAL(Modifier.FINAL), // 16
+
+    /**
+     * Constant for {@link Modifier#ABSTRACT}.
+     */
     ABSTRACT(Modifier.ABSTRACT), // 1024
+
+    /**
+     * Constant for {@link Modifier#STRICT}.
+     */
     STRICT(Modifier.STRICT); // 2048
 
 
+    /**
+     * Creates a new constant for given field value.
+     *
+     * @param fieldValue the field value.
+     */
     private ClassModifier(final int fieldValue) {
 
         this.fieldValue = fieldValue;
@@ -71,6 +103,9 @@ public enum ClassModifier implements ModifierFieldEnum<ClassModifier> {
     }
 
 
+    /**
+     * field value.
+     */
     private final int fieldValue;
 
 

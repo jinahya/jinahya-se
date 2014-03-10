@@ -29,8 +29,19 @@ public enum ConstructorModifier
     implements ModifierFieldEnum<ConstructorModifier> {
 
 
+    /**
+     * Constant for {@link Modifier#PUBLIC}.
+     */
     PUBLIC(Modifier.PUBLIC), // 1
+
+    /**
+     * Constant for {@link Modifier#PRIVATE}.
+     */
     PRIVATE(Modifier.PRIVATE),//2
+
+    /**
+     * Constant for {@link Modifier#PROTECTED}.
+     */
     PROTECTED(Modifier.PROTECTED); // 4
 
 

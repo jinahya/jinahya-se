@@ -18,9 +18,6 @@
 package com.github.jinahya.lang;
 
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -33,51 +30,32 @@ import org.testng.annotations.Test;
  * @param <E> enum type parameter
  * @param <F> field type parameter
  */
-public abstract class FieldEnumTest<E extends Enum<E> & FieldEnum<E, F>, F> {
+public abstract class ComparableFieldEnumTest<E extends Enum<E> & FieldEnum<E, F>, F extends Comparable<? super F>>
+    extends FieldEnumTest<E, F> {
 
 
     /**
      * logger.
      */
     private static final Logger logger
-        = LoggerFactory.getLogger(FieldEnumTest.class);
+        = LoggerFactory.getLogger(ComparableFieldEnumTest.class);
 
 
-    public FieldEnumTest(final Class<E> enumType, final Class<F> fieldType) {
+    public ComparableFieldEnumTest(final Class<E> enumType,
+                                   final Class<F> fieldType) {
 
-        super();
-
-        Objects.requireNonNull(enumType, "null enumType");
-        Objects.requireNonNull(fieldType, "null fieldType");
-
-        this.enumType = enumType;
-        this.fieldType = fieldType;
+        super(enumType, fieldType);
     }
 
 
     @Test
-    public void assertUniqueFieldValues() {
+    public void assertOrderedFieldValues() {
 
-        final Set<F> fieldValues = new HashSet<>();
-        for (final E enumConstant : enumType.getEnumConstants()) {
-            final F fieldValue = enumConstant.fieldValue();
-            if (!fieldValues.add(fieldValue)) {
-                Assert.fail("duplicate field value: " + fieldValue);
-            }
+        final F[] fieldValues = FieldEnums.fieldValues(enumType, fieldType);
+        for (int i = 1; i < fieldValues.length; i++) {
+            Assert.assertTrue(fieldValues[i - 1].compareTo(fieldValues[i]) < 0);
         }
     }
-
-
-    /**
-     * enum type.
-     */
-    protected final Class<E> enumType;
-
-
-    /**
-     * field type.
-     */
-    protected final Class<F> fieldType;
 
 
 }
