@@ -18,19 +18,19 @@
 package com.github.jinahya.math.bigdecimal;
 
 
-import com.github.jinahya.lang.ComparableFieldEnumTest;
+import com.github.jinahya.lang.IntegerFieldEnumTest;
 
 
 /**
  *
  * @author Jin Kwon <onacit at gmail.com>
  */
-public class RoundTest extends ComparableFieldEnumTest<Round, Integer> {
+public class RoundTest extends IntegerFieldEnumTest<Round> {
 
 
     public RoundTest() {
 
-        super(Round.class, Integer.class);
+        super(Round.class);
     }
 
 

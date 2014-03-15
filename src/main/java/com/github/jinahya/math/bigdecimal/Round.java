@@ -18,7 +18,7 @@
 package com.github.jinahya.math.bigdecimal;
 
 
-import com.github.jinahya.lang.FieldEnum;
+import com.github.jinahya.lang.IntegerFieldEnum;
 import java.math.BigDecimal;
 
 
@@ -26,7 +26,7 @@ import java.math.BigDecimal;
  *
  * @author Jin Kwon <onacit at gmail.com>
  */
-public enum Round implements FieldEnum<Round, Integer> {
+public enum Round implements IntegerFieldEnum<Round> {
 
 
     UP(BigDecimal.ROUND_UP), // 0

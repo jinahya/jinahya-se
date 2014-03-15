@@ -30,7 +30,7 @@ import org.testng.annotations.Test;
  * @param <E> enum type parameter
  * @param <F> field type parameter
  */
-public abstract class ComparableFieldEnumTest<E extends Enum<E> & FieldEnum<E, F>, F extends Comparable<? super F>>
+public abstract class ComparableFieldEnumTest<E extends Enum<E> & ComparableFieldEnum<E, F>, F extends Comparable<? super F>>
     extends FieldEnumTest<E, F> {
 
 

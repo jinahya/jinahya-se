@@ -34,6 +34,9 @@ import sun.misc.Unsafe;
 public class Dangerous {
 
 
+    /**
+     * The {@code theUnsafe} instance.
+     */
     private static final Unsafe THE_UNSAFE;
 
 
@@ -54,7 +57,7 @@ public class Dangerous {
 
 
     /**
-     * The default constructor of {@link sun.misc.Unsafe}.
+     * The default constructor of {@link sun.misc.Unsafe} class.
      */
     private static final Constructor<Unsafe> NEW_UNSAFE;
 
@@ -82,9 +85,11 @@ public class Dangerous {
 
 
     /**
-     * Creates and returns a new instance of {@link sun.misc.Unsafe} class.
+     * Creates a new instance of {@link sun.misc.Unsafe} class.
      *
      * @return a new instance of {@link sun.misc.Unsafe} class.
+     *
+     * @throws RuntimeException if failed to construct the instance.
      */
     public static Unsafe newUnsafe() {
 
@@ -100,13 +105,13 @@ public class Dangerous {
     }
 
 
-    private static class Holder {
+    private static class InstanceHolder {
 
 
-        private static final Dangerous INSTANCE = new Dangerous(theUnsafe());
+        private static final Dangerous INSTANCE = new Dangerous(THE_UNSAFE);
 
 
-        private Holder() {
+        private InstanceHolder() {
 
             super();
         }
@@ -115,14 +120,19 @@ public class Dangerous {
     }
 
 
-    public static Dangerous theInstance() {
+    /**
+     * Returns the pre-constructed instance with {@link #theUnsafe()}.
+     *
+     * @return the pre-constructed instance.
+     */
+    public static Dangerous getInstance() {
 
-        return Holder.INSTANCE;
+        return InstanceHolder.INSTANCE;
     }
 
 
     /**
-     * Creates a new instance.
+     * Creates a new instance with {@link #newUnsafe()}.
      *
      * @return a new instance.
      */
@@ -133,9 +143,9 @@ public class Dangerous {
 
 
     /**
-     * Creates a new instance wrapping specified unsafe instance.
+     * Creates a new instance with specified unsafe instance.
      *
-     * @param unsafe the unsafe instance
+     * @param unsafe the unsafe instance.
      *
      * @throws NullPointerException if {@code unsafe} is {@code null}.
      */
@@ -153,12 +163,15 @@ public class Dangerous {
 
     /**
      *
-     * @param <T>
-     * @param cls
+     * @param <T> instance type parameter.
+     * @param cls instance type.
      *
-     * @return
+     * @return a new allocated instance.
      *
-     * @throws InstantiationException
+     * @throws InstantiationException if thrown from
+     * {@link Unsafe#allocateInstance(java.lang.Class)}
+     *
+     * @see Unsafe#allocateInstance(java.lang.Class)
      */
     public <T> T allocateInstance(final Class<T> cls)
         throws InstantiationException {
@@ -226,7 +239,6 @@ public class Dangerous {
         final int modifiers = field.getModifiers();
 
         final long offset;
-        //final boolean static_ = Modifier.isStatic(modifiers);
         if (Modifier.isStatic(modifiers)) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
@@ -263,7 +275,6 @@ public class Dangerous {
         final int modifiers = field.getModifiers();
 
         final long offset;
-        //final boolean static_ = Modifier.isStatic(modifiers);
         if (Modifier.isStatic(modifiers)) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
@@ -281,11 +292,11 @@ public class Dangerous {
     }
 
 
-    public <T> boolean compareAndSwapObject(Object base, final Field field,
+    public <T> boolean compareAndSwapObject(final Object base, Field field,
                                             final Class<T> type,
                                             final T expected, final T x) {
 
-        Fields.requireTypeAssignableFrom(field, type);
+        field = Fields.requireTypeAssignableFrom(field, type); // NPE, IAE
 
         return compareAndSwapObject(base, field, expected, x);
     }
@@ -295,9 +306,16 @@ public class Dangerous {
      *
      * @param base the object reference for instance fields or {@code null} for
      * static fields.
-     * @param field the field
+     * @param field the field whose value is returned.
      *
-     * @return the boolean value.
+     * @return the field value as boolean.
+     *
+     * @throws NullPointerException if {@code base} is {@code null} while
+     * {@code field} is an instance field.
+     * @throws NullPointerException if {@code field} is {@code null}.
+     *
+     * @see Unsafe#getBoolean(java.lang.Object, long)
+     * @see Unsafe#getBooleanVolatile(java.lang.Object, long)
      */
     public boolean getBoolean(Object base, final Field field) {
 
@@ -308,38 +326,6 @@ public class Dangerous {
         final int modifiers = field.getModifiers();
 
         final long offset;
-        //final boolean static_ = Modifier.isStatic(modifiers);
-        if (Modifier.isStatic(modifiers)) {
-            if (base == null) {
-                base = unsafe.staticFieldBase(field);
-            }
-            offset = unsafe.staticFieldOffset(field);
-        } else {
-            if (base == null) {
-                throw new NullPointerException("null base for instance field");
-            }
-            offset = unsafe.objectFieldOffset(field);
-        }
-
-        //final boolean volatile_ = Modifier.isVolatile(modifiers);
-        if (Modifier.isVolatile(modifiers)) {
-            return unsafe.getBooleanVolatile(base, offset);
-        } else {
-            return unsafe.getBoolean(base, offset);
-        }
-    }
-
-
-    public byte getByte(Object base, final Field field) {
-
-        if (field == null) {
-            throw new NullPointerException("null field");
-        }
-
-        final int modifiers = field.getModifiers();
-
-        final long offset;
-        //final boolean static_ = Modifier.isStatic(modifiers);
         if (Modifier.isStatic(modifiers)) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
@@ -353,7 +339,47 @@ public class Dangerous {
             offset = unsafe.objectFieldOffset(field);
         }
 
-        //final boolean volatile_ = Modifier.isVolatile(modifiers);
+        if (Modifier.isVolatile(modifiers)) {
+            return unsafe.getBooleanVolatile(base, offset);
+        } else {
+            return unsafe.getBoolean(base, offset);
+        }
+    }
+
+
+    /**
+     *
+     * @param base
+     * @param field
+     *
+     * @return
+     *
+     * @throws NullPointerException if {@code base} is {@code null} while
+     * {@code field} is an instance field.
+     * @throws NullPointerException if {@code field} is {@code null}.
+     */
+    public byte getByte(Object base, final Field field) {
+
+        if (field == null) {
+            throw new NullPointerException("null field");
+        }
+
+        final int modifiers = field.getModifiers();
+
+        final long offset;
+        if (Modifier.isStatic(modifiers)) {
+            if (base == null) {
+                base = unsafe.staticFieldBase(field);
+            }
+            offset = unsafe.staticFieldOffset(field);
+        } else {
+            if (base == null) {
+                throw new NullPointerException(
+                    "null base for an instance field");
+            }
+            offset = unsafe.objectFieldOffset(field);
+        }
+
         if (Modifier.isVolatile(modifiers)) {
             return unsafe.getByteVolatile(base, offset);
         } else {
@@ -648,7 +674,6 @@ public class Dangerous {
         final int modifiers = field.getModifiers();
 
         final long offset;
-        //final boolean static_ = Modifier.isStatic(modifiers);
         if (Modifier.isStatic(modifiers)) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
@@ -662,7 +687,6 @@ public class Dangerous {
             offset = unsafe.objectFieldOffset(field);
         }
 
-        //final boolean volatile_ = Modifier.isVolatile(modifiers);
         if (Modifier.isVolatile(modifiers)) {
             unsafe.putByteVolatile(base, offset, x);
         } else {
@@ -686,7 +710,6 @@ public class Dangerous {
         final int modifiers = field.getModifiers();
 
         final long offset;
-        //final boolean static_ = Modifier.isStatic(modifiers);
         if (Modifier.isStatic(modifiers)) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
@@ -700,7 +723,6 @@ public class Dangerous {
             offset = unsafe.objectFieldOffset(field);
         }
 
-        //final boolean volatile_ = Modifier.isVolatile(modifiers);
         if (Modifier.isVolatile(modifiers)) {
             unsafe.putCharVolatile(base, offset, x);
         } else {

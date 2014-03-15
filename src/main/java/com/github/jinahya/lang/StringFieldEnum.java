@@ -24,7 +24,7 @@ package com.github.jinahya.lang;
  * @param <E> enum type parameter
  */
 public interface StringFieldEnum<E extends Enum<E>>
-    extends FieldEnum<E, String> {
+    extends ComparableFieldEnum<E, String> {
 
 }
 

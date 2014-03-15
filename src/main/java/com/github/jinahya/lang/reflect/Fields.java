@@ -62,6 +62,7 @@ public final class Fields {
     }
 
 
+    @Deprecated
     public static Field unprivate(final Field field)
         throws NoSuchFieldException, IllegalAccessException {
 
@@ -69,6 +70,7 @@ public final class Fields {
     }
 
 
+    @Deprecated
     public static Field unfinal(final Field field)
         throws NoSuchFieldException, IllegalAccessException {
 
@@ -142,6 +144,9 @@ public final class Fields {
      * @throws NullPointerException if {@code type} is {@code null}
      * @throws IllegalArgumentException if {@code field}'s type is not
      * assignable from {@code from}.
+     *
+     * @see Field#getType()
+     * @see Classes#requireAssignableFrom(java.lang.Class, java.lang.Class)
      */
     public static Field requireTypeAssignableFrom(final Field field,
                                                   final Class<?> from) {

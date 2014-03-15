@@ -70,8 +70,10 @@ public final class Classes {
      * @param to the target class to check for assignability from the source
      * class.
      *
-     * @return {@code is} as a subclass of {@code to} if assignable
+     * @return {@code is} if it's assignable to {@code to}
      *
+     * @throws NullPointerException if {@code is} is {@code null}.
+     * @throws NullPointerException if {@code to} is {@code null}.
      * @throws IllegalArgumentException if {@code is} is not assignable to
      * {@code to}.
      *
@@ -103,7 +105,7 @@ public final class Classes {
      * @param is
      * @param from
      *
-     * @return {@code is} if assignable from {@code from}.
+     * @return {@code is} if it's assignable from {@code from}.
      *
      * @throws NullPointerException if {@code is} is {@code null}.
      * @throws NullPointerException if {@code from} is {@code null}.

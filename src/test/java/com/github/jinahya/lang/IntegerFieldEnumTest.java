@@ -15,39 +15,22 @@
  */
 
 
-package com.github.jinahyax.swing.text.defaultcaret;
-
-
-import com.github.jinahya.lang.IntegerFieldEnum;
-import javax.swing.text.DefaultCaret;
+package com.github.jinahya.lang;
 
 
 /**
  *
  * @author Jin Kwon <onacit at gmail.com>
+ * @param <E>
  */
-public enum Update implements IntegerFieldEnum<Update> {
+public abstract class IntegerFieldEnumTest<E extends Enum<E> & IntegerFieldEnum<E>>
+    extends ComparableFieldEnumTest<E, Integer> {
 
 
-    WHEN_ON_EDT(DefaultCaret.UPDATE_WHEN_ON_EDT),
-    NEVER(DefaultCaret.NEVER_UPDATE),
-    ALWAYS(DefaultCaret.ALWAYS_UPDATE);
+    public IntegerFieldEnumTest(final Class<E> enumType) {
 
-
-    private Update(final int fieldValue) {
-
-        this.fieldValue = fieldValue;
+        super(enumType, Integer.class);
     }
-
-
-    @Override
-    public Integer fieldValue() {
-
-        return fieldValue;
-    }
-
-
-    private final int fieldValue;
 
 
 }

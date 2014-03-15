@@ -229,7 +229,7 @@ public class DangerousTest {
     @Test
     public void allocateInstance_() throws InstantiationException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Inaccessible instance
             = dangerous.allocateInstance(Inaccessible.class);
@@ -242,10 +242,10 @@ public class DangerousTest {
     public void compareAndSwapInt_instance_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field = Inaccessible.class.getDeclaredField("instanceInt");
         assert !Modifier.isStatic(field.getModifiers());
         final int expected = 0;
@@ -259,7 +259,7 @@ public class DangerousTest {
     @Test
     public void compareAndSwapInt_static_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field = Inaccessible.class.getDeclaredField("staticInt");
@@ -275,7 +275,7 @@ public class DangerousTest {
     public void compareAndSwapLong_instance_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
             = dangerous.unsafe().allocateInstance(Inaccessible.class);
@@ -292,7 +292,7 @@ public class DangerousTest {
     @Test
     public void compareAndSwapLong_static_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field = Inaccessible.class.getDeclaredField("staticLong");
@@ -308,10 +308,10 @@ public class DangerousTest {
     public void compareAndSwapObject_instance_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceObject");
         assert !Modifier.isStatic(field.getModifiers());
@@ -326,7 +326,7 @@ public class DangerousTest {
     @Test
     public void compareAndSwapObject_static_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field = Inaccessible.class.getDeclaredField("staticObject");
@@ -342,10 +342,10 @@ public class DangerousTest {
     public void compareAndSwapObject_generic_instance_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceObject");
         assert !Modifier.isStatic(field.getModifiers());
@@ -363,7 +363,7 @@ public class DangerousTest {
     public void compareAndSwapObject_generic_static_()
         throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field = Inaccessible.class.getDeclaredField("staticObject");
@@ -381,10 +381,10 @@ public class DangerousTest {
     public void getBoolean_nonBooleanField_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceDouble");
         assert !Modifier.isStatic(field.getModifiers());
@@ -399,10 +399,10 @@ public class DangerousTest {
     public void getBoolean_instance_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceBoolean");
         assert !Modifier.isStatic(field.getModifiers());
@@ -415,10 +415,10 @@ public class DangerousTest {
     public void getBoolean_instance_volatile_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceBooleanVolatile");
         assert !Modifier.isStatic(field.getModifiers());
@@ -431,7 +431,7 @@ public class DangerousTest {
     @Test
     public void getBoolean_static_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field = Inaccessible.class.getDeclaredField("staticBoolean");
@@ -444,7 +444,7 @@ public class DangerousTest {
     @Test
     public void getBoolean_static_volatile() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object object = null;
         final Field field
@@ -458,10 +458,10 @@ public class DangerousTest {
     public void getByte_instance_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceByte");
         assert !Modifier.isStatic(field.getModifiers());
@@ -474,10 +474,10 @@ public class DangerousTest {
     public void getByte_instance_volatile_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceByteVolatile");
         assert !Modifier.isStatic(field.getModifiers());
@@ -490,7 +490,7 @@ public class DangerousTest {
     @Test
     public void getByte_static_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field = Inaccessible.class.getDeclaredField("staticByte");
@@ -503,7 +503,7 @@ public class DangerousTest {
     @Test
     public void getByte_static_volatile_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field
@@ -517,10 +517,10 @@ public class DangerousTest {
     public void getChar_instance_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceChar");
         assert !Modifier.isStatic(field.getModifiers());
@@ -535,10 +535,10 @@ public class DangerousTest {
     public void getChar_instance_volatile_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceCharVolatile");
         assert !Modifier.isStatic(field.getModifiers());
@@ -553,7 +553,7 @@ public class DangerousTest {
     @Test
     public void getChar_static_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field = Inaccessible.class.getDeclaredField("staticChar");
@@ -566,7 +566,7 @@ public class DangerousTest {
     @Test
     public void getChar_static_volatile_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field
@@ -582,10 +582,10 @@ public class DangerousTest {
     public void getDouble_instance_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceDouble");
         assert !Modifier.isStatic(field.getModifiers());
@@ -600,10 +600,10 @@ public class DangerousTest {
     public void getDouble_instance_volatile_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceDoubleVolatile");
         assert !Modifier.isStatic(field.getModifiers());
@@ -618,7 +618,7 @@ public class DangerousTest {
     @Test
     public void getDouble_static_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field = Inaccessible.class.getDeclaredField("staticDouble");
@@ -631,7 +631,7 @@ public class DangerousTest {
     @Test
     public void getDouble_static_volatile_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field
@@ -647,10 +647,10 @@ public class DangerousTest {
     public void getFloat_instance_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceFloat");
         assert !Modifier.isStatic(field.getModifiers());
@@ -665,10 +665,10 @@ public class DangerousTest {
     public void getFloat_instance_volatile_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceFloatVolatile");
         assert !Modifier.isStatic(field.getModifiers());
@@ -683,7 +683,7 @@ public class DangerousTest {
     @Test
     public void getFloat_static_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field = Inaccessible.class.getDeclaredField("staticFloat");
@@ -696,7 +696,7 @@ public class DangerousTest {
     @Test
     public void getFloat_static_volatile_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field
@@ -712,10 +712,10 @@ public class DangerousTest {
     public void getInt_instance_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceInt");
         assert !Modifier.isStatic(field.getModifiers());
@@ -730,10 +730,10 @@ public class DangerousTest {
     public void getInt_instance_volatile_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceIntVolatile");
         assert !Modifier.isStatic(field.getModifiers());
@@ -748,7 +748,7 @@ public class DangerousTest {
     @Test
     public void getInt_static_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field = Inaccessible.class.getDeclaredField("staticInt");
@@ -761,7 +761,7 @@ public class DangerousTest {
     @Test
     public void getInt_static_volatile_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field
@@ -777,10 +777,10 @@ public class DangerousTest {
     public void getLong_instance_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceLong");
         assert !Modifier.isStatic(field.getModifiers());
@@ -795,10 +795,10 @@ public class DangerousTest {
     public void getLong_instance_volatile_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceLongVolatile");
         assert !Modifier.isStatic(field.getModifiers());
@@ -813,7 +813,7 @@ public class DangerousTest {
     @Test
     public void getLong_static_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field = Inaccessible.class.getDeclaredField("staticLong");
@@ -826,7 +826,7 @@ public class DangerousTest {
     @Test
     public void getLong_static_volatile_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field
@@ -842,10 +842,10 @@ public class DangerousTest {
     public void getObject_instance_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceObject");
         assert !Modifier.isStatic(field.getModifiers());
@@ -860,10 +860,10 @@ public class DangerousTest {
     public void getObject_instance_volatile_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceObjectVolatile");
         assert !Modifier.isStatic(field.getModifiers());
@@ -878,7 +878,7 @@ public class DangerousTest {
     @Test
     public void getObject_static_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field = Inaccessible.class.getDeclaredField("staticObject");
@@ -891,7 +891,7 @@ public class DangerousTest {
     @Test
     public void getObject_static_volatile_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field
@@ -907,10 +907,10 @@ public class DangerousTest {
     public void getShort_instance_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceShort");
         assert !Modifier.isStatic(field.getModifiers());
@@ -925,10 +925,10 @@ public class DangerousTest {
     public void getShort_instance_volatile_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceShortVolatile");
         assert !Modifier.isStatic(field.getModifiers());
@@ -943,7 +943,7 @@ public class DangerousTest {
     @Test
     public void getShort_static_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field = Inaccessible.class.getDeclaredField("staticShort");
@@ -956,7 +956,7 @@ public class DangerousTest {
     @Test
     public void getShort_static_volatile_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field
@@ -972,10 +972,10 @@ public class DangerousTest {
     public void putBoolean_instance_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceBoolean");
         assert !Modifier.isStatic(field.getModifiers());
@@ -988,10 +988,10 @@ public class DangerousTest {
     public void putBoolean_instance_volatile_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceBooleanVolatile");
         assert !Modifier.isStatic(field.getModifiers());
@@ -1004,7 +1004,7 @@ public class DangerousTest {
     @Test
     public void putBoolean_static_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field
@@ -1018,7 +1018,7 @@ public class DangerousTest {
     @Test
     public void putBoolean_static_volatile_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field
@@ -1034,10 +1034,10 @@ public class DangerousTest {
     public void putByte_instance_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceByte");
         assert !Modifier.isStatic(field.getModifiers());
@@ -1050,10 +1050,10 @@ public class DangerousTest {
     public void putByte_instance_volatile_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceByteVolatile");
         assert !Modifier.isStatic(field.getModifiers());
@@ -1066,7 +1066,7 @@ public class DangerousTest {
     @Test
     public void putByte_static_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field = Inaccessible.class.getDeclaredField("staticByte");
@@ -1079,7 +1079,7 @@ public class DangerousTest {
     @Test
     public void putByte_static_volatile_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field
@@ -1095,10 +1095,10 @@ public class DangerousTest {
     public void putChar_instance_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceChar");
         assert !Modifier.isStatic(field.getModifiers());
@@ -1111,10 +1111,10 @@ public class DangerousTest {
     public void putChar_instance_volatile_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceCharVolatile");
         assert !Modifier.isStatic(field.getModifiers());
@@ -1127,7 +1127,7 @@ public class DangerousTest {
     @Test
     public void putChar_static_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field = Inaccessible.class.getDeclaredField("staticChar");
@@ -1140,7 +1140,7 @@ public class DangerousTest {
     @Test
     public void putChar_static_volatile_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field
@@ -1156,10 +1156,10 @@ public class DangerousTest {
     public void putDouble_instance_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceDouble");
         assert !Modifier.isStatic(field.getModifiers());
@@ -1172,10 +1172,10 @@ public class DangerousTest {
     public void putDouble_instance_volatile_()
         throws InstantiationException, NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base
-            = dangerous.unsafe.allocateInstance(Inaccessible.class);
+            = dangerous.unsafe().allocateInstance(Inaccessible.class);
         final Field field
             = Inaccessible.class.getDeclaredField("instanceDoubleVolatile");
         assert !Modifier.isStatic(field.getModifiers());
@@ -1188,7 +1188,7 @@ public class DangerousTest {
     @Test
     public void putDouble_static_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field = Inaccessible.class.getDeclaredField("staticDouble");
@@ -1201,7 +1201,7 @@ public class DangerousTest {
     @Test
     public void putDouble_static_volatile_() throws NoSuchFieldException {
 
-        final Dangerous dangerous = Dangerous.newInstance();
+        final Dangerous dangerous = Dangerous.getInstance();
 
         final Object base = null;
         final Field field

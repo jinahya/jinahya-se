@@ -18,19 +18,19 @@
 package com.github.jinahyax.swing.text.defaultcaret;
 
 
-import com.github.jinahya.lang.ComparableFieldEnumTest;
+import com.github.jinahya.lang.IntegerFieldEnumTest;
 
 
 /**
  *
  * @author Jin Kwon <onacit at gmail.com>
  */
-public class UpdateTest extends ComparableFieldEnumTest<Update, Integer> {
+public class UpdateTest extends IntegerFieldEnumTest<Update> {
 
 
     public UpdateTest() {
 
-        super(Update.class, Integer.class);
+        super(Update.class);
     }
 
 

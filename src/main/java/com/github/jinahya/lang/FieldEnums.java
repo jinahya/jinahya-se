@@ -66,6 +66,17 @@ public final class FieldEnums {
     }
 
 
+    /**
+     * Adds all field values of given enum type to specified collection.
+     *
+     * @param <E> enum type parameter
+     * @param <F> field type parameter
+     * @param enumType enum type
+     * @param fieldValues the collection to which field values are added
+     *
+     * @throws NullPointerException if {@code enumType} is {@code null}.
+     * @throws NullPointerException if {@code fieldValues} is {@code null}.
+     */
     public static <E extends Enum<E> & FieldEnum<E, F>, F> void fieldValues(
         final Class<E> enumType, final Collection<? super F> fieldValues) {
 
@@ -92,7 +103,7 @@ public final class FieldEnums {
      * @param enumType enum type
      * @param fieldValue field value
      *
-     * @throws NullPointerException if {@code enumType} is null
+     * @throws NullPointerException if {@code enumType} is {@code null}.
      * @throws IllegalArgumentException if the specified enum type has no
      * constant with the specified field value, or the specified class object
      * does not represent an enum type
