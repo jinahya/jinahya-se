@@ -42,15 +42,27 @@ import org.testng.annotations.Test;
 /**
  *
  * @author Jin Kwon <onacit at gmail.com>
- * @param <T>
+ * @param <T> image feature type parameter
  */
 public abstract class ImageFeatureTest<T extends ImageFeature> {
 
 
+    /**
+     * logger.
+     */
     private static final Logger logger
-        = LoggerFactory.getLogger(ImageFeatureTest.class);
+            = LoggerFactory.getLogger(ImageFeatureTest.class);
 
 
+    protected static void xml_instances() {
+    }
+
+
+    /**
+     * Creates a new instance.
+     *
+     * @param imageFeatureType image feature type.
+     */
     public ImageFeatureTest(final Class<T> imageFeatureType) {
 
         super();
@@ -61,12 +73,12 @@ public abstract class ImageFeatureTest<T extends ImageFeature> {
 
     @Test
     public void json_schema_()
-        throws JsonMappingException, JsonProcessingException {
+            throws JsonMappingException, JsonProcessingException {
 
         final ObjectMapper mapper = new ObjectMapper();
         final TypeFactory factory = TypeFactory.defaultInstance();
         final AnnotationIntrospector introspector
-            = new JaxbAnnotationIntrospector(factory);
+                = new JaxbAnnotationIntrospector(factory);
         mapper.setAnnotationIntrospector(introspector);
 
         final SchemaFactoryWrapper visitor = new SchemaFactoryWrapper();
@@ -88,13 +100,11 @@ public abstract class ImageFeatureTest<T extends ImageFeature> {
 
         context.generateSchema(new SchemaOutputResolver() {
 
-
             @Override
             public Result createOutput(final String namespaceUri,
                                        final String suggestedFileName)
-                throws IOException {
+                    throws IOException {
                 return new StreamResult(System.out) {
-
 
                     public String getSystemId() {
                         return "";

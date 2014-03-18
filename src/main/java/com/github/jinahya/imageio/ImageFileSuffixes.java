@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <onacit at gmail.com>.
+ * Copyright 2014 Jin Kwon <onacit at gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,58 +18,28 @@
 package com.github.jinahya.imageio;
 
 
-import java.util.Map;
-import javax.imageio.ImageIO;
+import java.util.Collection;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 /**
  *
  * @author Jin Kwon <onacit at gmail.com>
  */
-@XmlRootElement
 public class ImageFileSuffixes extends ImageFeatures<ImageFileSuffix> {
 
 
-    public static ImageFileSuffixes newInstance() {
+    public ImageFileSuffixes() {
 
-        final ImageFileSuffixes instance = new ImageFileSuffixes();
-
-        for (final String readerFileSuffix : ImageIO.getReaderFileSuffixes()) {
-            ImageFileSuffix imageFileSuffix
-                = instance.getImageFeatures().get(readerFileSuffix);
-            if (imageFileSuffix == null) {
-                imageFileSuffix = new ImageFileSuffix();
-                instance.getImageFeatures().put(
-                    readerFileSuffix, imageFileSuffix);
-            }
-            imageFileSuffix.setReadable(true);
-            imageFileSuffix.setValue(readerFileSuffix);
-        }
-
-        for (final String writerFileSuffix : ImageIO.getWriterFileSuffixes()) {
-            ImageFileSuffix imageFileSuffix
-                = instance.getImageFeatures().get(writerFileSuffix);
-            if (imageFileSuffix == null) {
-                imageFileSuffix = new ImageFileSuffix();
-                instance.getImageFeatures().put(
-                    writerFileSuffix, imageFileSuffix);
-            }
-            imageFileSuffix.setWritable(true);
-            imageFileSuffix.setValue(writerFileSuffix);
-        }
-
-        return instance;
+        super(ImageFileSuffix.getAvailableInstances());
     }
 
 
     @XmlElement(name = "imageFileSuffix")
-    @XmlJavaTypeAdapter(ImageFileSuffixMapValuesAdapter.class)
-    public Map<String, ImageFileSuffix> getImageFileSuffixes() {
+    @Override
+    protected Collection<ImageFileSuffix> getImageFeatures() {
 
-        return getImageFeatures();
+        return super.getImageFeatures();
     }
 
 

@@ -18,17 +18,30 @@
 package com.github.jinahya.imageio;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 /**
  *
  * @author Jin Kwon <onacit at gmail.com>
  */
-public class ImageFileSuffixMapValuesAdapter
-    extends ImageFeatureMapValuesAdapter<ImageFileSuffixMapValues, ImageFileSuffix> {
+public class ImageMimeTypeTest extends ImageFeatureTest<ImageMimeType> {
 
 
-    public ImageFileSuffixMapValuesAdapter() {
+    /**
+     * logger.
+     */
+    private static final Logger logger
+            = LoggerFactory.getLogger(ImageMimeTypeTest.class);
 
-        super(ImageFileSuffixMapValues.class);
+
+    /**
+     * Creates a new instance.
+     */
+    public ImageMimeTypeTest() {
+
+        super(ImageMimeType.class);
     }
 
 

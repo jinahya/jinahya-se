@@ -18,8 +18,7 @@
 package com.github.jinahya.crypto;
 
 
-import com.github.jinahya.lang.FieldEnum;
-import com.github.jinahya.lang.FieldEnums;
+import com.github.jinahya.lang.IntegerFieldEnum;
 import javax.crypto.Cipher;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
@@ -30,8 +29,7 @@ import javax.xml.bind.annotation.XmlEnumValue;
  * @author Jin Kwon <onacit at gmail.com>
  */
 @XmlEnum(Integer.class)
-public enum CipherUnwrappedKey
-    implements FieldEnum<CipherUnwrappedKey, Integer> {
+public enum CihperUnwrappedKey implements IntegerFieldEnum<CihperUnwrappedKey> {
 
 
     /**
@@ -53,20 +51,7 @@ public enum CipherUnwrappedKey
     SECRET_KEY(Cipher.SECRET_KEY); // 3
 
 
-    public static CipherUnwrappedKey fromFieldValue(final int fieldValue) {
-
-        return FieldEnums.fromFieldValue(
-            CipherUnwrappedKey.class, Integer.valueOf(fieldValue));
-    }
-
-
-    public static Integer[] fieldValues() {
-
-        return FieldEnums.fieldValues(CipherUnwrappedKey.class, Integer.class);
-    }
-
-
-    private CipherUnwrappedKey(final int fieldValue) {
+    private CihperUnwrappedKey(final int fieldValue) {
 
         this.fieldValue = fieldValue;
     }

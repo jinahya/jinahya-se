@@ -26,7 +26,7 @@ import java.lang.reflect.Modifier;
  * @author Jin Kwon <onacit at gmail.com>
  */
 public enum ConstructorModifier
-    implements ModifierFieldEnum<ConstructorModifier> {
+        implements ModifierFieldEnum<ConstructorModifier> {
 
 
     /**
@@ -45,6 +45,11 @@ public enum ConstructorModifier
     PROTECTED(Modifier.PROTECTED); // 4
 
 
+    /**
+     * Creates a new instance with given field value.
+     *
+     * @param fieldValue the field value.
+     */
     private ConstructorModifier(final int fieldValue) {
 
         this.fieldValue = fieldValue;
@@ -79,6 +84,9 @@ public enum ConstructorModifier
     }
 
 
+    /**
+     * field value.
+     */
     private final int fieldValue;
 
 

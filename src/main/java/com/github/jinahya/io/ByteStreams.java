@@ -39,7 +39,7 @@ public final class ByteStreams {
     /**
      * logger.
      */
-    private static final Logger LOGGER
+    private static final Logger logger
         = LoggerFactory.getLogger(ByteStreams.class);
 
 
@@ -60,7 +60,7 @@ public final class ByteStreams {
                             final byte[] buffer, final long length)
         throws IOException {
 
-        LOGGER.trace("copy({}, {}, {}, {})", input, output,
+        logger.trace("copy({}, {}, {}, {})", input, output,
                      String.valueOf(buffer), length);
 
         if (input == null) {

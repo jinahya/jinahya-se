@@ -29,10 +29,16 @@ import org.slf4j.LoggerFactory;
 public class ImageFileSuffixTest extends ImageFeatureTest<ImageFileSuffix> {
 
 
+    /**
+     * logger.
+     */
     private static final Logger logger
-        = LoggerFactory.getLogger(ImageFileSuffixTest.class);
+            = LoggerFactory.getLogger(ImageFileSuffixTest.class);
 
 
+    /**
+     * Creates a new instance.
+     */
     public ImageFileSuffixTest() {
 
         super(ImageFileSuffix.class);

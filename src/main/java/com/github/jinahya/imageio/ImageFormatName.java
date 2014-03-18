@@ -18,10 +18,9 @@
 package com.github.jinahya.imageio;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
+import java.util.TreeMap;
 import javax.imageio.ImageIO;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -34,12 +33,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ImageFormatName extends ImageFeature {
 
 
-    public static List<ImageFormatName> getAvailableInstances() {
-
-        final List<ImageFormatName> list = new ArrayList<ImageFormatName>();
+    public static Collection<ImageFormatName> getAvailableInstances() {
 
         final Map<String, ImageFormatName> map
-            = new HashMap<String, ImageFormatName>();
+                = new TreeMap<String, ImageFormatName>();
 
         for (final String readerFormatName : ImageIO.getReaderFormatNames()) {
             ImageFormatName imageFormatName = map.get(readerFormatName);
@@ -51,17 +48,17 @@ public class ImageFormatName extends ImageFeature {
             imageFormatName.setValue(readerFormatName);
         }
 
-        for (final String writerFileSuffix : ImageIO.getWriterFileSuffixes()) {
-            ImageFormatName imageFormatName = map.get(writerFileSuffix);
+        for (final String writerFormatName : ImageIO.getWriterFormatNames()) {
+            ImageFormatName imageFormatName = map.get(writerFormatName);
             if (imageFormatName == null) {
                 imageFormatName = new ImageFormatName();
-                map.put(writerFileSuffix, imageFormatName);
+                map.put(writerFormatName, imageFormatName);
             }
             imageFormatName.setWritable(true);
-            imageFormatName.setValue(writerFileSuffix);
+            imageFormatName.setValue(writerFormatName);
         }
 
-        return list;
+        return map.values();
     }
 
 

@@ -15,11 +15,11 @@
  */
 
 
-package com.github.jinahya.sql;
+package com.github.jinahya.sql.resultset;
 
 
-import com.github.jinahya.lang.FieldEnum;
 import com.github.jinahya.lang.FieldEnums;
+import com.github.jinahya.lang.IntegerFieldEnum;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -28,11 +28,8 @@ import java.sql.SQLException;
  * Constants for {@link ResultSet}'s fetch directions.
  *
  * @author Jin Kwon <onacit at gmail.com>
- * @deprecated Use {@link com.github.jinahya.sql.resultset.FetchDirection}.
  */
-@Deprecated
-public enum ResultSetFetchDirection
-        implements FieldEnum<ResultSetFetchDirection, Integer> {
+public enum FetchDirection implements IntegerFieldEnum<FetchDirection> {
 
 
     /**
@@ -41,38 +38,20 @@ public enum ResultSetFetchDirection
      * @see ResultSet#FETCH_REVERSE
      */
     FETCH_FORWARD(ResultSet.FETCH_FORWARD), // 1000
+
     /**
      * Constant for {@link ResultSet#FETCH_REVERSE}.
      *
      * @see ResultSet#FETCH_REVERSE
      */
     FETCH_REVERSE(ResultSet.FETCH_REVERSE), // 1001
+
     /**
      * Constant for {@link ResultSet#FETCH_UNKNOWN}.
      *
      * @see ResultSet#FETCH_UNKNOWN
      */
     FETCH_UNKNOWN(ResultSet.FETCH_UNKNOWN); // 1002
-
-
-    /**
-     * Returns the enum constant of this type with the specified fetch direction
-     * value.
-     *
-     * @param fieldValue the fetch direction value; one of
-     * {@link ResultSet#FETCH_FORWARD}, {@link ResultSet#FETCH_REVERSE}, or
-     * {@link ResultSet#FETCH_UNKNOWN}.
-     *
-     * @throws IllegalArgumentException if this enum type has no constant with
-     * the specified fetch direction value.
-     *
-     * @return the enum constant with the specified fetch direction value.
-     */
-    public static ResultSetFetchDirection fromFieldValue(final int fieldValue) {
-
-        return FieldEnums.fromFieldValue(
-                ResultSetFetchDirection.class, fieldValue);
-    }
 
 
     /**
@@ -89,29 +68,15 @@ public enum ResultSetFetchDirection
      *
      * @see ResultSet#getFetchDirection()
      */
-    public static ResultSetFetchDirection fromResultSet(
-            final ResultSet resultSet)
+    public static FetchDirection fromResultSet(final ResultSet resultSet)
             throws SQLException {
 
         if (resultSet == null) {
             throw new NullPointerException("resultSet");
         }
 
-        return fromFieldValue(resultSet.getFetchDirection());
-    }
-
-
-    /**
-     * Returns an array containing the field values of this enum type, in the
-     * order they are declared.
-     *
-     * @return an array containing field values of this enum type, in the order
-     * they are declared
-     */
-    public static Integer[] fieldValues() {
-
-        return FieldEnums.fieldValues(ResultSetFetchDirection.class,
-                                      Integer.class);
+        return FieldEnums.fromFieldValue(FetchDirection.class,
+                                         resultSet.getFetchDirection());
     }
 
 
@@ -120,7 +85,7 @@ public enum ResultSetFetchDirection
      *
      * @param fieldValue the field value
      */
-    private ResultSetFetchDirection(final int fieldValue) {
+    private FetchDirection(final int fieldValue) {
 
         this.fieldValue = fieldValue;
     }
@@ -144,10 +109,10 @@ public enum ResultSetFetchDirection
      * @see ResultSet#setFetchDirection(int)
      *
      */
-    public void set(final ResultSet resultSet) throws SQLException {
+    public void toResultSet(final ResultSet resultSet) throws SQLException {
 
         if (resultSet == null) {
-            throw new NullPointerException("resultSet");
+            throw new NullPointerException("null resultSet");
         }
 
         resultSet.setFetchDirection(fieldValue);

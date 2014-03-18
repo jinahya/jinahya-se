@@ -19,6 +19,7 @@ package com.github.jinahya.imageio;
 
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlValue;
 
@@ -27,16 +28,25 @@ import javax.xml.bind.annotation.XmlValue;
  *
  * @author Jin Kwon <onacit at gmail.com>
  */
+@XmlSeeAlso({ImageFileSuffix.class, ImageFormatName.class, ImageMimeType.class})
 @XmlTransient
 public abstract class ImageFeature {
 
 
+    /**
+     *
+     * @return
+     */
     public boolean isReadable() {
 
         return readable;
     }
 
 
+    /**
+     *
+     * @param readable
+     */
     public void setReadable(final boolean readable) {
 
         this.readable = readable;

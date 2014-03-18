@@ -18,10 +18,9 @@
 package com.github.jinahya.imageio;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
+import java.util.TreeMap;
 import javax.imageio.ImageIO;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -31,37 +30,39 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Jin Kwon <onacit at gmail.com>
  */
 @XmlRootElement
-public class ImageMediaType extends ImageFeature {
+public class ImageMimeType extends ImageFeature {
 
 
-    public static List<ImageMediaType> getAvailableInstances() {
+    /**
+     *
+     * @return a list of available ImageMediaType.
+     */
+    public static Collection<ImageMimeType> getAvailableInstances() {
 
-        final List<ImageMediaType> list = new ArrayList<ImageMediaType>();
-
-        final Map<String, ImageMediaType> map
-            = new HashMap<String, ImageMediaType>();
+        final Map<String, ImageMimeType> map
+                = new TreeMap<String, ImageMimeType>();
 
         for (final String readerMIMEType : ImageIO.getReaderMIMETypes()) {
-            ImageMediaType imageMediaType = map.get(readerMIMEType);
-            if (imageMediaType == null) {
-                imageMediaType = new ImageMediaType();
-                map.put(readerMIMEType, imageMediaType);
+            ImageMimeType imageMimeType = map.get(readerMIMEType);
+            if (imageMimeType == null) {
+                imageMimeType = new ImageMimeType();
+                map.put(readerMIMEType, imageMimeType);
             }
-            imageMediaType.setReadable(true);
-            imageMediaType.setValue(readerMIMEType);
+            imageMimeType.setReadable(true);
+            imageMimeType.setValue(readerMIMEType);
         }
 
         for (final String writerMIMEType : ImageIO.getWriterMIMETypes()) {
-            ImageMediaType imageMediaType = map.get(writerMIMEType);
-            if (imageMediaType == null) {
-                imageMediaType = new ImageMediaType();
-                map.put(writerMIMEType, imageMediaType);
+            ImageMimeType imageMimeType = map.get(writerMIMEType);
+            if (imageMimeType == null) {
+                imageMimeType = new ImageMimeType();
+                map.put(writerMIMEType, imageMimeType);
             }
-            imageMediaType.setWritable(true);
-            imageMediaType.setValue(writerMIMEType);
+            imageMimeType.setWritable(true);
+            imageMimeType.setValue(writerMIMEType);
         }
 
-        return list;
+        return map.values();
     }
 
 

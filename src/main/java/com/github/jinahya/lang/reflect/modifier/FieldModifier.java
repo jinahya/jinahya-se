@@ -28,15 +28,41 @@ import java.lang.reflect.Modifier;
 public enum FieldModifier implements ModifierFieldEnum<FieldModifier> {
 
 
+    /**
+     *
+     */
     PUBLIC(Modifier.PUBLIC),
+    /**
+     *
+     */
     PRIVATE(Modifier.PRIVATE),
+    /**
+     *
+     */
     PROTECTED(Modifier.PROTECTED),
+    /**
+     *
+     */
     STATIC(Modifier.STATIC),
+    /**
+     *
+     */
     FINAL(Modifier.FINAL),
+    /**
+     *
+     */
     VOLATILE(Modifier.VOLATILE),
+    /**
+     *
+     */
     TRANSIENT(Modifier.TRANSIENT);
 
 
+    /**
+     * Creates a new instance with given field value.
+     *
+     * @param fieldValue the field value.
+     */
     private FieldModifier(final int fieldValue) {
 
         this.fieldValue = fieldValue;
@@ -49,11 +75,13 @@ public enum FieldModifier implements ModifierFieldEnum<FieldModifier> {
         return fieldValue;
     }
 
+
     @Override
     public boolean is(final int modifiers) {
 
         return ModifierFieldEnums.isAll(modifiers, this);
     }
+
 
     @Override
     public int add(int modifers) {
@@ -69,6 +97,9 @@ public enum FieldModifier implements ModifierFieldEnum<FieldModifier> {
     }
 
 
+    /**
+     * field value.
+     */
     private final int fieldValue;
 
 

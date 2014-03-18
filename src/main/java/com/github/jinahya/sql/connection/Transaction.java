@@ -15,11 +15,11 @@
  */
 
 
-package com.github.jinahya.sql;
+package com.github.jinahya.sql.connection;
 
 
-import com.github.jinahya.lang.FieldEnum;
 import com.github.jinahya.lang.FieldEnums;
+import com.github.jinahya.lang.IntegerFieldEnum;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -27,49 +27,34 @@ import java.sql.SQLException;
 /**
  *
  * @author Jin Kwon <onacit at gmail.com>
- * @deprecated Use {@link com.github.jinahya.sql.connection.Transaction}.
  */
-@Deprecated
-public enum TransactionIsolationLevel
-        implements FieldEnum<TransactionIsolationLevel, Integer> {
+public enum Transaction implements IntegerFieldEnum<Transaction> {
 
 
     /**
      * A constant for {@link Connection#TRANSACTION_NONE}.
      */
     TRANSACTION_NONE(Connection.TRANSACTION_NONE), // 0
+
     /**
      * A constant for {@link Connection#TRANSACTION_READ_UNCOMMITTED}.
      */
     TRANSACTION_READ_UNCOMMITTED(Connection.TRANSACTION_READ_UNCOMMITTED), // 1
+
     /**
      * A constant for {@link Connection#TRANSACTION_READ_COMMITTED}.
      */
     TRANSACTION_READ_COMMITTED(Connection.TRANSACTION_READ_COMMITTED), // 2
+
     /**
      * A constant for {@link Connection#TRANSACTION_REPEATABLE_READ}.
      */
     TRANSACTION_REPEATABLE_READ(Connection.TRANSACTION_REPEATABLE_READ), // 4
+
     /**
      * A constant for {@link Connection#TRANSACTION_SERIALIZABLE}.
      */
     TRANSACTION_SERIALIZABLE(Connection.TRANSACTION_SERIALIZABLE); // 8
-
-
-    /**
-     * Returns the enum constant of this type with the specified transaction
-     * isolation level.
-     *
-     * @param fieldValue the transaction isolation level
-     *
-     * @return the enum constant with the specified transaction isolation level
-     */
-    public static TransactionIsolationLevel fromFieldValue(
-            final int fieldValue) {
-
-        return FieldEnums.fromFieldValue(
-                TransactionIsolationLevel.class, fieldValue);
-    }
 
 
     /**
@@ -86,27 +71,15 @@ public enum TransactionIsolationLevel
      *
      * @see Connection#getTransactionIsolation()
      */
-    public static TransactionIsolationLevel fromConnection(
-            final Connection connection)
+    public static Transaction fromConnection(final Connection connection)
             throws SQLException {
 
         if (connection == null) {
-            throw new NullPointerException("connection");
+            throw new NullPointerException("null connection");
         }
 
-        return fromFieldValue(connection.getTransactionIsolation());
-    }
-
-
-    /**
-     * Returns an array containing the field values of this enum type.
-     *
-     * @return an array containing the field values of this enum type.
-     */
-    public static Integer[] fieldValues() {
-
-        return FieldEnums.fieldValues(
-                TransactionIsolationLevel.class, Integer.class);
+        return FieldEnums.fromFieldValue(Transaction.class,
+                                         connection.getTransactionIsolation());
     }
 
 
@@ -115,7 +88,7 @@ public enum TransactionIsolationLevel
      *
      * @param fieldValue
      */
-    private TransactionIsolationLevel(final int fieldValue) {
+    private Transaction(final int fieldValue) {
 
         this.fieldValue = fieldValue;
     }
@@ -142,7 +115,7 @@ public enum TransactionIsolationLevel
     public void set(final Connection connection) throws SQLException {
 
         if (connection == null) {
-            throw new NullPointerException("connection");
+            throw new NullPointerException("null connection");
         }
 
         connection.setTransactionIsolation(fieldValue);

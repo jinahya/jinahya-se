@@ -15,11 +15,11 @@
  */
 
 
-package com.github.jinahya.sql;
+package com.github.jinahya.sql.resultset;
 
 
-import com.github.jinahya.lang.FieldEnum;
 import com.github.jinahya.lang.FieldEnums;
+import com.github.jinahya.lang.IntegerFieldEnum;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -28,37 +28,19 @@ import java.sql.SQLException;
  * Constants for {@link ResultSet}'s holdabilities.
  *
  * @author Jin Kwon <onacit at gmail.com>
- * @deprecated Use {@link com.github.jinahya.sql.resultset.Holdability}.
  */
-@Deprecated
-public enum ResultSetHoldability
-        implements FieldEnum<ResultSetHoldability, Integer> {
+public enum Holdability implements IntegerFieldEnum<Holdability> {
 
 
     /**
      * Constant for {@link ResultSet#HOLD_CURSORS_OVER_COMMIT}.
      */
     HOLD_CURSORS_OVER_COMMIT(ResultSet.HOLD_CURSORS_OVER_COMMIT), // 1
+
     /**
      * Constant for {@link ResultSet#CLOSE_CURSORS_AT_COMMIT}.
      */
     CLOSE_CURSORS_AT_COMMIT(ResultSet.CLOSE_CURSORS_AT_COMMIT); // 2
-
-
-    /**
-     * Returns the enum constant of this type with the specified result set
-     * holdability.
-     *
-     * @param fieldValue the result set holdability
-     *
-     * @return the enum constant of this type with the specified result set
-     * holdability
-     */
-    public static ResultSetHoldability fromFieldValue(final int fieldValue) {
-
-        return FieldEnums.fromFieldValue(
-                ResultSetHoldability.class, fieldValue);
-    }
 
 
     /**
@@ -75,25 +57,15 @@ public enum ResultSetHoldability
      *
      * @see ResultSet#getHoldability()
      */
-    public static ResultSetHoldability fromResultSet(final ResultSet resultSet)
+    public static Holdability fromResultSet(final ResultSet resultSet)
             throws SQLException {
 
         if (resultSet == null) {
             throw new NullPointerException("null resultSet");
         }
 
-        return fromFieldValue(resultSet.getHoldability());
-    }
-
-
-    /**
-     * Returns an array containing the fields values of this enum type.
-     *
-     * @return an array containing the fields values of this enum type
-     */
-    public static Integer[] fieldValues() {
-
-        return FieldEnums.fieldValues(ResultSetHoldability.class, int.class);
+        return FieldEnums.fromFieldValue(Holdability.class,
+                                         resultSet.getHoldability());
     }
 
 
@@ -102,7 +74,7 @@ public enum ResultSetHoldability
      *
      * @param fieldValue the field value
      */
-    private ResultSetHoldability(final int fieldValue) {
+    private Holdability(final int fieldValue) {
 
         this.fieldValue = fieldValue;
     }

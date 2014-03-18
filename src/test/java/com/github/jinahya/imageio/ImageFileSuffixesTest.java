@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <onacit at gmail.com>.
+ * Copyright 2014 Jin Kwon <onacit at gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,19 +23,12 @@ package com.github.jinahya.imageio;
  * @author Jin Kwon <onacit at gmail.com>
  */
 public class ImageFileSuffixesTest
-    extends ImageFeaturesTest<ImageFileSuffixes, ImageFileSuffix> {
+        extends ImageFeaturesTest<ImageFileSuffixes, ImageFileSuffix> {
 
 
     public ImageFileSuffixesTest() {
 
         super(ImageFileSuffixes.class);
-    }
-
-
-    @Override
-    protected ImageFileSuffixes newImageFeaturesInstance() {
-
-        return ImageFileSuffixes.newInstance();
     }
 
 

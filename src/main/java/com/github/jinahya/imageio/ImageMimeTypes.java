@@ -18,17 +18,28 @@
 package com.github.jinahya.imageio;
 
 
+import java.util.Collection;
+import javax.xml.bind.annotation.XmlElement;
+
+
 /**
  *
  * @author Jin Kwon <onacit at gmail.com>
  */
-public class ImageFormatNameMapValuesAdapter
-    extends ImageFeatureMapValuesAdapter<ImageFormatNameMapValues, ImageFormatName> {
+public class ImageMimeTypes extends ImageFeatures<ImageMimeType> {
 
 
-    public ImageFormatNameMapValuesAdapter() {
+    public ImageMimeTypes() {
 
-        super(ImageFormatNameMapValues.class);
+        super(ImageMimeType.getAvailableInstances());
+    }
+
+
+    @XmlElement(name = "imageMimeType")
+    @Override
+    protected Collection<ImageMimeType> getImageFeatures() {
+
+        return super.getImageFeatures();
     }
 
 

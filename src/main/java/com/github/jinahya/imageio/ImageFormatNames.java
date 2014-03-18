@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <onacit at gmail.com>.
+ * Copyright 2014 Jin Kwon <onacit at gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,58 +18,28 @@
 package com.github.jinahya.imageio;
 
 
-import java.util.Map;
-import javax.imageio.ImageIO;
+import java.util.Collection;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 /**
  *
  * @author Jin Kwon <onacit at gmail.com>
  */
-@XmlRootElement
 public class ImageFormatNames extends ImageFeatures<ImageFormatName> {
 
 
-    public static ImageFormatNames newInstance() {
+    public ImageFormatNames() {
 
-        final ImageFormatNames instance = new ImageFormatNames();
-
-        for (final String readerFormatName : ImageIO.getReaderFormatNames()) {
-            ImageFormatName imageFormatName
-                = instance.getImageFeatures().get(readerFormatName);
-            if (imageFormatName == null) {
-                imageFormatName = new ImageFormatName();
-                instance.getImageFeatures().put(
-                    readerFormatName, imageFormatName);
-            }
-            imageFormatName.setReadable(true);
-            imageFormatName.setValue(readerFormatName);
-        }
-
-        for (final String writerFileSuffix : ImageIO.getWriterFileSuffixes()) {
-            ImageFormatName imageFormatName
-                = instance.getImageFeatures().get(writerFileSuffix);
-            if (imageFormatName == null) {
-                imageFormatName = new ImageFormatName();
-                instance.getImageFeatures().put(
-                    writerFileSuffix, imageFormatName);
-            }
-            imageFormatName.setWritable(true);
-            imageFormatName.setValue(writerFileSuffix);
-        }
-
-        return instance;
+        super(ImageFormatName.getAvailableInstances());
     }
 
 
     @XmlElement(name = "imageFormatName")
-    @XmlJavaTypeAdapter(ImageFormatNameMapValuesAdapter.class)
-    public Map<String, ImageFormatName> getImageFormatNames() {
+    @Override
+    protected Collection<ImageFormatName> getImageFeatures() {
 
-        return getImageFeatures();
+        return super.getImageFeatures();
     }
 
 

@@ -18,8 +18,7 @@
 package com.github.jinahya.crypto;
 
 
-import com.github.jinahya.lang.FieldEnum;
-import com.github.jinahya.lang.FieldEnums;
+import com.github.jinahya.lang.IntegerFieldEnum;
 import javax.crypto.Cipher;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
@@ -30,7 +29,7 @@ import javax.xml.bind.annotation.XmlEnumValue;
  * @author Jin Kwon <onacit at gmail.com>
  */
 @XmlEnum(Integer.class)
-public enum CipherMode implements FieldEnum<CipherMode, Integer> {
+public enum CipherMode implements IntegerFieldEnum<CipherMode> {
 
 
     /**
@@ -56,19 +55,6 @@ public enum CipherMode implements FieldEnum<CipherMode, Integer> {
      */
     @XmlEnumValue("4")
     UNWRAP_MODE(Cipher.UNWRAP_MODE); // 4
-
-
-    public static CipherMode fromFieldValue(final int fieldValue) {
-
-        return FieldEnums.fromFieldValue(
-            CipherMode.class, Integer.valueOf(fieldValue));
-    }
-
-
-    public static Integer[] fieldValues() {
-
-        return FieldEnums.fieldValues(CipherMode.class, Integer.class);
-    }
 
 
     private CipherMode(final int fieldValue) {

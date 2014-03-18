@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <onacit at gmail.com>.
+ * Copyright 2014 Jin Kwon <onacit at gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,9 @@
 package com.github.jinahya.imageio;
 
 
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.Collection;
+import java.util.Collections;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 
@@ -32,17 +33,27 @@ import javax.xml.bind.annotation.XmlTransient;
 public abstract class ImageFeatures<T extends ImageFeature> {
 
 
-    Map<String, T> getImageFeatures() {
+    protected ImageFeatures(final Collection<T> imageFeatures) {
+
+        super();
 
         if (imageFeatures == null) {
-            imageFeatures = new TreeMap<String, T>();
+            throw new NullPointerException("null imageFeatures");
         }
+
+        this.imageFeatures = Collections.unmodifiableCollection(imageFeatures);
+    }
+
+
+    //@XmlTransient
+    protected Collection<T> getImageFeatures() {
 
         return imageFeatures;
     }
 
 
-    private Map<String, T> imageFeatures;
+    //@XmlElement
+    private Collection<T> imageFeatures;
 
 
 }

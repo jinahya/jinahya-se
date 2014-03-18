@@ -15,15 +15,4 @@
  */
 
 
-package com.github.jinahya.imageio;
-
-
-/**
- *
- * @author Jin Kwon <onacit at gmail.com>
- */
-public class ImageMediaTypeMapValues
-    extends ImageFeatureMapValues<ImageMediaType> {
-
-}
-
+package com.github.jinahya.crypto;

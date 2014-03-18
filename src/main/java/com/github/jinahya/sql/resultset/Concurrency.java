@@ -15,11 +15,11 @@
  */
 
 
-package com.github.jinahya.sql;
+package com.github.jinahya.sql.resultset;
 
 
-import com.github.jinahya.lang.FieldEnum;
 import com.github.jinahya.lang.FieldEnums;
+import com.github.jinahya.lang.IntegerFieldEnum;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -28,36 +28,19 @@ import java.sql.SQLException;
  * Constants for {@link ResultSet}'s concurrencies.
  *
  * @author Jin Kwon <onacit at gmail.com>
- * @deprecated Use {@link com.github.jinahya.sql.resultset.Concurrency}.
  */
-@Deprecated
-public enum ResultSetConcurrency
-        implements FieldEnum<ResultSetConcurrency, Integer> {
+public enum Concurrency implements IntegerFieldEnum<Concurrency> {
 
 
     /**
      * Constant for {@link ResultSet#CONCUR_READ_ONLY}.
      */
     CONCUR_READ_ONLY(ResultSet.CONCUR_READ_ONLY), // 1007
+
     /**
      * Constant for {@link ResultSet#CONCUR_UPDATABLE}.
      */
     CONCUR_UPDATABLE(ResultSet.CONCUR_UPDATABLE); // 1008
-
-
-    /**
-     * Returns the enum constant of this type with the specified field value.
-     *
-     * @param fieldValue either {@link ResultSet#CONCUR_READ_ONLY} or
-     * {@link ResultSet#CONCUR_UPDATABLE}.
-     *
-     * @return the enum constant with the specified field value
-     */
-    public static ResultSetConcurrency fromFieldValue(final int fieldValue) {
-
-        return FieldEnums.fromFieldValue(
-                ResultSetConcurrency.class, fieldValue);
-    }
 
 
     /**
@@ -73,28 +56,15 @@ public enum ResultSetConcurrency
      *
      * @see ResultSet#getConcurrency()
      */
-    public static ResultSetConcurrency fromResultSet(final ResultSet resultSet)
+    public static Concurrency fromResultSet(final ResultSet resultSet)
             throws SQLException {
 
         if (resultSet == null) {
-            throw new NullPointerException("resultSet");
+            throw new NullPointerException("null resultSet");
         }
 
-        return fromFieldValue(resultSet.getFetchDirection());
-    }
-
-
-    /**
-     * Returns an array containing the field values of this enum type, in the
-     * order they are declared.
-     *
-     * @return an array containing the field values of this enum type, in the
-     * order they are declared
-     */
-    public static Integer[] fieldValues() {
-
-        return FieldEnums.fieldValues(ResultSetConcurrency.class,
-                                      Integer.class);
+        return FieldEnums.fromFieldValue(Concurrency.class,
+                                         resultSet.getFetchDirection());
     }
 
 
@@ -103,7 +73,7 @@ public enum ResultSetConcurrency
      *
      * @param fieldValue field value.
      */
-    private ResultSetConcurrency(final int fieldValue) {
+    private Concurrency(final int fieldValue) {
 
         this.fieldValue = fieldValue;
     }

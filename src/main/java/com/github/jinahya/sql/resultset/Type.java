@@ -15,11 +15,11 @@
  */
 
 
-package com.github.jinahya.sql;
+package com.github.jinahya.sql.resultset;
 
 
-import com.github.jinahya.lang.FieldEnum;
 import com.github.jinahya.lang.FieldEnums;
+import com.github.jinahya.lang.IntegerFieldEnum;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.xml.bind.annotation.XmlEnum;
@@ -29,11 +29,9 @@ import javax.xml.bind.annotation.XmlEnum;
  * Constants for {@link ResultSet}'s types.
  *
  * @author Jin Kwon <onacit at gmail.com>
- * @deprecated Use {@link com.github.jinahya.sql.resultset.Type}.
  */
-@Deprecated
 @XmlEnum
-public enum ResultSetType implements FieldEnum<ResultSetType, Integer> {
+public enum Type implements IntegerFieldEnum<Type> {
 
 
     /**
@@ -62,9 +60,9 @@ public enum ResultSetType implements FieldEnum<ResultSetType, Integer> {
      *
      * @return the enum constant with the specified field value.
      */
-    public static ResultSetType fromFieldValue(final int fieldValue) {
+    public static Type fromFieldValue(final int fieldValue) {
 
-        return FieldEnums.fromFieldValue(ResultSetType.class, fieldValue);
+        return FieldEnums.fromFieldValue(Type.class, fieldValue);
     }
 
 
@@ -84,7 +82,7 @@ public enum ResultSetType implements FieldEnum<ResultSetType, Integer> {
      *
      * @see ResultSet#getType()
      */
-    public static ResultSetType fromResultSet(final ResultSet resultSet)
+    public static Type fromResultSet(final ResultSet resultSet)
             throws SQLException {
 
         if (resultSet == null) {
@@ -96,22 +94,11 @@ public enum ResultSetType implements FieldEnum<ResultSetType, Integer> {
 
 
     /**
-     * Returns an array containing the fields values of this enum type.
-     *
-     * @return an array containing the fields values of this enum type
-     */
-    public static Integer[] fieldValues() {
-
-        return FieldEnums.fieldValues(ResultSetType.class, int.class);
-    }
-
-
-    /**
      * Creates a new instance with specified field value.
      *
      * @param fieldValue the field value.
      */
-    private ResultSetType(final int fieldValue) {
+    private Type(final int fieldValue) {
 
         this.fieldValue = fieldValue;
     }

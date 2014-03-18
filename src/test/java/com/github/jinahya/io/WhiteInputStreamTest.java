@@ -36,14 +36,12 @@ public class WhiteInputStreamTest {
     @Test
     public void testRead() throws IOException {
 
-        final InputStream in = new WhiteInputStream(-1L);
-
-        for (int read, i = 0; i < 1048576; i++) {
-            read = in.read();
-            Assert.assertTrue(read >= 0x00 && read < 0x0100);
+        try (final InputStream in = new WhiteInputStream(-1L)) {
+            for (int read, i = 0; i < 1048576; i++) {
+                read = in.read();
+                Assert.assertTrue(read >= 0x00 && read < 0x0100);
+            }
         }
-
-        in.close();
     }
 
 
@@ -52,16 +50,14 @@ public class WhiteInputStreamTest {
 
         final Random random = ThreadLocalRandom.current();
 
-        final long limit = (long) (random.nextInt(1048576) + 1);
+        final long limit = random.nextInt(1048576) + 1;
 
-        final InputStream in = new WhiteInputStream(limit);
-
-        final int count = random.nextInt((int) limit);
-        for (int i = 0; i < count; i++) {
-            in.read();
+        try (final InputStream in = new WhiteInputStream(limit)) {
+            final int count = random.nextInt((int) limit);
+            for (int i = 0; i < count; i++) {
+                in.read();
+            }
         }
-
-        in.close();
     }
 
 
@@ -70,16 +66,13 @@ public class WhiteInputStreamTest {
 
         final Random random = ThreadLocalRandom.current();
 
-        final long limit = (long) random.nextInt(1048576);
+        final long limit = random.nextInt(1048576);
 
-        final InputStream in = new WhiteInputStream(limit);
-
-        in.skip(limit);
-
-        Assert.assertEquals(in.read(), -1);
-        Assert.assertEquals(in.read(), -1);
-
-        in.close();
+        try (final InputStream in = new WhiteInputStream(limit)) {
+            in.skip(limit);
+            Assert.assertEquals(in.read(), -1);
+            Assert.assertEquals(in.read(), -1);
+        }
     }
 
 

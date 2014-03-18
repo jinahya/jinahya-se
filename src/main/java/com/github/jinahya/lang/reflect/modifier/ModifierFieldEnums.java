@@ -22,6 +22,7 @@ import static com.github.jinahya.lang.FieldEnums.fieldValues;
 
 
 /**
+ * A utility class for {@link ModifierFieldEnum}s.
  *
  * @author Jin Kwon <onacit at gmail.com>
  */
@@ -29,7 +30,7 @@ public final class ModifierFieldEnums {
 
 
     public static <E extends Enum<E> & ModifierFieldEnum<E>> int modifiers(
-        final Class<E> enumType) {
+            final Class<E> enumType) {
 
         int modifiers = 0;
 
@@ -42,7 +43,7 @@ public final class ModifierFieldEnums {
 
 
     public static <E extends Enum<E> & ModifierFieldEnum<E>> boolean isAll(
-        final int modifiers, final E... constants) {
+            final int modifiers, final E... constants) {
 
         if (constants == null) {
             throw new NullPointerException("null constants");
@@ -60,7 +61,7 @@ public final class ModifierFieldEnums {
 
 
     public static <E extends Enum<E> & ModifierFieldEnum<E>> boolean isAny(
-        final int modifiers, final E... constants) {
+            final int modifiers, final E... constants) {
 
         if (constants == null) {
             throw new NullPointerException("null constants");
@@ -78,7 +79,7 @@ public final class ModifierFieldEnums {
 
 
     public static <E extends Enum<E> & ModifierFieldEnum<E>> int add(
-        int modifiers, final E... constants) {
+            int modifiers, final E... constants) {
 
         if (constants == null) {
             throw new NullPointerException("null constants");
@@ -93,7 +94,7 @@ public final class ModifierFieldEnums {
 
 
     public static <E extends Enum<E> & ModifierFieldEnum<E>> int remove(
-        int modifiers, final E... constants) {
+            int modifiers, final E... constants) {
 
         if (constants == null) {
             throw new NullPointerException("null constants");

@@ -20,8 +20,6 @@ package com.github.jinahya.io;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.channels.Channels;
-import java.nio.channels.WritableByteChannel;
 
 
 /**
@@ -30,6 +28,12 @@ import java.nio.channels.WritableByteChannel;
  * @author Jin Kwon <jinahya at gmail.com>
  */
 public class BlackOutputStream extends OutputStream {
+
+
+    public static OutputStream newUnlimitedInstance() {
+
+        return new BlackOutputStream((-1L));
+    }
 
 
     /**
@@ -62,26 +66,9 @@ public class BlackOutputStream extends OutputStream {
     @Override
     public void write(final int b) throws IOException {
 
-        if (limit != -1 && count >= limit) {
+        if (limit != -1 && limit <= count++) {
             throw new IOException("limit(" + limit + ") exceeded");
         }
-
-        count++;
-    }
-
-
-    /**
-     * Constructs a channel that writes bytes to this stream.
-     *
-     * @return a new writable byte channel
-     *
-     * @see Channels#newChannel(OutputStream)
-     * @deprecated Use {@link Channels#newChannel(java.io.OutputStream) }
-     */
-    @Deprecated
-    public WritableByteChannel newChannel() {
-
-        return Channels.newChannel(this);
     }
 
 

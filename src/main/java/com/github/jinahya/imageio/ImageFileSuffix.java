@@ -18,10 +18,9 @@
 package com.github.jinahya.imageio;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
+import java.util.TreeMap;
 import javax.imageio.ImageIO;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -34,12 +33,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ImageFileSuffix extends ImageFeature {
 
 
-    public static List<ImageFileSuffix> getAvaiableInstances() {
-
-        final List<ImageFileSuffix> list = new ArrayList<ImageFileSuffix>();
+    public static Collection<ImageFileSuffix> getAvailableInstances() {
 
         final Map<String, ImageFileSuffix> map
-            = new HashMap<String, ImageFileSuffix>();
+                = new TreeMap<String, ImageFileSuffix>();
 
         for (final String readerFileSuffix : ImageIO.getReaderFileSuffixes()) {
             ImageFileSuffix imageFileSuffix = map.get(readerFileSuffix);
@@ -61,7 +58,7 @@ public class ImageFileSuffix extends ImageFeature {
             imageFileSuffix.setValue(writerFileSuffix);
         }
 
-        return list;
+        return map.values();
     }
 
 

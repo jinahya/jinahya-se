@@ -28,14 +28,42 @@ import java.lang.reflect.Modifier;
 public enum InterfaceModifier implements ModifierFieldEnum<InterfaceModifier> {
 
 
+    /**
+     * Constant for {@link Modifier#PUBLIC}({@value Modifier#PUBLIC}).
+     */
     PUBLIC(Modifier.PUBLIC), // 1
+
+    /**
+     * Constant for {@link Modifier#PRIVATE}({@value Modifier#PRIVATE}).
+     */
     PRIVATE(Modifier.PRIVATE),//2
+
+    /**
+     * Constant for {@link Modifier#PROTECTED}({@value Modifier#PROTECTED}).
+     */
     PROTECTED(Modifier.PROTECTED), // 4
+
+    /**
+     * Constant for {@link Modifier#STATIC}({@value Modifier#STATIC}).
+     */
     STATIC(Modifier.STATIC), // 8
+
+    /**
+     * Constant for {@link Modifier#ABSTRACT}({@value Modifier#ABSTRACT}).
+     */
     ABSTRACT(Modifier.ABSTRACT), // 1024
+
+    /**
+     * Constant for {@link Modifier#STRICT}({@value Modifier#STRICT}).
+     */
     STRICT(Modifier.STRICT); // 2048
 
 
+    /**
+     * Creates a new instance with given field value.
+     *
+     * @param fieldValue the field value.
+     */
     private InterfaceModifier(final int fieldValue) {
 
         this.fieldValue = fieldValue;
@@ -48,11 +76,13 @@ public enum InterfaceModifier implements ModifierFieldEnum<InterfaceModifier> {
         return fieldValue;
     }
 
+
     @Override
     public boolean is(final int modifiers) {
 
         return ModifierFieldEnums.isAll(modifiers, this);
     }
+
 
     @Override
     public int add(int modifers) {
@@ -68,6 +98,9 @@ public enum InterfaceModifier implements ModifierFieldEnum<InterfaceModifier> {
     }
 
 
+    /**
+     * field value.
+     */
     private final int fieldValue;
 
 

@@ -20,8 +20,6 @@ package com.github.jinahya.io;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
 
 
 /**
@@ -30,6 +28,12 @@ import java.nio.channels.ReadableByteChannel;
  * @author Jin Kwon <jinahya at gmail.com>
  */
 public class WhiteInputStream extends InputStream {
+
+
+    public static InputStream newUnlimitedInstance() {
+
+        return new WhiteInputStream(-1L);
+    }
 
 
     /**
@@ -61,28 +65,11 @@ public class WhiteInputStream extends InputStream {
     @Override
     public int read() throws IOException {
 
-        if (limit != -1 && count >= limit) {
+        if (limit != -1 && limit <= count++) {
             return -1;
         }
 
-        count++;
-
         return (int) (System.currentTimeMillis() & 0xFFL);
-    }
-
-
-    /**
-     * Constructs a channel that read bytes from this stream.
-     *
-     * @return a new readable byte channel
-     *
-     * @see Channels#newChannel(InputStream)
-     * @deprecated Use {@link Channels#newChannel(java.io.InputStream)}
-     */
-    @Deprecated
-    public ReadableByteChannel newChannel() {
-
-        return Channels.newChannel(this);
     }
 
 
