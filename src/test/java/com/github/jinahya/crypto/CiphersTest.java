@@ -55,7 +55,7 @@ import org.testng.annotations.Test;
 public class CiphersTest {
 
 
-    private static final Logger LOGGER
+    private static final Logger logger
         = LoggerFactory.getLogger(CiphersTest.class);
 
 
@@ -116,7 +116,7 @@ public class CiphersTest {
                InvalidKeyException, InvalidAlgorithmParameterException,
                IOException, IllegalBlockSizeException, BadPaddingException {
 
-        LOGGER.debug("symmetric({}, {}, {}, {})",
+        logger.debug("symmetric({}, {}, {}, {})",
                      transformation, keySize, requiresIv, noPadding);
 
         final Random random = ThreadLocalRandom.current();

@@ -15,18 +15,21 @@
  */
 
 
-package com.github.jinahya.crypto;
+package com.github.jinahya.lang;
 
 
-import com.github.jinahya.lang.IntegerFieldEnumTest;
+/**
+ *
+ * @author Jin Kwon <onacit at gmail.com>
+ * @param <E>
+ */
+public abstract class FloatFieldEnumTest<E extends Enum<E> & FloatFieldEnum<E>>
+        extends ComparableFieldEnumTest<E, Float> {
 
 
-public class CipherModeTest extends IntegerFieldEnumTest<CipherMode> {
+    public FloatFieldEnumTest(final Class<E> enumType) {
 
-
-    public CipherModeTest() {
-
-        super(CipherMode.class);
+        super(enumType, Float.class);
     }
 
 

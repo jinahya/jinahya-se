@@ -15,18 +15,23 @@
  */
 
 
-package com.github.jinahya.crypto;
+package com.github.jinahya.awt;
 
 
-import com.github.jinahya.lang.IntegerFieldEnumTest;
+import com.github.jinahya.lang.FloatFieldEnumTest;
 
 
-public class CipherModeTest extends IntegerFieldEnumTest<CipherMode> {
+/**
+ *
+ * @author Jin Kwon <onacit at gmail.com>
+ */
+public class ComponentAlignmentXTest
+        extends FloatFieldEnumTest<ComponentAlignmentX> {
 
 
-    public CipherModeTest() {
+    public ComponentAlignmentXTest() {
 
-        super(CipherMode.class);
+        super(ComponentAlignmentX.class);
     }
 
 

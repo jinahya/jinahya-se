@@ -15,20 +15,16 @@
  */
 
 
-package com.github.jinahya.crypto;
+package com.github.jinahya.lang;
 
 
-import com.github.jinahya.lang.IntegerFieldEnumTest;
-
-
-public class CipherModeTest extends IntegerFieldEnumTest<CipherMode> {
-
-
-    public CipherModeTest() {
-
-        super(CipherMode.class);
-    }
-
+/**
+ *
+ * @author Jin Kwon <onacit at gmail.com>
+ * @param <E>
+ */
+public interface ByteFieldEnum<E extends Enum<E>>
+        extends ComparableFieldEnum<E, Byte> {
 
 }
 
