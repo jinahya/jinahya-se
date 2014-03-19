@@ -18,8 +18,8 @@
 package com.github.jinahya.sql;
 
 
-import com.github.jinahya.lang.FieldEnum;
 import com.github.jinahya.lang.FieldEnums;
+import com.github.jinahya.lang.IntegerFieldEnum;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -30,7 +30,7 @@ import java.sql.Types;
  *
  * @author Jin Kwon <jinahya at gmail.com>
  */
-public enum Type implements FieldEnum<Type, Integer> {
+public enum Type implements IntegerFieldEnum<Type> {
 
 
     /**
@@ -173,10 +173,11 @@ public enum Type implements FieldEnum<Type, Integer> {
 
     // -------------------------------------------------------------------------
 
-    //    /**
-    //     * Constant for {@link Types#OTHER}.
-    //     */
-    //    OTHER(Types.OTHER), // 1111
+    /**
+     * Constant for {@link Types#OTHER}.
+     */
+    OTHER(Types.OTHER), // 1111
+
     // -------------------------------------------------------------------------
 
     /**
@@ -224,7 +225,22 @@ public enum Type implements FieldEnum<Type, Integer> {
     /**
      * Constant for {@link Types#NCLOB}.
      */
-    NCLOB(Types.NCLOB); // 2011
+    NCLOB(Types.NCLOB), // 2011
+
+    /**
+     * Constant for {@link Types#REF_CURSOR}.
+     */
+    REF_CURSOR(Types.REF_CURSOR), // 2012
+
+    /**
+     * Constant for {@link Types#TIME_WITH_TIMEZONE}.
+     */
+    TIME_WITH_TIMEZONE(Types.TIME_WITH_TIMEZONE), // 2013
+
+    /**
+     * Constant for {@link Types#TIMESTAMP_WITH_TIMEZONE}.
+     */
+    TIMESTAMP_WITH_TIMEZONE(Types.TIMESTAMP_WITH_TIMEZONE); // 2014
 
 
     /**
@@ -237,17 +253,6 @@ public enum Type implements FieldEnum<Type, Integer> {
     public static Type fromFieldValue(final int fieldValue) {
 
         return FieldEnums.fromFieldValue(Type.class, fieldValue);
-    }
-
-
-    /**
-     * Returns an array containing the field values of this enum type.
-     *
-     * @return an array containing the field values.
-     */
-    public static Integer[] fieldValues() {
-
-        return FieldEnums.fieldValues(Type.class, int.class);
     }
 
 
@@ -281,15 +286,15 @@ public enum Type implements FieldEnum<Type, Integer> {
      */
     public void setNull(final PreparedStatement preparedStatement,
                         final int parameterIndex)
-        throws SQLException {
+            throws SQLException {
 
         if (preparedStatement == null) {
-            throw new NullPointerException("preparedStatement");
+            throw new NullPointerException("null preparedStatement");
         }
 
         if (parameterIndex <= 0) {
             throw new IllegalArgumentException(
-                "parameterIndex(" + parameterIndex + ") <= 0");
+                    "parameterIndex(" + parameterIndex + ") <= 0");
         }
 
         preparedStatement.setNull(parameterIndex, fieldValue);
@@ -310,15 +315,15 @@ public enum Type implements FieldEnum<Type, Integer> {
      */
     public void setObject(final PreparedStatement preparedStatement,
                           final int parameterIndex, final Object x)
-        throws SQLException {
+            throws SQLException {
 
         if (preparedStatement == null) {
-            throw new NullPointerException("preparedStatement");
+            throw new NullPointerException("null preparedStatement");
         }
 
         if (parameterIndex <= 0) {
             throw new IllegalArgumentException(
-                "parameterIndex(" + parameterIndex + ") <= 0");
+                    "parameterIndex(" + parameterIndex + ") <= 0");
         }
 
         preparedStatement.setObject(parameterIndex, x, fieldValue);
@@ -342,15 +347,15 @@ public enum Type implements FieldEnum<Type, Integer> {
     public void setObject(final PreparedStatement preparedStatement,
                           final int parameterIndex, final Object x,
                           final int scaleOrLength)
-        throws SQLException {
+            throws SQLException {
 
         if (preparedStatement == null) {
-            throw new NullPointerException("preparedStatement");
+            throw new NullPointerException("null preparedStatement");
         }
 
         if (parameterIndex <= 0) {
             throw new IllegalArgumentException(
-                "parameterIndex(" + parameterIndex + ") <= 0");
+                    "parameterIndex(" + parameterIndex + ") <= 0");
         }
 
         preparedStatement.setObject(parameterIndex, x, fieldValue);
@@ -362,6 +367,4 @@ public enum Type implements FieldEnum<Type, Integer> {
      */
     private final int fieldValue;
 
-
 }
-

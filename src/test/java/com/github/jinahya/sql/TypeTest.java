@@ -18,7 +18,7 @@
 package com.github.jinahya.sql;
 
 
-import com.github.jinahya.lang.FieldEnumTest;
+import com.github.jinahya.lang.IntegerFieldEnumTest;
 import java.lang.reflect.Field;
 import java.sql.Types;
 import org.testng.Assert;
@@ -29,18 +29,18 @@ import org.testng.annotations.Test;
  *
  * @author Jin Kwon <jinahya at gmail.com>
  */
-public class TypeTest extends FieldEnumTest<Type, Integer> {
+public class TypeTest extends IntegerFieldEnumTest<Type> {
 
 
     public TypeTest() {
 
-        super(Type.class, Integer.class);
+        super(Type.class);
     }
 
 
     @Test
     public void testToTypes()
-        throws NoSuchFieldException, IllegalAccessException {
+            throws NoSuchFieldException, IllegalAccessException {
 
         for (Type value : Type.values()) {
 
@@ -65,32 +65,50 @@ public class TypeTest extends FieldEnumTest<Type, Integer> {
 
 
     @Test
-    public void testFromTypes()
-        throws NoSuchFieldException, IllegalAccessException {
+    public void fromFieldName()
+            throws NoSuchFieldException, IllegalAccessException {
 
         for (Field field : Types.class.getFields()) {
 
             // locate by name, compare raw
             final String name = field.getName();
+
             if ("NULL".equals(name)) {
                 continue;
             }
+
             if ("OTHER".equals(name)) {
                 continue;
             }
-            {
-                final Type type = Type.valueOf(name);
-                Assert.assertEquals(type.fieldValue(), field.get(null));
+
+            final Type type = Type.valueOf(name);
+            Assert.assertEquals(type.fieldValue(), field.get(null));
+        }
+    }
+
+
+    @Test
+    public void fromFieldValue_()
+            throws NoSuchFieldException, IllegalAccessException {
+
+        for (Field field : Types.class.getFields()) {
+
+            // locate by name, compare raw
+            final String name = field.getName();
+
+            if ("NULL".equals(name)) {
+                continue;
+            }
+
+            if ("OTHER".equals(name)) {
+                continue;
             }
 
             // locate by raw, compare name
             final int fieldValue = field.getInt(null);
-            {
-                final Type type = Type.fromFieldValue(fieldValue);
-                Assert.assertEquals(type.name(), name);
-            }
+            final Type type = Type.fromFieldValue(fieldValue);
+            Assert.assertEquals(type.name(), name);
         }
     }
-
 
 }
