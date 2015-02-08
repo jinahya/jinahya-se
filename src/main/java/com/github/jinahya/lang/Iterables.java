@@ -15,44 +15,32 @@
  */
 
 
-package com.github.jinahya.imageio;
-
-
-import java.util.Collection;
-import java.util.Collections;
-import javax.xml.bind.annotation.XmlTransient;
+package com.github.jinahya.lang;
 
 
 /**
  *
  * @author Jin Kwon <onacit at gmail.com>
- * @param <T>
  */
-@XmlTransient
-public abstract class ImageFeatures<T extends ImageFeature> {
+public final class Iterables {
 
 
-    protected ImageFeatures(final Collection<T> imageFeatures) {
-
-        super();
-
-        if (imageFeatures == null) {
-            throw new NullPointerException("null imageFeatures");
+    public static <T> void requireSortedAscending(final Iterable<T> iterable, final Comparable<? super T> comparator) {
+        
+        if (iterable == null) {
+            throw new NullPointerException("null iterable");
         }
 
-        this.imageFeatures = Collections.unmodifiableCollection(imageFeatures);
+        if (comparator == null) {
+            throw new NullPointerException("null comparator");
+        }
     }
 
 
-    //@XmlTransient
-    protected Collection<T> getImageFeatures() {
+    private Iterables() {
 
-        return imageFeatures;
+        super();
     }
-
-
-    //@XmlElement
-    private Collection<T> imageFeatures;
 
 
 }

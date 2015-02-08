@@ -44,8 +44,8 @@ public final class Ciphers {
 
 
     /**
-     * A map of transformations and lists of available key sizes that every
-     * implementation of the Java platform is required to support.
+     * An immutable map of transformations and lists of available key sizes that
+     * every implementation of the Java platform is required to support.
      *
      * @see Cipher
      */
@@ -54,7 +54,7 @@ public final class Ciphers {
 
     static {
         final Map<String, List<Integer>> m
-            = new HashMap<String, List<Integer>>();
+                = new HashMap<String, List<Integer>>();
         m.put("AES/CBC/NoPadding", Arrays.asList(128));
         m.put("AES/CBC/PKCS5Padding", Arrays.asList(128));
         m.put("AES/ECB/NoPadding", Arrays.asList(128));
@@ -107,7 +107,7 @@ public final class Ciphers {
     public static long update(final Cipher cipher, final InputStream input,
                               final OutputStream output, final byte[] inbuf,
                               final long length, final boolean finish)
-        throws IOException, IllegalBlockSizeException, BadPaddingException {
+            throws IOException, IllegalBlockSizeException, BadPaddingException {
 
         if (cipher == null) {
             throw new NullPointerException("cipher == null");
@@ -209,7 +209,7 @@ public final class Ciphers {
     public static long doFinal(final Cipher cipher, final InputStream input,
                                final OutputStream output, final byte[] inbuf,
                                final long length)
-        throws IOException, IllegalBlockSizeException, BadPaddingException {
+            throws IOException, IllegalBlockSizeException, BadPaddingException {
 
         return update(cipher, input, output, inbuf, length, true);
     }
@@ -245,7 +245,7 @@ public final class Ciphers {
                                final ReadableByteChannel input,
                                final WritableByteChannel output,
                                final ByteBuffer inbuf, final long length)
-        throws IOException, IllegalBlockSizeException, BadPaddingException {
+            throws IOException, IllegalBlockSizeException, BadPaddingException {
 
         if (cipher == null) {
             throw new IllegalArgumentException("cipher");
@@ -270,7 +270,7 @@ public final class Ciphers {
         long count = 0L;
 
         ByteBuffer outbuf
-            = ByteBuffer.allocate(cipher.getOutputSize(inbuf.capacity()));
+                = ByteBuffer.allocate(cipher.getOutputSize(inbuf.capacity()));
 
         for (int read; length < 0L || count < length; count += read) {
             inbuf.clear(); // position -> 0, limit -> capacity

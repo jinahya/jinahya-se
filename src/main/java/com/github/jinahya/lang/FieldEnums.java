@@ -42,7 +42,7 @@ public final class FieldEnums {
      * @return an array containing the field values of this enum type
      */
     public static <E extends Enum<E> & FieldEnum<E, F>, F> F[] fieldValues(
-        final Class<E> enumType, final Class<F> fieldType) {
+            final Class<E> enumType, final Class<F> fieldType) {
 
         if (enumType == null) {
             throw new NullPointerException("null enumtype");
@@ -56,7 +56,7 @@ public final class FieldEnums {
 
         @SuppressWarnings("unchecked")
         final F[] fieldValues
-            = (F[]) Array.newInstance(fieldType, enumConstants.length);
+                = (F[]) Array.newInstance(fieldType, enumConstants.length);
 
         for (int i = 0; i < fieldValues.length; i++) {
             fieldValues[i] = enumConstants[i].fieldValue();
@@ -72,13 +72,13 @@ public final class FieldEnums {
      * @param <E> enum type parameter
      * @param <F> field type parameter
      * @param enumType enum type
-     * @param fieldValues the collection to which field values are added
+     * @param fieldValues the collection to which field values are added.
      *
      * @throws NullPointerException if {@code enumType} is {@code null}.
      * @throws NullPointerException if {@code fieldValues} is {@code null}.
      */
     public static <E extends Enum<E> & FieldEnum<E, F>, F> void fieldValues(
-        final Class<E> enumType, final Collection<? super F> fieldValues) {
+            final Class<E> enumType, final Collection<? super F> fieldValues) {
 
         if (enumType == null) {
             throw new NullPointerException("null enumtype");
@@ -111,7 +111,7 @@ public final class FieldEnums {
      * @return the mapped enum constant.
      */
     public static <E extends Enum<E> & FieldEnum<E, F>, F> E fromFieldValue(
-        final Class<E> enumType, final F fieldValue) {
+            final Class<E> enumType, final F fieldValue) {
 
         if (enumType == null) {
             throw new NullPointerException("null enumtype");

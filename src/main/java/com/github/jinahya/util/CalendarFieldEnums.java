@@ -31,8 +31,11 @@ import org.slf4j.LoggerFactory;
 public final class CalendarFieldEnums {
 
 
+    /**
+     * logger.
+     */
     private static final Logger logger
-        = LoggerFactory.getLogger(CalendarFieldEnums.class);
+            = LoggerFactory.getLogger(CalendarFieldEnums.class);
 
 
     /**
@@ -45,7 +48,7 @@ public final class CalendarFieldEnums {
      * @return
      */
     public static <E extends Enum<E> & CalendarFieldEnum<E, Integer>> E get(
-        final Class<E> enumType, final Calendar calendar, final int field) {
+            final Class<E> enumType, final Calendar calendar, final int field) {
 
         if (calendar == null) {
             throw new NullPointerException("calendar");
@@ -67,7 +70,7 @@ public final class CalendarFieldEnums {
      * @param value value
      */
     public static <E extends Enum<E> & CalendarFieldEnum<E, Integer>> void set(
-        final Calendar calendar, final int field, final E value) {
+            final Calendar calendar, final int field, final E value) {
 
         if (calendar == null) {
             throw new NullPointerException("calendar");
@@ -79,7 +82,7 @@ public final class CalendarFieldEnums {
 
         final int p = calendar.get(field);
         logger.debug("p: {}", p);
-        
+
         calendar.set(field, value.fieldValue());
 
         final int n = calendar.get(field);
