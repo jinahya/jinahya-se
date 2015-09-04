@@ -47,7 +47,7 @@ public class MessageDigestsTest {
     }
 
 
-    @Test(invocationCount = 1)
+    @Test(enabled = false, invocationCount = 1)
     public void test() throws NoSuchAlgorithmException, IOException {
 
         final Random random = ThreadLocalRandom.current();
