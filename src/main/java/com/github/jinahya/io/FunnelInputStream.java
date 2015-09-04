@@ -18,6 +18,8 @@
 package com.github.jinahya.io;
 
 
+import java.io.EOFException;
+import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -27,92 +29,52 @@ import java.io.InputStream;
  *
  * @author Jin Kwon <jinahya at gmail.com>
  */
-public class FunnelInputStream extends InputStream {
+public class FunnelInputStream extends FilterInputStream {
 
 
     /**
      * Creates a funnel input stream built on top of the specified underlying
      * input stream.
      *
-     * @param input the underlying input stream
+     * @param in the underlying input stream
      *
      * @throws NullPointerException if {@code input} is {@code null}
      */
-    protected FunnelInputStream(final InputStream input) {
+    public FunnelInputStream(final InputStream in) {
 
-        super();
+        super(in);
+    }
 
-        if (input == null) {
-            throw new NullPointerException("null input");
+
+    @Override
+    public int read(final byte[] b, int off, final int len) throws IOException {
+
+        if (b == null) {
+            throw new NullPointerException("null b");
         }
 
-        this.input = input;
+        if (off < 0) {
+            throw new IndexOutOfBoundsException("off(" + off + ") < 0");
+        }
+
+        if (len < 0) {
+            throw new IndexOutOfBoundsException("len(" + len + ") < 0");
+        }
+
+        if (len > b.length - off) {
+            throw new IndexOutOfBoundsException(
+                "len(" + len + ") > b.length(" + b.length + ") - off(" + off
+                + ")");
+        }
+
+        for (int i = 0; i < len; i++) {
+            if ((b[off++] = (byte) read()) == -1) {
+                return i;
+            }
+        }
+
+        return len;
     }
-
-
-    /**
-     * Reads the next byte of data from the input stream. The {@code read()}
-     * method of {@code FunnelInputStream} calls {@link InputStream#read()} on
-     * {@link #input}.
-     *
-     * @return {@inheritDoc }
-     *
-     * @throws IOException {@inheritDoc }
-     */
-    @Override
-    public int read() throws IOException {
-
-        return input.read();
-    }
-
-
-    /**
-     * Closes this input stream and releases any system resources associated
-     * with the stream. The {@code close()} method of {@code FunnelInputStream}
-     * calls {@link InputStream#close()} on {@link #input}.
-     *
-     * @throws IOException {@inheritDoc }
-     */
-    @Override
-    public void close() throws IOException {
-
-        input.close();
-    }
-
-
-    /**
-     * Marks the current position in this input stream. The {@code mark(int)}
-     * method of {@code FunnelInputStream} calls {@link InputStream#mark(int)}
-     * on {@link #input}.
-     *
-     * @param readLimit {@inheritDoc }
-     */
-    @Override
-    public void mark(final int readLimit) {
-
-        input.mark(readLimit);
-    }
-
-
-    /**
-     * Repositions this stream to the position at the time the {@code mark}
-     * method was last called on this input stream. The {@code reset()} method
-     * of {@code FunnelInputStream} calls {@link InputStream#reset()} on
-     * {@link #input}.
-     *
-     * @throws IOException {@inheritDoc }
-     */
-    @Override
-    public void reset() throws IOException {
-
-        input.reset();
-    }
-
-
-    /**
-     * The underlying input stream.
-     */
-    protected final InputStream input;
 
 
 }

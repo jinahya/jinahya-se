@@ -24,23 +24,23 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import static java.lang.invoke.MethodHandles.lookup;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static org.slf4j.LoggerFactory.getLogger;
 
 
 /**
  * Utilities for InputStreams and OutputStreams.
  *
- * @author Jin Kwon <jinahya at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public final class ByteStreams {
+public final class JinahyaByteStreams {
 
 
     /**
      * logger.
      */
-    private static final Logger logger
-        = LoggerFactory.getLogger(ByteStreams.class);
+    private static final Logger logger = getLogger(lookup().lookupClass());
 
 
     /**
@@ -210,7 +210,7 @@ public final class ByteStreams {
     /**
      * Creates a new instance.
      */
-    private ByteStreams() {
+    private JinahyaByteStreams() {
 
         super();
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <onacit at gmail.com>.
+ * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import java.nio.channels.ReadableByteChannel;
 
 /**
  *
- * @author Jin Kwon <onacit at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class FilterReadableByteChannel implements ReadableByteChannel {
 
@@ -40,20 +40,12 @@ public class FilterReadableByteChannel implements ReadableByteChannel {
 
         super();
 
-        if (channel == null) {
-            //throw new NullPointerException("channel");
-        }
-
         this.channel = channel;
     }
 
 
     @Override
     public int read(final ByteBuffer dst) throws IOException {
-
-        if (channel == null) {
-            throw new IllegalArgumentException("channel is currently null");
-        }
 
         return channel.read(dst);
     }
@@ -62,10 +54,6 @@ public class FilterReadableByteChannel implements ReadableByteChannel {
     @Override
     public boolean isOpen() {
 
-        if (channel == null) {
-            throw new IllegalArgumentException("channel is currently null");
-        }
-
         return channel.isOpen();
     }
 
@@ -73,9 +61,7 @@ public class FilterReadableByteChannel implements ReadableByteChannel {
     @Override
     public void close() throws IOException {
 
-        if (channel != null) {
-            channel.close();
-        }
+        channel.close();
     }
 
 

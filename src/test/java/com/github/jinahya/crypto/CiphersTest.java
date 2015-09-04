@@ -64,7 +64,7 @@ public class CiphersTest {
         throws NoSuchAlgorithmException, NoSuchPaddingException {
 
         for (final String transformation
-             : Ciphers.SUPPORTED_TRANSFORMATIONS.keySet()) {
+             : JinahyaCiphers.SUPPORTED_TRANSFORMATIONS.keySet()) {
             final Cipher cipher = Cipher.getInstance(transformation);
         }
     }
@@ -139,15 +139,15 @@ public class CiphersTest {
             {
                 cipher.init(Cipher.ENCRYPT_MODE, key, iv);
                 final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                Ciphers.doFinal(cipher, new ByteArrayInputStream(expected),
-                                baos, new byte[102], -1L);
+                JinahyaCiphers.doFinal(cipher, new ByteArrayInputStream(expected),
+                                       baos, new byte[102], -1L);
                 encrypted = baos.toByteArray();
             }
             {
                 cipher.init(Cipher.DECRYPT_MODE, key, iv);
                 final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                Ciphers.doFinal(cipher, new ByteArrayInputStream(encrypted),
-                                baos, new byte[983], -1L);
+                JinahyaCiphers.doFinal(cipher, new ByteArrayInputStream(encrypted),
+                                       baos, new byte[983], -1L);
                 actual = baos.toByteArray();
             }
             Assert.assertEquals(actual, expected);
@@ -162,8 +162,8 @@ public class CiphersTest {
                     = Channels.newChannel(new ByteArrayInputStream(expected));
                 final ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 final WritableByteChannel output = Channels.newChannel(baos);
-                Ciphers.doFinal(cipher, input, output, ByteBuffer.allocate(71),
-                                -1L);
+                JinahyaCiphers.doFinal(cipher, input, output, ByteBuffer.allocate(71),
+                                       -1L);
                 baos.flush();
                 encrypted = baos.toByteArray();
             }
@@ -173,8 +173,8 @@ public class CiphersTest {
                     = Channels.newChannel(new ByteArrayInputStream(encrypted));
                 final ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 final WritableByteChannel output = Channels.newChannel(baos);
-                Ciphers.doFinal(cipher, input, output, ByteBuffer.allocate(29),
-                                -1L);
+                JinahyaCiphers.doFinal(cipher, input, output, ByteBuffer.allocate(29),
+                                       -1L);
                 actual = baos.toByteArray();
                 Assert.assertEquals(actual, expected);
             }
@@ -182,11 +182,11 @@ public class CiphersTest {
     }
 
 
-    @Test(invocationCount = 32)
+    @Test(invocationCount = 1)
     public void test() throws Exception {
 
         for (Entry<String, List<Integer>> entry
-             : Ciphers.SUPPORTED_TRANSFORMATIONS.entrySet()) {
+             : JinahyaCiphers.SUPPORTED_TRANSFORMATIONS.entrySet()) {
 
             final String transformation = entry.getKey();
             final String[] split = transformation.split("/");

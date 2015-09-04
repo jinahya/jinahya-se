@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Jin Kwon <onacit at gmail.com>.
+ * Copyright 2014 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,17 +20,21 @@ package com.github.jinahya.lang;
 
 /**
  *
- * @author Jin Kwon <onacit at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <E>
  */
-public abstract class FloatFieldEnumTest<E extends Enum<E> & FloatFieldEnum<E>>
-        extends ComparableFieldEnumTest<E, Float> {
+public abstract class FloatFieldEnumTest<E extends Enum<E> & FloatFieldEnum<E>> {
 
 
     public FloatFieldEnumTest(final Class<E> enumType) {
 
-        super(enumType, Float.class);
+        super();
+
+        this.enumType = enumType;
     }
+
+
+    protected final Class<E> enumType;
 
 
 }

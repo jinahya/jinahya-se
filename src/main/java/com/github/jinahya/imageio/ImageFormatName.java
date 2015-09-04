@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <onacit at gmail.com>.
+ * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Jin Kwon <onacit at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 @XmlRootElement
 public class ImageFormatName extends ImageFeature {
@@ -35,8 +35,7 @@ public class ImageFormatName extends ImageFeature {
 
     public static Collection<ImageFormatName> getAvailableInstances() {
 
-        final Map<String, ImageFormatName> map
-                = new TreeMap<String, ImageFormatName>();
+        final Map<String, ImageFormatName> map = new TreeMap<>();
 
         for (final String readerFormatName : ImageIO.getReaderFormatNames()) {
             ImageFormatName imageFormatName = map.get(readerFormatName);

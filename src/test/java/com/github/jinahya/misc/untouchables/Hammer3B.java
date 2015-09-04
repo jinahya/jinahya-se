@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Jin Kwon <onacit at gmail.com>.
+ * Copyright 2014 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,12 +25,12 @@ import sun.misc.Unsafe;
 
 /**
  *
- * @author Jin Kwon <onacit at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class Hammer3B {
 
 
-    public static void main(final String[] args) throws NoSuchFieldException {
+    public static void main(final String[] args) throws NoSuchFieldException, ReflectiveOperationException {
 
         final Field field = Untouchable3.class.getDeclaredField("SECRET");
 

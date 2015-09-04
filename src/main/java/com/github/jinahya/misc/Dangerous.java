@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <onacit at gmail.com>.
+ * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
 package com.github.jinahya.misc;
 
 
-import com.github.jinahya.lang.reflect.Fields;
+import com.github.jinahya.lang.reflect.JinahyaFields;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -29,7 +29,7 @@ import sun.misc.Unsafe;
 /**
  * A dangerous class.
  *
- * @author Jin Kwon <onacit at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class Dangerous {
 
@@ -65,8 +65,9 @@ public class Dangerous {
     static {
         try {
             NEW_UNSAFE = Unsafe.class.getDeclaredConstructor();
-            assert !NEW_UNSAFE.isAccessible();
-            NEW_UNSAFE.setAccessible(true);
+            if (!NEW_UNSAFE.isAccessible()) {
+                NEW_UNSAFE.setAccessible(true);
+            }
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.getMessage());
         }
@@ -89,19 +90,11 @@ public class Dangerous {
      *
      * @return a new instance of {@link sun.misc.Unsafe} class.
      *
-     * @throws RuntimeException if failed to construct the instance.
+     * @throws ReflectiveOperationException if failed to create a new instance.
      */
-    public static Unsafe newUnsafe() {
+    public static Unsafe newUnsafe() throws ReflectiveOperationException {
 
-        try {
-            return NEW_UNSAFE.newInstance();
-        } catch (final InstantiationException ie) {
-            throw new RuntimeException(ie);
-        } catch (final IllegalAccessException iae) {
-            throw new RuntimeException(iae);
-        } catch (final InvocationTargetException ite) {
-            throw new RuntimeException(ite);
-        }
+        return NEW_UNSAFE.newInstance();
     }
 
 
@@ -134,9 +127,11 @@ public class Dangerous {
     /**
      * Creates a new instance with {@link #newUnsafe()}.
      *
-     * @return a new instance.
+     * @return a new instance
+     *
+     * @throws ReflectiveOperationException
      */
-    public static Dangerous newInstance() {
+    public static Dangerous newInstance() throws ReflectiveOperationException {
 
         return new Dangerous(newUnsafe());
     }
@@ -296,7 +291,7 @@ public class Dangerous {
                                             final Class<T> type,
                                             final T expected, final T x) {
 
-        field = Fields.requireTypeAssignableFrom(field, type); // NPE, IAE
+        field = JinahyaFields.requireTypeAssignableFrom(field, type); // NPE, IAE
 
         return compareAndSwapObject(base, field, expected, x);
     }

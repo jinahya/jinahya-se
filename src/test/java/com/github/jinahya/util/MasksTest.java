@@ -31,7 +31,7 @@ import org.testng.annotations.Test;
 public class MasksTest {
 
 
-    @Test(invocationCount = 32)
+    @Test(invocationCount = 1)
     public static void testPutOnWithSingleMask() {
 
         final int mask = ThreadLocalRandom.current().nextInt();
@@ -47,7 +47,7 @@ public class MasksTest {
     }
 
 
-    @Test(invocationCount = 32)
+    @Test(invocationCount = 1)
     public void testTakeOffWithSingleMask() {
 
         final int mask = ThreadLocalRandom.current().nextInt();

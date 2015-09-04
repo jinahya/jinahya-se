@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <onacit at gmail.com>.
+ * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,12 @@
 package com.github.jinahya.misc;
 
 
+import static java.lang.invoke.MethodHandles.lookup;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.concurrent.ThreadLocalRandom;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static org.slf4j.LoggerFactory.getLogger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import sun.misc.Unsafe;
@@ -30,7 +31,7 @@ import sun.misc.Unsafe;
 
 /**
  *
- * @author Jin Kwon <onacit at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class DangerousTest {
 
@@ -38,8 +39,7 @@ public class DangerousTest {
     /**
      * logger.
      */
-    private static final Logger logger
-        = LoggerFactory.getLogger(DangerousTest.class);
+    private static final Logger logger = getLogger(lookup().lookupClass());
 
 
     private static class Inaccessible {
@@ -204,7 +204,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void theUnsafeInstance_()
         throws NoSuchFieldException, IllegalAccessException {
 
@@ -218,15 +218,15 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void newUnsafeInstance_()
-        throws NoSuchFieldException, IllegalAccessException {
+        throws NoSuchFieldException, IllegalAccessException, ReflectiveOperationException {
 
         final Unsafe unsafe = Dangerous.newUnsafe();
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void allocateInstance_() throws InstantiationException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -238,7 +238,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void compareAndSwapInt_instance_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -256,7 +256,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void compareAndSwapInt_static_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -271,7 +271,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void compareAndSwapLong_instance_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -289,7 +289,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void compareAndSwapLong_static_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -304,7 +304,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void compareAndSwapObject_instance_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -323,7 +323,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void compareAndSwapObject_static_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -338,7 +338,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void compareAndSwapObject_generic_instance_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -359,7 +359,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void compareAndSwapObject_generic_static_()
         throws NoSuchFieldException {
 
@@ -377,7 +377,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getBoolean_nonBooleanField_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -395,7 +395,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getBoolean_instance_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -411,7 +411,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getBoolean_instance_volatile_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -428,7 +428,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getBoolean_static_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -441,7 +441,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getBoolean_static_volatile() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -454,7 +454,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getByte_instance_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -470,7 +470,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getByte_instance_volatile_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -487,7 +487,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getByte_static_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -500,7 +500,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getByte_static_volatile_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -513,7 +513,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getChar_instance_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -531,7 +531,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getChar_instance_volatile_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -550,7 +550,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getChar_static_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -563,7 +563,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getChar_static_volatile_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -578,7 +578,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getDouble_instance_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -596,7 +596,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getDouble_instance_volatile_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -615,7 +615,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getDouble_static_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -628,7 +628,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getDouble_static_volatile_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -643,7 +643,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getFloat_instance_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -661,7 +661,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getFloat_instance_volatile_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -680,7 +680,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getFloat_static_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -693,7 +693,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getFloat_static_volatile_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -708,7 +708,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getInt_instance_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -726,7 +726,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getInt_instance_volatile_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -745,7 +745,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getInt_static_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -758,7 +758,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getInt_static_volatile_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -773,7 +773,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getLong_instance_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -791,7 +791,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getLong_instance_volatile_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -810,7 +810,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getLong_static_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -823,7 +823,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getLong_static_volatile_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -838,7 +838,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getObject_instance_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -856,7 +856,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getObject_instance_volatile_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -875,7 +875,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getObject_static_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -888,7 +888,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getObject_static_volatile_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -903,7 +903,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getShort_instance_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -921,7 +921,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getShort_instance_volatile_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -940,7 +940,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getShort_static_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -953,7 +953,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void getShort_static_volatile_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -968,7 +968,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void putBoolean_instance_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -984,7 +984,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void putBoolean_instance_volatile_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -1001,7 +1001,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void putBoolean_static_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -1015,7 +1015,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void putBoolean_static_volatile_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -1030,7 +1030,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void putByte_instance_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -1046,7 +1046,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void putByte_instance_volatile_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -1063,7 +1063,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void putByte_static_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -1076,7 +1076,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void putByte_static_volatile_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -1091,7 +1091,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void putChar_instance_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -1107,7 +1107,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void putChar_instance_volatile_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -1124,7 +1124,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void putChar_static_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -1137,7 +1137,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void putChar_static_volatile_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -1152,7 +1152,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void putDouble_instance_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -1168,7 +1168,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void putDouble_instance_volatile_()
         throws InstantiationException, NoSuchFieldException {
 
@@ -1185,7 +1185,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void putDouble_static_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();
@@ -1198,7 +1198,7 @@ public class DangerousTest {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void putDouble_static_volatile_() throws NoSuchFieldException {
 
         final Dangerous dangerous = Dangerous.getInstance();

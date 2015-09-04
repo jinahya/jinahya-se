@@ -25,26 +25,27 @@ import java.util.List;
 
 /**
  *
- * @author Jin Kwon
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public final class Charsets {
+public final class JinahyaCharsets {
 
 
     /**
-     * An unmodifiable list of charset names that every implementation of the
-     * Java platform is required to support.
+     * An unmodifiable list of character set names that every implementation of
+     * the Java platform is required to support.
      */
     public static final List<String> SUPPORTED_CHARSET_NAMES;
 
 
     static {
+
         SUPPORTED_CHARSET_NAMES = Arrays.asList(
-                "US-ASCII",
-                "ISO-8859-1",
-                "UTF-8",
-                "UTF-16BE",
-                "UTF-16LE",
-                "UTF-16");
+            "US-ASCII",
+            "ISO-8859-1",
+            "UTF-8",
+            "UTF-16BE",
+            "UTF-16LE",
+            "UTF-16");
     }
 
 
@@ -52,6 +53,7 @@ public final class Charsets {
 
 
     static {
+
         final Charset[] charsets = new Charset[SUPPORTED_CHARSET_NAMES.size()];
         for (int i = 0; i < charsets.length; i++) {
             charsets[i] = Charset.forName(SUPPORTED_CHARSET_NAMES.get(i));
@@ -60,7 +62,7 @@ public final class Charsets {
     }
 
 
-    private Charsets() {
+    private JinahyaCharsets() {
 
         super();
     }

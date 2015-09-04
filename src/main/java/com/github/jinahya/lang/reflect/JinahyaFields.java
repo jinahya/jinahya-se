@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Jin Kwon <onacit at gmail.com>.
+ * Copyright 2014 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,9 +25,9 @@ import java.lang.reflect.Modifier;
 
 /**
  *
- * @author Jin Kwon <onacit at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public final class Fields {
+public final class JinahyaFields {
 
 
     /**
@@ -49,7 +49,7 @@ public final class Fields {
             throw new NullPointerException("null field");
         }
 
-        Modifiers.requireFieldModifiers(delta);
+        JinahyaModifiers.requireAllFieldModifiers(delta);
 
         int modifiers = field.getModifiers();
         modifiers &= ~delta;
@@ -168,7 +168,7 @@ public final class Fields {
     /**
      * Creates a new instance.
      */
-    private Fields() {
+    private JinahyaFields() {
 
         super();
     }

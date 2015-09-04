@@ -36,7 +36,7 @@ public class CharsetsTest {
     @Test
     public void SUPPORTED_CHARSET_NAMES_() throws IllegalAccessException {
 
-        for (final String charsetName : Charsets.SUPPORTED_CHARSET_NAMES) {
+        for (final String charsetName : JinahyaCharsets.SUPPORTED_CHARSET_NAMES) {
             final Charset charset = Charset.forName(charsetName);
             boolean matches = false;
             for (final Field field : StandardCharsets.class.getFields()) {
@@ -61,7 +61,7 @@ public class CharsetsTest {
     @Test
     public void SUPPORTED_CHARSET_() throws IllegalAccessException {
 
-        for (final Charset charset : Charsets.SUPPORTED_CHARSETS) {
+        for (final Charset charset : JinahyaCharsets.SUPPORTED_CHARSETS) {
             boolean matches = false;
             for (final Field field : StandardCharsets.class.getFields()) {
                 if (!Modifier.isStatic(field.getModifiers())) {

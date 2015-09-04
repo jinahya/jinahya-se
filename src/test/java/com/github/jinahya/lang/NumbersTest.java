@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Jin Kwon <onacit at gmail.com>.
+ * Copyright 2014 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import org.testng.annotations.Test;
 
 /**
  *
- * @author Jin Kwon <onacit at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class NumbersTest {
 
@@ -100,7 +100,7 @@ public class NumbersTest {
     }
 
 
-    @Test(invocationCount = 128)
+    @Test(invocationCount = 1)
     public static void toBytes_short_() {
 
         final short value = newShort();
@@ -144,7 +144,7 @@ public class NumbersTest {
     }
 
 
-    @Test(invocationCount = 128)
+    @Test(invocationCount = 1)
     public static void toBytes_int_() {
 
         final int value = newInt();
@@ -188,7 +188,7 @@ public class NumbersTest {
     }
 
 
-    @Test(enabled = true, invocationCount = 128)
+    @Test(enabled = true, invocationCount = 1)
     public static void toBytes_float_() {
 
         final float value = newFloat();
@@ -220,7 +220,7 @@ public class NumbersTest {
     }
 
 
-    @Test(invocationCount = 128)
+    @Test(invocationCount = 1)
     public static void toBytes_long_() {
 
         final long value = newLong();
@@ -265,7 +265,7 @@ public class NumbersTest {
     }
 
 
-    @Test(invocationCount = 128)
+    @Test(invocationCount = 1)
     public static void toBytes_double_() {
 
         final double value = newDouble();

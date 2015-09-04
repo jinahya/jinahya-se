@@ -33,7 +33,7 @@ import org.testng.annotations.Test;
 public class FunnelInputStreamTest {
 
 
-    @Test(invocationCount = 128)
+    @Test(invocationCount = 1)
     public void read() throws IOException {
 
         final ThreadLocalRandom random = ThreadLocalRandom.current();
@@ -57,6 +57,7 @@ public class FunnelInputStreamTest {
 
         Assert.assertEquals(count, bytes.length);
     }
+
 
 }
 

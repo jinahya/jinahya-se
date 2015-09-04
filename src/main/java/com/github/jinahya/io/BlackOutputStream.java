@@ -18,8 +18,8 @@
 package com.github.jinahya.io;
 
 
+import java.io.EOFException;
 import java.io.IOException;
-import java.io.OutputStream;
 
 
 /**
@@ -27,84 +27,44 @@ import java.io.OutputStream;
  *
  * @author Jin Kwon <jinahya at gmail.com>
  */
-public class BlackOutputStream extends OutputStream {
+public class BlackOutputStream extends FunnelOutputStream {
 
 
-    public static OutputStream newUnlimitedInstance() {
-
-        return new BlackOutputStream((-1L));
-    }
-
-
-    /**
-     * Creates a new instance with specified limit.
-     *
-     * @param limit the maximum number of bytes can be written; {@code -1} for
-     * no limit.
-     */
     public BlackOutputStream(final long limit) {
 
-        super();
-
-        if (limit < -1) {
-            throw new IllegalArgumentException("limit(" + limit + ") < -1");
-        }
+        super(null);
 
         this.limit = limit;
     }
 
 
-    /**
-     * Writes given byte. This method does nothing. An {@link IOException} will
-     * be thrown if {@code limit} is set and the number of bytes written so far
-     * exceeds it.
-     *
-     * @param b the byte to write.
-     *
-     * @throws IOException {@inheritDoc }
-     */
     @Override
     public void write(final int b) throws IOException {
 
-        if (limit != -1 && limit <= count++) {
-            throw new IOException("limit(" + limit + ") exceeded");
+        if (limit >= 0L && limit <= count++) {
+            throw new EOFException("limit exceeded");
         }
     }
 
 
-    /**
-     * Returns the maximum number of bytes can be written.
-     *
-     * @return the maximum number of bytes can be written or {@code -1} if there
-     * is no limit.
-     */
-    public long getLimit() {
+    @Override
+    public void flush() throws IOException {
 
-        return limit;
+        // does nothing
     }
 
 
-    /**
-     * Returns the number of bytes written so far.
-     *
-     * @return the number of bytes written so far.
-     */
-    public long getCount() {
+    @Override
+    public void close() throws IOException {
 
-        return count;
+        // does nothing
     }
 
 
-    /**
-     * the maximum number of bytes can be written.
-     */
-    private final long limit;
+    protected long limit;
 
 
-    /**
-     * the total number of bytes written so far.
-     */
-    private long count = 0L;
+    protected transient long count;
 
 
 }

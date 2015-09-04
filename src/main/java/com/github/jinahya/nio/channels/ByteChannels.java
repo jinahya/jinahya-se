@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <onacit at gmail.com>.
+ * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ package com.github.jinahya.nio.channels;
 
 import java.io.File;
 import java.io.IOException;
+import static java.lang.invoke.MethodHandles.lookup;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
@@ -27,13 +28,13 @@ import java.nio.channels.WritableByteChannel;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static org.slf4j.LoggerFactory.getLogger;
 
 
 /**
  * A utility class for channels.
  *
- * @author Jin Kwon <onacit at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class ByteChannels {
 
@@ -41,8 +42,7 @@ public final class ByteChannels {
     /**
      * logger.
      */
-    private static final Logger LOGGER
-        = LoggerFactory.getLogger(ByteChannels.class);
+    private static final Logger logger = getLogger(lookup().lookupClass());
 
 
     /**
@@ -116,7 +116,7 @@ public final class ByteChannels {
                             final FileChannel output, final long length)
         throws IOException {
 
-        LOGGER.trace("copy({}, {}, {})", input, output, length);
+        logger.trace("copy({}, {}, {})", input, output, length);
 
         if (input == null) {
             throw new NullPointerException("input == null");
@@ -185,7 +185,7 @@ public final class ByteChannels {
                              final ByteBuffer buffer, final long length)
         throws IOException {
 
-        LOGGER.debug("copy1({}, {}, {}, {})", input, output, buffer, length);
+        logger.debug("copy1({}, {}, {}, {})", input, output, buffer, length);
 
         if (input instanceof FileChannel) {
             return copy((FileChannel) input, output, length);
