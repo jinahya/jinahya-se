@@ -18,10 +18,8 @@
 package com.github.jinahya.misc;
 
 
-import com.github.jinahya.lang.reflect.JinahyaFields;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import sun.misc.Unsafe;
 
@@ -30,8 +28,10 @@ import sun.misc.Unsafe;
  * A dangerous class.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
+ * @deprecated just don't use this.
  */
-public class Dangerous {
+@Deprecated
+public final class Dangerous {
 
 
     /**
@@ -43,8 +43,9 @@ public class Dangerous {
     static {
         try {
             final Field field = Unsafe.class.getDeclaredField("theUnsafe");
-            assert !field.isAccessible();
-            field.setAccessible(true);
+            if (!field.isAccessible()) {
+                field.setAccessible(true);
+            }
             try {
                 THE_UNSAFE = (Unsafe) field.get(null);
             } catch (final IllegalAccessException iae) {
@@ -98,64 +99,6 @@ public class Dangerous {
     }
 
 
-    private static class InstanceHolder {
-
-
-        private static final Dangerous INSTANCE = new Dangerous(THE_UNSAFE);
-
-
-        private InstanceHolder() {
-
-            super();
-        }
-
-
-    }
-
-
-    /**
-     * Returns the pre-constructed instance with {@link #theUnsafe()}.
-     *
-     * @return the pre-constructed instance.
-     */
-    public static Dangerous getInstance() {
-
-        return InstanceHolder.INSTANCE;
-    }
-
-
-    /**
-     * Creates a new instance with {@link #newUnsafe()}.
-     *
-     * @return a new instance
-     *
-     * @throws ReflectiveOperationException
-     */
-    public static Dangerous newInstance() throws ReflectiveOperationException {
-
-        return new Dangerous(newUnsafe());
-    }
-
-
-    /**
-     * Creates a new instance with specified unsafe instance.
-     *
-     * @param unsafe the unsafe instance.
-     *
-     * @throws NullPointerException if {@code unsafe} is {@code null}.
-     */
-    public Dangerous(final Unsafe unsafe) {
-
-        super();
-
-        if (unsafe == null) {
-            throw new NullPointerException("null unsafe");
-        }
-
-        this.unsafe = unsafe;
-    }
-
-
     /**
      *
      * @param <T> instance type parameter.
@@ -168,7 +111,8 @@ public class Dangerous {
      *
      * @see Unsafe#allocateInstance(java.lang.Class)
      */
-    public <T> T allocateInstance(final Class<T> cls)
+    public static <T> T allocateInstance(final Unsafe unsafe,
+                                         final Class<T> cls)
         throws InstantiationException {
 
         if (cls == null) {
@@ -181,6 +125,7 @@ public class Dangerous {
 
     /**
      *
+     * @param unsafe
      * @param base
      * @param field
      * @param expected
@@ -188,8 +133,13 @@ public class Dangerous {
      *
      * @return
      */
-    public boolean compareAndSwapInt(Object base, final Field field,
-                                     final int expected, final int x) {
+    public static boolean compareAndSwapInt(final Unsafe unsafe, Object base,
+                                            final Field field,
+                                            final int expected, final int x) {
+
+        if (unsafe == null) {
+            throw new NullPointerException("null unsafe");
+        }
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -198,8 +148,7 @@ public class Dangerous {
         final int modifiers = field.getModifiers();
 
         final long offset;
-        final boolean static_ = Modifier.isStatic(modifiers);
-        if (static_) {
+        if (Modifier.isStatic(field.getModifiers())) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
             }
@@ -218,6 +167,7 @@ public class Dangerous {
 
     /**
      *
+     * @param unsafe an unsafe
      * @param base the object reference or {@code null} for static field.
      * @param field
      * @param expected
@@ -225,16 +175,21 @@ public class Dangerous {
      *
      * @return
      */
-    public boolean compareAndSwapLong(Object base, final Field field,
-                                      final long expected, final long x) {
+    public static boolean compareAndSwapLong(final Unsafe unsafe, Object base,
+                                             final Field field,
+                                             final long expected,
+                                             final long x) {
+
+        if (unsafe == null) {
+            throw new NullPointerException("null unsafe");
+        }
+
         if (field == null) {
             throw new NullPointerException("null field");
         }
 
-        final int modifiers = field.getModifiers();
-
         final long offset;
-        if (Modifier.isStatic(modifiers)) {
+        if (Modifier.isStatic(field.getModifiers())) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
             }
@@ -253,6 +208,7 @@ public class Dangerous {
 
     /**
      *
+     * @param unsafe
      * @param base
      * @param field
      * @param expected
@@ -260,17 +216,21 @@ public class Dangerous {
      *
      * @return
      */
-    public boolean compareAndSwapObject(Object base, final Field field,
-                                        final Object expected, final Object x) {
+    public static boolean compareAndSwapObject(final Unsafe unsafe, Object base,
+                                               final Field field,
+                                               final Object expected,
+                                               final Object x) {
+
+        if (unsafe == null) {
+            throw new NullPointerException("null unsafe");
+        }
 
         if (field == null) {
             throw new NullPointerException("null field");
         }
 
-        final int modifiers = field.getModifiers();
-
         final long offset;
-        if (Modifier.isStatic(modifiers)) {
+        if (Modifier.isStatic(field.getModifiers())) {
             if (base == null) {
                 base = unsafe.staticFieldBase(field);
             }
@@ -287,18 +247,9 @@ public class Dangerous {
     }
 
 
-    public <T> boolean compareAndSwapObject(final Object base, Field field,
-                                            final Class<T> type,
-                                            final T expected, final T x) {
-
-        field = JinahyaFields.requireTypeAssignableFrom(field, type); // NPE, IAE
-
-        return compareAndSwapObject(base, field, expected, x);
-    }
-
-
     /**
      *
+     * @param unsafe an unsafe
      * @param base the object reference for instance fields or {@code null} for
      * static fields.
      * @param field the field whose value is returned.
@@ -312,7 +263,12 @@ public class Dangerous {
      * @see Unsafe#getBoolean(java.lang.Object, long)
      * @see Unsafe#getBooleanVolatile(java.lang.Object, long)
      */
-    public boolean getBoolean(Object base, final Field field) {
+    public static boolean getBoolean(final Unsafe unsafe, Object base,
+                                     final Field field) {
+
+        if (unsafe == null) {
+            throw new NullPointerException("null unsafe");
+        }
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -344,6 +300,7 @@ public class Dangerous {
 
     /**
      *
+     * @param unsafe the unsafe
      * @param base
      * @param field
      *
@@ -353,7 +310,11 @@ public class Dangerous {
      * {@code field} is an instance field.
      * @throws NullPointerException if {@code field} is {@code null}.
      */
-    public byte getByte(Object base, final Field field) {
+    public static byte getByte(final Unsafe unsafe, Object base, final Field field) {
+
+        if (unsafe == null) {
+            throw new NullPointerException("null unsafe");
+        }
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -385,6 +346,7 @@ public class Dangerous {
 
     /**
      *
+     * @param unsafe the unsafe
      * @param base
      * @param field
      *
@@ -394,7 +356,12 @@ public class Dangerous {
      * {@code field} is an instance field.
      * @throws NullPointerException if {@code field} is {@code null}.
      */
-    public char getChar(Object base, final Field field) {
+    public static char getChar(final Unsafe unsafe, Object base,
+                               final Field field) {
+
+        if (unsafe == null) {
+            throw new NullPointerException("null unsafe");
+        }
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -424,7 +391,12 @@ public class Dangerous {
     }
 
 
-    public double getDouble(Object base, final Field field) {
+    public static double getDouble(final Unsafe unsafe, Object base,
+                                   final Field field) {
+
+        if (unsafe == null) {
+            throw new NullPointerException("null unsafe");
+        }
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -454,7 +426,12 @@ public class Dangerous {
     }
 
 
-    public float getFloat(Object base, final Field field) {
+    public static float getFloat(final Unsafe unsafe, Object base,
+                                 final Field field) {
+
+        if (unsafe == null) {
+            throw new NullPointerException("null unsafe");
+        }
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -484,7 +461,12 @@ public class Dangerous {
     }
 
 
-    public int getInt(Object base, final Field field) {
+    public static int getInt(final Unsafe unsafe, Object base,
+                             final Field field) {
+
+        if (unsafe == null) {
+            throw new NullPointerException("null unsafe");
+        }
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -516,12 +498,18 @@ public class Dangerous {
 
     /**
      *
+     * @param unsafe the unsafe
      * @param base
      * @param field
      *
      * @return
      */
-    public long getLong(Object base, final Field field) {
+    public static long getLong(final Unsafe unsafe, Object base,
+                               final Field field) {
+
+        if (unsafe == null) {
+            throw new NullPointerException("null unsafe");
+        }
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -551,7 +539,12 @@ public class Dangerous {
     }
 
 
-    public Object getObject(Object base, final Field field) {
+    public static Object getObject(final Unsafe unsafe, Object base,
+                                   final Field field) {
+
+        if (unsafe == null) {
+            throw new NullPointerException("null unsafe");
+        }
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -583,12 +576,18 @@ public class Dangerous {
 
     /**
      *
+     * @param unsafe the unsafe
      * @param base
      * @param field
      *
      * @return
      */
-    public short getShort(Object base, final Field field) {
+    public static short getShort(final Unsafe unsafe, Object base,
+                                 final Field field) {
+
+        if (unsafe == null) {
+            throw new NullPointerException("null unsafe");
+        }
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -620,11 +619,17 @@ public class Dangerous {
 
     /**
      *
+     * @param unsafe the unsafe
      * @param base
      * @param field
      * @param x
      */
-    public void putBoolean(Object base, final Field field, final boolean x) {
+    public static void putBoolean(final Unsafe unsafe, Object base,
+                                  final Field field, final boolean x) {
+
+        if (unsafe == null) {
+            throw new NullPointerException("null unsafe");
+        }
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -655,12 +660,17 @@ public class Dangerous {
 
 
     /**
-     *
+     * @param unsafe the unsafe
      * @param base
      * @param field
      * @param x
      */
-    public void putByte(Object base, final Field field, final byte x) {
+    public static void putByte(final Unsafe unsafe, Object base,
+                               final Field field, final byte x) {
+
+        if (unsafe == null) {
+            throw new NullPointerException("null unsafe");
+        }
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -692,11 +702,17 @@ public class Dangerous {
 
     /**
      *
+     * @param unsafe the unsafe
      * @param base
      * @param field
      * @param x
      */
-    public void putChar(Object base, final Field field, final char x) {
+    public static void putChar(final Unsafe unsafe, Object base,
+                               final Field field, final char x) {
+
+        if (unsafe == null) {
+            throw new NullPointerException("null unsafe");
+        }
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -728,11 +744,17 @@ public class Dangerous {
 
     /**
      *
+     * @param unsafe the unsafe
      * @param base
      * @param field
      * @param x
      */
-    public void putDouble(Object base, final Field field, final double x) {
+    public static void putDouble(final Unsafe unsafe, Object base,
+                                 final Field field, final double x) {
+
+        if (unsafe == null) {
+            throw new NullPointerException("null unsafe");
+        }
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -764,11 +786,17 @@ public class Dangerous {
 
     /**
      *
+     * @param unsafe the unsafe
      * @param base
      * @param field
      * @param x
      */
-    public void putFloat(Object base, final Field field, final float x) {
+    public void putFloat(final Unsafe unsafe, Object base, final Field field,
+                         final float x) {
+
+        if (unsafe == null) {
+            throw new NullPointerException("null unsfae");
+        }
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -798,7 +826,11 @@ public class Dangerous {
     }
 
 
-    public void putInt(Object base, final Field field, final int x) {
+    public static void putInt(final Unsafe unsafe, Object base, final Field field, final int x) {
+
+        if (unsafe == null) {
+            throw new NullPointerException("null unsafe");
+        }
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -828,7 +860,12 @@ public class Dangerous {
     }
 
 
-    public void putLong(Object base, final Field field, final long x) {
+    public static void putLong(final Unsafe unsafe, Object base,
+                               final Field field, final long x) {
+
+        if (unsafe == null) {
+            throw new NullPointerException("null unsafe");
+        }
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -860,11 +897,17 @@ public class Dangerous {
 
     /**
      *
+     * @param unsafe
      * @param base
      * @param field
      * @param x
      */
-    public void putObject(Object base, final Field field, final Object x) {
+    public static void putObject(final Unsafe unsafe, Object base,
+                                 final Field field, final Object x) {
+
+        if (unsafe == null) {
+            throw new NullPointerException("null unsafe");
+        }
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -894,7 +937,12 @@ public class Dangerous {
     }
 
 
-    public void putOrderedInt(Object base, final Field field, final int x) {
+    public static void putOrderedInt(final Unsafe unsafe, Object base,
+                                     final Field field, final int x) {
+
+        if (unsafe == null) {
+            throw new NullPointerException("null unsafe");
+        }
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -922,11 +970,17 @@ public class Dangerous {
 
     /**
      *
+     * @param unsafe the unsafe
      * @param base
      * @param field
      * @param x
      */
-    public void putOrderedLong(Object base, final Field field, final long x) {
+    public static void putOrderedLong(final Unsafe unsafe, Object base,
+                                      final Field field, final long x) {
+
+        if (unsafe == null) {
+            throw new NullPointerException("null unsafe");
+        }
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -954,12 +1008,17 @@ public class Dangerous {
 
     /**
      *
+     * @param unsafe the unsafe
      * @param base
      * @param field
      * @param x
      */
-    public void putOrderedObject(Object base, final Field field,
-                                 final Object x) {
+    public static void putOrderedObject(final Unsafe unsafe, Object base,
+                                        final Field field, final Object x) {
+
+        if (unsafe == null) {
+            throw new NullPointerException("null unsafe");
+        }
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -987,11 +1046,17 @@ public class Dangerous {
 
     /**
      *
+     * @param unsafe the unsafe
      * @param base
      * @param field
      * @param x
      */
-    public void putShort(Object base, final Field field, final short x) {
+    public static void putShort(final Unsafe unsafe, Object base,
+                                final Field field, final short x) {
+
+        if (unsafe == null) {
+            throw new NullPointerException("null unsafe");
+        }
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -1021,21 +1086,10 @@ public class Dangerous {
     }
 
 
-    /**
-     * Returns the unsafe instance.
-     *
-     * @return the unsafe instance.
-     */
-    public Unsafe unsafe() {
+    private Dangerous() {
 
-        return unsafe;
+        super();
     }
-
-
-    /**
-     * The unsafe instance.
-     */
-    protected final Unsafe unsafe;
 
 
 }

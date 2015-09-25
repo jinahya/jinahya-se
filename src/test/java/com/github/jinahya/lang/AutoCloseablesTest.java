@@ -15,39 +15,47 @@
  */
 
 
-package com.github.jinahya.testng;
+package com.github.jinahya.lang;
 
 
 import static java.lang.invoke.MethodHandles.lookup;
 import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
-import org.testng.IInvokedMethod;
-import org.testng.IInvokedMethodListener;
-import org.testng.ITestResult;
+import org.testng.annotations.Test;
 
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public class InvokedMethodListener implements IInvokedMethodListener {
+public class AutoCloseablesTest {
 
 
-    @Override
-    public void beforeInvocation(final IInvokedMethod method,
-                                 final ITestResult result) {
+    private static final Logger logger = getLogger(lookup().lookupClass());
 
-        logger.debug("beforeInvocation({}, {})", method, result);
+
+    private static class NotAutoCloseable {
+
+
+        public void notClose() {
+
+            logger.debug("I'm not the close()");
+        }
+
+
     }
 
 
-    @Override
-    public void afterInvocation(final IInvokedMethod method,
-                                final ITestResult result) {
+    @Test
+    public static void of() throws Exception {
+
+        final AutoCloseable autoCloseable = AutoCloseables.of(
+            AutoCloseablesTest.class.getClassLoader(), new NotAutoCloseable(),
+            o -> o.notClose());
+
+        try (AutoCloseable resource = autoCloseable) {
+        }
     }
-
-
-    private final transient Logger logger = getLogger(lookup().lookupClass());
 
 
 }

@@ -40,8 +40,8 @@ public final class Consumers {
 
     public static <T> Consumer<T> empty() {
 
-        return of(t -> {
-        });
+        return t -> {
+        };
     }
 
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
+ * Copyright 2015 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,27 +15,34 @@
  */
 
 
-package com.github.jinahya.misc.untouchables;
+package com.github.jinahya.xml.bind;
 
 
-import java.lang.reflect.Field;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public class Hammer3A {
+@XmlRootElement(namespace = "http://github.com/jinahya/xml/bind")
+@XmlType(propOrder = {"name", "age"})
+public class SampleEntity {
 
 
-    public static void main(final String[] args)
-        throws NoSuchFieldException, IllegalAccessException {
+    @XmlAttribute
+    private Long id;
 
-        final Field field = Untouchable3.class.getDeclaredField("SECRET");
-        assert field.isAccessible();
-        field.setAccessible(true);
-        System.out.println(field.get(null));
-    }
+
+    @XmlElement(required = true)
+    private String name;
+
+
+    @XmlElement(required = true)
+    private int age;
 
 
 }

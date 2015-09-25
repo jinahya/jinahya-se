@@ -18,6 +18,8 @@
 package com.github.jinahya.util.function;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
 
@@ -28,6 +30,29 @@ import java.util.function.Supplier;
 public final class Suppliers {
 
 
+    public static <T> Supplier<T> cacheable(final Supplier<T> wrappee) {
+
+        final List<T> holder = new ArrayList<>(1);
+
+        final Supplier<T> wrapper = () -> {
+            if (holder.isEmpty()) {
+                holder.add(wrappee.get());
+            }
+            return holder.get(0);
+        };
+
+        return wrapper;
+    }
+
+
+    /**
+     * Returns given supplier.
+     *
+     * @param <T> the type of results supplied by specified supplier.
+     * @param supplier the supplier.
+     *
+     * @return the supplier.
+     */
     public static <T> Supplier<T> of(final Supplier<T> supplier) {
 
         return supplier;
