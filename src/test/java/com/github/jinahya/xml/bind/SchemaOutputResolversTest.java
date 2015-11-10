@@ -21,7 +21,6 @@ package com.github.jinahya.xml.bind;
 import java.io.IOException;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamResult;
 import org.testng.annotations.Test;
 
@@ -33,20 +32,22 @@ import org.testng.annotations.Test;
 public class SchemaOutputResolversTest {
 
 
-    @Test//(expectedExceptions = {NullPointerException.class})
-    public static void a() throws JAXBException, IOException {
+    @Test
+    public static void of() throws JAXBException, IOException {
 
         final JAXBContext context = JAXBContext.newInstance(SampleEntity.class);
 
-        context.generateSchema(SchemaOutputResolvers.of((namespaceUri, suggestedFileName) -> {
-            return new StreamResult(System.out) {
+        context.generateSchema(SchemaOutputResolvers.of(
+            (namespaceUri, suggestedFileName) -> {
+                return new StreamResult(System.out) {
 
-                @Override public String getSystemId() {
-                    return "noid";
-                }
+                    @Override
+                    public String getSystemId() {
+                        return "noid";
+                    }
 
-            };
-        }));
+                };
+            }));
 
     }
 

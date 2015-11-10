@@ -19,6 +19,7 @@ package com.github.jinahya.xml.bind;
 
 
 import java.io.IOException;
+import java.util.function.BiFunction;
 import javax.xml.bind.SchemaOutputResolver;
 import javax.xml.transform.Result;
 
@@ -34,6 +35,18 @@ public class SchemaOutputResolvers {
     public static interface Functional {
 
 
+        /**
+         *
+         * @param namespaceUri
+         * @param suggestedFileName
+         *
+         * @return
+         *
+         * @throws IOException
+         *
+         * @see SchemaOutputResolver#createOutput(java.lang.String,
+         * java.lang.String)
+         */
         Result createOutput(String namespaceUri, String suggestedFileName)
             throws IOException;
 
@@ -41,35 +54,44 @@ public class SchemaOutputResolvers {
     }
 
 
-    private static final class FunctionalAdapter extends SchemaOutputResolver {
-
-
-        public FunctionalAdapter(final Functional functional) {
-
-            super();
-
-            this.functional = functional;
-        }
+    @FunctionalInterface
+    public static interface Functional2
+        extends Functional, BiFunction<String, String, Result> {
 
 
         @Override
-        public Result createOutput(final String namespaceUri,
-                                   final String suggestedFileName)
-            throws IOException {
-
-            return functional.createOutput(namespaceUri, suggestedFileName);
+        default Result apply(final String namespaceUri,
+                             final String suggestedFileName) {
+            try {
+                return createOutput(namespaceUri, suggestedFileName);
+            } catch (final IOException ioe) {
+                throw new RuntimeException(ioe);
+            }
         }
-
-
-        private final Functional functional;
 
 
     }
 
 
-    public static SchemaOutputResolver of(final Functional funcational) {
+    /**
+     *
+     * @param functional
+     *
+     * @return
+     */
+    public static SchemaOutputResolver of(final Functional functional) {
 
-        return new FunctionalAdapter(funcational);
+        return new SchemaOutputResolver() {
+
+            @Override
+            public Result createOutput(final String namespaceUri,
+                                       final String suggestedFileName)
+                throws IOException {
+
+                return functional.createOutput(namespaceUri, suggestedFileName);
+            }
+
+        };
     }
 
 
