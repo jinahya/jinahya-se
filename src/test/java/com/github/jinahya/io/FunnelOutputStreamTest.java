@@ -35,15 +35,15 @@ import org.testng.annotations.Test;
 public class FunnelOutputStreamTest {
 
 
-    @Test(invocationCount = 128)
+    @Test(invocationCount = 1)
     public void write_() throws IOException {
 
         final ThreadLocalRandom random = ThreadLocalRandom.current();
         final byte[] bytes = new byte[random.nextInt(65536)];
         random.nextBytes(bytes);
 
-        final ByteArrayOutputStream baos =
-            new ByteArrayOutputStream(bytes.length);
+        final ByteArrayOutputStream baos
+            = new ByteArrayOutputStream(bytes.length);
 
         final InputStream bais = new ByteArrayInputStream(bytes);
         try (final OutputStream fos = new FunnelOutputStream(baos)) {
@@ -55,6 +55,7 @@ public class FunnelOutputStreamTest {
 
         Assert.assertEquals(baos.toByteArray(), bytes);
     }
+
 
 }
 

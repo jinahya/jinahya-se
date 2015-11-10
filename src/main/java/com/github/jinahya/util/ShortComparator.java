@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Jin Kwon <onacit at gmail.com>.
+ * Copyright 2014 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,14 @@
  */
 
 
+package com.github.jinahya.util;
+
+
 /**
- * @see <a href="http://goo.gl/Yhw0xl">Top 10 Nefarious American Mobsters</a>
+ *
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-package com.github.jinahya.misc.untouchables;
+public class ShortComparator extends NumberComparator<Short> {
+
+}
+

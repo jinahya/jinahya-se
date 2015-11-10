@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Jin Kwon <onacit at gmail.com>.
+ * Copyright 2014 Jin Kwon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,24 +15,31 @@
  */
 
 
-package com.github.jinahya.misc.untouchables;
+package com.github.jinahya.nio;
+
+
+import java.nio.IntBuffer;
 
 
 /**
  *
- * @author Jin Kwon <onacit at gmail.com>
+ * @author Jin Kwon
  */
-public class Untouchable3 {
+public final class IntBuffers {
 
 
-    private static String SECRET = "You Can't Touch This";
+    public static void copy(final IntBuffer buffer, final int[] dst, final int offset, final int length) {
+
+        if (buffer.hasArray()) {
+            
+        }
+
+    }
 
 
-    private Untouchable3() {
+    private IntBuffers() {
 
         super();
-
-        throw new RuntimeException("Too Regit to Quit");
     }
 
 

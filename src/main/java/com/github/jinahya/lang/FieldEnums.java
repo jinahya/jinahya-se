@@ -72,10 +72,7 @@ public final class FieldEnums {
      * @param <E> enum type parameter
      * @param <F> field type parameter
      * @param enumType enum type
-     * @param fieldValues the collection to which field values are added
-     *
-     * @throws NullPointerException if {@code enumType} is {@code null}.
-     * @throws NullPointerException if {@code fieldValues} is {@code null}.
+     * @param fieldValues the collection to which field values are added.
      */
     public static <E extends Enum<E> & FieldEnum<E, F>, F> void fieldValues(
         final Class<E> enumType, final Collection<? super F> fieldValues) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <onacit at gmail.com>.
+ * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,21 +26,26 @@ import org.testng.annotations.Test;
 
 /**
  *
- * @author Jin Kwon <onacit at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <E> enum type parameter
  * @param <F> field type parameter
  */
 public abstract class ComparableFieldEnumTest<E extends Enum<E> & ComparableFieldEnum<E, F>, F extends Comparable<? super F>>
-    extends FieldEnumTest<E, F> {
+        extends FieldEnumTest<E, F> {
 
 
     /**
      * logger.
      */
     private static final Logger logger
-        = LoggerFactory.getLogger(ComparableFieldEnumTest.class);
+            = LoggerFactory.getLogger(ComparableFieldEnumTest.class);
 
 
+    /**
+     *
+     * @param enumType the enum type
+     * @param fieldType the field type.
+     */
     public ComparableFieldEnumTest(final Class<E> enumType,
                                    final Class<F> fieldType) {
 

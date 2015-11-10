@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <onacit at gmail.com>.
+ * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,12 +34,12 @@ import org.testng.annotations.Test;
 
 /**
  *
- * @author Jin Kwon <onacit at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class DigestWritableByteChannelTest {
 
 
-    @Test(invocationCount = 128)
+    @Test(enabled = false, invocationCount = 1)
     public void test() throws NoSuchAlgorithmException, IOException {
 
         final Random random = ThreadLocalRandom.current();
@@ -59,9 +59,9 @@ public class DigestWritableByteChannelTest {
             System.out.println();
 
             final MessageDigest digest2 = MessageDigest.getInstance(algorithm);
-            final DigestWritableByteChannel channel =
-                new DigestWritableByteChannel(
-                Channels.newChannel(new BlackOutputStream(-1L)), digest2);
+            final DigestWritableByteChannel channel
+                = new DigestWritableByteChannel(
+                    Channels.newChannel(new BlackOutputStream(-1L)), digest2);
             final ByteBuffer buffer = ByteBuffer.wrap(data);
             while (buffer.hasRemaining()) {
                 channel.write(buffer);
@@ -73,10 +73,10 @@ public class DigestWritableByteChannelTest {
             }
             System.out.println();
 
-
             Assert.assertEquals(actual, expected);
         }
     }
 
 
 }
+

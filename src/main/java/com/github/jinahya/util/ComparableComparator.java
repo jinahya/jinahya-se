@@ -18,7 +18,11 @@
 package com.github.jinahya.util;
 
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Comparator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -28,48 +32,47 @@ import java.util.Comparator;
  * @author Jin Kwon <jinahya at gmail.com>
  * @param <T> comparable type parameter
  */
-public class ComparableComparator<T extends Comparable<T>>
-    implements Comparator<T> {
+public class ComparableComparator<T extends Comparable<? super T>>
+        implements Comparator<T> {
+
+
+    /**
+     * logger.
+     */
+    private static final Logger logger
+            = LoggerFactory.getLogger(ComparableComparator.class);
 
 
     /**
      * An enum constants for ordering {@code null} references.
      */
-    public enum NullPolicy {
+    public enum Nulls {
 
 
         /**
          * Constant for preceding {@code null} references.
          */
-        NULLS_PRECEDE_NONNULLS() {
+        PRECEDE_NONNULLS {
+
+                    @Override
+                    <T extends Comparable<? super T>> int compare(final T o1, final T o2) {
+                        return o1 == null ? (o2 == null ? 0 : -1) : (o2 == null ? 1 : o1.compareTo(o2));
+                    }
 
 
-                @Override
-                <T extends Comparable<T>> int compare(final T o1, final T o2) {
-
-                    return o1 == null
-                           ? o2 == null ? 0 : -1
-                           : o2 == null ? 1 : o1.compareTo(o2);
-                }
-
-
-            },
+                },
         /**
          * Constant for succeeding {@code null} references.
          */
-        NULLS_SUCCEED_NONNULLS() {
+        SUCCEED_NONNULLS {
+
+                    @Override
+                    <T extends Comparable<? super T>> int compare(final T o1, final T o2) {
+                        return o1 == null ? (o2 == null ? 0 : 1) : (o2 == null ? -1 : o1.compareTo(o2));
+                    }
 
 
-                @Override
-                <T extends Comparable<T>> int compare(final T o1, final T o2) {
-
-                    return o1 == null
-                           ? o2 == null ? 0 : 1
-                           : o2 == null ? -1 : o1.compareTo(o2);
-                }
-
-
-            };
+                };
 
 
         /**
@@ -82,17 +85,79 @@ public class ComparableComparator<T extends Comparable<T>>
          * @return a negative integer, zero, or a positive integer as {@code o1}
          * is less than, equal to, or greater than {@code o2).
          */
-        abstract <T extends Comparable<T>> int compare(T o1, T o2);
+        abstract <T extends Comparable<? super T>> int compare(T o1, T o2);
 
 
+        /**
+         *
+         * @param <T>
+         * @param <U>
+         * @param comparator
+         *
+         * @return
+         */
+        @SuppressWarnings(value = "unchecked")
+        <T extends ComparableComparator<U>, U extends Comparable<? super U>> T nulls(final T comparator) {
+            return (T) comparator.nulls(this);
+        }
+
+
+    }
+
+
+    public static Comparator<Byte> byteComparator(final Nulls nulls) {
+
+        return new ComparableComparator<Byte>().nulls(nulls);
+    }
+
+
+    public static Comparator<Short> shortComparator(final Nulls nulls) {
+
+        return new ComparableComparator<Short>().nulls(nulls);
+    }
+
+
+    public static Comparator<Integer> integerComparator(final Nulls nulls) {
+
+        return new ComparableComparator<Integer>().nulls(nulls);
+    }
+
+
+    public static Comparator<Long> longComparator(final Nulls nulls) {
+
+        return new ComparableComparator<Long>().nulls(nulls);
+    }
+
+
+    public static Comparator<BigInteger> bigIntegerComparator(final Nulls nulls) {
+
+        return new ComparableComparator<BigInteger>().nulls(nulls);
+    }
+
+
+    public static Comparator<Float> floatComparator(final Nulls nulls) {
+
+        return new ComparableComparator<Float>().nulls(nulls);
+    }
+
+
+    public static Comparator<Double> doubleComparator(final Nulls nulls) {
+
+        return new ComparableComparator<Double>().nulls(nulls);
+    }
+
+
+    public static Comparator<BigDecimal> bigDecimalComparator(final Nulls nulls) {
+
+        return new ComparableComparator<BigDecimal>().nulls(nulls);
     }
 
 
     @Override
     public int compare(final T o1, final T o2) {
 
-        if (nullPolicy != null) {
-            nullPolicy.compare(o1, o2);
+        if (nulls != null) {
+            return nulls.compare(o1, o2);
         }
 
         return o1.compareTo(o2);
@@ -100,36 +165,24 @@ public class ComparableComparator<T extends Comparable<T>>
 
 
     /**
-     * Returns the current value of {@code nullPolicty}. The default value of
-     * {@code nullPolicy} is {@code null}.
+     * Replaces the value of {@code nulls} with given value.
      *
-     * @return the current value of {@code nullPolicy}
+     * @param nulls new value of {@code nulls}
      *
-     * @see NullPolicy
+     * @return this comparator
      */
-    public NullPolicy getNullPolicy() {
+    public ComparableComparator<T> nulls(final Nulls nulls) {
 
-        return nullPolicy;
+        this.nulls = nulls;
+
+        return this;
     }
 
 
     /**
-     * Replaces the value of {@code nullPolicy} with given value.
-     *
-     * @param nullPolicy new value of {@code nullPolicy}
-     *
-     * @see NullPolicy
+     * nulls.
      */
-    public void setNullPolicy(final NullPolicy nullPolicy) {
-
-        this.nullPolicy = nullPolicy;
-    }
-
-
-    /**
-     * nullPolicy.
-     */
-    private NullPolicy nullPolicy;
+    private Nulls nulls;
 
 
 }

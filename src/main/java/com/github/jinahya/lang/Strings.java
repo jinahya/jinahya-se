@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 <a href="mailto:onacit@gmail.com">Jin Kwon</a>.
+ * Copyright 2014 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,9 +24,99 @@ import java.util.List;
 
 /**
  *
- * @author <a href="mailto:onacit@gmail.com">Jin Kwon</a>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class Strings {
+
+
+    public static String concat(String string, final String... strs) {
+
+        if (string == null) {
+            throw new NullPointerException("null string");
+        }
+
+        if (strs == null) {
+            throw new NullPointerException("null strs");
+        }
+
+        for (final String str : strs) {
+            string = string.concat(str);
+        }
+
+        return string;
+    }
+
+
+    public static boolean containsAny(final String string, final CharSequence... ss) {
+
+        if (string == null) {
+            throw new NullPointerException("null string");
+        }
+
+        if (ss == null) {
+            throw new NullPointerException("null ss");
+        }
+
+        for (final CharSequence s : ss) {
+            if (string.contains(s)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    public static boolean containsAll(final String string, final CharSequence... ss) {
+
+        if (string == null) {
+            throw new NullPointerException("null string");
+        }
+
+        if (ss == null) {
+            throw new NullPointerException("null ss");
+        }
+
+        for (final CharSequence s : ss) {
+            if (!string.contains(s)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+    /**
+     * Test if give string ends with any of specified suffixes.
+     *
+     * @param string the string to test
+     * @param suffixes suffixes
+     *
+     * @return {@code true} if given string ends with any of specified suffixes;
+     * {@code false} otherwise.
+     *
+     * @see String#endsWith(java.lang.String)
+     */
+    public static boolean endsWith(final String string,
+                                   final String... suffixes) {
+
+        if (string == null) {
+            throw new NullPointerException("null string");
+        }
+
+        if (suffixes == null) {
+            throw new NullPointerException("null suffixes");
+        }
+
+        for (final String suffix : suffixes) {
+            if (string.endsWith(suffix)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
 
     /**
@@ -131,7 +221,6 @@ public final class Strings {
         }
 
         final List<Integer> indices = new ArrayList<Integer>();
-
 
         while (true) {
             final int index = string.indexOf(str, fromIndex);

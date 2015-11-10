@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <onacit at gmail.com>.
+ * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ import org.testng.annotations.Test;
 
 /**
  *
- * @author Jin Kwon <onacit at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class MessageDigestsTest {
 
@@ -43,11 +43,11 @@ public class MessageDigestsTest {
         return MessageDigest.getInstance(
             MessageDigests.SUPPORTED_ALGORITHMS
             .get(ThreadLocalRandom.current().nextInt(
-            MessageDigests.SUPPORTED_ALGORITHMS.size())));
+                    MessageDigests.SUPPORTED_ALGORITHMS.size())));
     }
 
 
-    @Test(invocationCount = 32)
+    @Test(enabled = false, invocationCount = 1)
     public void test() throws NoSuchAlgorithmException, IOException {
 
         final Random random = ThreadLocalRandom.current();
@@ -73,3 +73,4 @@ public class MessageDigestsTest {
 
 
 }
+

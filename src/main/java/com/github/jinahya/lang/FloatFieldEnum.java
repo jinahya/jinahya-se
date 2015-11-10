@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Jin Kwon <onacit at gmail.com>.
+ * Copyright 2014 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +20,32 @@ package com.github.jinahya.lang;
 
 /**
  *
- * @author Jin Kwon <onacit at gmail.com>
- * @param <E>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
+ * @param <E> enum type parameter
  */
-public interface FloatFieldEnum<E extends Enum<E>>
-        extends ComparableFieldEnum<E, Float> {
+public interface FloatFieldEnum<E extends Enum<E>> {
+
+
+    static <E extends Enum<E> & LongFieldEnum<E>> float[] fieldValues(
+        final Class<E> type) {
+
+        if (type == null) {
+            throw new NullPointerException("null type");
+        }
+
+        final E[] enumConstants = type.getEnumConstants();
+
+        final float[] fieldValues = new float[enumConstants.length];
+        for (int i = 0; i < fieldValues.length; i++) {
+            fieldValues[i] = enumConstants[i].fieldValue();
+        }
+
+        return fieldValues;
+    }
+
+
+    float fieldValue();
+
 
 }
 

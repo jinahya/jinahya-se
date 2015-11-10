@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Jin Kwon <onacit at gmail.com>.
+ * Copyright 2014 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,30 +15,31 @@
  */
 
 
-package com.github.jinahya.misc.untouchables;
+package com.github.jinahya.lang;
 
 
 /**
  *
- * @author Jin Kwon <onacit at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public class Untouchable2 {
+public final class Iterables {
 
 
-    private static String SECRET = "You Can't Touch This";
-
-
-    private Untouchable2() {
-
-        super();
+    public static <T> void requireSortedAscending(final Iterable<T> iterable, final Comparable<? super T> comparator) {
         
-        throw new RuntimeException("Too Regit to Quit");
+        if (iterable == null) {
+            throw new NullPointerException("null iterable");
+        }
+
+        if (comparator == null) {
+            throw new NullPointerException("null comparator");
+        }
     }
 
 
-    public void secret() {
+    private Iterables() {
 
-        System.out.println(SECRET);
+        super();
     }
 
 

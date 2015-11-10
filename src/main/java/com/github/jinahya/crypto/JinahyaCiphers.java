@@ -40,12 +40,12 @@ import javax.crypto.ShortBufferException;
  *
  * @author Jin Kwon <jinahya at gmail.com>
  */
-public final class Ciphers {
+public final class JinahyaCiphers {
 
 
     /**
-     * A map of transformations and lists of available key sizes that every
-     * implementation of the Java platform is required to support.
+     * An immutable map of transformations and lists of available key sizes that
+     * every implementation of the Java platform is required to support.
      *
      * @see Cipher
      */
@@ -53,8 +53,7 @@ public final class Ciphers {
 
 
     static {
-        final Map<String, List<Integer>> m
-            = new HashMap<String, List<Integer>>();
+        final Map<String, List<Integer>> m = new HashMap<>();
         m.put("AES/CBC/NoPadding", Arrays.asList(128));
         m.put("AES/CBC/PKCS5Padding", Arrays.asList(128));
         m.put("AES/ECB/NoPadding", Arrays.asList(128));
@@ -322,7 +321,7 @@ public final class Ciphers {
     /**
      * private constructor.
      */
-    private Ciphers() {
+    private JinahyaCiphers() {
 
         super();
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <onacit at gmail.com>.
+ * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +23,6 @@ import com.github.jinahya.io.IoTests;
 import com.github.jinahya.io.WhiteInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
@@ -37,7 +35,7 @@ import org.testng.annotations.Test;
 
 /**
  *
- * @author Jin Kwon <onacit at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class ByteChannelsTest {
 
@@ -45,11 +43,11 @@ public class ByteChannelsTest {
     /**
      * logger.
      */
-    private static final Logger LOGGER
+    private static final Logger logger
         = LoggerFactory.getLogger(ByteChannelsTest.class);
 
 
-    @Test(enabled = true, invocationCount = 32)
+    @Test(enabled = false, invocationCount = 32)
     public void copy_file2file() throws IOException {
 
         final long sourceLength = IoTests.newTempFileLength();
@@ -65,7 +63,7 @@ public class ByteChannelsTest {
     }
 
 
-    @Test(enabled = true, invocationCount = 32)
+    @Test(enabled = false, invocationCount = 32)
     public void copy_SmallerFile2BiggerChannel() throws IOException {
 
         final long length = IoTests.newTempFileLength();
@@ -81,7 +79,7 @@ public class ByteChannelsTest {
     }
 
 
-    @Test(enabled = true, invocationCount = 32)
+    @Test(enabled = false, invocationCount = 32)
     public void copy_BiggerFile2SmallerChannel() throws IOException {
 
 //        final long limit = ThreadLocalRandom.current().nextInt(65535);
@@ -99,11 +97,11 @@ public class ByteChannelsTest {
     }
 
 
-    @Test(enabled = true, invocationCount = 32)
+    @Test(enabled = false, invocationCount = 32)
     public void copy_SmallerChannel2BiggerFile() throws IOException {
 
         final long limit = ThreadLocalRandom.current().nextInt(65535);
-        LOGGER.trace("limit: {}", limit);
+        logger.trace("limit: {}", limit);
         final ReadableByteChannel input
             = Channels.newChannel(new WhiteInputStream(limit));
 
@@ -116,17 +114,17 @@ public class ByteChannelsTest {
     }
 
 
-    @Test(enabled = true, invocationCount = 32)
+    @Test(enabled = false, invocationCount = 32)
     public void copy_BiggerChannel2SmallerFile() throws IOException {
 
         final long limit = ThreadLocalRandom.current().nextInt(65535) + 1;
         assert limit > 0L;
-        LOGGER.trace("limit: {}", limit);
+        logger.trace("limit: {}", limit);
         final ReadableByteChannel input
             = Channels.newChannel(new WhiteInputStream(limit));
 
         final long length = ThreadLocalRandom.current().nextLong(0, limit);
-        LOGGER.trace("size: {}", length);
+        logger.trace("size: {}", length);
         assert length < limit;
         final File output = IoTests.newTempFile(length);
 

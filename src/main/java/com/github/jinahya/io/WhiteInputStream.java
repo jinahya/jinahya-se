@@ -19,7 +19,6 @@ package com.github.jinahya.io;
 
 
 import java.io.IOException;
-import java.io.InputStream;
 
 
 /**
@@ -27,49 +26,84 @@ import java.io.InputStream;
  *
  * @author Jin Kwon <jinahya at gmail.com>
  */
-public class WhiteInputStream extends InputStream {
+public class WhiteInputStream extends FunnelInputStream {
 
 
-    public static InputStream newUnlimitedInstance() {
-
-        return new WhiteInputStream(-1L);
-    }
-
-
-    /**
-     * Creates a new instance with given {@code limit}.
-     *
-     * @param limit the maximum number of bytes can be read; {@code -1} for no
-     * limit.
-     */
     public WhiteInputStream(final long limit) {
 
-        super();
-
-        if (limit < -1) {
-            throw new IllegalArgumentException("limit(" + limit + ") < -1");
-        }
+        super(null);
 
         this.limit = limit;
     }
 
 
-    /**
-     * Returns next byte.
-     *
-     * @return next byte or {@code -1} if {@code limit} is set and the number of
-     * byte read so far exceeds it.
-     *
-     * @throws IOException {@inheritDoc }
-     */
     @Override
     public int read() throws IOException {
 
-        if (limit != -1 && limit <= count++) {
+        if (limit >= 0L && limit <= count++) {
             return -1;
         }
 
-        return (int) (System.currentTimeMillis() & 0xFFL);
+        return 0;
+    }
+
+
+    @Override
+    public boolean markSupported() {
+
+        return false;
+    }
+
+
+    @Override
+    public synchronized void reset() throws IOException {
+
+        // does nothing
+    }
+
+
+    @Override
+    public synchronized void mark(int readlimit) {
+
+        // does nothing
+    }
+
+
+    @Override
+    public void close() throws IOException {
+
+        // does nothing
+    }
+
+
+    @Override
+    public int available() throws IOException {
+
+        if (limit <= 0L) {
+            return Integer.MAX_VALUE;
+        }
+
+        if (count >= 0 && count <= limit) {
+            final long available = limit - count;
+            if (available <= Integer.MAX_VALUE) {
+                return (int) available;
+            } else {
+                return Integer.MAX_VALUE;
+            }
+        }
+
+        return 0;
+    }
+
+
+    @Override
+    public long skip(final long n) throws IOException {
+
+        for (int i = 0; i < n; i++) {
+            read();
+        }
+
+        return n;
     }
 
 
@@ -99,13 +133,13 @@ public class WhiteInputStream extends InputStream {
     /**
      * the maximum number of bytes can be read. {@code -1L} for unlimited.
      */
-    private final long limit;
+    protected long limit;
 
 
     /**
      * the total number of byte read so far.
      */
-    private long count = 0L;
+    protected transient long count;
 
 
 }

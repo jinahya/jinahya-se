@@ -35,8 +35,8 @@ import org.testng.annotations.Test;
 public class JinahyaRandomTest {
 
 
-    private static final Logger LOGGER =
-        LoggerFactory.getLogger(JinahyaRandomTest.class);
+    private static final Logger LOGGER
+        = LoggerFactory.getLogger(JinahyaRandomTest.class);
 
 
     private static void testNextIntMinMax(final JinahyaRandom random,
@@ -92,8 +92,8 @@ public class JinahyaRandomTest {
     @Test
     public void testNextIntWithToWideRange() {
 
-        final JinahyaRandom random =
-            new JinahyaRandom(ThreadLocalRandom.current());
+        final JinahyaRandom random
+            = new JinahyaRandom(ThreadLocalRandom.current());
 
         random.nextInt(Integer.MIN_VALUE, -1); // ok
 
@@ -122,8 +122,8 @@ public class JinahyaRandomTest {
     @Test
     public void testNextInt() {
 
-        final JinahyaRandom random =
-            new JinahyaRandom(ThreadLocalRandom.current());
+        final JinahyaRandom random
+            = new JinahyaRandom(ThreadLocalRandom.current());
 
         try {
             random.nextInt(0, -1);
@@ -137,8 +137,8 @@ public class JinahyaRandomTest {
         random.nextInt(1, 1);
         random.nextInt(Integer.MAX_VALUE, Integer.MAX_VALUE);
 
-        final int length =
-            ThreadLocalRandom.current().nextInt(Integer.MAX_VALUE);
+        final int length
+            = ThreadLocalRandom.current().nextInt(Integer.MAX_VALUE);
 
         random.nextInt(length, length);
 
@@ -151,8 +151,8 @@ public class JinahyaRandomTest {
     @Test
     public void testNextUnsignedIntWithWrongArguments() {
 
-        final JinahyaRandom random =
-            new JinahyaRandom(ThreadLocalRandom.current());
+        final JinahyaRandom random
+            = new JinahyaRandom(ThreadLocalRandom.current());
 
         try {
             random.nextUnsignedInt(0, 1);
@@ -177,29 +177,29 @@ public class JinahyaRandomTest {
     }
 
 
-    @Test(invocationCount = 32)
+    @Test(invocationCount = 1)
     public void testNextUnsignedInt() {
 
-        final JinahyaRandom random =
-            new JinahyaRandom(ThreadLocalRandom.current());
+        final JinahyaRandom random
+            = new JinahyaRandom(ThreadLocalRandom.current());
 
         random.nextUnsignedInt(1, 1);
         random.nextUnsignedInt(1, Integer.SIZE - 1);
         random.nextUnsignedInt(Integer.SIZE - 1, Integer.SIZE - 1);
 
-        final int minimumBitLength =
-            ThreadLocalRandom.current().nextInt(31) + 1;
+        final int minimumBitLength
+            = ThreadLocalRandom.current().nextInt(31) + 1;
         Assert.assertTrue(minimumBitLength > 0);
         Assert.assertTrue(minimumBitLength < Integer.SIZE);
 
-        final int maximumBitLength =
-            ThreadLocalRandom.current().nextInt(
-            Integer.SIZE - minimumBitLength) + minimumBitLength;
+        final int maximumBitLength
+            = ThreadLocalRandom.current().nextInt(
+                Integer.SIZE - minimumBitLength) + minimumBitLength;
         Assert.assertTrue(maximumBitLength >= minimumBitLength);
         Assert.assertTrue(maximumBitLength < Integer.SIZE);
 
-        final int nextUnsignedInt =
-            random.nextUnsignedInt(minimumBitLength, maximumBitLength);
+        final int nextUnsignedInt
+            = random.nextUnsignedInt(minimumBitLength, maximumBitLength);
         Assert.assertTrue(nextUnsignedInt >= 0);
         Assert.assertTrue(nextUnsignedInt >> maximumBitLength == 0);
     }
@@ -208,8 +208,8 @@ public class JinahyaRandomTest {
     @Test
     public void testNextSignedIntWithWrongArguments() {
 
-        final JinahyaRandom random =
-            new JinahyaRandom(ThreadLocalRandom.current());
+        final JinahyaRandom random
+            = new JinahyaRandom(ThreadLocalRandom.current());
 
         try {
             random.nextSignedInt(1, 1);
@@ -234,29 +234,29 @@ public class JinahyaRandomTest {
     }
 
 
-    @Test(invocationCount = 32)
+    @Test(invocationCount = 1)
     public void testNextSignedInt() {
 
-        final JinahyaRandom random =
-            new JinahyaRandom(ThreadLocalRandom.current());
+        final JinahyaRandom random
+            = new JinahyaRandom(ThreadLocalRandom.current());
 
         random.nextSignedInt(2, 2);
         random.nextSignedInt(2, Integer.SIZE);
         random.nextSignedInt(Integer.SIZE, Integer.SIZE);
 
-        final int minimumBitLength =
-            ThreadLocalRandom.current().nextInt(Integer.SIZE - 1) + 2;
+        final int minimumBitLength
+            = ThreadLocalRandom.current().nextInt(Integer.SIZE - 1) + 2;
         Assert.assertTrue(minimumBitLength > 1);
         Assert.assertTrue(minimumBitLength <= Integer.SIZE);
 
-        final int maximumBitLength =
-            ThreadLocalRandom.current().nextInt(
-            Integer.SIZE + 1 - minimumBitLength) + minimumBitLength;
+        final int maximumBitLength
+            = ThreadLocalRandom.current().nextInt(
+                Integer.SIZE + 1 - minimumBitLength) + minimumBitLength;
         Assert.assertTrue(maximumBitLength >= minimumBitLength);
         Assert.assertTrue(maximumBitLength <= Integer.SIZE);
 
-        final int signedInt =
-            random.nextSignedInt(minimumBitLength, maximumBitLength);
+        final int signedInt
+            = random.nextSignedInt(minimumBitLength, maximumBitLength);
         if (maximumBitLength < Integer.SIZE) {
             if (signedInt >= 0) {
                 Assert.assertTrue(signedInt >> maximumBitLength == 0);
@@ -270,8 +270,8 @@ public class JinahyaRandomTest {
     @Test
     public void testNextSignedLongWithWrongArguments() {
 
-        final JinahyaRandom random =
-            new JinahyaRandom(ThreadLocalRandom.current());
+        final JinahyaRandom random
+            = new JinahyaRandom(ThreadLocalRandom.current());
 
         try {
             random.nextSignedLong(1, 1);
@@ -295,29 +295,29 @@ public class JinahyaRandomTest {
     }
 
 
-    @Test(invocationCount = 32)
+    @Test(invocationCount = 1)
     public void testNextSignedLong() {
 
-        final JinahyaRandom random =
-            new JinahyaRandom(ThreadLocalRandom.current());
+        final JinahyaRandom random
+            = new JinahyaRandom(ThreadLocalRandom.current());
 
         random.nextSignedLong(2, 2);
         random.nextSignedLong(2, Long.SIZE);
         random.nextSignedLong(Long.SIZE, Long.SIZE);
 
-        final int minimumBitLength =
-            ThreadLocalRandom.current().nextInt(Long.SIZE - 1) + 2;
+        final int minimumBitLength
+            = ThreadLocalRandom.current().nextInt(Long.SIZE - 1) + 2;
         Assert.assertTrue(minimumBitLength > 1);
         Assert.assertTrue(minimumBitLength <= Long.SIZE);
 
-        final int maximumBitLength =
-            ThreadLocalRandom.current().nextInt(
-            Long.SIZE + 1 - minimumBitLength) + minimumBitLength;
+        final int maximumBitLength
+            = ThreadLocalRandom.current().nextInt(
+                Long.SIZE + 1 - minimumBitLength) + minimumBitLength;
         Assert.assertTrue(maximumBitLength >= minimumBitLength);
         Assert.assertTrue(maximumBitLength <= Long.SIZE);
 
-        final long signedLong =
-            random.nextSignedLong(minimumBitLength, maximumBitLength);
+        final long signedLong
+            = random.nextSignedLong(minimumBitLength, maximumBitLength);
         if (maximumBitLength < Long.SIZE) {
             if (signedLong >= 0L) {
                 Assert.assertTrue(signedLong >> maximumBitLength == 0L);
@@ -331,8 +331,8 @@ public class JinahyaRandomTest {
     @Test
     public void testNextUnsignedLongWithWrongArguments() {
 
-        final JinahyaRandom random =
-            new JinahyaRandom(ThreadLocalRandom.current());
+        final JinahyaRandom random
+            = new JinahyaRandom(ThreadLocalRandom.current());
 
         try {
             random.nextUnsignedLong(0, 0);
@@ -357,29 +357,29 @@ public class JinahyaRandomTest {
     }
 
 
-    @Test(invocationCount = 32)
+    @Test(invocationCount = 1)
     public void testNextUnsignedLong() {
 
-        final JinahyaRandom random =
-            new JinahyaRandom(ThreadLocalRandom.current());
+        final JinahyaRandom random
+            = new JinahyaRandom(ThreadLocalRandom.current());
 
         random.nextUnsignedLong(1, 1);
         random.nextUnsignedLong(1, Long.SIZE - 1);
         random.nextUnsignedLong(Long.SIZE - 1, Long.SIZE - 1);
 
-        final int minimumBitLength =
-            ThreadLocalRandom.current().nextInt(Long.SIZE - 1) + 1;
+        final int minimumBitLength
+            = ThreadLocalRandom.current().nextInt(Long.SIZE - 1) + 1;
         Assert.assertTrue(minimumBitLength >= 1);
         Assert.assertTrue(minimumBitLength < Long.SIZE);
 
-        final int maximumBitLength =
-            ThreadLocalRandom.current().nextInt(Long.SIZE - minimumBitLength)
-            + minimumBitLength;
+        final int maximumBitLength
+            = ThreadLocalRandom.current().nextInt(Long.SIZE - minimumBitLength)
+              + minimumBitLength;
         Assert.assertTrue(maximumBitLength >= minimumBitLength);
         Assert.assertTrue(maximumBitLength < Long.SIZE);
 
-        final long unsignedLong =
-            random.nextUnsignedLong(minimumBitLength, maximumBitLength);
+        final long unsignedLong
+            = random.nextUnsignedLong(minimumBitLength, maximumBitLength);
 
         Assert.assertTrue(unsignedLong >= 0L);
         Assert.assertTrue(unsignedLong >> maximumBitLength == 0L);
@@ -387,3 +387,4 @@ public class JinahyaRandomTest {
 
 
 }
+

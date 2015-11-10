@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Jin Kwon <onacit at gmail.com>.
+ * Copyright 2014 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import org.testng.annotations.Test;
 
 /**
  *
- * @author Jin Kwon <onacit at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class FieldsTest {
 
@@ -43,7 +43,7 @@ public class FieldsTest {
         Assert.assertTrue(Modifier.isPrivate(modifiers));
         Assert.assertTrue(Modifier.isFinal(modifiers));
 
-        Fields.unprivate(field);
+        JinahyaFields.unprivate(field);
         modifiers = field.getModifiers();
         Assert.assertTrue(!Modifier.isPrivate(modifiers));
         Assert.assertTrue(Modifier.isFinal(modifiers));
@@ -59,7 +59,7 @@ public class FieldsTest {
         Assert.assertTrue(Modifier.isPrivate(modifiers));
         Assert.assertTrue(Modifier.isFinal(modifiers));
 
-        Fields.unfinal(field);
+        JinahyaFields.unfinal(field);
         modifiers = field.getModifiers();
         Assert.assertTrue(Modifier.isPrivate(modifiers));
         Assert.assertTrue(!Modifier.isFinal(modifiers));
