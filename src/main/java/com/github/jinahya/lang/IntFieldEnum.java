@@ -37,14 +37,14 @@ public interface IntFieldEnum<E extends Enum<E>> {
 
         final int[] fieldValues = new int[enumConstants.length];
         for (int i = 0; i < fieldValues.length; i++) {
-            fieldValues[i] = enumConstants[i].fieldValue();
+            fieldValues[i] = enumConstants[i].fieldValueAsInt();
         }
 
         return fieldValues;
     }
 
 
-    int fieldValue();
+    int fieldValueAsInt();
 
 
 }

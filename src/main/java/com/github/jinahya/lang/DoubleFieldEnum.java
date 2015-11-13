@@ -37,7 +37,7 @@ public interface DoubleFieldEnum<E extends Enum<E>> {
 
         final double[] fieldValues = new double[enumConstants.length];
         for (int i = 0; i < fieldValues.length; i++) {
-            fieldValues[i] = enumConstants[i].fieldValue();
+            fieldValues[i] = enumConstants[i].fieldValueAsLong();
         }
 
         return fieldValues;

@@ -25,7 +25,7 @@ import java.io.InputStream;
 /**
  * An input stream reads bytes only through {@link InputStream#read()}.
  *
- * @author Jin Kwon <jinahya at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class FunnelInputStream extends InputStream {
 
@@ -35,16 +35,10 @@ public class FunnelInputStream extends InputStream {
      * input stream.
      *
      * @param input the underlying input stream
-     *
-     * @throws NullPointerException if {@code input} is {@code null}
      */
     protected FunnelInputStream(final InputStream input) {
 
         super();
-
-        if (input == null) {
-            throw new NullPointerException("null input");
-        }
 
         this.input = input;
     }

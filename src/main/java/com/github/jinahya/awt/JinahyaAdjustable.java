@@ -25,28 +25,38 @@ import com.github.jinahya.lang.IntFieldEnum;
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public enum Adjustable implements IntFieldEnum<Adjustable> {
+public final class JinahyaAdjustable {
 
 
-    HORIZONTAL(java.awt.Adjustable.HORIZONTAL),
-    VERTICAL(java.awt.Adjustable.VERTICAL),
-    NO_OPERATIONAL(java.awt.Adjustable.NO_ORIENTATION);
+    public static enum Orientation implements IntFieldEnum<Orientation> {
+
+        HORIZONTAL(java.awt.Adjustable.HORIZONTAL),
+        VERTICAL(java.awt.Adjustable.VERTICAL),
+        NO_OPERATIONAL(java.awt.Adjustable.NO_ORIENTATION);
 
 
-    private Adjustable(final int fieldValue) {
+        private Orientation(final int fieldValue) {
 
-        this.fieldValue = fieldValue;
+            this.fieldValue = fieldValue;
+        }
+
+
+        @Override
+        public int fieldValueAsInt() {
+
+            return fieldValue;
+        }
+
+
+        private final int fieldValue;
+
     }
 
 
-    @Override
-    public int fieldValue() {
+    private JinahyaAdjustable() {
 
-        return fieldValue;
+        super();
     }
-
-
-    private final int fieldValue;
 
 
 }

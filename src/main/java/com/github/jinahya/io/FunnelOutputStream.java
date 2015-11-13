@@ -25,7 +25,7 @@ import java.io.OutputStream;
 /**
  * An output stream writes bytes only through {@link OutputStream#write(int) }.
  *
- * @author Jin Kwon <jinahya at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class FunnelOutputStream extends OutputStream {
 
@@ -35,16 +35,10 @@ public class FunnelOutputStream extends OutputStream {
      * output stream.
      *
      * @param output the underlying output stream
-     *
-     * @throws NullPointerException if {@code output} is {@code null}
      */
     protected FunnelOutputStream(final OutputStream output) {
 
         super();
-
-        if (output == null) {
-            throw new NullPointerException("null output");
-        }
 
         this.output = output;
     }

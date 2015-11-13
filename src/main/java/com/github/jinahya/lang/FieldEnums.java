@@ -25,7 +25,7 @@ import java.util.Collection;
 /**
  * A helper class for {@link FieldEnum}.
  *
- * @author Jin Kwon <jinahya at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class FieldEnums {
 

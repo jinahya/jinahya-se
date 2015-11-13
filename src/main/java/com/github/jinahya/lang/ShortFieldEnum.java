@@ -23,8 +23,30 @@ package com.github.jinahya.lang;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <E> enum type parameter
  */
-public interface ShortFieldEnum<E extends Enum<E>>
-    extends ComparableFieldEnum<E, Short> {
+public interface ShortFieldEnum<E extends Enum<E>> {
+//    extends ComparableFieldEnum<E, Short> {
+
+
+    static <E extends Enum<E> & IntFieldEnum<E>> int[] fieldValues(
+        final Class<E> type) {
+
+        if (type == null) {
+            throw new NullPointerException("null type");
+        }
+
+        final E[] enumConstants = type.getEnumConstants();
+
+        final int[] fieldValues = new int[enumConstants.length];
+        for (int i = 0; i < fieldValues.length; i++) {
+            fieldValues[i] = enumConstants[i].fieldValueAsInt();
+        }
+
+        return fieldValues;
+    }
+
+
+    int fieldValueAsShort();
+
 
 }
 

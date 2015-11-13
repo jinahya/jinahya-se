@@ -23,6 +23,7 @@ package com.github.jinahya.lang;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <E> enum type parameter
  */
+@Deprecated
 public interface IntegerFieldEnum<E extends Enum<E>>
     extends ComparableFieldEnum<E, Integer> {
 

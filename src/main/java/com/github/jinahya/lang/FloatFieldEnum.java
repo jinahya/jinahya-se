@@ -37,14 +37,14 @@ public interface FloatFieldEnum<E extends Enum<E>> {
 
         final float[] fieldValues = new float[enumConstants.length];
         for (int i = 0; i < fieldValues.length; i++) {
-            fieldValues[i] = enumConstants[i].fieldValue();
+            fieldValues[i] = enumConstants[i].fieldValueAsLong();
         }
 
         return fieldValues;
     }
 
 
-    float fieldValue();
+    float fieldValueAsFloat();
 
 
 }
