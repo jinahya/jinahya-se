@@ -1,18 +1,46 @@
-
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
   <modelVersion>4.0.0</modelVersion>
 
-  <!-- The Basics -->
+  <parent>
+    <groupId>com.github.jinahya</groupId>
+    <artifactId>jinahya-parent</artifactId>
+    <version>0.6</version>
+  </parent>
+
   <groupId>com.github.jinahya</groupId>
   <artifactId>jinahya-se</artifactId>
   <version>1.0-alpha-3-SNAPSHOT</version>
   <packaging>jar</packaging>
-  <parent>
-    <groupId>org.sonatype.oss</groupId>
-    <artifactId>oss-parent</artifactId>
-    <version>9</version>
-  </parent>
+
+  <name>${project.artifactId}</name>
+  <url>https://github.com/jinahya/{@project.artifactId}</url>
+
+  <scm>
+    <connection>scm:git:git@github.com:jinahya/{@project.artifactId}.git</connection>
+    <developerConnection>scm:git:git@github.com:jinahya/{@project.artifactId}.git</developerConnection>
+    <url>https://github.com/jinahya/{@project.artifactId}</url>
+    <tag>HEAD</tag>
+  </scm>
+  <distributionManagement>
+    <site>
+      <id>jinahya.github.io</id>
+      <url>https://jinahya.github.io/jinahya-se/sites/${project.version}</url>
+    </site>
+  </distributionManagement>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.testSource>1.8</maven.compiler.testSource>
+    <maven.compiler.testTarget>1.8</maven.compiler.testTarget>
+  </properties>
+
+  <repositories />
+  <pluginRepositories />
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -94,14 +122,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <maven.compiler.testSource>1.8</maven.compiler.testSource>
-    <maven.compiler.testTarget>1.8</maven.compiler.testTarget>
-  </properties>
 
   <!-- Build Settings -->
   <build>
@@ -309,51 +329,9 @@
       </plugin>
     </plugins>
   </build>
+
   <reporting />
 
-  <!-- More Project Information -->
-  <name>${project.artifactId}</name>
-  <url>https://www.jinahya.com/mvn/site/${project.groupId}/${project.artifactId}/${project.version}</url>
-  <inceptionYear>2011</inceptionYear>
-  <licenses>
-    <license>
-      <name>Apache 2</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-      <comments>A business-friendly OSS license</comments>
-    </license>
-  </licenses>
-  <organization />
-  <developers>
-    <developer>
-      <id>jinahya</id>
-      <name>Jin Kwon</name>
-      <email>jinahya@gmail.com</email>
-    </developer>
-  </developers>
-  <contributors />
-
-  <!-- Environment Settings -->
-  <issueManagement />
-  <ciManagement />
-  <mailingLists />
-  <scm>
-    <connection>scm:git:git@github.com:jinahya/jinahya-se.git</connection>
-    <developerConnection>scm:git:git@github.com:jinahya/jinahya-se.git</developerConnection>
-    <url>https://github.com/jinahya/jinahya-se</url>
-    <tag>HEAD</tag>
-  </scm>
-  <prerequisites>
-    <maven>3.2.5</maven>
-  </prerequisites>
-  <repositories />
-  <pluginRepositories />
-  <distributionManagement>
-    <site>
-      <id>jinahya.com</id>
-      <url>dav:${project.url}</url>
-    </site>
-  </distributionManagement>
   <profiles>
     <profile>
       <id>release-sign-artifacts</id>
