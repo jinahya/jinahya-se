@@ -23,8 +23,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 /**
@@ -37,13 +35,6 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class MapEntriesAdapter<T extends MapEntries<?, K, V>, K, V>
     extends XmlAdapter<T, Map<K, V>> {
-
-
-    /**
-     * logger.
-     */
-    private static final Logger LOGGER =
-        LoggerFactory.getLogger(MapEntriesAdapter.class);
 
 
     /**
@@ -98,5 +89,5 @@ public abstract class MapEntriesAdapter<T extends MapEntries<?, K, V>, K, V>
      */
     private final Class<T> entriesType;
 
-
 }
+

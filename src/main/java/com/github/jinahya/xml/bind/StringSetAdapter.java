@@ -44,5 +44,5 @@ public abstract class StringSetAdapter<E>
         return new HashSet<E>();
     }
 
-
 }
+

@@ -79,6 +79,5 @@ public class FilterWritableByteChannel implements WritableByteChannel {
 
     protected WritableByteChannel channel;
 
-
 }
 

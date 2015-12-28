@@ -31,8 +31,7 @@ import java.util.Collection;
  * @author Jin Kwon
  */
 public enum StandardCharset
-        implements ComparableFieldEnum<StandardCharset, Charset> {
-
+    implements ComparableFieldEnum<StandardCharset, Charset> {
 
     /**
      * Constant for {@link StandardCharsets#ISO_8859_1}.
@@ -82,7 +81,7 @@ public enum StandardCharset
      * @see FieldEnums#fieldValues(java.lang.Class, java.lang.Class)
      */
     public static void fieldValues(
-            final Collection<? super Charset> fieldValues) {
+        final Collection<? super Charset> fieldValues) {
 
         FieldEnums.fieldValues(StandardCharset.class, fieldValues);
     }
@@ -102,7 +101,6 @@ public enum StandardCharset
 
 
     private final Charset fieldValue;
-
 
 }
 

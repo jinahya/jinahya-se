@@ -20,8 +20,6 @@ package com.github.jinahya.xml.bind.test.map;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.util.HashMap;
-import java.util.Map;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -67,7 +65,6 @@ public class Department0Test {
 
         Assert.assertEquals(actual, expected);
     }
-
 
 }
 

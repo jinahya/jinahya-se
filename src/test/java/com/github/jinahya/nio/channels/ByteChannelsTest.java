@@ -133,6 +133,5 @@ public class ByteChannelsTest {
         Assert.assertEquals(count, length);
     }
 
-
 }
 

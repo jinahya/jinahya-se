@@ -47,6 +47,5 @@ public interface ShortFieldEnum<E extends Enum<E>> {
 
     int fieldValueAsShort();
 
-
 }
 

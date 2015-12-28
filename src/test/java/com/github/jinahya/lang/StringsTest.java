@@ -230,6 +230,5 @@ public class StringsTest {
         Assert.assertTrue(Strings.indicesOf(string, "__", 10).isEmpty());
     }
 
-
 }
 

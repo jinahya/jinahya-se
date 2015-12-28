@@ -26,9 +26,8 @@
 package nocompile.sun.misc.openjdk7u40.b43;
 
 
-import java.security.*;
 import java.lang.reflect.*;
-
+import java.security.*;
 import sun.reflect.CallerSensitive;
 import sun.reflect.Reflection;
 
@@ -1324,7 +1323,6 @@ public final class Unsafe {
      * average is unobtainable.
      */
     public native int getLoadAverage(double[] loadavg, int nelems);
-
 
 }
 

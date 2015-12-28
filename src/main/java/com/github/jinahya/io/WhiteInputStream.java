@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Jin Kwon <jinahya at gmail.com>.
+ * Copyright 2012 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import java.io.IOException;
 /**
  * An input stream generates random bytes.
  *
- * @author Jin Kwon <jinahya at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class WhiteInputStream extends FunnelInputStream {
 
@@ -40,9 +40,11 @@ public class WhiteInputStream extends FunnelInputStream {
     @Override
     public int read() throws IOException {
 
-        if (limit >= 0L && limit <= count++) {
+        if (limit >= 0L && limit <= count) {
             return -1;
         }
+
+        count++;
 
         return 0;
     }
@@ -140,7 +142,6 @@ public class WhiteInputStream extends FunnelInputStream {
      * the total number of byte read so far.
      */
     protected transient long count;
-
 
 }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <jinahya at gmail.com>.
+ * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,26 +21,17 @@ package com.github.jinahya.util;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Comparator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 /**
  * A {@link java.util.Comparator} implementation for
  * {@link java.lang.Comparable}s.
  *
- * @author Jin Kwon <jinahya at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <T> comparable type parameter
  */
 public class ComparableComparator<T extends Comparable<? super T>>
-        implements Comparator<T> {
-
-
-    /**
-     * logger.
-     */
-    private static final Logger logger
-            = LoggerFactory.getLogger(ComparableComparator.class);
+    implements Comparator<T> {
 
 
     /**
@@ -48,31 +39,28 @@ public class ComparableComparator<T extends Comparable<? super T>>
      */
     public enum Nulls {
 
-
         /**
          * Constant for preceding {@code null} references.
          */
         PRECEDE_NONNULLS {
 
-                    @Override
-                    <T extends Comparable<? super T>> int compare(final T o1, final T o2) {
-                        return o1 == null ? (o2 == null ? 0 : -1) : (o2 == null ? 1 : o1.compareTo(o2));
-                    }
+            @Override
+            <T extends Comparable<? super T>> int compare(final T o1, final T o2) {
+                return o1 == null ? (o2 == null ? 0 : -1) : (o2 == null ? 1 : o1.compareTo(o2));
+            }
 
-
-                },
+        },
         /**
          * Constant for succeeding {@code null} references.
          */
         SUCCEED_NONNULLS {
 
-                    @Override
-                    <T extends Comparable<? super T>> int compare(final T o1, final T o2) {
-                        return o1 == null ? (o2 == null ? 0 : 1) : (o2 == null ? -1 : o1.compareTo(o2));
-                    }
+            @Override
+            <T extends Comparable<? super T>> int compare(final T o1, final T o2) {
+                return o1 == null ? (o2 == null ? 0 : 1) : (o2 == null ? -1 : o1.compareTo(o2));
+            }
 
-
-                };
+        };
 
 
         /**
@@ -100,7 +88,6 @@ public class ComparableComparator<T extends Comparable<? super T>>
         <T extends ComparableComparator<U>, U extends Comparable<? super U>> T nulls(final T comparator) {
             return (T) comparator.nulls(this);
         }
-
 
     }
 
@@ -183,7 +170,6 @@ public class ComparableComparator<T extends Comparable<? super T>>
      * nulls.
      */
     private Nulls nulls;
-
 
 }
 

@@ -54,5 +54,5 @@ public class UnwrappedString extends UnwrappedValue<String> {
         super.setRawValue(rawValue);
     }
 
-
 }
+

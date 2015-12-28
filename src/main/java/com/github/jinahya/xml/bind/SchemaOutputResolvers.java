@@ -50,7 +50,6 @@ public class SchemaOutputResolvers {
         Result createOutput(String namespaceUri, String suggestedFileName)
             throws IOException;
 
-
     }
 
 
@@ -68,7 +67,6 @@ public class SchemaOutputResolvers {
                 throw new RuntimeException(ioe);
             }
         }
-
 
     }
 
@@ -99,7 +97,6 @@ public class SchemaOutputResolvers {
 
         super();
     }
-
 
 }
 

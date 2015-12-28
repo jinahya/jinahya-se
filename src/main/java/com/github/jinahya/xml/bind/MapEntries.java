@@ -24,8 +24,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlTransient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 /**
@@ -37,13 +35,6 @@ import org.slf4j.LoggerFactory;
  */
 @XmlTransient
 public abstract class MapEntries<T extends MapEntry<K, V>, K, V> {
-
-
-    /**
-     * logger.
-     */
-    private static final Logger LOGGER =
-        LoggerFactory.getLogger(MapEntries.class);
 
 
     /**
@@ -141,5 +132,5 @@ public abstract class MapEntries<T extends MapEntry<K, V>, K, V> {
      */
     private List<T> entries;
 
-
 }
+

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <jinahya at gmail.com>.
+ * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ import java.util.List;
 /**
  * A utility class for {@link MessageDigest}s.
  *
- * @author Jin Kwon <jinahya at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class MessageDigests {
 
@@ -198,9 +198,7 @@ public final class MessageDigests {
      *
      * @return digest result
      *
-     * @throws IOException if an I/O error occurs; or {@code length} is not
-     * {@link #ALL} and reached to EOF before processing specified number of
-     * bytes.
+     * @throws IOException if an I/O error occurs
      */
     public static byte[] digest(final MessageDigest digest, final File input,
                                 final ByteBuffer buffer, final long length)
@@ -354,7 +352,6 @@ public final class MessageDigests {
 
         super();
     }
-
 
 }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <jinahya at gmail.com>.
+ * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import org.testng.annotations.Test;
 
 /**
  *
- * @author Jin Kwon <jinahya at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class JaxbTest {
 
@@ -37,11 +37,10 @@ public class JaxbTest {
     @Test
     public void printSchema() throws JAXBException, IOException {
 
-        final JAXBContext context =
-            JAXBContext.newInstance("com.github.jinahya.xml.bind");
+        final JAXBContext context
+            = JAXBContext.newInstance("com.github.jinahya.xml.bind");
 
         context.generateSchema(new SchemaOutputResolver() {
-
 
             @Override
             public Result createOutput(final String namespaceUri,
@@ -49,20 +48,16 @@ public class JaxbTest {
                 throws IOException {
                 return new StreamResult(System.out) {
 
-
                     @Override
                     public String getSystemId() {
                         return suggestedFileName;
                     }
 
-
                 };
             }
 
-
         });
     }
-
 
 }
 

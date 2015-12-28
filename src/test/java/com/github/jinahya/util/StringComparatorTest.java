@@ -31,7 +31,7 @@ import org.testng.annotations.Test;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class StringComparatorTest
-        extends ComparableComparatorTest<StringComparator, String> {
+    extends ComparableComparatorTest<StringComparator, String> {
 
 
     @Test
@@ -56,7 +56,6 @@ public class StringComparatorTest
 
         sort_(list, new StringComparator());
     }
-
 
 }
 

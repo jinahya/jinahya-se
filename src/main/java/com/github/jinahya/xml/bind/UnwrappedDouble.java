@@ -54,5 +54,5 @@ public class UnwrappedDouble extends UnwrappedValue<Double> {
         super.setRawValue(rawValue);
     }
 
-
 }
+

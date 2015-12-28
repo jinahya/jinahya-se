@@ -46,6 +46,5 @@ public class CodeSourcesTest {
         logger.debug("location: {}", location.get());
     }
 
-
 }
 

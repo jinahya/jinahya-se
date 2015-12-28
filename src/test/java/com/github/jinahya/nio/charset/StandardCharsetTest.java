@@ -33,7 +33,7 @@ import org.testng.annotations.Test;
  * @author Jin Kwon
  */
 public class StandardCharsetTest
-        extends ComparableFieldEnumTest<StandardCharset, Charset> {
+    extends ComparableFieldEnumTest<StandardCharset, Charset> {
 
 
     @Test
@@ -52,12 +52,12 @@ public class StandardCharsetTest
     public static void fieldValues_() {
 
         final List<Charset> expected = Arrays.asList(
-                StandardCharsets.ISO_8859_1,
-                StandardCharsets.US_ASCII,
-                StandardCharsets.UTF_16,
-                StandardCharsets.UTF_16BE,
-                StandardCharsets.UTF_16LE,
-                StandardCharsets.UTF_8);
+            StandardCharsets.ISO_8859_1,
+            StandardCharsets.US_ASCII,
+            StandardCharsets.UTF_16,
+            StandardCharsets.UTF_16BE,
+            StandardCharsets.UTF_16LE,
+            StandardCharsets.UTF_8);
 
         final List<Charset> actual = new ArrayList<>();
         StandardCharset.fieldValues(actual);
@@ -70,7 +70,6 @@ public class StandardCharsetTest
 
         super(StandardCharset.class, Charset.class);
     }
-
 
 }
 

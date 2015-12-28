@@ -53,5 +53,5 @@ public abstract class MapValues<T> {
      */
     private List<T> values;
 
-
 }
+

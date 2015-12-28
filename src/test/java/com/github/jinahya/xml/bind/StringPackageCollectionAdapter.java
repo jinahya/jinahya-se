@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <jinahya at gmail.com>.
+ * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +18,12 @@
 package com.github.jinahya.xml.bind;
 
 
-import com.github.jinahya.xml.bind.StringCollectionAdapter;
 import java.util.Collection;
 
 
 /**
  *
- * @author Jin Kwon <jinahya at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <C>
  */
 public abstract class StringPackageCollectionAdapter<C extends Collection<Package>>
@@ -66,5 +65,5 @@ public abstract class StringPackageCollectionAdapter<C extends Collection<Packag
         return element.getName();
     }
 
-
 }
+

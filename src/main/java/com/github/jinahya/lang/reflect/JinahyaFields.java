@@ -173,6 +173,5 @@ public final class JinahyaFields {
         super();
     }
 
-
 }
 

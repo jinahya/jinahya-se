@@ -20,15 +20,12 @@ package com.github.jinahya.nio.channels;
 
 import java.io.File;
 import java.io.IOException;
-import static java.lang.invoke.MethodHandles.lookup;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import org.slf4j.Logger;
-import static org.slf4j.LoggerFactory.getLogger;
 
 
 /**
@@ -37,12 +34,6 @@ import static org.slf4j.LoggerFactory.getLogger;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class ByteChannels {
-
-
-    /**
-     * logger.
-     */
-    private static final Logger logger = getLogger(lookup().lookupClass());
 
 
     /**
@@ -116,8 +107,6 @@ public final class ByteChannels {
                             final FileChannel output, final long length)
         throws IOException {
 
-        logger.trace("copy({}, {}, {})", input, output, length);
-
         if (input == null) {
             throw new NullPointerException("input == null");
         }
@@ -184,8 +173,6 @@ public final class ByteChannels {
                              final WritableByteChannel output,
                              final ByteBuffer buffer, final long length)
         throws IOException {
-
-        logger.debug("copy1({}, {}, {}, {})", input, output, buffer, length);
 
         if (input instanceof FileChannel) {
             return copy((FileChannel) input, output, length);
@@ -402,8 +389,6 @@ public final class ByteChannels {
      *
      * @throws NullPointerException if {@code input} is {@code null}
      * @throws IOException if an I/O error occurs.
-     *
-     * @see #copy(Path, WritableByteChannel, ByteBuffer, long)
      */
     public static long copy(final File input, final WritableByteChannel output,
                             final long length)
@@ -525,7 +510,6 @@ public final class ByteChannels {
 
         super();
     }
-
 
 }
 

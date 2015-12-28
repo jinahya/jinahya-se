@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Jin Kwon <jinahya at gmail.com>.
+ * Copyright 2012 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,20 +18,19 @@
 package com.github.jinahya.xml.bind;
 
 
-import com.github.jinahya.xml.bind.WrappedDouble;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 
 /**
  *
- * @author Jin Kwon <jinahya at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class WrappedDoubleTest extends WrappedValueTest<WrappedDouble, Double> {
 
 
     public WrappedDoubleTest() {
-        
+
         super(WrappedDouble.class);
     }
 
@@ -44,10 +43,9 @@ public class WrappedDoubleTest extends WrappedValueTest<WrappedDouble, Double> {
         if (random.nextBoolean()) {
             return null;
         }
-        
+
         return random.nextDouble();
     }
-
 
 }
 

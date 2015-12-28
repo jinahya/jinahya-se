@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <jinahya at gmail.com>.
+ * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,23 +18,22 @@
 package com.github.jinahya.util;
 
 
-import com.github.jinahya.lang.FieldEnums;
 import java.util.Calendar;
 
 
 /**
  * Constants for {@link Calendar#AM_PM}.
  *
- * @author Jin Kwon <jinahya at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum CalendarPeriodOfDay
-    implements CalendarFieldEnum<CalendarPeriodOfDay, Integer> {
-
+    implements CalendarIntFieldEnum<CalendarPeriodOfDay> {
 
     /**
      * Constant for {@link Calendar#AM}.
      */
     AM(Calendar.AM), // 0
+
     /**
      * Constant for {@link Calendar#PM}.
      */
@@ -50,23 +49,6 @@ public enum CalendarPeriodOfDay
 
 
     /**
-     * Returns the enum constant of this type with the specified field value.
-     *
-     * @param fieldValue field value
-     *
-     * @throws IllegalArgumentException if this enum type has no constant with
-     * the specified field value.
-     *
-     * @return the enum constant with the specified field value.
-     */
-    public static CalendarPeriodOfDay fromFieldValue(final int fieldValue) {
-
-        return FieldEnums.fromFieldValue(
-            CalendarPeriodOfDay.class, fieldValue);
-    }
-
-
-    /**
      * Returns the enum constant of this type with the specified calendar's
      * field value.
      *
@@ -79,22 +61,8 @@ public enum CalendarPeriodOfDay
      */
     public static CalendarPeriodOfDay fromCalendar(final Calendar calendar) {
 
-        return CalendarFieldEnums.get(CalendarPeriodOfDay.class, calendar,
-                                           CALENDAR_FIELD);
-    }
-
-
-    /**
-     * Returns an array containing the field values of this enum type, in order
-     * they are declared.
-     *
-     * @return an array containing the fields values of this enum type, in the
-     * order they are declared
-     */
-    public Integer[] fieldValues() {
-
-        return FieldEnums.fieldValues(
-            CalendarPeriodOfDay.class, Integer.class);
+        return CalendarIntFieldEnum.fromCalendar(
+            CalendarPeriodOfDay.class, calendar, CALENDAR_FIELD);
     }
 
 
@@ -110,7 +78,7 @@ public enum CalendarPeriodOfDay
 
 
     @Override
-    public Integer fieldValue() {
+    public int fieldValueAsInt() {
 
         return fieldValue;
     }
@@ -119,7 +87,7 @@ public enum CalendarPeriodOfDay
     @Override
     public void set(final Calendar calendar) {
 
-        CalendarFieldEnums.set(calendar, CALENDAR_FIELD, this);
+        CalendarIntFieldEnum.set(calendar, CALENDAR_FIELD, this);
     }
 
 
@@ -128,5 +96,5 @@ public enum CalendarPeriodOfDay
      */
     private final int fieldValue;
 
-
 }
+

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Jin Kwon <jinahya at gmail.com>.
+ * Copyright 2012 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ package com.github.jinahya.crypto;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
@@ -50,7 +49,7 @@ import org.testng.annotations.Test;
 
 /**
  *
- * @author Jin Kwon <jinahya at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class CiphersTest {
 
@@ -134,26 +133,41 @@ public class CiphersTest {
         random.nextBytes(expected);
 
         {
+            int length = 1;
+            final int blockSize = cipher.getBlockSize();
+            if (blockSize != 0 && length < blockSize) {
+                length = blockSize;
+            }
+
             final byte[] encrypted;
             final byte[] actual;
             {
                 cipher.init(Cipher.ENCRYPT_MODE, key, iv);
                 final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                JinahyaCiphers.doFinal(cipher, new ByteArrayInputStream(expected),
-                                       baos, new byte[102], -1L);
+                JinahyaCiphers.update(
+                    cipher, new ByteArrayInputStream(expected), baos, length,
+                    -1L, true);
                 encrypted = baos.toByteArray();
             }
             {
                 cipher.init(Cipher.DECRYPT_MODE, key, iv);
                 final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                JinahyaCiphers.doFinal(cipher, new ByteArrayInputStream(encrypted),
-                                       baos, new byte[983], -1L);
+                JinahyaCiphers.update(
+                    cipher, new ByteArrayInputStream(encrypted), baos, length,
+                    -1L, true);
                 actual = baos.toByteArray();
             }
             Assert.assertEquals(actual, expected);
         }
 
         {
+            //int capacity = current().nextInt(1, 1024);
+            int capacity = 1;
+            final int blockSize = cipher.getBlockSize();
+            if (blockSize != 0 && capacity < blockSize) {
+                capacity = blockSize;
+            }
+
             final byte[] encrypted;
             final byte[] actual;
             {
@@ -162,8 +176,8 @@ public class CiphersTest {
                     = Channels.newChannel(new ByteArrayInputStream(expected));
                 final ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 final WritableByteChannel output = Channels.newChannel(baos);
-                JinahyaCiphers.doFinal(cipher, input, output, ByteBuffer.allocate(71),
-                                       -1L);
+                JinahyaCiphers.update(
+                    cipher, input, output, capacity, -1L, true);
                 baos.flush();
                 encrypted = baos.toByteArray();
             }
@@ -173,8 +187,8 @@ public class CiphersTest {
                     = Channels.newChannel(new ByteArrayInputStream(encrypted));
                 final ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 final WritableByteChannel output = Channels.newChannel(baos);
-                JinahyaCiphers.doFinal(cipher, input, output, ByteBuffer.allocate(29),
-                                       -1L);
+                JinahyaCiphers.update(
+                    cipher, input, output, capacity, -1L, true);
                 actual = baos.toByteArray();
                 Assert.assertEquals(actual, expected);
             }
@@ -213,7 +227,6 @@ public class CiphersTest {
             }
         }
     }
-
 
 }
 

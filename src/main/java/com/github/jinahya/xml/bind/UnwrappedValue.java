@@ -79,5 +79,5 @@ public abstract class UnwrappedValue<R> extends WrappedValue<R> {
         super.setRawValue(rawValue);
     }
 
-
 }
+

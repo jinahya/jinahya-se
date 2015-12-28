@@ -54,5 +54,5 @@ public class UnwrappedFloat extends UnwrappedValue<Float> {
         super.setRawValue(rawValue);
     }
 
-
 }
+

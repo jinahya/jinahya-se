@@ -18,7 +18,6 @@
 package com.github.jinahya.nio.channels;
 
 
-import com.github.jinahya.nio.channels.DigestReadableByteChannel;
 import com.github.jinahya.security.MessageDigests;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -76,7 +75,6 @@ public class DigestReadableByteChannelTest {
             Assert.assertEquals(actual, expected);
         }
     }
-
 
 }
 

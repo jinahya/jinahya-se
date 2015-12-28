@@ -18,7 +18,6 @@
 package com.github.jinahya.imageio;
 
 
-import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.imageio.ImageIO;
@@ -30,36 +29,28 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 @XmlRootElement
-public class ImageFormatName extends ImageFeature {
+public class ImageFormatName extends ImageFeature<ImageFormatName> {
 
 
-    public static Collection<ImageFormatName> getAvailableInstances() {
+    public static ImageFormatName[] getAvailableInstances() {
 
         final Map<String, ImageFormatName> map = new TreeMap<>();
 
-        for (final String readerFormatName : ImageIO.getReaderFormatNames()) {
-            ImageFormatName imageFormatName = map.get(readerFormatName);
-            if (imageFormatName == null) {
-                imageFormatName = new ImageFormatName();
-                map.put(readerFormatName, imageFormatName);
-            }
-            imageFormatName.setReadable(true);
-            imageFormatName.setValue(readerFormatName);
+        for (final String value : ImageIO.getReaderFormatNames()) {
+            map.put(value, new ImageFormatName().readable(true).value(value));
         }
 
-        for (final String writerFormatName : ImageIO.getWriterFormatNames()) {
-            ImageFormatName imageFormatName = map.get(writerFormatName);
-            if (imageFormatName == null) {
-                imageFormatName = new ImageFormatName();
-                map.put(writerFormatName, imageFormatName);
+        for (final String value : ImageIO.getWriterFormatNames()) {
+            ImageFormatName instance = map.get(value);
+            if (instance == null) {
+                instance = new ImageFormatName().value(value);
+                map.put(value, instance);
             }
-            imageFormatName.setWritable(true);
-            imageFormatName.setValue(writerFormatName);
+            instance.setValue(value);
         }
 
-        return map.values();
+        return map.values().toArray(new ImageFormatName[map.size()]);
     }
-
 
 }
 

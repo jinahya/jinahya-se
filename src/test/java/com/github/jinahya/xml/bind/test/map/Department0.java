@@ -75,6 +75,5 @@ public class Department0 {
     @XmlJavaTypeAdapter(EmployeesAdapter0.class)
     private Map<Long, Employee> employees;
 
-
 }
 

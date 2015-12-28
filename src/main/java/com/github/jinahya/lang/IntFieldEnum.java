@@ -26,7 +26,7 @@ package com.github.jinahya.lang;
 public interface IntFieldEnum<E extends Enum<E>> {
 
 
-    static <E extends Enum<E> & IntFieldEnum<E>> int[] fieldValues(
+    public static <E extends Enum<E> & IntFieldEnum<E>> int[] fieldValues(
         final Class<E> type) {
 
         if (type == null) {
@@ -44,8 +44,25 @@ public interface IntFieldEnum<E extends Enum<E>> {
     }
 
 
-    int fieldValueAsInt();
+    public static <E extends Enum<E> & IntFieldEnum<E>> E fromFieldValue(
+        final Class<E> enumType, final int fieldValue) {
 
+        if (enumType == null) {
+            throw new NullPointerException("null enumtype");
+        }
+
+        for (final E enumConstant : enumType.getEnumConstants()) {
+            final int constantFieldValue = enumConstant.fieldValueAsInt();
+            if (constantFieldValue == fieldValue) {
+                return enumConstant;
+            }
+        }
+
+        throw new IllegalArgumentException("unknown fieldValue: " + fieldValue);
+    }
+
+
+    int fieldValueAsInt();
 
 }
 

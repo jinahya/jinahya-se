@@ -41,16 +41,15 @@ public class SchemaOutputResolversTest {
             (namespaceUri, suggestedFileName) -> {
                 return new StreamResult(System.out) {
 
-                    @Override
-                    public String getSystemId() {
-                        return "noid";
-                    }
+                @Override
+                public String getSystemId() {
+                    return "noid";
+                }
 
-                };
+            };
             }));
 
     }
-
 
 }
 

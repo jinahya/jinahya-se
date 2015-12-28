@@ -38,7 +38,7 @@ public final class Buffers {
 
 
     public static <T extends Buffer> T allocateZeroCapacity(
-            final Class<T> type) {
+        final Class<T> type) {
 
         if (type == null) {
             throw new NullPointerException("null type");
@@ -60,31 +60,31 @@ public final class Buffers {
 
 
     public static final ByteBuffer ZERO_CAPACITY_BYTE_BUFFER
-            = allocateZeroCapacity(ByteBuffer.class);
+        = allocateZeroCapacity(ByteBuffer.class);
 
 
     public static final CharBuffer ZERO_CAPACITY_CHAR_BUFFER
-            = allocateZeroCapacity(CharBuffer.class);
+        = allocateZeroCapacity(CharBuffer.class);
 
 
     public static final DoubleBuffer ZERO_CAPACITY_DOUBLE_BUFFER
-            = allocateZeroCapacity(DoubleBuffer.class);
+        = allocateZeroCapacity(DoubleBuffer.class);
 
 
     public static final FloatBuffer ZERO_CAPACITY_FLOAT_BUFFER
-            = allocateZeroCapacity(FloatBuffer.class);
+        = allocateZeroCapacity(FloatBuffer.class);
 
 
     public static final IntBuffer ZERO_CAPACITY_INT_BUFFER
-            = allocateZeroCapacity(IntBuffer.class);
+        = allocateZeroCapacity(IntBuffer.class);
 
 
     public static final LongBuffer ZERO_CAPACITY_LONG_BUFFER
-            = allocateZeroCapacity(LongBuffer.class);
+        = allocateZeroCapacity(LongBuffer.class);
 
 
     public static final ShortBuffer ZERO_CAPACITY_SHORT_BUFFER
-            = allocateZeroCapacity(ShortBuffer.class);
+        = allocateZeroCapacity(ShortBuffer.class);
 
 
     public static <T extends Buffer> T requireNonZeroCapacity(final T buffer) {
@@ -175,7 +175,6 @@ public final class Buffers {
 
         super();
     }
-
 
 }
 

@@ -36,6 +36,5 @@ public class Entity {
     @XmlValue
     private String name;
 
-
 }
 

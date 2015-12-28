@@ -125,6 +125,5 @@ public final class JinahyaModifiers {
         super();
     }
 
-
 }
 

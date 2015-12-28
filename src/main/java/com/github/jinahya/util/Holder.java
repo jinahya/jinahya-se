@@ -30,13 +30,11 @@ public class Holder<T> {
 
         return new Holder<T>(value) {
 
-
             @Override
             public void set(final T value) {
 
                 throw new UnsupportedOperationException("immutable");
             }
-
 
         };
     }
@@ -63,7 +61,6 @@ public class Holder<T> {
 
 
     private T value;
-
 
 }
 

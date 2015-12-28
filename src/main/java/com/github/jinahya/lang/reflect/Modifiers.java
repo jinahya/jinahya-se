@@ -18,7 +18,6 @@
 package com.github.jinahya.lang.reflect;
 
 
-import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
 
@@ -101,7 +100,6 @@ public final class Modifiers {
 
         super();
     }
-
 
 }
 

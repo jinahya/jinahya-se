@@ -43,7 +43,7 @@ public class MessageDigestsTest {
         return MessageDigest.getInstance(
             MessageDigests.SUPPORTED_ALGORITHMS
             .get(ThreadLocalRandom.current().nextInt(
-                    MessageDigests.SUPPORTED_ALGORITHMS.size())));
+                MessageDigests.SUPPORTED_ALGORITHMS.size())));
     }
 
 
@@ -70,7 +70,6 @@ public class MessageDigestsTest {
         }
 
     }
-
 
 }
 

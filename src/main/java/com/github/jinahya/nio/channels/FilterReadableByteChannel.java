@@ -79,6 +79,5 @@ public class FilterReadableByteChannel implements ReadableByteChannel {
 
     protected ReadableByteChannel channel;
 
-
 }
 

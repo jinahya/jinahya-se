@@ -29,6 +29,7 @@ import com.fasterxml.jackson.module.jaxb.JaxbAnnotationIntrospector;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
 import com.fasterxml.jackson.module.jsonSchema.factories.SchemaFactoryWrapper;
 import java.io.IOException;
+import java.util.Objects;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.SchemaOutputResolver;
@@ -44,83 +45,72 @@ import org.testng.annotations.Test;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <T> image feature type parameter
  */
-public abstract class ImageFeatureTest<T extends ImageFeature> {
-
-
-    /**
-     * logger.
-     */
-    private static final Logger logger
-            = LoggerFactory.getLogger(ImageFeatureTest.class);
-
-
-    protected static void xml_instances() {
-    }
+abstract class ImageFeatureTest<T extends ImageFeature<T>> {
 
 
     /**
      * Creates a new instance.
      *
-     * @param imageFeatureType image feature type.
+     * @param type image feature type.
      */
-    public ImageFeatureTest(final Class<T> imageFeatureType) {
+    public ImageFeatureTest(final Class<T> type) {
 
         super();
 
-        this.imageFeatureType = imageFeatureType;
+        this.type = Objects.requireNonNull(type, "null type");
     }
 
 
     @Test
     public void json_schema_()
-            throws JsonMappingException, JsonProcessingException {
+        throws JsonMappingException, JsonProcessingException {
 
         final ObjectMapper mapper = new ObjectMapper();
         final TypeFactory factory = TypeFactory.defaultInstance();
         final AnnotationIntrospector introspector
-                = new JaxbAnnotationIntrospector(factory);
+            = new JaxbAnnotationIntrospector(factory);
         mapper.setAnnotationIntrospector(introspector);
 
         final SchemaFactoryWrapper visitor = new SchemaFactoryWrapper();
-        final JavaType type = mapper.constructType(imageFeatureType);
-        mapper.acceptJsonFormatVisitor(type, visitor);
+        final JavaType javaType = mapper.constructType(type);
+        mapper.acceptJsonFormatVisitor(javaType, visitor);
         final JsonSchema schema = visitor.finalSchema();
 
         final ObjectWriter writer = mapper.writerWithDefaultPrettyPrinter();
         final String string = writer.writeValueAsString(schema);
 
-        logger.info("{}.schema: {}", imageFeatureType.getSimpleName(), string);
+        logger.info("{}.schema: {}", type.getSimpleName(), string);
     }
 
 
     @Test
     public void xml_schema_() throws JAXBException, IOException {
 
-        final JAXBContext context = JAXBContext.newInstance(imageFeatureType);
+        final JAXBContext context = JAXBContext.newInstance(type);
 
         context.generateSchema(new SchemaOutputResolver() {
 
             @Override
             public Result createOutput(final String namespaceUri,
                                        final String suggestedFileName)
-                    throws IOException {
+                throws IOException {
                 return new StreamResult(System.out) {
 
                     public String getSystemId() {
                         return "";
                     }
 
-
                 };
             }
-
 
         });
     }
 
 
-    protected final Class<T> imageFeatureType;
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
+
+    protected final Class<T> type;
 
 }
 

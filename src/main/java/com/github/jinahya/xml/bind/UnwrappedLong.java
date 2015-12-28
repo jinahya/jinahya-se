@@ -54,5 +54,5 @@ public class UnwrappedLong extends UnwrappedValue<Long> {
         super.setRawValue(rawValue);
     }
 
-
 }
+

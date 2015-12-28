@@ -31,14 +31,14 @@ import org.testng.annotations.Test;
  * @param <F> field type parameter
  */
 public abstract class ComparableFieldEnumTest<E extends Enum<E> & ComparableFieldEnum<E, F>, F extends Comparable<? super F>>
-        extends FieldEnumTest<E, F> {
+    extends FieldEnumTest<E, F> {
 
 
     /**
      * logger.
      */
     private static final Logger logger
-            = LoggerFactory.getLogger(ComparableFieldEnumTest.class);
+        = LoggerFactory.getLogger(ComparableFieldEnumTest.class);
 
 
     /**
@@ -61,7 +61,6 @@ public abstract class ComparableFieldEnumTest<E extends Enum<E> & ComparableFiel
             Assert.assertTrue(fieldValues[i - 1].compareTo(fieldValues[i]) < 0);
         }
     }
-
 
 }
 

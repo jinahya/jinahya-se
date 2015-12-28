@@ -18,7 +18,6 @@
 package com.github.jinahya.nio.channels;
 
 
-import com.github.jinahya.nio.channels.DigestWritableByteChannel;
 import com.github.jinahya.io.BlackOutputStream;
 import com.github.jinahya.security.MessageDigests;
 import java.io.IOException;
@@ -76,7 +75,6 @@ public class DigestWritableByteChannelTest {
             Assert.assertEquals(actual, expected);
         }
     }
-
 
 }
 

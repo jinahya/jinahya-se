@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <jinahya at gmail.com>.
+ * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@
 package com.github.jinahya.xml.bind;
 
 
-import com.github.jinahya.xml.bind.Plural;
 import com.sun.jersey.api.json.JSONConfiguration;
 import com.sun.jersey.api.json.JSONMarshaller;
 import com.sun.jersey.api.json.JSONUnmarshaller;
@@ -40,7 +39,7 @@ import org.testng.annotations.Test;
 
 /**
  *
- * @author Jin Kwon <jinahya at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 /**
  *
@@ -106,7 +105,6 @@ public abstract class PluralTest<P extends Plural<S>, S> {
 
         context.generateSchema(new SchemaOutputResolver() {
 
-
             @Override
             public Result createOutput(final String namespaceUri,
                                        final String suggestedFileName)
@@ -114,16 +112,13 @@ public abstract class PluralTest<P extends Plural<S>, S> {
 
                 return new StreamResult(System.out) {
 
-
                     @Override
                     public String getSystemId() {
                         return suggestedFileName;
                     }
 
-
                 };
             }
-
 
         });
     }
@@ -212,7 +207,6 @@ public abstract class PluralTest<P extends Plural<S>, S> {
 
 
     protected final Class<S> singularType;
-
 
 }
 

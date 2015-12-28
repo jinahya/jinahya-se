@@ -52,8 +52,8 @@ public class CharsetsTest {
                 }
             }
             Assert.assertTrue(
-                    matches, charset + " is not found in "
-                             + StandardCharsets.class);
+                matches, charset + " is not found in "
+                         + StandardCharsets.class);
         }
     }
 
@@ -79,7 +79,6 @@ public class CharsetsTest {
                                        + StandardCharsets.class);
         }
     }
-
 
 }
 

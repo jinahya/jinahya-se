@@ -19,7 +19,6 @@ package com.github.jinahya.xml.bind.test.map;
 
 
 import java.util.Map;
-import java.util.TreeMap;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -40,7 +39,6 @@ public class Department4 extends AbstractDepartment {
 
         return super.getEmployees();
     }
-
 
 }
 

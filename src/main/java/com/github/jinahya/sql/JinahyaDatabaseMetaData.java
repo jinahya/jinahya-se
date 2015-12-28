@@ -17,8 +17,6 @@
 package com.github.jinahya.sql;
 
 
-import com.github.jinahya.lang.FieldEnum;
-import com.github.jinahya.lang.FieldEnums;
 import com.github.jinahya.lang.IntFieldEnum;
 import java.sql.DatabaseMetaData;
 import javax.xml.bind.annotation.XmlEnum;
@@ -307,44 +305,6 @@ public final class JinahyaDatabaseMetaData {
     }
 
 
-    public static enum IndexType implements IntFieldEnum<IndexType> {
-
-        /**
-         * A constant for {@link DatabaseMetaData#tableIndexStatistic}.
-         */
-        tableIndexStatistic(DatabaseMetaData.tableIndexStatistic), // 0
-        /**
-         * A constant for {@link DatabaseMetaData#tableIndexClustered}.
-         */
-        tableIndexClustered(DatabaseMetaData.tableIndexClustered), // 1
-        /**
-         * A constant for {@link DatabaseMetaData#tableIndexHashed}.
-         */
-        tableIndexHashed(DatabaseMetaData.tableIndexHashed), // 2
-        /**
-         * A constant for {@link DatabaseMetaData#tableIndexOther}.
-         */
-        tableIndexOther(DatabaseMetaData.tableIndexOther); // 3// 3
-
-
-        private IndexType(final int fieldValue) {
-
-            this.fieldValue = fieldValue;
-        }
-
-
-        @Override
-        public int fieldValueAsInt() {
-
-            return fieldValue;
-        }
-
-
-        private final int fieldValue;
-
-    }
-
-
     public static enum ProcedureType implements IntFieldEnum<ProcedureType> {
 
         /**
@@ -421,7 +381,6 @@ public final class JinahyaDatabaseMetaData {
 
         super();
     }
-
 
 }
 

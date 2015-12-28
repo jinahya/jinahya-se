@@ -43,6 +43,5 @@ public class Capone1Test {
         System.out.println("I have built my organization upon fear.");
     }
 
-
 }
 

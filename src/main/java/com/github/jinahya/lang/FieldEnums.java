@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <jinahya at gmail.com>.
+ * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,14 +35,14 @@ public final class FieldEnums {
      * the order those enum constants returned from {@code E.values()}
      *
      * @param <E> enum type parameter
-     * @param <F> field type parameter
+     * @param <V> field value type parameter
      * @param enumType enum type
      * @param fieldType field type
      *
      * @return an array containing the field values of this enum type
      */
-    public static <E extends Enum<E> & FieldEnum<E, F>, F> F[] fieldValues(
-        final Class<E> enumType, final Class<F> fieldType) {
+    public static <E extends Enum<E> & FieldEnum<E, V>, V> V[] fieldValues(
+        final Class<E> enumType, final Class<V> fieldType) {
 
         if (enumType == null) {
             throw new NullPointerException("null enumtype");
@@ -55,8 +55,8 @@ public final class FieldEnums {
         final E[] enumConstants = enumType.getEnumConstants();
 
         @SuppressWarnings("unchecked")
-        final F[] fieldValues
-            = (F[]) Array.newInstance(fieldType, enumConstants.length);
+        final V[] fieldValues
+            = (V[]) Array.newInstance(fieldType, enumConstants.length);
 
         for (int i = 0; i < fieldValues.length; i++) {
             fieldValues[i] = enumConstants[i].fieldValue();
@@ -70,12 +70,12 @@ public final class FieldEnums {
      * Adds all field values of given enum type to specified collection.
      *
      * @param <E> enum type parameter
-     * @param <F> field type parameter
+     * @param <V> field value type parameter
      * @param enumType enum type
      * @param fieldValues the collection to which field values are added.
      */
-    public static <E extends Enum<E> & FieldEnum<E, F>, F> void fieldValues(
-        final Class<E> enumType, final Collection<? super F> fieldValues) {
+    public static <E extends Enum<E> & FieldEnum<E, V>, V> void fieldValues(
+        final Class<E> enumType, final Collection<? super V> fieldValues) {
 
         if (enumType == null) {
             throw new NullPointerException("null enumtype");
@@ -96,7 +96,7 @@ public final class FieldEnums {
      * value.
      *
      * @param <E> enum type parameter
-     * @param <F> field type parameter
+     * @param <V> field value type parameter
      * @param enumType enum type
      * @param fieldValue field value
      *
@@ -107,8 +107,8 @@ public final class FieldEnums {
      *
      * @return the mapped enum constant.
      */
-    public static <E extends Enum<E> & FieldEnum<E, F>, F> E fromFieldValue(
-        final Class<E> enumType, final F fieldValue) {
+    public static <E extends Enum<E> & FieldEnum<E, V>, V> E fromFieldValue(
+        final Class<E> enumType, final V fieldValue) {
 
         if (enumType == null) {
             throw new NullPointerException("null enumtype");
@@ -119,7 +119,7 @@ public final class FieldEnums {
         }
 
         for (final E enumConstant : enumType.getEnumConstants()) {
-            final F constantFieldValue = enumConstant.fieldValue();
+            final V constantFieldValue = enumConstant.fieldValue();
             if (constantFieldValue == null
                 ? fieldValue == null : constantFieldValue.equals(fieldValue)) {
                 return enumConstant;
@@ -137,7 +137,6 @@ public final class FieldEnums {
 
         super();
     }
-
 
 }
 
