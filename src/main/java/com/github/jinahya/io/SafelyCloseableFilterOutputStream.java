@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
+ * Copyright 2016 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,30 +14,35 @@
  * limitations under the License.
  */
 
-
 package com.github.jinahya.io;
 
 
+import java.io.FilterOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 
 
 /**
- * An output stream writes bytes only through {@link OutputStream#write(int) }.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public class FunnelOutputStream extends SafelyCloseableFilterOutputStream {
+public class SafelyCloseableFilterOutputStream extends FilterOutputStream {
 
 
-    /**
-     * Creates a funnel output stream built on top of the specified underlying
-     * output stream.
-     *
-     * @param out the underlying output stream
-     */
-    public FunnelOutputStream(final OutputStream out) {
+    public SafelyCloseableFilterOutputStream(final OutputStream out) {
 
         super(out);
+    }
+
+
+    @Override
+    public void close() throws IOException {
+
+        if (out == null) {
+            return;
+        }
+
+        super.close();
     }
 
 }

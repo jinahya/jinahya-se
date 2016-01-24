@@ -18,7 +18,7 @@
 package com.github.jinahya.nio.channels;
 
 
-import com.github.jinahya.io.BlackOutputStream;
+import com.github.jinahya.io.LimitedBlackOutputStream;
 import com.github.jinahya.security.MessageDigests;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -60,7 +60,7 @@ public class DigestWritableByteChannelTest {
             final MessageDigest digest2 = MessageDigest.getInstance(algorithm);
             final DigestWritableByteChannel channel
                 = new DigestWritableByteChannel(
-                    Channels.newChannel(new BlackOutputStream(-1L)), digest2);
+                    Channels.newChannel(new LimitedBlackOutputStream(-1L)), digest2);
             final ByteBuffer buffer = ByteBuffer.wrap(data);
             while (buffer.hasRemaining()) {
                 channel.write(buffer);

@@ -18,46 +18,37 @@
 package com.github.jinahya.io;
 
 
+import java.io.EOFException;
 import java.io.IOException;
 
 
 /**
- * An input stream generates random bytes.
+ * An output stream which shallows written bytes.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public class WhiteInputStream1 extends FunnelInputStream {
+public class LimitedBlackOutputStream extends FunnelOutputStream {
 
 
-    public WhiteInputStream1() {
+    public LimitedBlackOutputStream(final long limit) {
 
         super(null);
+
+        this.limit = limit;
     }
 
 
     @Override
-    public int read() throws IOException {
+    public void write(final int b) throws IOException {
 
-        return 0;
+        if (limit >= 0L && limit <= count++) {
+            throw new EOFException("limit exceeded");
+        }
     }
 
 
     @Override
-    public boolean markSupported() {
-
-        return true;
-    }
-
-
-    @Override
-    public synchronized void mark(final int readlimit) {
-
-        // does nothing
-    }
-
-
-    @Override
-    public synchronized void reset() throws IOException {
+    public void flush() throws IOException {
 
         // does nothing
     }
@@ -70,18 +61,10 @@ public class WhiteInputStream1 extends FunnelInputStream {
     }
 
 
-    @Override
-    public int available() throws IOException {
-
-        return Integer.MAX_VALUE;
-    }
+    protected long limit;
 
 
-    @Override
-    public long skip(final long n) throws IOException {
-
-        return n;
-    }
+    protected transient long count;
 
 }
 

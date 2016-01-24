@@ -36,7 +36,7 @@ public class FilterReadableByteChannel implements ReadableByteChannel {
      * @param channel the underlying channel, or {@code null} if this instance
      * is to be created without an underlying channel.
      */
-    protected FilterReadableByteChannel(final ReadableByteChannel channel) {
+    public FilterReadableByteChannel(final ReadableByteChannel channel) {
 
         super();
 

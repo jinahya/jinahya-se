@@ -18,7 +18,6 @@
 package com.github.jinahya.io;
 
 
-import java.io.EOFException;
 import java.io.IOException;
 
 
@@ -30,41 +29,17 @@ import java.io.IOException;
 public class BlackOutputStream extends FunnelOutputStream {
 
 
-    public BlackOutputStream(final long limit) {
+    public BlackOutputStream() {
 
         super(null);
-
-        this.limit = limit;
     }
 
 
     @Override
     public void write(final int b) throws IOException {
 
-        if (limit >= 0L && limit <= count++) {
-            throw new EOFException("limit exceeded");
-        }
-    }
-
-
-    @Override
-    public void flush() throws IOException {
-
         // does nothing
     }
-
-
-    @Override
-    public void close() throws IOException {
-
-        // does nothing
-    }
-
-
-    protected long limit;
-
-
-    protected transient long count;
 
 }
 

@@ -26,15 +26,17 @@ import java.nio.CharBuffer;
 import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.nio.InvalidMarkException;
 import java.nio.LongBuffer;
 import java.nio.ShortBuffer;
 
 
 /**
+ * Utilities for {@link Buffer}.
  *
- * @author Jin Kwon
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public final class Buffers {
+public final class JinahyaBuffers {
 
 
     public static <T extends Buffer> T allocateZeroCapacity(
@@ -171,7 +173,74 @@ public final class Buffers {
     }
 
 
-    private Buffers() {
+    /**
+     * Returns the position of given buffer where the mark has been set.
+     *
+     * @param buffer the buffer
+     *
+     * @return the position of given buffer where the mark has been set or
+     * {@code null} if the mark has not been set
+     *
+     * @see #markedPosition(java.nio.Buffer, java.lang.Integer)
+     */
+    public static Integer markedPosition(final Buffer buffer) {
+
+        final int position = buffer.position();
+        try {
+            try {
+                buffer.reset();
+                return buffer.position();
+            } catch (final InvalidMarkException ime) {
+                return null;
+            }
+        } finally {
+            buffer.position(position);
+        }
+    }
+
+
+    /**
+     * Restores marked position while preserving current position.
+     *
+     * @param <T> buffer type parameter
+     * @param buffer the buffer
+     * @param markedPosition the marked position
+     *
+     * @return given buffer
+     *
+     * @see #markedPosition(java.nio.Buffer)
+     */
+    public static <T extends Buffer> T markedPosition(
+        final T buffer, final Integer markedPosition) {
+
+        if (markedPosition != null) {
+            final int position = buffer.position();
+            buffer.position(markedPosition);
+            buffer.mark();
+            buffer.position(position);
+        }
+
+        return buffer;
+    }
+
+
+    /**
+     * Adjusts given buffer's position with specified amount.
+     *
+     * @param <T> buffer type parameter
+     * @param buffer the buffer
+     * @param delta the amount to adjust
+     *
+     * @return given buffer.
+     */
+    @SuppressWarnings("unchecked")
+    public static <T extends Buffer> T adjustPosition(
+        final T buffer, final int delta) {
+        return (T) buffer.position(buffer.position() + delta);
+    }
+
+
+    private JinahyaBuffers() {
 
         super();
     }

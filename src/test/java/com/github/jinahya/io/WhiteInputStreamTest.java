@@ -36,7 +36,7 @@ public class WhiteInputStreamTest {
     @Test
     public void testRead() throws IOException {
 
-        try (final InputStream in = new WhiteInputStream(-1L)) {
+        try (final InputStream in = new LimitedWhiteInputStream(-1L)) {
             for (int read, i = 0; i < 1048576; i++) {
                 read = in.read();
                 Assert.assertTrue(read >= 0x00 && read < 0x0100);
@@ -52,7 +52,7 @@ public class WhiteInputStreamTest {
 
         final long limit = random.nextInt(1048576) + 1;
 
-        try (final InputStream in = new WhiteInputStream(limit)) {
+        try (final InputStream in = new LimitedWhiteInputStream(limit)) {
             final int count = random.nextInt((int) limit);
             for (int i = 0; i < count; i++) {
                 in.read();
@@ -68,7 +68,7 @@ public class WhiteInputStreamTest {
 
         final long limit = random.nextInt(1048576);
 
-        try (final InputStream in = new WhiteInputStream(limit)) {
+        try (final InputStream in = new LimitedWhiteInputStream(limit)) {
             in.skip(limit);
             Assert.assertEquals(in.read(), -1);
             Assert.assertEquals(in.read(), -1);

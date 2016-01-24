@@ -18,9 +18,9 @@
 package com.github.jinahya.nio.channels;
 
 
-import com.github.jinahya.io.BlackOutputStream;
+import com.github.jinahya.io.LimitedBlackOutputStream;
 import com.github.jinahya.io.IoTests;
-import com.github.jinahya.io.WhiteInputStream;
+import com.github.jinahya.io.LimitedWhiteInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.channels.Channels;
@@ -71,7 +71,7 @@ public class ByteChannelsTest {
 
         final long limit = length + 1;
         final WritableByteChannel channel
-            = Channels.newChannel(new BlackOutputStream(limit));
+            = Channels.newChannel(new LimitedBlackOutputStream(limit));
 
         final long count = ByteChannels.copy(file, channel, -1L);
 
@@ -103,7 +103,7 @@ public class ByteChannelsTest {
         final long limit = ThreadLocalRandom.current().nextInt(65535);
         logger.trace("limit: {}", limit);
         final ReadableByteChannel input
-            = Channels.newChannel(new WhiteInputStream(limit));
+            = Channels.newChannel(new LimitedWhiteInputStream(limit));
 
         final File output = IoTests.newTempFile(limit + 1);
 
@@ -121,7 +121,7 @@ public class ByteChannelsTest {
         assert limit > 0L;
         logger.trace("limit: {}", limit);
         final ReadableByteChannel input
-            = Channels.newChannel(new WhiteInputStream(limit));
+            = Channels.newChannel(new LimitedWhiteInputStream(limit));
 
         final long length = ThreadLocalRandom.current().nextLong(0, limit);
         logger.trace("size: {}", length);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
+ * Copyright 2016 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,31 +14,46 @@
  * limitations under the License.
  */
 
+package com.github.jinahya.nio.channels;
 
-package com.github.jinahya.io;
 
-
-import java.io.OutputStream;
+import java.io.IOException;
+import java.nio.channels.Channel;
 
 
 /**
- * An output stream writes bytes only through {@link OutputStream#write(int) }.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
+ * @param <T> channel type parameter
  */
-public class FunnelOutputStream extends SafelyCloseableFilterOutputStream {
+public class FilterChannel<T extends Channel> implements Channel {
 
 
-    /**
-     * Creates a funnel output stream built on top of the specified underlying
-     * output stream.
-     *
-     * @param out the underlying output stream
-     */
-    public FunnelOutputStream(final OutputStream out) {
+    public FilterChannel(final T channel) {
 
-        super(out);
+        super();
+
+        this.channel = channel;
     }
+
+
+    @Override
+    public boolean isOpen() {
+
+        return channel.isOpen();
+    }
+
+
+    @Override
+    public void close() throws IOException {
+
+        if (channel != null) {
+            channel.close();
+        }
+    }
+
+
+    protected T channel;
 
 }
 

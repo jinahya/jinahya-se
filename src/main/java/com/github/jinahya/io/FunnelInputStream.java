@@ -27,86 +27,48 @@ import java.io.InputStream;
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public class FunnelInputStream extends InputStream {
+public class FunnelInputStream extends SafelyCloseableFilterInputStream {
 
 
     /**
      * Creates a funnel input stream built on top of the specified underlying
      * input stream.
      *
-     * @param input the underlying input stream
+     * @param in the underlying input stream
      */
-    protected FunnelInputStream(final InputStream input) {
+    public FunnelInputStream(final InputStream in) {
 
-        super();
-
-        this.input = input;
+        super(in);
     }
 
 
-    /**
-     * Reads the next byte of data from the input stream. The {@code read()}
-     * method of {@code FunnelInputStream} calls {@link InputStream#read()} on
-     * {@link #input}.
-     *
-     * @return {@inheritDoc }
-     *
-     * @throws IOException {@inheritDoc }
-     */
     @Override
-    public int read() throws IOException {
+    public int read(final byte[] b, final int off, final int len)
+        throws IOException {
 
-        return input.read();
+        if (b == null) {
+            throw new NullPointerException();
+        }
+
+        if (off < 0 || len < 0 || len > b.length - off) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        int count = 0;
+
+        for (; count < len; count++) {
+            final int read = read();
+            if (read == -1) {
+                if (count == 0) {
+                    return -1;
+                }
+                break;
+            }
+            b[off + count] = (byte) read;
+        }
+
+        return count;
     }
-
-
-    /**
-     * Closes this input stream and releases any system resources associated
-     * with the stream. The {@code close()} method of {@code FunnelInputStream}
-     * calls {@link InputStream#close()} on {@link #input}.
-     *
-     * @throws IOException {@inheritDoc }
-     */
-    @Override
-    public void close() throws IOException {
-
-        input.close();
-    }
-
-
-    /**
-     * Marks the current position in this input stream. The {@code mark(int)}
-     * method of {@code FunnelInputStream} calls {@link InputStream#mark(int)}
-     * on {@link #input}.
-     *
-     * @param readLimit {@inheritDoc }
-     */
-    @Override
-    public void mark(final int readLimit) {
-
-        input.mark(readLimit);
-    }
-
-
-    /**
-     * Repositions this stream to the position at the time the {@code mark}
-     * method was last called on this input stream. The {@code reset()} method
-     * of {@code FunnelInputStream} calls {@link InputStream#reset()} on
-     * {@link #input}.
-     *
-     * @throws IOException {@inheritDoc }
-     */
-    @Override
-    public void reset() throws IOException {
-
-        input.reset();
-    }
-
-
-    /**
-     * The underlying input stream.
-     */
-    protected final InputStream input;
 
 }
 
