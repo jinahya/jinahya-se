@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jin Kwon <jinahya at gmail.com>.
+ * Copyright 2011 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,21 +21,18 @@ package com.github.jinahya.xml.bind.annotation.adapters;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-
 import java.util.Map;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlRootElement;
-
 import javax.xml.transform.stream.StreamSource;
 
 
 /**
  *
- * @author Jin Kwon <jinahya at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 @XmlRootElement
 public abstract class AbstractKVMapAdapterTest {
@@ -55,8 +52,8 @@ public abstract class AbstractKVMapAdapterTest {
             toBeMarshalled.getValues().put(key, value);
         }
 
-        final JAXBContext context =
-            JAXBContext.newInstance(AbstractKVMapAdapterTest.class, type);
+        final JAXBContext context
+            = JAXBContext.newInstance(AbstractKVMapAdapterTest.class, type);
         final Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -77,7 +74,6 @@ public abstract class AbstractKVMapAdapterTest {
 
 
     protected abstract Map<Key, Value> getValues();
-
 
 }
 

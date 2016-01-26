@@ -42,6 +42,5 @@ public class ModifierTest {
         assertEquals(set.size(), Modifier.values().length);
     }
 
-
 }
 

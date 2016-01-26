@@ -84,6 +84,5 @@ public class DigestReadableByteChannel extends FilterReadableByteChannel {
 
     protected MessageDigest digest;
 
-
 }
 

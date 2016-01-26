@@ -123,16 +123,6 @@ public final class Dangerous {
     }
 
 
-    /**
-     *
-     * @param unsafe
-     * @param base
-     * @param field
-     * @param expected
-     * @param x
-     *
-     * @return
-     */
     public static boolean compareAndSwapInt(final Unsafe unsafe, Object base,
                                             final Field field,
                                             final int expected, final int x) {
@@ -165,16 +155,6 @@ public final class Dangerous {
     }
 
 
-    /**
-     *
-     * @param unsafe an unsafe
-     * @param base the object reference or {@code null} for static field.
-     * @param field
-     * @param expected
-     * @param x
-     *
-     * @return
-     */
     public static boolean compareAndSwapLong(final Unsafe unsafe, Object base,
                                              final Field field,
                                              final long expected,
@@ -206,16 +186,6 @@ public final class Dangerous {
     }
 
 
-    /**
-     *
-     * @param unsafe
-     * @param base
-     * @param field
-     * @param expected
-     * @param x
-     *
-     * @return
-     */
     public static boolean compareAndSwapObject(final Unsafe unsafe, Object base,
                                                final Field field,
                                                final Object expected,
@@ -298,18 +268,6 @@ public final class Dangerous {
     }
 
 
-    /**
-     *
-     * @param unsafe the unsafe
-     * @param base
-     * @param field
-     *
-     * @return
-     *
-     * @throws NullPointerException if {@code base} is {@code null} while
-     * {@code field} is an instance field.
-     * @throws NullPointerException if {@code field} is {@code null}.
-     */
     public static byte getByte(final Unsafe unsafe, Object base, final Field field) {
 
         if (unsafe == null) {
@@ -344,18 +302,6 @@ public final class Dangerous {
     }
 
 
-    /**
-     *
-     * @param unsafe the unsafe
-     * @param base
-     * @param field
-     *
-     * @return
-     *
-     * @throws NullPointerException if {@code base} is {@code null} while
-     * {@code field} is an instance field.
-     * @throws NullPointerException if {@code field} is {@code null}.
-     */
     public static char getChar(final Unsafe unsafe, Object base,
                                final Field field) {
 
@@ -496,14 +442,6 @@ public final class Dangerous {
     }
 
 
-    /**
-     *
-     * @param unsafe the unsafe
-     * @param base
-     * @param field
-     *
-     * @return
-     */
     public static long getLong(final Unsafe unsafe, Object base,
                                final Field field) {
 
@@ -574,14 +512,6 @@ public final class Dangerous {
     }
 
 
-    /**
-     *
-     * @param unsafe the unsafe
-     * @param base
-     * @param field
-     *
-     * @return
-     */
     public static short getShort(final Unsafe unsafe, Object base,
                                  final Field field) {
 
@@ -617,13 +547,6 @@ public final class Dangerous {
     }
 
 
-    /**
-     *
-     * @param unsafe the unsafe
-     * @param base
-     * @param field
-     * @param x
-     */
     public static void putBoolean(final Unsafe unsafe, Object base,
                                   final Field field, final boolean x) {
 
@@ -659,12 +582,6 @@ public final class Dangerous {
     }
 
 
-    /**
-     * @param unsafe the unsafe
-     * @param base
-     * @param field
-     * @param x
-     */
     public static void putByte(final Unsafe unsafe, Object base,
                                final Field field, final byte x) {
 
@@ -700,13 +617,6 @@ public final class Dangerous {
     }
 
 
-    /**
-     *
-     * @param unsafe the unsafe
-     * @param base
-     * @param field
-     * @param x
-     */
     public static void putChar(final Unsafe unsafe, Object base,
                                final Field field, final char x) {
 
@@ -742,13 +652,6 @@ public final class Dangerous {
     }
 
 
-    /**
-     *
-     * @param unsafe the unsafe
-     * @param base
-     * @param field
-     * @param x
-     */
     public static void putDouble(final Unsafe unsafe, Object base,
                                  final Field field, final double x) {
 
@@ -784,13 +687,6 @@ public final class Dangerous {
     }
 
 
-    /**
-     *
-     * @param unsafe the unsafe
-     * @param base
-     * @param field
-     * @param x
-     */
     public void putFloat(final Unsafe unsafe, Object base, final Field field,
                          final float x) {
 
@@ -895,13 +791,6 @@ public final class Dangerous {
     }
 
 
-    /**
-     *
-     * @param unsafe
-     * @param base
-     * @param field
-     * @param x
-     */
     public static void putObject(final Unsafe unsafe, Object base,
                                  final Field field, final Object x) {
 
@@ -968,13 +857,6 @@ public final class Dangerous {
     }
 
 
-    /**
-     *
-     * @param unsafe the unsafe
-     * @param base
-     * @param field
-     * @param x
-     */
     public static void putOrderedLong(final Unsafe unsafe, Object base,
                                       final Field field, final long x) {
 
@@ -1006,13 +888,6 @@ public final class Dangerous {
     }
 
 
-    /**
-     *
-     * @param unsafe the unsafe
-     * @param base
-     * @param field
-     * @param x
-     */
     public static void putOrderedObject(final Unsafe unsafe, Object base,
                                         final Field field, final Object x) {
 
@@ -1044,13 +919,6 @@ public final class Dangerous {
     }
 
 
-    /**
-     *
-     * @param unsafe the unsafe
-     * @param base
-     * @param field
-     * @param x
-     */
     public static void putShort(final Unsafe unsafe, Object base,
                                 final Field field, final short x) {
 
@@ -1090,7 +958,6 @@ public final class Dangerous {
 
         super();
     }
-
 
 }
 

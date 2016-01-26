@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
+ * Copyright 2015 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-
 package com.github.jinahya.crypto;
 
 
-import com.github.jinahya.lang.IntegerFieldEnum;
+import com.github.jinahya.lang.IntFieldEnum;
 import javax.crypto.Cipher;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
@@ -28,53 +27,47 @@ import javax.xml.bind.annotation.XmlEnumValue;
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-@XmlEnum(Integer.class)
-public enum CipherMode implements IntegerFieldEnum<CipherMode> {
-
+@XmlEnum(value = Integer.class)
+public enum CipherMode implements IntFieldEnum<CipherMode> {
 
     /**
      * A constant for {@link Cipher#ENCRYPT_MODE}.
      */
-    @XmlEnumValue("1")
+    @XmlEnumValue(value = "1")
     ENCRYPT_MODE(Cipher.ENCRYPT_MODE), // 1
 
     /**
      * A constant for {@link Cipher#DECRYPT_MODE}.
      */
-    @XmlEnumValue("2")
+    @XmlEnumValue(value = "2")
     DECRYPT_MODE(Cipher.DECRYPT_MODE), // 2
 
     /**
      * A constant for {@link Cipher#WRAP_MODE}.
      */
-    @XmlEnumValue("3")
+    @XmlEnumValue(value = "3")
     WRAP_MODE(Cipher.WRAP_MODE), // 3
 
     /**
      * A constant for {@link Cipher#UNWRAP_MODE}.
      */
-    @XmlEnumValue("4")
-    UNWRAP_MODE(Cipher.UNWRAP_MODE); // 4
+    @XmlEnumValue(value = "4")
+    UNWRAP_MODE(Cipher.UNWRAP_MODE);
 
 
     private CipherMode(final int fieldValue) {
-
         this.fieldValue = fieldValue;
     }
 
 
     @Override
-    public Integer fieldValue() {
+    public int fieldValueAsInt() {
 
         return fieldValue;
     }
 
 
-    /**
-     * field value.
-     */
     private final int fieldValue;
-
 
 }
 

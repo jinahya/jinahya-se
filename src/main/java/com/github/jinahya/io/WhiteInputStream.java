@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Jin Kwon <jinahya at gmail.com>.
+ * Copyright 2012 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,34 +24,54 @@ import java.io.IOException;
 /**
  * An input stream generates random bytes.
  *
- * @author Jin Kwon <jinahya at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class WhiteInputStream extends FunnelInputStream {
 
 
-    public WhiteInputStream(final long limit) {
+    /**
+     * Creates a new instance.
+     */
+    public WhiteInputStream() {
 
         super(null);
-
-        this.limit = limit;
     }
 
 
+    /**
+     * Reads the next byte of data from the input stream. The {@code read()}
+     * method of {@code WhiteInputStream} class returns {@code 0}.
+     *
+     * @return the next byte of data, or -1 if the end of the stream is reached.
+     *
+     * @throws IOException if an I/O error occurs.
+     */
     @Override
     public int read() throws IOException {
-
-        if (limit >= 0L && limit <= count++) {
-            return -1;
-        }
 
         return 0;
     }
 
 
+    /**
+     * Tests if this input stream supports the mark and reset methods. The
+     * {@code markSupported()} method of {@code WhiteInputStream} class returns
+     * {@code true}.
+     *
+     * @return true if this stream instance supports the mark and reset methods;
+     * false otherwise.
+     */
     @Override
     public boolean markSupported() {
 
-        return false;
+        return true;
+    }
+
+
+    @Override
+    public synchronized void mark(final int readlimit) {
+
+        // does nothing
     }
 
 
@@ -63,84 +83,17 @@ public class WhiteInputStream extends FunnelInputStream {
 
 
     @Override
-    public synchronized void mark(int readlimit) {
-
-        // does nothing
-    }
-
-
-    @Override
-    public void close() throws IOException {
-
-        // does nothing
-    }
-
-
-    @Override
     public int available() throws IOException {
 
-        if (limit <= 0L) {
-            return Integer.MAX_VALUE;
-        }
-
-        if (count >= 0 && count <= limit) {
-            final long available = limit - count;
-            if (available <= Integer.MAX_VALUE) {
-                return (int) available;
-            } else {
-                return Integer.MAX_VALUE;
-            }
-        }
-
-        return 0;
+        return Integer.MAX_VALUE;
     }
 
 
     @Override
     public long skip(final long n) throws IOException {
 
-        for (int i = 0; i < n; i++) {
-            read();
-        }
-
         return n;
     }
-
-
-    /**
-     * Returns the maximum number of bytes can be read.
-     *
-     * @return the maximum number of bytes can be read or {@code -1} if there is
-     * no limit.
-     */
-    public long getLimit() {
-
-        return limit;
-    }
-
-
-    /**
-     * Returns the number of bytes read so far.
-     *
-     * @return the number of bytes read so far.
-     */
-    public long getCount() {
-
-        return count;
-    }
-
-
-    /**
-     * the maximum number of bytes can be read. {@code -1L} for unlimited.
-     */
-    protected long limit;
-
-
-    /**
-     * the total number of byte read so far.
-     */
-    protected transient long count;
-
 
 }
 

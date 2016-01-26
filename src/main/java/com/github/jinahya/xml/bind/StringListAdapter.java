@@ -44,5 +44,5 @@ public abstract class StringListAdapter<E>
         return new ArrayList<E>();
     }
 
-
 }
+

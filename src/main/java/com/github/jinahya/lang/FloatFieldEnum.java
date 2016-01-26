@@ -26,7 +26,7 @@ package com.github.jinahya.lang;
 public interface FloatFieldEnum<E extends Enum<E>> {
 
 
-    static <E extends Enum<E> & LongFieldEnum<E>> float[] fieldValues(
+    static <E extends Enum<E> & FloatFieldEnum<E>> float[] fieldValues(
         final Class<E> type) {
 
         if (type == null) {
@@ -37,15 +37,14 @@ public interface FloatFieldEnum<E extends Enum<E>> {
 
         final float[] fieldValues = new float[enumConstants.length];
         for (int i = 0; i < fieldValues.length; i++) {
-            fieldValues[i] = enumConstants[i].fieldValue();
+            fieldValues[i] = enumConstants[i].fieldValueAsFloat();
         }
 
         return fieldValues;
     }
 
 
-    float fieldValue();
-
+    float fieldValueAsFloat();
 
 }
 

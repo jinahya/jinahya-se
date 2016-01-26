@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <jinahya at gmail.com>.
+ * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,19 +18,15 @@
 package com.github.jinahya.util;
 
 
-import com.github.jinahya.lang.FieldEnums;
 import java.util.Calendar;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 /**
  * Constants for {@link Calendar#MONTH}.
  *
- * @author Jin Kwon <jinahya at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public enum CalendarMonth implements CalendarFieldEnum<CalendarMonth, Integer> {
-
+public enum CalendarMonth implements CalendarIntFieldEnum<CalendarMonth> {
 
     JANUARY(Calendar.JANUARY), // 0
 
@@ -59,13 +55,6 @@ public enum CalendarMonth implements CalendarFieldEnum<CalendarMonth, Integer> {
     //UNDECIMBER(Calendar.UNDECIMBER); // 12
 
     /**
-     * logger.
-     */
-    private static final Logger logger
-            = LoggerFactory.getLogger(CalendarMonth.class);
-
-
-    /**
      * The target field of {@link Calendar} which this enum type is for.
      *
      * @see Calendar#MONTH
@@ -73,50 +62,10 @@ public enum CalendarMonth implements CalendarFieldEnum<CalendarMonth, Integer> {
     public static final int CALENDAR_FIELD = Calendar.MONTH;
 
 
-    /**
-     * Returns the enum constant of this type with the specified field value.
-     *
-     * @param fieldValue field value
-     *
-     * @throws IllegalArgumentException if this enum type has no constant with
-     * the specified field value.
-     *
-     * @return the enum constant with the specified field value.
-     */
-    public static CalendarMonth fromFieldValue(final int fieldValue) {
-
-        return FieldEnums.fromFieldValue(CalendarMonth.class, fieldValue);
-    }
-
-
-    /**
-     * Returns the enum constant of this type with the specified calendar's
-     * field value.
-     *
-     * @param calendar calendar
-     *
-     * @throws IllegalArgumentException if this enum type has no constant with
-     * the specified calendar's field value.
-     *
-     * @return the enum constant with the specified calendar's field value.
-     */
     public static CalendarMonth fromCalendar(final Calendar calendar) {
 
-        return CalendarFieldEnums.get(CalendarMonth.class, calendar,
-                                      CALENDAR_FIELD);
-    }
-
-
-    /**
-     * Returns an array containing the field values of this enum type, in order
-     * they are declared.
-     *
-     * @return an array containing the fields values of this enum type, in the
-     * order they are declared
-     */
-    public Integer[] fieldValues() {
-
-        return FieldEnums.fieldValues(CalendarMonth.class, Integer.class);
+        return CalendarIntFieldEnum.fromCalendar(
+            CalendarMonth.class, calendar, CALENDAR_FIELD);
     }
 
 
@@ -132,7 +81,7 @@ public enum CalendarMonth implements CalendarFieldEnum<CalendarMonth, Integer> {
 
 
     @Override
-    public Integer fieldValue() {
+    public int fieldValueAsInt() {
 
         return fieldValue;
     }
@@ -141,17 +90,11 @@ public enum CalendarMonth implements CalendarFieldEnum<CalendarMonth, Integer> {
     @Override
     public void set(final Calendar calendar) {
 
-        logger.debug("set({})", calendar);
-
-        CalendarFieldEnums.set(calendar, CALENDAR_FIELD, this);
+        CalendarIntFieldEnum.set(calendar, CALENDAR_FIELD, this);
     }
 
 
-    /**
-     * field value.
-     */
     private final int fieldValue;
-
 
 }
 

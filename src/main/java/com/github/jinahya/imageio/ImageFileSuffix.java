@@ -18,7 +18,6 @@
 package com.github.jinahya.imageio;
 
 
-import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.imageio.ImageIO;
@@ -30,36 +29,28 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 @XmlRootElement
-public class ImageFileSuffix extends ImageFeature {
+public class ImageFileSuffix extends ImageFeature<ImageFileSuffix> {
 
 
-    public static Collection<ImageFileSuffix> getAvailableInstances() {
+    public static ImageFileSuffix[] getAvailableInstances() {
 
         final Map<String, ImageFileSuffix> map = new TreeMap<>();
 
-        for (final String readerFileSuffix : ImageIO.getReaderFileSuffixes()) {
-            ImageFileSuffix imageFileSuffix = map.get(readerFileSuffix);
-            if (imageFileSuffix == null) {
-                imageFileSuffix = new ImageFileSuffix();
-                map.put(readerFileSuffix, imageFileSuffix);
-            }
-            imageFileSuffix.setReadable(true);
-            imageFileSuffix.setValue(readerFileSuffix);
+        for (final String value : ImageIO.getReaderFileSuffixes()) {
+            map.put(value, new ImageFileSuffix().readable(true).value(value));
         }
 
-        for (final String writerFileSuffix : ImageIO.getWriterFileSuffixes()) {
-            ImageFileSuffix imageFileSuffix = map.get(writerFileSuffix);
-            if (imageFileSuffix == null) {
-                imageFileSuffix = new ImageFileSuffix();
-                map.put(writerFileSuffix, imageFileSuffix);
+        for (final String value : ImageIO.getWriterFileSuffixes()) {
+            ImageFileSuffix instance = map.get(value);
+            if (instance == null) {
+                instance = new ImageFileSuffix().value(value);
+                map.put(value, instance);
             }
-            imageFileSuffix.setWritable(true);
-            imageFileSuffix.setValue(writerFileSuffix);
+            instance.setWritable(true);
         }
 
-        return map.values();
+        return map.values().toArray(new ImageFileSuffix[map.size()]);
     }
-
 
 }
 

@@ -26,7 +26,7 @@ package com.github.jinahya.lang;
 public interface DoubleFieldEnum<E extends Enum<E>> {
 
 
-    static <E extends Enum<E> & LongFieldEnum<E>> double[] fieldValues(
+    static <E extends Enum<E> & DoubleFieldEnum<E>> double[] fieldValues(
         final Class<E> type) {
 
         if (type == null) {
@@ -37,15 +37,14 @@ public interface DoubleFieldEnum<E extends Enum<E>> {
 
         final double[] fieldValues = new double[enumConstants.length];
         for (int i = 0; i < fieldValues.length; i++) {
-            fieldValues[i] = enumConstants[i].fieldValue();
+            fieldValues[i] = enumConstants[i].fieldValueAsDouble();
         }
 
         return fieldValues;
     }
 
 
-    double fieldValue();
-
+    double fieldValueAsDouble();
 
 }
 

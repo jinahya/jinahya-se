@@ -20,14 +20,13 @@ package com.github.jinahya.lang;
 
 /**
  *
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <E> enum type parameter
  */
 public interface LongFieldEnum<E extends Enum<E>> {
 
 
-    static <E extends Enum<E> & LongFieldEnum<E>> long[] fieldValues(
+    public static <E extends Enum<E> & LongFieldEnum<E>> long[] fieldValues(
         final Class<E> type) {
 
         if (type == null) {
@@ -38,15 +37,32 @@ public interface LongFieldEnum<E extends Enum<E>> {
 
         final long[] fieldValues = new long[enumConstants.length];
         for (int i = 0; i < fieldValues.length; i++) {
-            fieldValues[i] = enumConstants[i].fieldValue();
+            fieldValues[i] = enumConstants[i].fieldValueAsLong();
         }
 
         return fieldValues;
     }
 
 
-    long fieldValue();
+    public static <E extends Enum<E> & LongFieldEnum<E>> E fromFieldValue(
+        final Class<E> enumType, final long fieldValue) {
 
+        if (enumType == null) {
+            throw new NullPointerException("null enumtype");
+        }
+
+        for (final E enumConstant : enumType.getEnumConstants()) {
+            final long constantFieldValue = enumConstant.fieldValueAsLong();
+            if (constantFieldValue == fieldValue) {
+                return enumConstant;
+            }
+        }
+
+        throw new IllegalArgumentException("unknown fieldValue: " + fieldValue);
+    }
+
+
+    long fieldValueAsLong();
 
 }
 

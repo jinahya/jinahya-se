@@ -31,7 +31,7 @@ public final class IntBuffers {
     public static void copy(final IntBuffer buffer, final int[] dst, final int offset, final int length) {
 
         if (buffer.hasArray()) {
-            
+
         }
 
     }
@@ -41,7 +41,6 @@ public final class IntBuffers {
 
         super();
     }
-
 
 }
 

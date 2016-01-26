@@ -18,8 +18,9 @@
 package com.github.jinahya.imageio;
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.IOException;
+import javax.xml.bind.JAXBException;
+import org.testng.annotations.Test;
 
 
 /**
@@ -30,13 +31,6 @@ public class ImageFileSuffixTest extends ImageFeatureTest<ImageFileSuffix> {
 
 
     /**
-     * logger.
-     */
-    private static final Logger logger
-            = LoggerFactory.getLogger(ImageFileSuffixTest.class);
-
-
-    /**
      * Creates a new instance.
      */
     public ImageFileSuffixTest() {
@@ -44,6 +38,12 @@ public class ImageFileSuffixTest extends ImageFeatureTest<ImageFileSuffix> {
         super(ImageFileSuffix.class);
     }
 
+
+    @Test
+    public void printXml() throws JAXBException, IOException {
+
+        JaxbTest.printXml(type, ImageFileSuffix.getAvailableInstances());
+    }
 
 }
 

@@ -42,7 +42,6 @@ public class AutoCloseablesTest {
             logger.debug("I'm not the close()");
         }
 
-
     }
 
 
@@ -56,7 +55,6 @@ public class AutoCloseablesTest {
         try (AutoCloseable resource = autoCloseable) {
         }
     }
-
 
 }
 

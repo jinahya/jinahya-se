@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
+ * Copyright 2015 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-
 package com.github.jinahya.awt;
 
 
@@ -28,17 +27,14 @@ import java.awt.Component;
  */
 public enum ComponentAlignmentY implements FloatFieldEnum<ComponentAlignmentY> {
 
-
     /**
      * Constant for {@link Component#TOP_ALIGNMENT}.
      */
     TOP_ALIGNMENT(Component.TOP_ALIGNMENT), // 0.0f
-
     /**
      * Constant for {@link Component#CENTER_ALIGNMENT}.
      */
     CENTER_ALIGHMENT(Component.CENTER_ALIGNMENT), // 0.5f
-
     /**
      * Constant for {@link Component#BOTTOM_ALIGNMENT}.
      */
@@ -46,23 +42,17 @@ public enum ComponentAlignmentY implements FloatFieldEnum<ComponentAlignmentY> {
 
 
     private ComponentAlignmentY(final float fieldValue) {
-
         this.fieldValue = fieldValue;
     }
 
 
     @Override
-    public float fieldValue() {
-
+    public float fieldValueAsFloat() {
         return fieldValue;
     }
 
 
-    /**
-     * field value.
-     */
     private final float fieldValue;
-
 
 }
 

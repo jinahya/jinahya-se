@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Jin Kwon <jinahya at gmail.com>.
+ * Copyright 2012 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@
 package com.github.jinahya.xml.bind;
 
 
-import com.github.jinahya.xml.bind.WrappedNormalizedString;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -26,7 +25,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 /**
  *
- * @author Jin Kwon <jinahya at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class WrappedNormalizedStringTest
     extends WrappedValueTest<WrappedNormalizedString, String> {
@@ -50,5 +49,5 @@ public class WrappedNormalizedStringTest
         return RandomStringUtils.randomAlphanumeric(random.nextInt(128));
     }
 
-
 }
+

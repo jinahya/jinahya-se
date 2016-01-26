@@ -67,6 +67,5 @@ public final class JinahyaCharsets {
         super();
     }
 
-
 }
 

@@ -36,7 +36,7 @@ public class ComparableComparatorTest<T extends ComparableComparator<U>, U exten
 
 
     protected static <T extends ComparableComparator<U>, U extends Comparable<? super U>> void sort_(
-            final List<U> list, final T comparator) {
+        final List<U> list, final T comparator) {
 
         Objects.requireNonNull(list, "null list");
 
@@ -55,7 +55,6 @@ public class ComparableComparatorTest<T extends ComparableComparator<U>, U exten
             Collections.sort(new ArrayList<>(list), comparator);
         }
     }
-
 
 }
 

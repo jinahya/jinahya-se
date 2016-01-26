@@ -23,15 +23,13 @@ package com.github.jinahya.util;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class CalendarPeriodOfDayTest
-    extends CalendarFieldEnumTest<CalendarPeriodOfDay, Integer> {
+    extends CalendarIntFieldEnumTest<CalendarPeriodOfDay> {
 
 
     public CalendarPeriodOfDayTest() {
 
-        super(CalendarPeriodOfDay.class, Integer.class,
-              CalendarPeriodOfDay.CALENDAR_FIELD);
+        super(CalendarPeriodOfDay.class, CalendarPeriodOfDay.CALENDAR_FIELD);
     }
-
 
 }
 

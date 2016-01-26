@@ -29,7 +29,6 @@ import java.util.logging.Level;
  */
 public enum LoggingLevel implements FieldEnum<LoggingLevel, Integer> {
 
-
     OFF(Level.OFF),
     SEVERE(Level.SEVERE),
     WARNING(Level.WARNING),
@@ -115,5 +114,5 @@ public enum LoggingLevel implements FieldEnum<LoggingLevel, Integer> {
      */
     private final int fieldValue;
 
-
 }
+

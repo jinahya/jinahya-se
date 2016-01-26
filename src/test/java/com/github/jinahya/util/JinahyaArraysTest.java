@@ -74,6 +74,5 @@ public class JinahyaArraysTest {
         assertEquals(actual, expected);
     }
 
-
 }
 

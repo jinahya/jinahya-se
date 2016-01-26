@@ -49,6 +49,5 @@ public class InvokedMethodListener implements IInvokedMethodListener {
 
     private final transient Logger logger = getLogger(lookup().lookupClass());
 
-
 }
 

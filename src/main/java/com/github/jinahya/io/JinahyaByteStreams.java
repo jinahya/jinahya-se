@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jin Kwon <jinahya at gmail.com>.
+ * Copyright 2011 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,9 +24,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import static java.lang.invoke.MethodHandles.lookup;
-import org.slf4j.Logger;
-import static org.slf4j.LoggerFactory.getLogger;
 
 
 /**
@@ -35,12 +32,6 @@ import static org.slf4j.LoggerFactory.getLogger;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class JinahyaByteStreams {
-
-
-    /**
-     * logger.
-     */
-    private static final Logger logger = getLogger(lookup().lookupClass());
 
 
     /**
@@ -59,9 +50,6 @@ public final class JinahyaByteStreams {
     public static long copy(final InputStream input, final OutputStream output,
                             final byte[] buffer, final long length)
         throws IOException {
-
-        logger.trace("copy({}, {}, {}, {})", input, output,
-                     String.valueOf(buffer), length);
 
         if (input == null) {
             throw new NullPointerException("input == null");
@@ -214,7 +202,6 @@ public final class JinahyaByteStreams {
 
         super();
     }
-
 
 }
 

@@ -27,7 +27,6 @@ import com.github.jinahya.lang.IntFieldEnum;
  */
 public enum Modifier implements IntFieldEnum<Modifier> {
 
-
     PUBLIC(java.lang.reflect.Modifier.PUBLIC),
     PRIVATE(java.lang.reflect.Modifier.PRIVATE),
     PROTECTED(java.lang.reflect.Modifier.PROTECTED),
@@ -49,14 +48,13 @@ public enum Modifier implements IntFieldEnum<Modifier> {
 
 
     @Override
-    public int fieldValue() {
+    public int fieldValueAsInt() {
 
         return fieldValue;
     }
 
 
     private final int fieldValue;
-
 
 }
 

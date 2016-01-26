@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
+ * Copyright 2015 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,23 @@
  * limitations under the License.
  */
 
-
 package com.github.jinahya.crypto;
 
 
-import com.github.jinahya.lang.IntegerFieldEnumTest;
+import com.github.jinahya.lang.IntFieldEnumTest;
 
 
-public class CipherModeTest extends IntegerFieldEnumTest<CipherMode> {
+/**
+ *
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
+ */
+public class CipherModeTest extends IntFieldEnumTest<CipherMode> {
 
 
     public CipherModeTest() {
 
         super(CipherMode.class);
     }
-
 
 }
 

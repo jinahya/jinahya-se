@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
+ * Copyright 2015 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,95 +14,33 @@
  * limitations under the License.
  */
 
-
 package com.github.jinahya.sql;
 
 
-import com.github.jinahya.lang.FieldEnum;
-import com.github.jinahya.lang.FieldEnums;
+import com.github.jinahya.lang.IntFieldEnum;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 
 /**
- * Constants for {@link ResultSet}'s concurrencies.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
- * @deprecated Use {@link com.github.jinahya.sql.resultset.Concurrency}.
  */
-@Deprecated
-public enum ResultSetConcurrency
-        implements FieldEnum<ResultSetConcurrency, Integer> {
-
+public enum ResultSetConcurrency implements IntFieldEnum<ResultSetConcurrency> {
 
     /**
-     * Constant for {@link ResultSet#CONCUR_READ_ONLY}.
+     * Constant for
+     * {@link ResultSet#CONCUR_READ_ONLY}({@value ResultSet#CONCUR_READ_ONLY}).
      */
     CONCUR_READ_ONLY(ResultSet.CONCUR_READ_ONLY), // 1007
-    /**
-     * Constant for {@link ResultSet#CONCUR_UPDATABLE}.
-     */
-    CONCUR_UPDATABLE(ResultSet.CONCUR_UPDATABLE); // 1008
-
 
     /**
-     * Returns the enum constant of this type with the specified field value.
-     *
-     * @param fieldValue either {@link ResultSet#CONCUR_READ_ONLY} or
-     * {@link ResultSet#CONCUR_UPDATABLE}.
-     *
-     * @return the enum constant with the specified field value
+     * Constant for
+     * {@link ResultSet#CONCUR_UPDATABLE}({@value ResultSet#CONCUR_UPDATABLE}).
      */
-    public static ResultSetConcurrency fromFieldValue(final int fieldValue) {
-
-        return FieldEnums.fromFieldValue(
-                ResultSetConcurrency.class, fieldValue);
-    }
+    CONCUR_UPDATABLE(ResultSet.CONCUR_UPDATABLE) // 1008
+    ;
 
 
-    /**
-     * Returns the enum constant of this type with the specified result set's
-     * concurrency.
-     *
-     * @param resultSet the result set
-     *
-     * @return the enum constant with specified result set's concurrency
-     *
-     * @throws SQLException if a database access error occurs or this method is
-     * called on a closed result set
-     *
-     * @see ResultSet#getConcurrency()
-     */
-    public static ResultSetConcurrency fromResultSet(final ResultSet resultSet)
-            throws SQLException {
-
-        if (resultSet == null) {
-            throw new NullPointerException("resultSet");
-        }
-
-        return fromFieldValue(resultSet.getFetchDirection());
-    }
-
-
-    /**
-     * Returns an array containing the field values of this enum type, in the
-     * order they are declared.
-     *
-     * @return an array containing the field values of this enum type, in the
-     * order they are declared
-     */
-    public static Integer[] fieldValues() {
-
-        return FieldEnums.fieldValues(ResultSetConcurrency.class,
-                                      Integer.class);
-    }
-
-
-    /**
-     * Creates a new instance.
-     *
-     * @param fieldValue field value.
-     */
     private ResultSetConcurrency(final int fieldValue) {
 
         this.fieldValue = fieldValue;
@@ -110,17 +48,13 @@ public enum ResultSetConcurrency
 
 
     @Override
-    public Integer fieldValue() {
+    public int fieldValueAsInt() {
 
         return fieldValue;
     }
 
 
-    /**
-     * field value.
-     */
     private final int fieldValue;
-
 
 }
 

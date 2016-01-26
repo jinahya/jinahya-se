@@ -15,16 +15,11 @@
  */
 
 
+@XmlAccessorType(XmlAccessType.NONE)
 @XmlSchema(
     attributeFormDefault = XmlNsForm.UNQUALIFIED,
     elementFormDefault = XmlNsForm.QUALIFIED,
-    namespace = "http://jinahya.github.com/imageio"/*,
-    xmlns = {
-    @XmlNs(prefix = XMLConstants.XML_NS_PREFIX,
-           namespaceURI = XMLConstants.XML_NS_URI),
-    @XmlNs(prefix = "xsi",
-           namespaceURI = XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI)}*/)
-@XmlAccessorType(XmlAccessType.NONE)
+    namespace = "http://github.com/jinahya/imageio")
 package com.github.jinahya.imageio;
 
 

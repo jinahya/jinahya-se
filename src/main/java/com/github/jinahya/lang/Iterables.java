@@ -26,7 +26,7 @@ public final class Iterables {
 
 
     public static <T> void requireSortedAscending(final Iterable<T> iterable, final Comparable<? super T> comparator) {
-        
+
         if (iterable == null) {
             throw new NullPointerException("null iterable");
         }
@@ -41,7 +41,6 @@ public final class Iterables {
 
         super();
     }
-
 
 }
 

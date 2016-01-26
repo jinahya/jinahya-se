@@ -79,6 +79,5 @@ public abstract class FieldEnumTest<E extends Enum<E> & FieldEnum<E, F>, F> {
      */
     protected final Class<F> fieldType;
 
-
 }
 

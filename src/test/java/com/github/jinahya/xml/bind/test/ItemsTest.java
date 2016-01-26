@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Jin Kwon <jinahya at gmail.com>.
+ * Copyright 2012 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import com.github.jinahya.xml.bind.PluralTest;
 
 /**
  *
- * @author Jin Kwon <jinahya at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class ItemsTest extends PluralTest<Items, Item> {
 
@@ -31,7 +31,6 @@ public class ItemsTest extends PluralTest<Items, Item> {
     public ItemsTest() {
         super(Items.class, Item.class);
     }
-
 
 }
 

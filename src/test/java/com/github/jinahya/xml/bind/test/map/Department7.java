@@ -63,5 +63,5 @@ public class Department7 extends AbstractDepartment {
         return super.getEmployees();
     }
 
-
 }
+

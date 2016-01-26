@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jin Kwon <jinahya at gmail.com>.
+ * Copyright 2011 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,6 @@ package com.github.jinahya.xml.bind.annotation.adapters;
 
 
 import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -28,7 +27,7 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  *
- * @author Jin Kwon <jinahya at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlType(propOrder = {"key", "name", "age"})
@@ -87,7 +86,7 @@ public class Value implements Comparable<Value>, Serializable {
 
     /**
      * Sets age.
-     * 
+     *
      * @param age age
      */
     public void setAge(final int age) {
@@ -106,7 +105,8 @@ public class Value implements Comparable<Value>, Serializable {
             if (o.key != null) {
                 return -1;
             }
-        } else { // key != null
+        } else // key != null
+        {
             if (o.key == null) {
                 return 1;
             } else {
@@ -121,7 +121,8 @@ public class Value implements Comparable<Value>, Serializable {
             if (o.name != null) {
                 return -1;
             }
-        } else { // key != null
+        } else // key != null
+        {
             if (o.name == null) {
                 return 1;
             } else {
@@ -208,7 +209,6 @@ public class Value implements Comparable<Value>, Serializable {
 
     @XmlElement(required = true)
     private int age;
-
 
 }
 

@@ -65,6 +65,5 @@ public class FieldsTest {
         Assert.assertTrue(!Modifier.isFinal(modifiers));
     }
 
-
 }
 

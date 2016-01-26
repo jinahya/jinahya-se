@@ -34,6 +34,5 @@ public class EmployeesAdapter0
         super(EmployeeEntries.class);
     }
 
-
 }
 

@@ -18,8 +18,9 @@
 package com.github.jinahya.imageio;
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.IOException;
+import javax.xml.bind.JAXBException;
+import org.testng.annotations.Test;
 
 
 /**
@@ -30,13 +31,6 @@ public class ImageMimeTypeTest extends ImageFeatureTest<ImageMimeType> {
 
 
     /**
-     * logger.
-     */
-    private static final Logger logger
-            = LoggerFactory.getLogger(ImageMimeTypeTest.class);
-
-
-    /**
      * Creates a new instance.
      */
     public ImageMimeTypeTest() {
@@ -44,6 +38,12 @@ public class ImageMimeTypeTest extends ImageFeatureTest<ImageMimeType> {
         super(ImageMimeType.class);
     }
 
+
+    @Test
+    public void printXml() throws JAXBException, IOException {
+
+        JaxbTest.printXml(type, ImageMimeType.getAvailableInstances());
+    }
 
 }
 

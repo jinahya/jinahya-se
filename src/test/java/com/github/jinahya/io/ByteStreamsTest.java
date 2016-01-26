@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <jinahya at gmail.com>.
+ * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import org.testng.annotations.Test;
 
 /**
  *
- * @author Jin Kwon <jinahya at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class ByteStreamsTest {
 
@@ -39,7 +39,7 @@ public class ByteStreamsTest {
     public static void copy_nullInput_NullPointerException()
         throws IOException {
 
-        JinahyaByteStreams.copy((InputStream) null, new BlackOutputStream(-1L),
+        JinahyaByteStreams.copy((InputStream) null, new LimitedBlackOutputStream(-1L),
                                 new byte[1], -1L);
     }
 
@@ -48,7 +48,7 @@ public class ByteStreamsTest {
     public static void copy_nullOutput_NullPointerException()
         throws IOException {
 
-        JinahyaByteStreams.copy(new WhiteInputStream(-1L), (OutputStream) null,
+        JinahyaByteStreams.copy(new LimitedWhiteInputStream(-1L), (OutputStream) null,
                                 new byte[1], -1L);
     }
 
@@ -57,7 +57,7 @@ public class ByteStreamsTest {
     public static void copy_nullBuffer_NullPointerException()
         throws IOException {
 
-        JinahyaByteStreams.copy(new WhiteInputStream(-1L), new BlackOutputStream(-1L),
+        JinahyaByteStreams.copy(new LimitedWhiteInputStream(-1L), new LimitedBlackOutputStream(-1L),
                                 null, -1L);
     }
 
@@ -67,7 +67,7 @@ public class ByteStreamsTest {
     public static void copy_zeroLengthBuffer_IllegalArgumentException()
         throws IOException {
 
-        JinahyaByteStreams.copy(new WhiteInputStream(-1L), new BlackOutputStream(-1L),
+        JinahyaByteStreams.copy(new LimitedWhiteInputStream(-1L), new LimitedBlackOutputStream(-1L),
                                 new byte[0], -1L);
     }
 
@@ -80,7 +80,7 @@ public class ByteStreamsTest {
         final long length = random.nextInt(1048576);
 
         final long count = JinahyaByteStreams.copy(
-            new WhiteInputStream(-1L), new BlackOutputStream(-1L),
+            new LimitedWhiteInputStream(-1L), new LimitedBlackOutputStream(-1L),
             new byte[8192], length);
 
         Assert.assertEquals(count, length);
@@ -94,8 +94,8 @@ public class ByteStreamsTest {
 
         final long limit = random.nextInt(1048576);
 
-        final InputStream input = new WhiteInputStream(limit);
-        final OutputStream output = new BlackOutputStream(-1L);
+        final InputStream input = new LimitedWhiteInputStream(limit);
+        final OutputStream output = new LimitedBlackOutputStream(-1L);
 
         final long length
             = random.nextBoolean() ? -1L : random.nextLong(limit);
@@ -136,7 +136,6 @@ public class ByteStreamsTest {
             Assert.assertEquals(file2.length(), length);
         }
     }
-
 
 }
 

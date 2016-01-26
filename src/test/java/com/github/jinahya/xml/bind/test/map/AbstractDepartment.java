@@ -77,6 +77,5 @@ public abstract class AbstractDepartment {
 
     private Map<Long, Employee> employees;
 
-
 }
 

@@ -36,6 +36,5 @@ public abstract class FloatFieldEnumTest<E extends Enum<E> & FloatFieldEnum<E>> 
 
     protected final Class<E> enumType;
 
-
 }
 

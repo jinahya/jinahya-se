@@ -32,6 +32,5 @@ public abstract class StringFieldEnumTest<E extends Enum<E> & StringFieldEnum<E>
         super(enumType, String.class);
     }
 
-
 }
 

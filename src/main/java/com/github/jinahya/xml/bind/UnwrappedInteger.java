@@ -62,5 +62,5 @@ public class UnwrappedInteger extends UnwrappedValue<Integer> {
         super.setRawValue(rawValue);
     }
 
-
 }
+

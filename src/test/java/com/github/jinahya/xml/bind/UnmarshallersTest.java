@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <jinahya at gmail.com>.
+ * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +18,12 @@
 package com.github.jinahya.xml.bind;
 
 
-import com.github.jinahya.xml.bind.Unmarshallers;
 import org.testng.annotations.Test;
 
 
 /**
  *
- * @author Jin Kwon <jinahya at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class UnmarshallersTest {
 
@@ -33,7 +32,6 @@ public class UnmarshallersTest {
     public static void test() throws ClassNotFoundException {
         Class.forName(Unmarshallers.class.getName());
     }
-
 
 }
 

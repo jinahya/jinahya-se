@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <jinahya at gmail.com>.
+ * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,18 +18,15 @@
 package com.github.jinahya.util;
 
 
-import com.github.jinahya.lang.FieldEnums;
 import java.util.Calendar;
 
 
 /**
  * Constants for {@link Calendar#DAY_OF_WEEK}.
  *
- * @author Jin Kwon <jinahya at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public enum CalendarDayOfWeek
-    implements CalendarFieldEnum<CalendarDayOfWeek, Integer> {
-
+public enum CalendarDayOfWeek implements CalendarIntFieldEnum<CalendarDayOfWeek> {
 
     /**
      * Constant for {@link Calendar#SUNDAY}.
@@ -69,52 +66,37 @@ public enum CalendarDayOfWeek
     public static final int CALENDAR_FIELD = Calendar.DAY_OF_WEEK;
 
 
-    /**
-     * Returns the enum constant of this type with the specified field value.
-     *
-     * @param fieldValue field value
-     *
-     * @throws IllegalArgumentException if this enum type has no constant with
-     * the specified field value.
-     *
-     * @return the enum constant with the specified field value.
-     */
-    public static CalendarDayOfWeek fromFieldValue(final int fieldValue) {
-
-        return FieldEnums.fromFieldValue(
-            CalendarDayOfWeek.class, fieldValue);
-    }
-
-
-    /**
-     * Returns the enum constant of this type with the specified calendar's
-     * field value.
-     *
-     * @param calendar calendar
-     *
-     * @throws IllegalArgumentException if this enum type has no constant with
-     * the specified calendar's field value.
-     *
-     * @return the enum constant with the specified calendar's field value.
-     */
+//    /**
+//     * Returns the enum constant of this type with the specified field value.
+//     *
+//     * @param fieldValue field value
+//     *
+//     * @throws IllegalArgumentException if this enum type has no constant with
+//     * the specified field value.
+//     *
+//     * @return the enum constant with the specified field value.
+//     */
+//    public static CalendarDayOfWeek fromFieldValue(final int fieldValue) {
+//
+//        return FieldEnums.fromFieldValue(
+//            CalendarDayOfWeek.class, fieldValue);
+//    }
     public static CalendarDayOfWeek fromCalendar(final Calendar calendar) {
 
-        return CalendarFieldEnums.get(CalendarDayOfWeek.class, calendar,
-                                           CALENDAR_FIELD);
+        return CalendarIntFieldEnum.fromCalendar(CalendarDayOfWeek.class, calendar,
+                                                 CALENDAR_FIELD);
     }
-
-
-    /**
-     * Returns an array containing the field values of this enum type, in order
-     * they are declared.
-     *
-     * @return an array containing the fields values of this enum type, in the
-     * order they are declared
-     */
-    public Integer[] fieldValues() {
-
-        return FieldEnums.fieldValues(CalendarDayOfWeek.class, int.class);
-    }
+//    /**
+//     * Returns an array containing the field values of this enum type, in order
+//     * they are declared.
+//     *
+//     * @return an array containing the fields values of this enum type, in the
+//     * order they are declared
+//     */
+//    public Integer[] fieldValues() {
+//
+//        return FieldEnums.fieldValues(CalendarDayOfWeek.class, int.class);
+//    }
 
 
     /**
@@ -129,7 +111,7 @@ public enum CalendarDayOfWeek
 
 
     @Override
-    public Integer fieldValue() {
+    public int fieldValueAsInt() {
 
         return fieldValue;
     }
@@ -142,14 +124,11 @@ public enum CalendarDayOfWeek
             throw new NullPointerException("calendar");
         }
 
-        CalendarFieldEnums.set(calendar, CALENDAR_FIELD, this);
+        CalendarIntFieldEnum.set(calendar, CALENDAR_FIELD, this);
     }
 
 
-    /**
-     * field value.
-     */
     private final int fieldValue;
 
-
 }
+

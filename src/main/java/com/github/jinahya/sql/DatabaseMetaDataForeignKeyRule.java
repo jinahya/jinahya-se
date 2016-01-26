@@ -30,7 +30,6 @@ import java.sql.DatabaseMetaData;
 public enum DatabaseMetaDataForeignKeyRule
     implements FieldEnum<DatabaseMetaDataForeignKeyRule, Integer> {
 
-
     /**
      * A constant for {@link DatabaseMetaData#importedKeyCascade}.
      */
@@ -68,7 +67,7 @@ public enum DatabaseMetaDataForeignKeyRule
     public static Integer[] fieldValues() {
 
         return FieldEnums.fieldValues(DatabaseMetaDataForeignKeyRule.class,
-                                           Integer.class);
+                                      Integer.class);
     }
 
 
@@ -89,7 +88,6 @@ public enum DatabaseMetaDataForeignKeyRule
      * field value.
      */
     private final int fieldValue;
-
 
 }
 

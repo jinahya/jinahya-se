@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <jinahya at gmail.com>.
+ * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ import javax.xml.bind.Marshaller;
 
 /**
  *
- * @author Jin Kwon <jinahya at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class Marshallers {
 
@@ -293,10 +293,10 @@ public class Marshallers {
 //
 //        final Object previous =
 //            marshaller.getProperty(Marshaller.JAXB_ENCODING);
-//        
+//
 //        marshaller.setProperty(Marshaller.JAXB_ENCODING, charset.name());
 //        marshal(marshaller, value, OutputStream.class, output);
-//        
+//
 //        marshaller.setProperty(Marshaller.JAXB_ENCODING, previous);
 //
 //        return new String(output.toByteArray(), charset);
@@ -353,5 +353,5 @@ public class Marshallers {
         super();
     }
 
-
 }
+

@@ -82,6 +82,5 @@ public final class BlackByteChannel extends FilterWritableByteChannel {
         // does nothing
     }
 
-
 }
 

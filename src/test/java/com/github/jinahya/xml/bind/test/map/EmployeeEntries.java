@@ -44,6 +44,5 @@ public class EmployeeEntries extends MapEntries<EmployeeEntry, Long, Employee> {
         return getEntries();
     }
 
-
 }
 

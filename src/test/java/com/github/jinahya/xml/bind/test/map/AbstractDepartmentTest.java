@@ -77,8 +77,8 @@ public abstract class AbstractDepartmentTest<T extends AbstractDepartment> {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         marshaller.marshal(expected, baos);
 
-        final String jaxbEncoding =
-            (String) marshaller.getProperty(Marshaller.JAXB_ENCODING);
+        final String jaxbEncoding
+            = (String) marshaller.getProperty(Marshaller.JAXB_ENCODING);
         System.out.println(new String(baos.toByteArray(),
                                       Charset.forName(jaxbEncoding)));
 
@@ -94,5 +94,5 @@ public abstract class AbstractDepartmentTest<T extends AbstractDepartment> {
 
     private Class<T> departmentType;
 
-
 }
+

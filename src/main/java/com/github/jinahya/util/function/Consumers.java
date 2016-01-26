@@ -50,6 +50,5 @@ public final class Consumers {
         super();
     }
 
-
 }
 

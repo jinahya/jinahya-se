@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon <jinahya at gmail.com>.
+ * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@
 package com.github.jinahya.xml.bind;
 
 
-import com.github.jinahya.xml.bind.Marshallers;
 import com.github.jinahya.xml.bind.test.Item;
 import com.github.jinahya.xml.bind.test.Items;
 import java.io.OutputStream;
@@ -34,7 +33,7 @@ import org.testng.annotations.Test;
 
 /**
  *
- * @author Jin Kwon <jinahya at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class MarshallersTest {
 
@@ -43,8 +42,8 @@ public class MarshallersTest {
     public static void printMarshalMethods()
         throws NoSuchFieldException, IllegalAccessException {
 
-        final Field field =
-            Marshallers.class.getDeclaredField("MARSHAL_METHODS");
+        final Field field
+            = Marshallers.class.getDeclaredField("MARSHAL_METHODS");
         field.setAccessible(true);
         @SuppressWarnings("unchecked")
         final Map<?, ?> value = (Map<?, ?>) field.get(null);
@@ -74,7 +73,6 @@ public class MarshallersTest {
         Marshallers.marshal(marshaller, items, System.out);
         Marshallers.marshal(marshaller, items, OutputStream.class, System.out);
     }
-
 
 }
 

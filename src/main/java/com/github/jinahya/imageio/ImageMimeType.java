@@ -18,7 +18,6 @@
 package com.github.jinahya.imageio;
 
 
-import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.imageio.ImageIO;
@@ -30,40 +29,28 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 @XmlRootElement
-public class ImageMimeType extends ImageFeature {
+public class ImageMimeType extends ImageFeature<ImageMimeType> {
 
 
-    /**
-     *
-     * @return a list of available ImageMediaType.
-     */
-    public static Collection<ImageMimeType> getAvailableInstances() {
+    public static ImageMimeType[] getAvailableInstances() {
 
         final Map<String, ImageMimeType> map = new TreeMap<>();
 
-        for (final String readerMIMEType : ImageIO.getReaderMIMETypes()) {
-            ImageMimeType imageMimeType = map.get(readerMIMEType);
-            if (imageMimeType == null) {
-                imageMimeType = new ImageMimeType();
-                map.put(readerMIMEType, imageMimeType);
-            }
-            imageMimeType.setReadable(true);
-            imageMimeType.setValue(readerMIMEType);
+        for (final String value : ImageIO.getReaderMIMETypes()) {
+            map.put(value, new ImageMimeType().readable(true).value(value));
         }
 
-        for (final String writerMIMEType : ImageIO.getWriterMIMETypes()) {
-            ImageMimeType imageMimeType = map.get(writerMIMEType);
-            if (imageMimeType == null) {
-                imageMimeType = new ImageMimeType();
-                map.put(writerMIMEType, imageMimeType);
+        for (final String value : ImageIO.getWriterMIMETypes()) {
+            ImageMimeType instance = map.get(value);
+            if (instance == null) {
+                instance = new ImageMimeType().value(value);
+                map.put(value, instance);
             }
-            imageMimeType.setWritable(true);
-            imageMimeType.setValue(writerMIMEType);
+            instance.setWritable(true);
         }
 
-        return map.values();
+        return map.values().toArray(new ImageMimeType[map.size()]);
     }
-
 
 }
 

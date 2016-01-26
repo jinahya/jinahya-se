@@ -91,6 +91,5 @@ public class Employee {
     @XmlElement
     private int age;
 
-
 }
 

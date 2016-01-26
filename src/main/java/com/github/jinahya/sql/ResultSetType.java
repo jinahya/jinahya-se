@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
+ * Copyright 2015 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,121 +14,48 @@
  * limitations under the License.
  */
 
-
 package com.github.jinahya.sql;
 
 
-import com.github.jinahya.lang.FieldEnum;
-import com.github.jinahya.lang.FieldEnums;
+import com.github.jinahya.lang.IntFieldEnum;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import javax.xml.bind.annotation.XmlEnum;
 
 
 /**
- * Constants for {@link ResultSet}'s types.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
- * @deprecated Use {@link com.github.jinahya.sql.resultset.Type}.
  */
-@Deprecated
-@XmlEnum
-public enum ResultSetType implements FieldEnum<ResultSetType, Integer> {
-
+public enum ResultSetType implements IntFieldEnum<ResultSetType> {
 
     /**
-     * Constant for {@link ResultSet#TYPE_FORWARD_ONLY}.
+     * Constant for
+     * {@link ResultSet#TYPE_FORWARD_ONLY}({@value ResultSet#TYPE_FORWARD_ONLY}).
      */
     TYPE_FORWARD_ONLY(ResultSet.TYPE_FORWARD_ONLY), // 1003
-
     /**
-     * Constant for {@link ResultSet#TYPE_SCROLL_INSENSITIVE}.
+     * Constant for
+     * {@link ResultSet#TYPE_SCROLL_INSENSITIVE}({@value ResultSet#TYPE_SCROLL_INSENSITIVE}).
      */
     TYPE_SCROLL_INSENSITIVE(ResultSet.TYPE_SCROLL_INSENSITIVE), // 1004
-
     /**
-     * Constant for {@link ResultSet#TYPE_SCROLL_SENSITIVE}.
+     * Constant for
+     * {@link ResultSet#TYPE_SCROLL_SENSITIVE}({@value ResultSet#TYPE_SCROLL_SENSITIVE}).
      */
     TYPE_SCROLL_SENSITIVE(ResultSet.TYPE_SCROLL_SENSITIVE); // 1005
 
 
-    /**
-     * Returns the enum constant of this type with the specified field value.
-     *
-     * @param fieldValue the field value
-     *
-     * @throws IllegalArgumentException if this enum type has no constant with
-     * the specified field value.
-     *
-     * @return the enum constant with the specified field value.
-     */
-    public static ResultSetType fromFieldValue(final int fieldValue) {
-
-        return FieldEnums.fromFieldValue(ResultSetType.class, fieldValue);
-    }
-
-
-    /**
-     * Returns the enum constant of this type with the specified result set's
-     * type.
-     *
-     * @param resultSet the result set
-     *
-     * @throws SQLException if a database access error occurs or this method is
-     * called on a closed result set
-     * @throws NullPointerException if {@code resultSet} is {@code null}.
-     * @throws IllegalArgumentException if this enum type has no constant with
-     * the specified field value.
-     *
-     * @return the enum constant with the specified field value.
-     *
-     * @see ResultSet#getType()
-     */
-    public static ResultSetType fromResultSet(final ResultSet resultSet)
-            throws SQLException {
-
-        if (resultSet == null) {
-            throw new NullPointerException("null resultSet");
-        }
-
-        return fromFieldValue(resultSet.getType());
-    }
-
-
-    /**
-     * Returns an array containing the fields values of this enum type.
-     *
-     * @return an array containing the fields values of this enum type
-     */
-    public static Integer[] fieldValues() {
-
-        return FieldEnums.fieldValues(ResultSetType.class, int.class);
-    }
-
-
-    /**
-     * Creates a new instance with specified field value.
-     *
-     * @param fieldValue the field value.
-     */
     private ResultSetType(final int fieldValue) {
-
         this.fieldValue = fieldValue;
     }
 
 
     @Override
-    public Integer fieldValue() {
-
+    public int fieldValueAsInt() {
         return fieldValue;
     }
 
 
-    /**
-     * field value.
-     */
     private final int fieldValue;
-
 
 }
 

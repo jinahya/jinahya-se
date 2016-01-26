@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
+ * Copyright 2015 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,151 +14,58 @@
  * limitations under the License.
  */
 
-
 package com.github.jinahya.sql;
 
 
-import com.github.jinahya.lang.FieldEnum;
-import com.github.jinahya.lang.FieldEnums;
+import com.github.jinahya.lang.IntFieldEnum;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 
 /**
- * Constants for {@link ResultSet}'s fetch directions.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
- * @deprecated Use {@link com.github.jinahya.sql.resultset.FetchDirection}.
  */
-@Deprecated
 public enum ResultSetFetchDirection
-        implements FieldEnum<ResultSetFetchDirection, Integer> {
-
+    implements IntFieldEnum<ResultSetFetchDirection> {
 
     /**
-     * Constant for {@link ResultSet#FETCH_FORWARD}.
+     * Constant for
+     * {@link ResultSet#FETCH_FORWARD}({@value ResultSet#FETCH_FORWARD}).
      *
      * @see ResultSet#FETCH_REVERSE
      */
     FETCH_FORWARD(ResultSet.FETCH_FORWARD), // 1000
+
     /**
-     * Constant for {@link ResultSet#FETCH_REVERSE}.
+     * Constant for
+     * {@link ResultSet#FETCH_REVERSE}({@value ResultSet#FETCH_REVERSE}).
      *
      * @see ResultSet#FETCH_REVERSE
      */
     FETCH_REVERSE(ResultSet.FETCH_REVERSE), // 1001
+
     /**
-     * Constant for {@link ResultSet#FETCH_UNKNOWN}.
+     * Constant for
+     * {@link ResultSet#FETCH_UNKNOWN}({@value ResultSet#FETCH_UNKNOWN}).
      *
      * @see ResultSet#FETCH_UNKNOWN
      */
-    FETCH_UNKNOWN(ResultSet.FETCH_UNKNOWN); // 1002
+    FETCH_UNKNOWN(ResultSet.FETCH_UNKNOWN) // 1002
+    ;
 
 
-    /**
-     * Returns the enum constant of this type with the specified fetch direction
-     * value.
-     *
-     * @param fieldValue the fetch direction value; one of
-     * {@link ResultSet#FETCH_FORWARD}, {@link ResultSet#FETCH_REVERSE}, or
-     * {@link ResultSet#FETCH_UNKNOWN}.
-     *
-     * @throws IllegalArgumentException if this enum type has no constant with
-     * the specified fetch direction value.
-     *
-     * @return the enum constant with the specified fetch direction value.
-     */
-    public static ResultSetFetchDirection fromFieldValue(final int fieldValue) {
-
-        return FieldEnums.fromFieldValue(
-                ResultSetFetchDirection.class, fieldValue);
-    }
-
-
-    /**
-     * Returns the enum constant of this type with the specified result set's
-     * current fetch direction value.
-     *
-     * @param resultSet the result set
-     *
-     * @throws SQLException if a database access error occurs or this method is
-     * called on a closed result set
-     *
-     * @return the enum constant with the specified resultSet's current fetch
-     * direction.
-     *
-     * @see ResultSet#getFetchDirection()
-     */
-    public static ResultSetFetchDirection fromResultSet(
-            final ResultSet resultSet)
-            throws SQLException {
-
-        if (resultSet == null) {
-            throw new NullPointerException("resultSet");
-        }
-
-        return fromFieldValue(resultSet.getFetchDirection());
-    }
-
-
-    /**
-     * Returns an array containing the field values of this enum type, in the
-     * order they are declared.
-     *
-     * @return an array containing field values of this enum type, in the order
-     * they are declared
-     */
-    public static Integer[] fieldValues() {
-
-        return FieldEnums.fieldValues(ResultSetFetchDirection.class,
-                                      Integer.class);
-    }
-
-
-    /**
-     * Creates a new instance with specified field value.
-     *
-     * @param fieldValue the field value
-     */
     private ResultSetFetchDirection(final int fieldValue) {
-
         this.fieldValue = fieldValue;
     }
 
 
     @Override
-    public Integer fieldValue() {
-
+    public int fieldValueAsInt() {
         return fieldValue;
     }
 
 
-    /**
-     * Invokes {@link ResultSet#setFetchDirection(int)} on specified result set
-     * with the field value of this constant.
-     *
-     * @param resultSet the result set.
-     *
-     * @throws SQLException if a database access error occurs.
-     *
-     * @see ResultSet#setFetchDirection(int)
-     *
-     */
-    public void set(final ResultSet resultSet) throws SQLException {
-
-        if (resultSet == null) {
-            throw new NullPointerException("resultSet");
-        }
-
-        resultSet.setFetchDirection(fieldValue);
-    }
-
-
-    /**
-     * field value.
-     */
     private final int fieldValue;
-
 
 }
 

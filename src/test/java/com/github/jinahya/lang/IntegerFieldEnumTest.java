@@ -32,6 +32,5 @@ public abstract class IntegerFieldEnumTest<E extends Enum<E> & IntegerFieldEnum<
         super(enumType, Integer.class);
     }
 
-
 }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jin Kwon <jinahya at gmail.com>.
+ * Copyright 2011 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import org.testng.annotations.Test;
 
 /**
  *
- * @author Jin Kwon <jinahya at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class JinahyaRandomTest {
 
@@ -384,7 +384,6 @@ public class JinahyaRandomTest {
         Assert.assertTrue(unsignedLong >= 0L);
         Assert.assertTrue(unsignedLong >> maximumBitLength == 0L);
     }
-
 
 }
 

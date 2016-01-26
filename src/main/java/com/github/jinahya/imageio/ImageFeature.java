@@ -19,7 +19,6 @@ package com.github.jinahya.imageio;
 
 
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlValue;
 
@@ -27,41 +26,52 @@ import javax.xml.bind.annotation.XmlValue;
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
+ * @param <T> feature type parameter
  */
-@XmlSeeAlso({ImageFileSuffix.class, ImageFormatName.class, ImageMimeType.class})
+//@XmlSeeAlso({ImageFileSuffix.class, ImageFormatName.class, ImageMimeType.class})
 @XmlTransient
-public abstract class ImageFeature {
+abstract class ImageFeature<T extends ImageFeature<T>> {
 
 
-    /**
-     *
-     * @return
-     */
-    public boolean isReadable() {
+    public Boolean getReadable() {
 
         return readable;
     }
 
 
-    /**
-     *
-     * @param readable
-     */
-    public void setReadable(final boolean readable) {
+    public void setReadable(final Boolean readable) {
 
         this.readable = readable;
     }
 
 
-    public boolean isWritable() {
+    @SuppressWarnings("unchecked")
+    public T readable(final Boolean readable) {
+
+        setReadable(readable);
+
+        return (T) this;
+    }
+
+
+    public Boolean getWritable() {
 
         return writable;
     }
 
 
-    public void setWritable(final boolean writable) {
+    public void setWritable(final Boolean writable) {
 
         this.writable = writable;
+    }
+
+
+    @SuppressWarnings("unchecked")
+    public T writable(final Boolean writable) {
+
+        setWritable(writable);
+
+        return (T) this;
     }
 
 
@@ -77,8 +87,18 @@ public abstract class ImageFeature {
     }
 
 
+    @SuppressWarnings("unchecked")
+    public T value(final String value) {
+
+        setValue(value);
+
+        return (T) this;
+    }
+
+
     @Override
     public String toString() {
+
         return super.toString()
                + "?readable=" + readable
                + "&writable=" + writable
@@ -87,16 +107,15 @@ public abstract class ImageFeature {
 
 
     @XmlAttribute
-    private boolean readable;
+    private Boolean readable;
 
 
     @XmlAttribute
-    private boolean writable;
+    private Boolean writable;
 
 
     @XmlValue
     private String value;
-
 
 }
 

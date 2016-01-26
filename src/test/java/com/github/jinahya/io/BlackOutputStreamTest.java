@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Jin Kwon <jinahya at gmail.com>.
+ * Copyright 2012 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import org.testng.annotations.Test;
 
 /**
  *
- * @author Jin Kwon <jinahya at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class BlackOutputStreamTest {
 
@@ -37,7 +37,7 @@ public class BlackOutputStreamTest {
 
         final Random random = ThreadLocalRandom.current();
 
-        final OutputStream out = new BlackOutputStream(-1L);
+        final OutputStream out = new LimitedBlackOutputStream(-1L);
 
         for (int i = 0; i < 1024; i++) {
             out.write(random.nextInt());
@@ -55,7 +55,7 @@ public class BlackOutputStreamTest {
 
         final long limit = (long) (random.nextInt(1048576) + 1);
 
-        final OutputStream out = new BlackOutputStream(limit);
+        final OutputStream out = new LimitedBlackOutputStream(limit);
 
         final int count = random.nextInt((int) limit);
         for (int i = 0; i < count; i++) {
@@ -74,7 +74,7 @@ public class BlackOutputStreamTest {
 
         final long limit = (long) random.nextInt(1048576);
 
-        final OutputStream out = new BlackOutputStream(limit);
+        final OutputStream out = new LimitedBlackOutputStream(limit);
 
         for (int i = 0; i < limit + 1; i++) {
             out.write(random.nextInt());
@@ -83,7 +83,6 @@ public class BlackOutputStreamTest {
         out.flush();
         out.close();
     }
-
 
 }
 

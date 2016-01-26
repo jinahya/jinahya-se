@@ -44,6 +44,5 @@ public class SampleEntity {
     @XmlElement(required = true)
     private int age;
 
-
 }
 

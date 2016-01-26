@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jin Kwon <jinahya at gmail.com>.
+ * Copyright 2011 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,6 @@ package com.github.jinahya.xml.bind.annotation.adapters;
 
 
 import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -27,7 +26,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 /**
  *
- * @author Jin Kwon <jinahya at gmail.com>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 @XmlAccessorType(XmlAccessType.NONE)
 public class Key implements Comparable<Key>, Serializable {
@@ -100,7 +99,6 @@ public class Key implements Comparable<Key>, Serializable {
 
     @XmlElement(required = true)
     private long id;
-
 
 }
 

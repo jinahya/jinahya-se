@@ -32,6 +32,5 @@ public class Untouchable1 {
 
     private boolean alcohol = false;
 
-
 }
 

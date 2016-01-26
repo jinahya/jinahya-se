@@ -30,6 +30,5 @@ public class Department3Test extends AbstractDepartmentTest<Department3> {
         super(Department3.class);
     }
 
-
 }
 

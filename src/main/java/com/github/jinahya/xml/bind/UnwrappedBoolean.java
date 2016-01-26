@@ -54,5 +54,5 @@ public class UnwrappedBoolean extends UnwrappedValue<Boolean> {
         super.setRawValue(rawValue);
     }
 
-
 }
+

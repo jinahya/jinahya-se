@@ -59,6 +59,5 @@ public final class WhiteByteChannel extends FilterReadableByteChannel {
         // does nothing
     }
 
-
 }
 

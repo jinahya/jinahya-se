@@ -189,6 +189,5 @@ public final class Fields {
         super();
     }
 
-
 }
 
