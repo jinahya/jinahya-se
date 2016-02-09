@@ -18,8 +18,8 @@
 package com.github.jinahya.nio.channels;
 
 
-import com.github.jinahya.io.LimitedBlackOutputStream;
 import com.github.jinahya.io.IoTests;
+import com.github.jinahya.io.LimitedBlackOutputStream;
 import com.github.jinahya.io.LimitedWhiteInputStream;
 import java.io.File;
 import java.io.IOException;
