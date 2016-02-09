@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
+ * Copyright 2016 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,46 +14,34 @@
  * limitations under the License.
  */
 
-
 package com.github.jinahya.imageio;
 
 
-import java.util.Collection;
-import java.util.Collections;
-import javax.xml.bind.annotation.XmlTransient;
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.bind.annotation.XmlRootElement;
 
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
- * @param <T>
+ * @param <T> image feature type parameter
  */
-@XmlTransient
-public abstract class ImageFeatures<T extends ImageFeature> {
+@XmlRootElement
+class ImageFeatures<T extends ImageFeature<T>> {
 
 
-    protected ImageFeatures(final Collection<T> imageFeatures) {
+    public List<T> getFeatures() {
 
-        super();
-
-        if (imageFeatures == null) {
-            throw new NullPointerException("null imageFeatures");
+        if (features == null) {
+            features = new ArrayList<>();
         }
 
-        this.imageFeatures = Collections.unmodifiableCollection(imageFeatures);
+        return features;
     }
 
 
-    //@XmlTransient
-    protected Collection<T> getImageFeatures() {
-
-        return imageFeatures;
-    }
-
-
-    //@XmlElement
-    private Collection<T> imageFeatures;
-
+    private List<T> features;
 
 }
 

@@ -20,6 +20,7 @@ package com.github.jinahya.nio.channels;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.channels.WritableByteChannel;
 
 
 /**
@@ -27,13 +28,7 @@ import java.nio.ByteBuffer;
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public final class BlackByteChannel extends FilterWritableByteChannel {
-
-
-    public BlackByteChannel() {
-
-        super(null);
-    }
+public final class BlackByteChannel implements WritableByteChannel {
 
 
     /**

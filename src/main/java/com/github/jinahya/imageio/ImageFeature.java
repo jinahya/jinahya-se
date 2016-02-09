@@ -18,19 +18,46 @@
 package com.github.jinahya.imageio;
 
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlValue;
 
 
 /**
+ * An abstract for image features.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <T> feature type parameter
  */
-//@XmlSeeAlso({ImageFileSuffix.class, ImageFormatName.class, ImageMimeType.class})
-@XmlTransient
 abstract class ImageFeature<T extends ImageFeature<T>> {
+
+
+    static <T extends ImageFeature<T>> Collection<T> collect(
+        final Class<T> featureType, final String[] readerValues,
+        final String[] writerValues)
+        throws InstantiationException, IllegalAccessException {
+
+        final Map<String, T> map = new HashMap<>();
+
+        for (final String value : readerValues) {
+            final T instance
+                = featureType.newInstance().readable(true).value(value);
+            map.put(value, instance);
+        }
+
+        for (final String value : writerValues) {
+            T instance = map.get(value);
+            if (instance == null) {
+                instance = featureType.newInstance().value(value);
+                map.put(value, instance);
+            }
+            instance.setWritable(true);
+        }
+
+        return map.values();
+    }
 
 
     public Boolean getReadable() {

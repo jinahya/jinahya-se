@@ -19,10 +19,11 @@
 @XmlSchema(
     attributeFormDefault = XmlNsForm.UNQUALIFIED,
     elementFormDefault = XmlNsForm.QUALIFIED,
-    namespace = "http://github.com/jinahya/imageio")
+    namespace = IMAGEIO_NS_URI)
 package com.github.jinahya.imageio;
 
 
+import static com.github.jinahya.imageio.ImageIoXmlConstants.IMAGEIO_NS_URI;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlNsForm;

@@ -19,6 +19,7 @@ package com.github.jinahya.io;
 
 
 import java.io.IOException;
+import java.io.OutputStream;
 
 
 /**
@@ -26,13 +27,7 @@ import java.io.IOException;
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public class BlackOutputStream extends FunnelOutputStream {
-
-
-    public BlackOutputStream() {
-
-        super(null);
-    }
+public class BlackOutputStream extends OutputStream {
 
 
     @Override

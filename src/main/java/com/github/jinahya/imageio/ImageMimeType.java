@@ -18,10 +18,11 @@
 package com.github.jinahya.imageio;
 
 
-import java.util.Map;
-import java.util.TreeMap;
-import javax.imageio.ImageIO;
+import java.util.Collection;
+import static javax.imageio.ImageIO.getReaderMIMETypes;
+import static javax.imageio.ImageIO.getWriterMIMETypes;
 import javax.xml.bind.annotation.XmlRootElement;
+import static com.github.jinahya.imageio.ImageFeature.collect;
 
 
 /**
@@ -32,24 +33,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ImageMimeType extends ImageFeature<ImageMimeType> {
 
 
-    public static ImageMimeType[] getAvailableInstances() {
+    public static Collection<ImageMimeType> availableImageMimeTypes() {
 
-        final Map<String, ImageMimeType> map = new TreeMap<>();
-
-        for (final String value : ImageIO.getReaderMIMETypes()) {
-            map.put(value, new ImageMimeType().readable(true).value(value));
+        try {
+            return collect(
+                ImageMimeType.class, getReaderMIMETypes(),
+                getWriterMIMETypes());
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new RuntimeException(e);
         }
-
-        for (final String value : ImageIO.getWriterMIMETypes()) {
-            ImageMimeType instance = map.get(value);
-            if (instance == null) {
-                instance = new ImageMimeType().value(value);
-                map.put(value, instance);
-            }
-            instance.setWritable(true);
-        }
-
-        return map.values().toArray(new ImageMimeType[map.size()]);
     }
 
 }

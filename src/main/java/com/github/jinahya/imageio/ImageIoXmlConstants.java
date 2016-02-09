@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
+ * Copyright 2016 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,36 +14,23 @@
  * limitations under the License.
  */
 
-
 package com.github.jinahya.imageio;
-
-
-import static com.github.jinahya.imageio.ImageMimeType.availableImageMimeTypes;
-import java.io.IOException;
-import javax.xml.bind.JAXBException;
-import org.testng.annotations.Test;
 
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public class ImageMimeTypeTest extends ImageFeatureTest<ImageMimeType> {
+public final class ImageIoXmlConstants {
 
 
-    /**
-     * Creates a new instance.
-     */
-    public ImageMimeTypeTest() {
-
-        super(ImageMimeType.class);
-    }
+    public static final String IMAGEIO_NS_URI
+        = "http://github.com/jinahya/imageio";
 
 
-    @Test
-    public void printXml() throws JAXBException, IOException {
+    private ImageIoXmlConstants() {
 
-        JaxbTest.printXml(type, availableImageMimeTypes());
+        super();
     }
 
 }

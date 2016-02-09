@@ -28,7 +28,7 @@ import java.security.MessageDigest;
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public class DigestWritableByteChannel extends FilterWritableByteChannel {
+public class WritableDigestChannel extends WritableFilterChannel {
 
 
     /**
@@ -37,14 +37,10 @@ public class DigestWritableByteChannel extends FilterWritableByteChannel {
      * @param channel the output channel
      * @param digest the message digest to associate with this channel
      */
-    public DigestWritableByteChannel(final WritableByteChannel channel,
-                                     final MessageDigest digest) {
+    public WritableDigestChannel(final WritableByteChannel channel,
+                                 final MessageDigest digest) {
 
         super(channel);
-
-        if (digest == null) {
-            //throw new NullPointerException("digest");
-        }
 
         this.digest = digest;
     }
@@ -53,20 +49,17 @@ public class DigestWritableByteChannel extends FilterWritableByteChannel {
     @Override
     public int write(final ByteBuffer src) throws IOException {
 
-        if (digest == null) {
-            throw new IllegalStateException("digest is currently null");
-        }
-
         final int position = src.position();
-
-        final int written = super.write(src);
-
-        src.position(position);
-        for (int i = 0; i < written; i++) {
-            digest.update(src.get());
+        final int limit = src.limit();
+        try {
+            final int written = super.write(src);
+            src.limit(src.position());
+            src.position(position);
+            digest.update(src);
+            return written;
+        } finally {
+            src.limit(limit);
         }
-
-        return written;
     }
 
 

@@ -19,30 +19,22 @@ package com.github.jinahya.io;
 
 
 import java.io.IOException;
+import java.io.InputStream;
 
 
 /**
- * An input stream generates random bytes.
+ * An input stream always reads zeros.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public class WhiteInputStream extends FunnelInputStream {
-
-
-    /**
-     * Creates a new instance.
-     */
-    public WhiteInputStream() {
-
-        super(null);
-    }
+public class WhiteInputStream extends InputStream {
 
 
     /**
      * Reads the next byte of data from the input stream. The {@code read()}
      * method of {@code WhiteInputStream} class returns {@code 0}.
      *
-     * @return the next byte of data, or -1 if the end of the stream is reached.
+     * @return {@code 0}
      *
      * @throws IOException if an I/O error occurs.
      */
@@ -50,49 +42,6 @@ public class WhiteInputStream extends FunnelInputStream {
     public int read() throws IOException {
 
         return 0;
-    }
-
-
-    /**
-     * Tests if this input stream supports the mark and reset methods. The
-     * {@code markSupported()} method of {@code WhiteInputStream} class returns
-     * {@code true}.
-     *
-     * @return true if this stream instance supports the mark and reset methods;
-     * false otherwise.
-     */
-    @Override
-    public boolean markSupported() {
-
-        return true;
-    }
-
-
-    @Override
-    public synchronized void mark(final int readlimit) {
-
-        // does nothing
-    }
-
-
-    @Override
-    public synchronized void reset() throws IOException {
-
-        // does nothing
-    }
-
-
-    @Override
-    public int available() throws IOException {
-
-        return Integer.MAX_VALUE;
-    }
-
-
-    @Override
-    public long skip(final long n) throws IOException {
-
-        return n;
     }
 
 }

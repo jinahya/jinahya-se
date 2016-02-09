@@ -18,6 +18,7 @@
 package com.github.jinahya.io;
 
 
+import java.io.FilterOutputStream;
 import java.io.OutputStream;
 
 
@@ -26,7 +27,7 @@ import java.io.OutputStream;
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public class FunnelOutputStream extends SafelyCloseableFilterOutputStream {
+public class FunnelOutputStream extends FilterOutputStream {
 
 
     /**

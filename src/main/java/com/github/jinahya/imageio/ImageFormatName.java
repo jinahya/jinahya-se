@@ -18,10 +18,11 @@
 package com.github.jinahya.imageio;
 
 
-import java.util.Map;
-import java.util.TreeMap;
-import javax.imageio.ImageIO;
+import java.util.Collection;
+import static javax.imageio.ImageIO.getReaderFormatNames;
+import static javax.imageio.ImageIO.getWriterFormatNames;
 import javax.xml.bind.annotation.XmlRootElement;
+import static com.github.jinahya.imageio.ImageFeature.collect;
 
 
 /**
@@ -32,24 +33,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ImageFormatName extends ImageFeature<ImageFormatName> {
 
 
-    public static ImageFormatName[] getAvailableInstances() {
+    public static Collection<ImageFormatName> availableImageFormatNames() {
 
-        final Map<String, ImageFormatName> map = new TreeMap<>();
-
-        for (final String value : ImageIO.getReaderFormatNames()) {
-            map.put(value, new ImageFormatName().readable(true).value(value));
+        try {
+            return collect(
+                ImageFormatName.class, getReaderFormatNames(),
+                getWriterFormatNames());
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new RuntimeException(e);
         }
-
-        for (final String value : ImageIO.getWriterFormatNames()) {
-            ImageFormatName instance = map.get(value);
-            if (instance == null) {
-                instance = new ImageFormatName().value(value);
-                map.put(value, instance);
-            }
-            instance.setValue(value);
-        }
-
-        return map.values().toArray(new ImageFormatName[map.size()]);
     }
 
 }

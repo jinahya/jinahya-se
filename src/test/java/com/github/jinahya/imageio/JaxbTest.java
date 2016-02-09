@@ -19,6 +19,7 @@ package com.github.jinahya.imageio;
 
 
 import java.io.IOException;
+import java.util.Collection;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -76,18 +77,20 @@ public class JaxbTest {
     }
 
 
-    @SafeVarargs
-    static <T extends ImageFeature<T>> void printXml(final Class<T> type,
-                                                     final T... instances)
+    static <T extends ImageFeature<T>> void printXml(
+        final Class<T> type, final Collection<T> instances)
         throws JAXBException, IOException {
 
-        if (type == null) {
-            throw new NullPointerException("null type");
-        }
+        final JAXBContext context
+            = JAXBContext.newInstance(type, ImageFeatures.class);
 
-        for (final T instance : instances) {
-            printXml(type, instance);
-        }
+        final ImageFeatures<T> features = new ImageFeatures<>();
+        features.getFeatures().addAll(instances);
+
+        final Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+
+        marshaller.marshal(features, System.out);
     }
 
 }

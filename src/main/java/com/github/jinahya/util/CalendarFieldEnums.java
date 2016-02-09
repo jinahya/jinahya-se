@@ -20,8 +20,6 @@ package com.github.jinahya.util;
 
 import com.github.jinahya.lang.FieldEnums;
 import java.util.Calendar;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 /**
@@ -29,13 +27,6 @@ import org.slf4j.LoggerFactory;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class CalendarFieldEnums {
-
-
-    /**
-     * logger.
-     */
-    private static final Logger logger
-            = LoggerFactory.getLogger(CalendarFieldEnums.class);
 
 
     /**
@@ -48,7 +39,7 @@ public final class CalendarFieldEnums {
      * @return
      */
     public static <E extends Enum<E> & CalendarFieldEnum<E, Integer>> E get(
-            final Class<E> enumType, final Calendar calendar, final int field) {
+        final Class<E> enumType, final Calendar calendar, final int field) {
 
         if (calendar == null) {
             throw new NullPointerException("calendar");
@@ -70,7 +61,7 @@ public final class CalendarFieldEnums {
      * @param value value
      */
     public static <E extends Enum<E> & CalendarFieldEnum<E, Integer>> void set(
-            final Calendar calendar, final int field, final E value) {
+        final Calendar calendar, final int field, final E value) {
 
         if (calendar == null) {
             throw new NullPointerException("calendar");
@@ -81,12 +72,10 @@ public final class CalendarFieldEnums {
         }
 
         final int p = calendar.get(field);
-        logger.debug("p: {}", p);
 
         calendar.set(field, value.fieldValue());
 
         final int n = calendar.get(field);
-        logger.debug("n: {}", n);
     }
 
 
@@ -97,7 +86,6 @@ public final class CalendarFieldEnums {
 
         super();
     }
-
 
 }
 

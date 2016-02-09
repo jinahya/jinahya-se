@@ -18,16 +18,17 @@
 package com.github.jinahya.io;
 
 
+import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 
 /**
- * An input stream reads bytes only through {@link InputStream#read()}.
+ * An input stream reads bytes only through {@link #read()}.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public class FunnelInputStream extends SafelyCloseableFilterInputStream {
+public class FunnelInputStream extends FilterInputStream {
 
 
     /**

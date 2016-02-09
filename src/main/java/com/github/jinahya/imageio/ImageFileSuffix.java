@@ -18,9 +18,9 @@
 package com.github.jinahya.imageio;
 
 
-import java.util.Map;
-import java.util.TreeMap;
-import javax.imageio.ImageIO;
+import java.util.Collection;
+import static javax.imageio.ImageIO.getReaderFileSuffixes;
+import static javax.imageio.ImageIO.getWriterFileSuffixes;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
@@ -32,24 +32,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ImageFileSuffix extends ImageFeature<ImageFileSuffix> {
 
 
-    public static ImageFileSuffix[] getAvailableInstances() {
+    public static Collection<ImageFileSuffix> availableImageFileSuffix() {
 
-        final Map<String, ImageFileSuffix> map = new TreeMap<>();
-
-        for (final String value : ImageIO.getReaderFileSuffixes()) {
-            map.put(value, new ImageFileSuffix().readable(true).value(value));
+        try {
+            return collect(
+                ImageFileSuffix.class, getReaderFileSuffixes(),
+                getWriterFileSuffixes());
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new RuntimeException(e);
         }
-
-        for (final String value : ImageIO.getWriterFileSuffixes()) {
-            ImageFileSuffix instance = map.get(value);
-            if (instance == null) {
-                instance = new ImageFileSuffix().value(value);
-                map.put(value, instance);
-            }
-            instance.setWritable(true);
-        }
-
-        return map.values().toArray(new ImageFileSuffix[map.size()]);
     }
 
 }

@@ -20,19 +20,14 @@ package com.github.jinahya.nio.channels;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.channels.ReadableByteChannel;
 
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public final class WhiteByteChannel extends FilterReadableByteChannel {
-
-
-    public WhiteByteChannel() {
-
-        super(null);
-    }
+public final class WhiteByteChannel implements ReadableByteChannel {
 
 
     @Override

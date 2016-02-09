@@ -28,7 +28,7 @@ import java.security.MessageDigest;
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public class DigestReadableByteChannel extends FilterReadableByteChannel {
+public class ReadableDigestChannel extends ReadableFilterChannel {
 
 
     /**
@@ -37,14 +37,10 @@ public class DigestReadableByteChannel extends FilterReadableByteChannel {
      * @param channel the input channel
      * @param digest the message digest to associate with this channel
      */
-    public DigestReadableByteChannel(final ReadableByteChannel channel,
-                                     final MessageDigest digest) {
+    public ReadableDigestChannel(final ReadableByteChannel channel,
+                                 final MessageDigest digest) {
 
         super(channel);
-
-        if (digest == null) {
-            //throw new NullPointerException("digest");
-        }
 
         this.digest = digest;
     }
@@ -53,20 +49,17 @@ public class DigestReadableByteChannel extends FilterReadableByteChannel {
     @Override
     public int read(final ByteBuffer dst) throws IOException {
 
-        if (digest == null) {
-            throw new IllegalStateException("digest is currently null");
-        }
-
         final int position = dst.position();
-
-        final int read = super.read(dst);
-
-        dst.position(position);
-        for (int i = 0; i < read; i++) {
-            digest.update(dst.get());
+        final int limit = dst.limit();
+        try {
+            final int read = super.read(dst);
+            dst.limit(dst.position());
+            dst.position(position);
+            digest.update(dst);
+            return read;
+        } finally {
+            dst.limit(limit);
         }
-
-        return read;
     }
 
 
