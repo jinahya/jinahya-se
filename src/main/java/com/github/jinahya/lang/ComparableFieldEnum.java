@@ -16,7 +16,8 @@
 package com.github.jinahya.lang;
 
 /**
- *
+ * An interface for field values which each field value is an instance of
+ * {@link Comparable}.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <E> enum type parameter
@@ -24,5 +25,4 @@ package com.github.jinahya.lang;
  */
 public interface ComparableFieldEnum<E extends Enum<E>, F extends Comparable<? super F>>
         extends FieldEnum<E, F> {
-
 }

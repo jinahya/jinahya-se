@@ -96,7 +96,7 @@ public abstract class PluralTest<P extends Plural<S>, S> {
 
             @Override
             public Result createOutput(final String namespaceUri,
-                    final String suggestedFileName)
+                                       final String suggestedFileName)
                     throws IOException {
 
                 return new StreamResult(System.out) {

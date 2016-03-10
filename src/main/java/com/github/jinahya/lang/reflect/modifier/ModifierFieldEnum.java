@@ -15,15 +15,14 @@
  */
 package com.github.jinahya.lang.reflect.modifier;
 
-import com.github.jinahya.lang.IntegerFieldEnum;
+import com.github.jinahya.lang.IntFieldEnum;
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <E> enum type parameter
  */
-public interface ModifierFieldEnum<E extends Enum<E>>
-        extends IntegerFieldEnum<E> {
+public interface ModifierFieldEnum<E extends Enum<E>> extends IntFieldEnum<E> {
 
     boolean is(int modifiers);
 

@@ -60,5 +60,4 @@ public enum ConnectionTransactionIsolationLevel
     }
 
     private final int fieldValue;
-
 }

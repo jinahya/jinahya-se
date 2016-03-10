@@ -142,12 +142,12 @@ public class Value implements Comparable<Value>, Serializable {
         final Value casted = (Value) obj;
 
         if (!(key == casted.key
-                || (key != null && key.equals(casted.key)))) {
+              || (key != null && key.equals(casted.key)))) {
             return false;
         }
 
         if (!(name == casted.name)
-                || (name != null && name.equals(casted.name))) {
+            || (name != null && name.equals(casted.name))) {
             return false;
         }
 

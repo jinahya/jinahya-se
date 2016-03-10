@@ -45,7 +45,7 @@ public abstract class AbstractDepartment {
 
         int hash = 5;
         hash = 97 * hash + (this.employees != null
-                ? this.employees.hashCode() : 0);
+                            ? this.employees.hashCode() : 0);
         return hash;
     }
 
@@ -59,7 +59,7 @@ public abstract class AbstractDepartment {
         }
         final AbstractDepartment other = (AbstractDepartment) obj;
         if (this.employees != other.employees
-                && (this.employees == null
+            && (this.employees == null
                 || !this.employees.equals(other.employees))) {
             return false;
         }

@@ -24,21 +24,22 @@ public interface FloatFieldEnum<E extends Enum<E>> {
 
     static <E extends Enum<E> & FloatFieldEnum<E>> float[] fieldValues(
             final Class<E> type) {
-
         if (type == null) {
             throw new NullPointerException("null type");
         }
-
         final E[] enumConstants = type.getEnumConstants();
-
         final float[] fieldValues = new float[enumConstants.length];
         for (int i = 0; i < fieldValues.length; i++) {
             fieldValues[i] = enumConstants[i].fieldValueAsFloat();
         }
-
         return fieldValues;
     }
 
+    /**
+     * Returns the field value as {@code float} type.
+     *
+     * @return the field value as {@code float} type.
+     */
     float fieldValueAsFloat();
 
 }

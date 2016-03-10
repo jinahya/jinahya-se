@@ -15,8 +15,7 @@
  */
 package com.github.jinahya.sql;
 
-import com.github.jinahya.lang.FieldEnum;
-import com.github.jinahya.lang.FieldEnums;
+import com.github.jinahya.lang.IntFieldEnum;
 import java.sql.DatabaseMetaData;
 
 /**
@@ -24,49 +23,31 @@ import java.sql.DatabaseMetaData;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum DatabaseMetaDataTypeNullability
-        implements FieldEnum<DatabaseMetaDataTypeNullability, Integer> {
+        implements IntFieldEnum<DatabaseMetaDataTypeNullability> {
 
     /**
      * A constant for {@link DatabaseMetaData#typeNoNulls}.
      */
     typeNoNulls(DatabaseMetaData.typeNoNulls), // 0
+
     /**
      * A constant for {@link DatabaseMetaData#typeNullable}.
      */
     typeNullable(DatabaseMetaData.typeNullable), // 1
+
     /**
      * A constant for {@link DatabaseMetaData#typeNullableUnknown}.
      */
     typeNullableUnknown(DatabaseMetaData.typeNullableUnknown); // 2
 
-    public static DatabaseMetaDataTypeNullability fromFieldValue(
-            final int fieldValue) {
-
-        return FieldEnums.fromFieldValue(
-                DatabaseMetaDataTypeNullability.class,
-                Integer.valueOf(fieldValue));
-    }
-
-    public static Integer[] fieldValues() {
-
-        return FieldEnums.fieldValues(
-                DatabaseMetaDataTypeNullability.class, Integer.class);
-    }
-
     private DatabaseMetaDataTypeNullability(final int fieldValue) {
-
         this.fieldValue = fieldValue;
     }
 
     @Override
-    public Integer fieldValue() {
-
+    public int fieldValueAsInt() {
         return fieldValue;
     }
 
-    /**
-     * field value.
-     */
     private final int fieldValue;
-
 }

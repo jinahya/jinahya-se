@@ -39,7 +39,7 @@ public class JaxbTest {
 
             @Override
             public Result createOutput(final String namespaceUri,
-                    final String suggestedFileName)
+                                       final String suggestedFileName)
                     throws IOException {
 
                 return new StreamResult(System.out) {

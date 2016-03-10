@@ -27,7 +27,7 @@ public class WhiteInputStream extends InputStream {
 
     /**
      * Reads the next byte of data from the input stream. The {@code read()}
-     * method of {@code WhiteInputStream} class returns {@code 0}.
+     * method of {@code WhiteInputStream} class always returns {@code 0}.
      *
      * @return {@code 0}
      *
@@ -35,8 +35,6 @@ public class WhiteInputStream extends InputStream {
      */
     @Override
     public int read() throws IOException {
-
         return 0;
     }
-
 }

@@ -26,15 +26,15 @@ import com.fasterxml.jackson.module.jaxb.JaxbAnnotationIntrospector;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
 import com.fasterxml.jackson.module.jsonSchema.factories.SchemaFactoryWrapper;
 import java.io.IOException;
-import java.util.Objects;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.SchemaOutputResolver;
 import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamResult;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
+import static java.util.Objects.requireNonNull;
+import org.slf4j.Logger;
 
 /**
  *
@@ -49,58 +49,46 @@ abstract class ImageFeatureTest<T extends ImageFeature<T>> {
      * @param type image feature type.
      */
     public ImageFeatureTest(final Class<T> type) {
-
         super();
-
-        this.type = Objects.requireNonNull(type, "null type");
+        this.type = requireNonNull(type, "null type");
     }
 
     @Test
-    public void json_schema_()
+    public void JsonSchema()
             throws JsonMappingException, JsonProcessingException {
-
         final ObjectMapper mapper = new ObjectMapper();
         final TypeFactory factory = TypeFactory.defaultInstance();
         final AnnotationIntrospector introspector
                 = new JaxbAnnotationIntrospector(factory);
         mapper.setAnnotationIntrospector(introspector);
-
         final SchemaFactoryWrapper visitor = new SchemaFactoryWrapper();
         final JavaType javaType = mapper.constructType(type);
         mapper.acceptJsonFormatVisitor(javaType, visitor);
         final JsonSchema schema = visitor.finalSchema();
-
         final ObjectWriter writer = mapper.writerWithDefaultPrettyPrinter();
         final String string = writer.writeValueAsString(schema);
-
         logger.info("{}.schema: {}", type.getSimpleName(), string);
     }
 
     @Test
-    public void xml_schema_() throws JAXBException, IOException {
-
+    public void XmlSchema() throws JAXBException, IOException {
         final JAXBContext context = JAXBContext.newInstance(type);
-
         context.generateSchema(new SchemaOutputResolver() {
 
             @Override
             public Result createOutput(final String namespaceUri,
-                    final String suggestedFileName)
+                                       final String suggestedFileName)
                     throws IOException {
                 return new StreamResult(System.out) {
-
                     public String getSystemId() {
                         return "";
                     }
-
                 };
             }
-
         });
     }
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     protected final Class<T> type;
-
 }

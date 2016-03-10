@@ -28,7 +28,7 @@ public abstract class CalendarIntFieldEnumTest<E extends Enum<E> & CalendarIntFi
         extends IntFieldEnumTest<E> {
 
     public CalendarIntFieldEnumTest(final Class<E> enumType,
-            final int calendarField) {
+                                    final int calendarField) {
 
         super(enumType);
 

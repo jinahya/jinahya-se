@@ -24,8 +24,8 @@ import java.lang.reflect.Method;
 public class Methods {
 
     public static Method findDeclaredMethod(final Class<?> klass,
-            final String name,
-            final Class<?>... parameterTypes)
+                                            final String name,
+                                            final Class<?>... parameterTypes)
             throws NoSuchMethodException {
 
         try {

@@ -32,8 +32,8 @@ public abstract class AbstractNamespaceContext implements NamespaceContext {
         Objects.requireNonNull(prefix, "null prefix");
 
         return XMLConstants.DEFAULT_NS_PREFIX.equals(prefix)
-                || XMLConstants.XML_NS_PREFIX.equals(prefix)
-                || XMLConstants.XMLNS_ATTRIBUTE.equals(prefix);
+               || XMLConstants.XML_NS_PREFIX.equals(prefix)
+               || XMLConstants.XMLNS_ATTRIBUTE.equals(prefix);
     }
 
     protected static boolean isReservedNamespaceURI(final String namespaceURI) {
@@ -41,8 +41,8 @@ public abstract class AbstractNamespaceContext implements NamespaceContext {
         Objects.requireNonNull(namespaceURI, "null namespaceURI");
 
         return XMLConstants.NULL_NS_URI.equals(namespaceURI)
-                || XMLConstants.XML_NS_URI.equals(namespaceURI)
-                || XMLConstants.XMLNS_ATTRIBUTE_NS_URI.equals(namespaceURI);
+               || XMLConstants.XML_NS_URI.equals(namespaceURI)
+               || XMLConstants.XMLNS_ATTRIBUTE_NS_URI.equals(namespaceURI);
     }
 
     /**

@@ -60,5 +60,4 @@ public enum ResultSetFetchDirection
     }
 
     private final int fieldValue;
-
 }

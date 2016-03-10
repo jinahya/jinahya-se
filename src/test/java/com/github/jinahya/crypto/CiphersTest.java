@@ -57,7 +57,7 @@ public class CiphersTest {
             throws NoSuchAlgorithmException, NoSuchPaddingException {
 
         for (final String transformation
-                : JinahyaCiphers.SUPPORTED_TRANSFORMATIONS.keySet()) {
+             : JinahyaCiphers.SUPPORTED_TRANSFORMATIONS.keySet()) {
             final Cipher cipher = Cipher.getInstance(transformation);
         }
     }
@@ -98,14 +98,14 @@ public class CiphersTest {
     }
 
     private static void symmetric(final String transformation,
-            final int keySize, final boolean requiresIv,
-            final boolean noPadding)
+                                  final int keySize, final boolean requiresIv,
+                                  final boolean noPadding)
             throws NoSuchAlgorithmException, NoSuchPaddingException,
-            InvalidKeyException, InvalidAlgorithmParameterException,
-            IOException, IllegalBlockSizeException, BadPaddingException {
+                   InvalidKeyException, InvalidAlgorithmParameterException,
+                   IOException, IllegalBlockSizeException, BadPaddingException {
 
         logger.debug("symmetric({}, {}, {}, {})",
-                transformation, keySize, requiresIv, noPadding);
+                     transformation, keySize, requiresIv, noPadding);
 
         final Random random = ThreadLocalRandom.current();
 
@@ -117,8 +117,8 @@ public class CiphersTest {
 
         final byte[] expected
                 = noPadding
-                        ? new byte[cipher.getBlockSize() * random.nextInt(512)]
-                        : new byte[random.nextInt(65536)];
+                  ? new byte[cipher.getBlockSize() * random.nextInt(512)]
+                  : new byte[random.nextInt(65536)];
         random.nextBytes(expected);
 
         {
@@ -188,7 +188,7 @@ public class CiphersTest {
     public void test() throws Exception {
 
         for (Entry<String, List<Integer>> entry
-                : JinahyaCiphers.SUPPORTED_TRANSFORMATIONS.entrySet()) {
+             : JinahyaCiphers.SUPPORTED_TRANSFORMATIONS.entrySet()) {
 
             final String transformation = entry.getKey();
             final String[] split = transformation.split("/");

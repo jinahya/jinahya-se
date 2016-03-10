@@ -33,7 +33,7 @@ public class WritableDigestChannel extends WritableFilterChannel {
      * @param digest the message digest to associate with this channel
      */
     public WritableDigestChannel(final WritableByteChannel channel,
-            final MessageDigest digest) {
+                                 final MessageDigest digest) {
 
         super(channel);
 

@@ -27,24 +27,18 @@ public final class WhiteByteChannel implements ReadableByteChannel {
 
     @Override
     public int read(final ByteBuffer dst) throws IOException {
-
         final int remainging = dst.remaining();
-
         dst.position(dst.limit());
-
         return remainging;
     }
 
     @Override
     public boolean isOpen() {
-
         return true;
     }
 
     @Override
     public void close() throws IOException {
-
         // does nothing
     }
-
 }

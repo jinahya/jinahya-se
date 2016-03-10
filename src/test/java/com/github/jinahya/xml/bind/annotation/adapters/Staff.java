@@ -135,7 +135,7 @@ public class Staff implements Comparable<Staff>, Serializable {
         }
 
         if (!(name == casted.name)
-                || (name != null && name.equals(casted.name))) {
+            || (name != null && name.equals(casted.name))) {
             return false;
         }
 

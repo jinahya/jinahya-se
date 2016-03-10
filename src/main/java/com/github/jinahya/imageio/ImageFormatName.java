@@ -15,11 +15,11 @@
  */
 package com.github.jinahya.imageio;
 
-import static com.github.jinahya.imageio.ImageFeature.collect;
-import java.util.Collection;
+import java.util.List;
 import static javax.imageio.ImageIO.getReaderFormatNames;
 import static javax.imageio.ImageIO.getWriterFormatNames;
 import javax.xml.bind.annotation.XmlRootElement;
+import static com.github.jinahya.imageio.ImageFeature.list;
 
 /**
  *
@@ -28,12 +28,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class ImageFormatName extends ImageFeature<ImageFormatName> {
 
-    public static Collection<ImageFormatName> availableImageFormatNames() {
+    public static List<ImageFormatName> availableImageFormatNames() {
 
         try {
-            return collect(
-                    ImageFormatName.class, getReaderFormatNames(),
-                    getWriterFormatNames());
+            return list(ImageFormatName.class, getReaderFormatNames(),
+                        getWriterFormatNames());
         } catch (InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }

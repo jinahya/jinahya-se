@@ -42,7 +42,7 @@ public final class FileVisitors {
 
             @Override
             public FileVisitResult visitFile(final Path file,
-                    final BasicFileAttributes attrs)
+                                             final BasicFileAttributes attrs)
                     throws IOException {
 
                 Files.delete(file);
@@ -52,7 +52,7 @@ public final class FileVisitors {
 
             @Override
             public FileVisitResult postVisitDirectory(final Path dir,
-                    final IOException exc)
+                                                      final IOException exc)
                     throws IOException {
 
                 Files.delete(dir);

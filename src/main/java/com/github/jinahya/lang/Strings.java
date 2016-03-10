@@ -91,7 +91,7 @@ public final class Strings {
      * @see String#endsWith(java.lang.String)
      */
     public static boolean endsWith(final String string,
-            final String... suffixes) {
+                                   final String... suffixes) {
 
         if (string == null) {
             throw new NullPointerException("null string");
@@ -122,7 +122,7 @@ public final class Strings {
      * @see String#indexOf(int, int)
      */
     public static int indexOf(final String string, final int ch, int fromIndex,
-            int ordinal) {
+                              int ordinal) {
 
         if (string == null) {
             throw new NullPointerException("string == null");
@@ -146,7 +146,7 @@ public final class Strings {
     }
 
     public static List<Integer> indicesOf(final String string, final int ch,
-            int fromIndex) {
+                                          int fromIndex) {
 
         if (string == null) {
             throw new NullPointerException("string == null");
@@ -178,7 +178,7 @@ public final class Strings {
      * @see String#indexOf(java.lang.String, int)
      */
     public static int indexOf(final String string, final String str,
-            int fromIndex, int ordinal) {
+                              int fromIndex, int ordinal) {
 
         if (string == null) {
             throw new NullPointerException("string == null");
@@ -202,13 +202,13 @@ public final class Strings {
     }
 
     public static List<Integer> indicesOf(final String string, final String str,
-            int fromIndex) {
+                                          int fromIndex) {
 
         if (string == null) {
             throw new NullPointerException("string == null");
         }
 
-        final List<Integer> indices = new ArrayList<Integer>();
+        final List<Integer> indices = new ArrayList<>();
 
         while (true) {
             final int index = string.indexOf(str, fromIndex);
@@ -223,8 +223,6 @@ public final class Strings {
     }
 
     private Strings() {
-
         super();
     }
-
 }

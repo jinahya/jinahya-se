@@ -56,6 +56,11 @@ public interface IntFieldEnum<E extends Enum<E>> {
         throw new IllegalArgumentException("unknown fieldValue: " + fieldValue);
     }
 
+    /**
+     * Returns the defined field value as an {@code int}.
+     *
+     * @return the defined field value as an {@code int}.
+     */
     int fieldValueAsInt();
 
 }

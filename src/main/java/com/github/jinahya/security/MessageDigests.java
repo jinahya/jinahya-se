@@ -56,8 +56,8 @@ public final class MessageDigests {
      * @throws IOException if an I/O error occurs
      */
     public static byte[] digest(final MessageDigest digest,
-            final InputStream input, final byte[] buffer,
-            final long length)
+                                final InputStream input, final byte[] buffer,
+                                final long length)
             throws IOException {
 
         if (digest == null) {
@@ -79,7 +79,7 @@ public final class MessageDigests {
         long count = 0L;
         for (int read; length < 0L || count < length; count += read) {
             final int l = length < 0L ? buffer.length
-                    : (int) Math.min(buffer.length, length - count);
+                          : (int) Math.min(buffer.length, length - count);
             read = input.read(buffer, 0, l);
             if (read == -1) {
                 break;
@@ -107,7 +107,7 @@ public final class MessageDigests {
      * @see #digest(MessageDigest, InputStream, byte[], long)
      */
     public static byte[] digest(final MessageDigest digest, final File input,
-            final byte[] buffer, final long length)
+                                final byte[] buffer, final long length)
             throws IOException {
 
         if (input == null) {
@@ -137,8 +137,8 @@ public final class MessageDigests {
      * @throws IOException if an I/O error occurs
      */
     public static byte[] digest(final MessageDigest digest,
-            final ReadableByteChannel input,
-            final ByteBuffer buffer, final long length)
+                                final ReadableByteChannel input,
+                                final ByteBuffer buffer, final long length)
             throws IOException {
 
         if (digest == null) {
@@ -192,7 +192,7 @@ public final class MessageDigests {
      * @throws IOException if an I/O error occurs
      */
     public static byte[] digest(final MessageDigest digest, final File input,
-            final ByteBuffer buffer, final long length)
+                                final ByteBuffer buffer, final long length)
             throws IOException {
 
         if (input == null) {
@@ -224,9 +224,9 @@ public final class MessageDigests {
      * @throws IOException if an I/O error occurs
      */
     public static long digest(final MessageDigest digest,
-            final InputStream input,
-            final OutputStream output, final byte[] buffer,
-            final long length)
+                              final InputStream input,
+                              final OutputStream output, final byte[] buffer,
+                              final long length)
             throws IOException {
 
         if (digest == null) {
@@ -253,7 +253,7 @@ public final class MessageDigests {
 
         for (int read; length < 0L || count < length; count += read) {
             final int l = length < 0L ? buffer.length
-                    : (int) Math.min(buffer.length, length - count);
+                          : (int) Math.min(buffer.length, length - count);
             read = input.read(buffer, 0, l);
             if (read == -1) {
                 break;
@@ -282,9 +282,9 @@ public final class MessageDigests {
      * @throws IOException if an I/O error occurs
      */
     public static long digest(final MessageDigest digest,
-            final ReadableByteChannel input,
-            final WritableByteChannel output,
-            final ByteBuffer buffer, final long length)
+                              final ReadableByteChannel input,
+                              final WritableByteChannel output,
+                              final ByteBuffer buffer, final long length)
             throws IOException {
 
         if (digest == null) {

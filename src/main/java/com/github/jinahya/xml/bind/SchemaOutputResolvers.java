@@ -52,7 +52,7 @@ public class SchemaOutputResolvers {
 
         @Override
         default Result apply(final String namespaceUri,
-                final String suggestedFileName) {
+                             final String suggestedFileName) {
             try {
                 return createOutput(namespaceUri, suggestedFileName);
             } catch (final IOException ioe) {
@@ -74,7 +74,7 @@ public class SchemaOutputResolvers {
 
             @Override
             public Result createOutput(final String namespaceUri,
-                    final String suggestedFileName)
+                                       final String suggestedFileName)
                     throws IOException {
 
                 return functional.createOutput(namespaceUri, suggestedFileName);

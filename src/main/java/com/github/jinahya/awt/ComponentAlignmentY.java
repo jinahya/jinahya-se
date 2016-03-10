@@ -28,10 +28,12 @@ public enum ComponentAlignmentY implements FloatFieldEnum<ComponentAlignmentY> {
      * Constant for {@link Component#TOP_ALIGNMENT}.
      */
     TOP_ALIGNMENT(Component.TOP_ALIGNMENT), // 0.0f
+
     /**
      * Constant for {@link Component#CENTER_ALIGNMENT}.
      */
     CENTER_ALIGHMENT(Component.CENTER_ALIGNMENT), // 0.5f
+
     /**
      * Constant for {@link Component#BOTTOM_ALIGNMENT}.
      */

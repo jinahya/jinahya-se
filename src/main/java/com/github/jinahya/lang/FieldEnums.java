@@ -114,7 +114,7 @@ public final class FieldEnums {
         for (final E enumConstant : enumType.getEnumConstants()) {
             final V constantFieldValue = enumConstant.fieldValue();
             if (constantFieldValue == null
-                    ? fieldValue == null : constantFieldValue.equals(fieldValue)) {
+                ? fieldValue == null : constantFieldValue.equals(fieldValue)) {
                 return enumConstant;
             }
         }

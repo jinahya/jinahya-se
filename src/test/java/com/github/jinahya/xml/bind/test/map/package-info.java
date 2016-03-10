@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 @XmlSchema(attributeFormDefault = XmlNsForm.UNQUALIFIED,
-        elementFormDefault = XmlNsForm.QUALIFIED,
-        namespace = "http://jinahya.github.com/xml/bind/test/map")
+           elementFormDefault = XmlNsForm.QUALIFIED,
+           namespace = "http://jinahya.github.com/xml/bind/test/map")
 @XmlAccessorType(XmlAccessType.NONE)
 package com.github.jinahya.xml.bind.test.map;
 

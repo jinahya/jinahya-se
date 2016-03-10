@@ -32,7 +32,7 @@ public class JinahyaThreadLocalRandoms {
     }
 
     public static DoubleStream floats(final float randomNumberOrigin,
-            final float randomNumberBound) {
+                                      final float randomNumberBound) {
 
         return ThreadLocalRandom.current()
                 .doubles(randomNumberOrigin, randomNumberBound)
@@ -47,8 +47,8 @@ public class JinahyaThreadLocalRandoms {
     }
 
     public static DoubleStream floats(final long streamSize,
-            final float randomNumberOrigin,
-            final float randomNumberBound) {
+                                      final float randomNumberOrigin,
+                                      final float randomNumberBound) {
 
         return ThreadLocalRandom.current()
                 .doubles(streamSize, randomNumberOrigin, randomNumberBound)
@@ -78,7 +78,7 @@ public class JinahyaThreadLocalRandoms {
      * @see ThreadLocalRandom#ints(int, int)
      */
     public static IntStream bytes(final byte randomNumberOrigin,
-            final byte randomNumberBound) {
+                                  final byte randomNumberBound) {
 
         return ThreadLocalRandom.current()
                 .ints(randomNumberOrigin, randomNumberBound)
@@ -93,8 +93,8 @@ public class JinahyaThreadLocalRandoms {
     }
 
     public static IntStream bytes(final long streamSize,
-            final byte randomNumberOrigin,
-            final byte randomNumberBound) {
+                                  final byte randomNumberOrigin,
+                                  final byte randomNumberBound) {
 
         return ThreadLocalRandom.current()
                 .ints(streamSize, randomNumberOrigin, randomNumberBound)

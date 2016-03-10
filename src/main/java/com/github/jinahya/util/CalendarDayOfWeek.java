@@ -78,7 +78,7 @@ public enum CalendarDayOfWeek implements CalendarIntFieldEnum<CalendarDayOfWeek>
     public static CalendarDayOfWeek fromCalendar(final Calendar calendar) {
 
         return CalendarIntFieldEnum.fromCalendar(CalendarDayOfWeek.class, calendar,
-                CALENDAR_FIELD);
+                                                 CALENDAR_FIELD);
     }
 //    /**
 //     * Returns an array containing the field values of this enum type, in order

@@ -625,8 +625,8 @@ public final class Unsafe {
      * @since 1.7
      */
     public native void copyMemory(Object srcBase, long srcOffset,
-            Object destBase, long destOffset,
-            long bytes);
+                                  Object destBase, long destOffset,
+                                  long bytes);
 
     /**
      * Sets all bytes in a given block of memory to a copy of another block.
@@ -941,8 +941,8 @@ public final class Unsafe {
      * class loader and protection domain come from the caller's class.
      */
     public native Class defineClass(String name, byte[] b, int off, int len,
-            ClassLoader loader,
-            ProtectionDomain protectionDomain);
+                                    ClassLoader loader,
+                                    ProtectionDomain protectionDomain);
 
     /**
      * @deprecated Use defineClass(String, byte[], int, int, ClassLoader,
@@ -1014,8 +1014,8 @@ public final class Unsafe {
      * @return <tt>true</tt> if successful
      */
     public final native boolean compareAndSwapObject(Object o, long offset,
-            Object expected,
-            Object x);
+                                                     Object expected,
+                                                     Object x);
 
     /**
      * Atomically update Java variable to <tt>x</tt> if it is currently holding
@@ -1024,8 +1024,8 @@ public final class Unsafe {
      * @return <tt>true</tt> if successful
      */
     public final native boolean compareAndSwapInt(Object o, long offset,
-            int expected,
-            int x);
+                                                  int expected,
+                                                  int x);
 
     /**
      * Atomically update Java variable to <tt>x</tt> if it is currently holding
@@ -1034,8 +1034,8 @@ public final class Unsafe {
      * @return <tt>true</tt> if successful
      */
     public final native boolean compareAndSwapLong(Object o, long offset,
-            long expected,
-            long x);
+                                                   long expected,
+                                                   long x);
 
     /**
      * Fetches a reference value from a given Java variable, with volatile load

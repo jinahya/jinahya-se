@@ -34,56 +34,44 @@ public class JaxbTest {
     @Test
     public static void printSchema() throws JAXBException, IOException {
 
-        final JAXBContext context
-                = JAXBContext.newInstance(JaxbTest.class.getPackage().getName());
+        final JAXBContext context = JAXBContext.newInstance(
+                JaxbTest.class.getPackage().getName());
 
         context.generateSchema(new SchemaOutputResolver() {
 
             @Override
             public Result createOutput(final String namespaceUri,
-                    final String suggestedFileName)
+                                       final String suggestedFileName)
                     throws IOException {
 
                 return new StreamResult(System.out) {
-
                     @Override
                     public String getSystemId() {
-
                         return suggestedFileName;
                     }
-
                 };
             }
-
         });
     }
 
     static <T extends ImageFeature<T>> void printXml(final Class<T> type,
-            final T instances)
+                                                     final T instances)
             throws JAXBException, IOException {
-
         final JAXBContext context = JAXBContext.newInstance(type);
-
         final Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-
         marshaller.marshal(instances, System.out);
     }
 
     static <T extends ImageFeature<T>> void printXml(
             final Class<T> type, final Collection<T> instances)
             throws JAXBException, IOException {
-
         final JAXBContext context
                 = JAXBContext.newInstance(type, ImageFeatures.class);
-
         final ImageFeatures<T> features = new ImageFeatures<>();
         features.getFeatures().addAll(instances);
-
         final Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-
         marshaller.marshal(features, System.out);
     }
-
 }

@@ -35,8 +35,6 @@ public class StringPackageListAdapter
 
     @Override
     protected List<Package> bound(final String value) {
-
-        return new ArrayList<Package>();
+        return new ArrayList<>();
     }
-
 }

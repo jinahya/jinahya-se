@@ -15,11 +15,11 @@
  */
 package com.github.jinahya.imageio;
 
-import static com.github.jinahya.imageio.ImageFeature.collect;
-import java.util.Collection;
+import java.util.List;
 import static javax.imageio.ImageIO.getReaderMIMETypes;
 import static javax.imageio.ImageIO.getWriterMIMETypes;
 import javax.xml.bind.annotation.XmlRootElement;
+import static com.github.jinahya.imageio.ImageFeature.list;
 
 /**
  *
@@ -28,15 +28,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class ImageMimeType extends ImageFeature<ImageMimeType> {
 
-    public static Collection<ImageMimeType> availableImageMimeTypes() {
-
+    public static List<ImageMimeType> availableImageMimeTypes() {
         try {
-            return collect(
-                    ImageMimeType.class, getReaderMIMETypes(),
-                    getWriterMIMETypes());
+            return list(ImageMimeType.class, getReaderMIMETypes(),
+                        getWriterMIMETypes());
         } catch (InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }
-
 }

@@ -41,7 +41,7 @@ public abstract class ComparableFieldEnumTest<E extends Enum<E> & ComparableFiel
      * @param fieldType the field type.
      */
     public ComparableFieldEnumTest(final Class<E> enumType,
-            final Class<F> fieldType) {
+                                   final Class<F> fieldType) {
 
         super(enumType, fieldType);
     }

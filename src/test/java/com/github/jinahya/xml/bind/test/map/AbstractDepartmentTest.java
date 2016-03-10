@@ -74,7 +74,7 @@ public abstract class AbstractDepartmentTest<T extends AbstractDepartment> {
         final String jaxbEncoding
                 = (String) marshaller.getProperty(Marshaller.JAXB_ENCODING);
         System.out.println(new String(baos.toByteArray(),
-                Charset.forName(jaxbEncoding)));
+                                      Charset.forName(jaxbEncoding)));
 
         final Unmarshaller unmarshaller = context.createUnmarshaller();
 

@@ -15,8 +15,7 @@
  */
 package com.github.jinahya.sql;
 
-import com.github.jinahya.lang.FieldEnum;
-import com.github.jinahya.lang.FieldEnums;
+import com.github.jinahya.lang.IntFieldEnum;
 import java.sql.DatabaseMetaData;
 
 /**
@@ -24,7 +23,7 @@ import java.sql.DatabaseMetaData;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum DatabaseMetaDataBestRowPsuedo
-        implements FieldEnum<DatabaseMetaDataBestRowPsuedo, Integer> {
+        implements IntFieldEnum<DatabaseMetaDataBestRowPsuedo> {
 
     /**
      * A constant for {@link DatabaseMetaData#bestRowUnknown}.
@@ -41,34 +40,14 @@ public enum DatabaseMetaDataBestRowPsuedo
      */
     bestRowPseudo(DatabaseMetaData.bestRowPseudo); // 2
 
-    public static DatabaseMetaDataBestRowPsuedo fromFieldValue(
-            final int fieldValue) {
-
-        return FieldEnums.fromFieldValue(
-                DatabaseMetaDataBestRowPsuedo.class,
-                Integer.valueOf(fieldValue));
-    }
-
-    public static Integer[] fieldValues() {
-
-        return FieldEnums.fieldValues(
-                DatabaseMetaDataBestRowPsuedo.class, Integer.class);
-    }
-
     private DatabaseMetaDataBestRowPsuedo(final int fieldValue) {
-
         this.fieldValue = fieldValue;
     }
 
     @Override
-    public Integer fieldValue() {
-
+    public int fieldValueAsInt() {
         return fieldValue;
     }
 
-    /**
-     * field value.
-     */
     private final int fieldValue;
-
 }

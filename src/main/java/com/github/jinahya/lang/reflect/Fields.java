@@ -26,7 +26,7 @@ import java.lang.reflect.Modifier;
 public final class Fields {
 
     public static Field findDeclaredField(final Class<?> klass,
-            final String name)
+                                          final String name)
             throws NoSuchFieldException {
 
         try {
@@ -112,7 +112,7 @@ public final class Fields {
      * @see Classes#requireAssignableTo(java.lang.Class, java.lang.Class)
      */
     public static Field requireTypeAssignableTo(final Field field,
-            final Class<?> to) {
+                                                final Class<?> to) {
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -155,7 +155,7 @@ public final class Fields {
      * @see Classes#requireAssignableFrom(java.lang.Class, java.lang.Class)
      */
     public static Field requireTypeAssignableFrom(final Field field,
-            final Class<?> from) {
+                                                  final Class<?> from) {
 
         if (field == null) {
             throw new NullPointerException("null field");

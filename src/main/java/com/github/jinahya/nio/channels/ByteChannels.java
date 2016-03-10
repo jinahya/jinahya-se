@@ -48,8 +48,8 @@ public final class ByteChannels {
      * @see FileChannel#transferTo(long, long, WritableByteChannel)
      */
     public static long copy(final FileChannel input,
-            final WritableByteChannel output,
-            final long length)
+                            final WritableByteChannel output,
+                            final long length)
             throws IOException {
 
         if (input == null) {
@@ -102,7 +102,7 @@ public final class ByteChannels {
      * @see FileChannel#transferFrom(ReadableByteChannel, long, long)
      */
     public static long copy(final ReadableByteChannel input,
-            final FileChannel output, final long length)
+                            final FileChannel output, final long length)
             throws IOException {
 
         if (input == null) {
@@ -167,8 +167,8 @@ public final class ByteChannels {
      * @throws IOException if an I/O error occurs.
      */
     public static long copy1(final ReadableByteChannel input,
-            final WritableByteChannel output,
-            final ByteBuffer buffer, final long length)
+                             final WritableByteChannel output,
+                             final ByteBuffer buffer, final long length)
             throws IOException {
 
         if (input instanceof FileChannel) {
@@ -248,8 +248,8 @@ public final class ByteChannels {
      * @throws IOException if an I/O error occurs.
      */
     public static long copy2(final ReadableByteChannel input,
-            final WritableByteChannel output,
-            final ByteBuffer buffer, final long length)
+                             final WritableByteChannel output,
+                             final ByteBuffer buffer, final long length)
             throws IOException {
 
         if (input instanceof FileChannel) {
@@ -330,8 +330,8 @@ public final class ByteChannels {
     }
 
     private static long copy(final ReadableByteChannel input,
-            final WritableByteChannel output,
-            final ByteBuffer buffer, final long length)
+                             final WritableByteChannel output,
+                             final ByteBuffer buffer, final long length)
             throws IOException {
 
         return copy1(input, output, buffer, length);
@@ -353,7 +353,7 @@ public final class ByteChannels {
      * @see #copy(FileChannel, WritableByteChannel, long)
      */
     public static long copy(final Path input, final WritableByteChannel output,
-            final long length)
+                            final long length)
             throws IOException {
 
         if (input == null) {
@@ -384,7 +384,7 @@ public final class ByteChannels {
      * @throws IOException if an I/O error occurs.
      */
     public static long copy(final File input, final WritableByteChannel output,
-            final long length)
+                            final long length)
             throws IOException {
 
         if (input == null) {
@@ -413,7 +413,7 @@ public final class ByteChannels {
      * @throws IOException if an I/O error occurs.
      */
     public static long copy(final ReadableByteChannel input, final Path output,
-            final long length)
+                            final long length)
             throws IOException {
 
         if (output == null) {
@@ -450,7 +450,7 @@ public final class ByteChannels {
      * @throws IOException if an I/O error occurs.
      */
     public static long copy(final ReadableByteChannel input, final File output,
-            final long length)
+                            final long length)
             throws IOException {
 
         if (output == null) {
@@ -473,7 +473,7 @@ public final class ByteChannels {
      * @throws IOException if an I/O error occurs.
      */
     public static long copy(final File input, final File output,
-            final long length)
+                            final long length)
             throws IOException {
 
         if (output == null) {
@@ -509,7 +509,7 @@ public final class ByteChannels {
                 final int limit = dst.limit();
                 try {
                     dst.limit(dst.position()
-                            + current().nextInt(dst.remaining() + 1));
+                              + current().nextInt(dst.remaining() + 1));
                     return channel.read(dst);
                 } finally {
                     dst.limit(limit);
@@ -554,7 +554,7 @@ public final class ByteChannels {
                 final int limit = src.limit();
                 try {
                     src.limit(src.position()
-                            + current().nextInt(src.remaining() + 1));
+                              + current().nextInt(src.remaining() + 1));
                     return channel.write(src);
                 } finally {
                     src.limit(limit);

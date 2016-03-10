@@ -15,18 +15,16 @@
  */
 package com.github.jinahya.sql;
 
-import com.github.jinahya.lang.FieldEnumTest;
+import com.github.jinahya.lang.IntFieldEnumTest;
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class DatabaseMetaDataDeferrabiltiyTest
-        extends FieldEnumTest<DatabaseMetaDataDeferrability, Integer> {
+        extends IntFieldEnumTest<DatabaseMetaDataDeferrability> {
 
     public DatabaseMetaDataDeferrabiltiyTest() {
-
-        super(DatabaseMetaDataDeferrability.class, Integer.class);
+        super(DatabaseMetaDataDeferrability.class);
     }
-
 }

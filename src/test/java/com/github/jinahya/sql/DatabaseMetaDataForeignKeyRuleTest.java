@@ -15,18 +15,16 @@
  */
 package com.github.jinahya.sql;
 
-import com.github.jinahya.lang.FieldEnumTest;
+import com.github.jinahya.lang.IntFieldEnumTest;
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class DatabaseMetaDataForeignKeyRuleTest
-        extends FieldEnumTest<DatabaseMetaDataForeignKeyRule, Integer> {
+        extends IntFieldEnumTest<DatabaseMetaDataForeignKeyRule> {
 
     public DatabaseMetaDataForeignKeyRuleTest() {
-
-        super(DatabaseMetaDataForeignKeyRule.class, Integer.class);
+        super(DatabaseMetaDataForeignKeyRule.class);
     }
-
 }

@@ -15,8 +15,8 @@
  */
 @XmlAccessorType(value = XmlAccessType.NONE)
 @XmlSchema(attributeFormDefault = XmlNsForm.UNQUALIFIED,
-        elementFormDefault = XmlNsForm.QUALIFIED,
-        namespace = "http://jinahya.github.com/xml/bind/test")
+           elementFormDefault = XmlNsForm.QUALIFIED,
+           namespace = "http://jinahya.github.com/xml/bind/test")
 package com.github.jinahya.xml.bind.test;
 
 import javax.xml.bind.annotation.XmlAccessType;

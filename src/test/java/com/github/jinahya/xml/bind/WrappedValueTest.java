@@ -58,7 +58,7 @@ public abstract class WrappedValueTest<W extends WrappedValue<R>, R> {
     @Test(invocationCount = 1)
     public void testXml()
             throws JAXBException, InstantiationException, IllegalAccessException,
-            IOException {
+                   IOException {
 
         final JAXBContext context = JAXBContext.newInstance(valueType);
 
@@ -95,7 +95,7 @@ public abstract class WrappedValueTest<W extends WrappedValue<R>, R> {
 
             @Override
             public Result createOutput(final String namespaceUri,
-                    final String suggestedFileName)
+                                       final String suggestedFileName)
                     throws IOException {
 
                 return new StreamResult(System.out) {

@@ -55,5 +55,4 @@ public enum DatabaseMetaDataIndexType
     }
 
     private final int fieldValue;
-
 }

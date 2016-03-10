@@ -33,24 +33,19 @@ public class FunnelInputStream extends FilterInputStream {
      * @param in the underlying input stream
      */
     public FunnelInputStream(final InputStream in) {
-
         super(in);
     }
 
     @Override
     public int read(final byte[] b, final int off, final int len)
             throws IOException {
-
         if (b == null) {
             throw new NullPointerException();
         }
-
         if (off < 0 || len < 0 || len > b.length - off) {
             throw new IndexOutOfBoundsException();
         }
-
         int count = 0;
-
         for (; count < len; count++) {
             final int read = read();
             if (read == -1) {
@@ -61,8 +56,6 @@ public class FunnelInputStream extends FilterInputStream {
             }
             b[off + count] = (byte) read;
         }
-
         return count;
     }
-
 }

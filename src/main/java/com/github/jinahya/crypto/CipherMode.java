@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 
 /**
+ * Constants for modes of ciphers defined in {@link Cipher}.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
@@ -57,10 +58,8 @@ public enum CipherMode implements IntFieldEnum<CipherMode> {
 
     @Override
     public int fieldValueAsInt() {
-
         return fieldValue;
     }
 
     private final int fieldValue;
-
 }

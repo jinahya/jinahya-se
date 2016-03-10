@@ -28,14 +28,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 class ImageFeatures<T extends ImageFeature<T>> {
 
     public List<T> getFeatures() {
-
         if (features == null) {
             features = new ArrayList<>();
         }
-
         return features;
     }
 
     private List<T> features;
-
 }

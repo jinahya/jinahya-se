@@ -20,10 +20,11 @@ import java.lang.reflect.Proxy;
 import java.util.function.Consumer;
 
 /**
+ * Utilities for {@link AutoCloseable}.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public class AutoCloseables {
+public final class AutoCloseables {
 
     private static final Method CLOSE;
 
@@ -36,7 +37,7 @@ public class AutoCloseables {
     }
 
     /**
-     * Creates a proxy of {@code AutoCloseable}.
+     * Creates a proxy of {@code AutoCloseable} for given object reference.
      *
      * @param <T> the type of the instance.
      * @param loader the classloader.
@@ -46,11 +47,12 @@ public class AutoCloseables {
      * @return a proxy of {@code AutoCloseable}.
      *
      * @see AutoCloseable
+     * @see Proxy#newProxyInstance(java.lang.ClassLoader, java.lang.Class<?>[],
+     * java.lang.reflect.InvocationHandler)
      */
     public static <T> AutoCloseable of(final ClassLoader loader,
-            final T instance,
-            final Consumer<T> closer) {
-
+                                       final T instance,
+                                       final Consumer<T> closer) {
         return (AutoCloseable) Proxy.newProxyInstance(
                 loader,
                 new Class<?>[]{AutoCloseable.class},
@@ -63,8 +65,23 @@ public class AutoCloseables {
                 });
     }
 
+    /**
+     * Creates a new proxy of {@link AutoCloseable} for given object reference.
+     *
+     * @param <T> instance type parameter
+     * @param instance the instance
+     * @param closer the consumer for {@link AutoCloseable#close()}.
+     * @return a new proxy instance.
+     *
+     * @see #of(java.lang.ClassLoader, java.lang.Object,
+     * java.util.function.Consumer)
+     */
+    public static <T> AutoCloseable of(final T instance,
+                                       final Consumer<T> closer) {
+        return of(instance.getClass().getClassLoader(), instance, closer);
+    }
+
     private AutoCloseables() {
         super();
     }
-
 }

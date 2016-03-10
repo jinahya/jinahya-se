@@ -24,21 +24,22 @@ public interface DoubleFieldEnum<E extends Enum<E>> {
 
     static <E extends Enum<E> & DoubleFieldEnum<E>> double[] fieldValues(
             final Class<E> type) {
-
         if (type == null) {
             throw new NullPointerException("null type");
         }
-
         final E[] enumConstants = type.getEnumConstants();
-
         final double[] fieldValues = new double[enumConstants.length];
         for (int i = 0; i < fieldValues.length; i++) {
             fieldValues[i] = enumConstants[i].fieldValueAsDouble();
         }
-
         return fieldValues;
     }
 
+    /**
+     * Returns the defined field value as a {@code double}.
+     *
+     * @return the field value as a {@code double}.
+     */
     double fieldValueAsDouble();
 
 }

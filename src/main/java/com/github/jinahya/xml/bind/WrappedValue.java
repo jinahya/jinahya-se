@@ -67,7 +67,7 @@ public abstract class WrappedValue<R> {
         final WrappedValue<?> other = (WrappedValue<?>) obj;
 
         if (this.rawValue != other.rawValue
-                && (this.rawValue == null
+            && (this.rawValue == null
                 || !this.rawValue.equals(other.rawValue))) {
             return false;
         }
@@ -81,7 +81,7 @@ public abstract class WrappedValue<R> {
         int hash = 7;
 
         hash = 97 * hash
-                + (this.rawValue != null ? this.rawValue.hashCode() : 0);
+               + (this.rawValue != null ? this.rawValue.hashCode() : 0);
 
         return hash;
     }

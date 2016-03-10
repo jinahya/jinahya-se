@@ -73,9 +73,9 @@ public class Marshallers {
      * @throws JAXBException if a JAXB error occurs.
      */
     public static <T> void marshal(final Marshaller marshaller,
-            final Object value,
-            final Class<? super T> outputType,
-            final T output)
+                                   final Object value,
+                                   final Class<? super T> outputType,
+                                   final T output)
             throws JAXBException {
 
         if (marshaller == null) {
@@ -126,9 +126,9 @@ public class Marshallers {
      * @throws JAXBException if a JAXB error occurs.
      */
     public static <T> void marshal(final JAXBContext context,
-            final Object value,
-            final Class<? super T> outputType,
-            final T output)
+                                   final Object value,
+                                   final Class<? super T> outputType,
+                                   final T output)
             throws JAXBException {
 
         if (context == null) {
@@ -149,8 +149,8 @@ public class Marshallers {
      * @throws JAXBException if a JAXB error occurs.
      */
     public static <T> void marshal(final Object value,
-            final Class<? super T> outputType,
-            final T output)
+                                   final Class<? super T> outputType,
+                                   final T output)
             throws JAXBException {
 
         if (value == null) {
@@ -172,7 +172,7 @@ public class Marshallers {
      * @throws JAXBException if a JAXB error occurs.
      */
     public static void marshal(final Marshaller marshaller,
-            final Object value, final Object output)
+                               final Object value, final Object output)
             throws JAXBException {
 
         if (marshaller == null) {
@@ -223,7 +223,7 @@ public class Marshallers {
      * @throws JAXBException if a JAXB error occurs.
      */
     public static void marshal(final JAXBContext context, final Object value,
-            final Object output)
+                               final Object output)
             throws JAXBException {
 
         if (context == null) {

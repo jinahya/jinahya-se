@@ -25,21 +25,38 @@ public interface ShortFieldEnum<E extends Enum<E>> {
 
     static <E extends Enum<E> & IntFieldEnum<E>> int[] fieldValues(
             final Class<E> type) {
-
         if (type == null) {
             throw new NullPointerException("null type");
         }
-
         final E[] enumConstants = type.getEnumConstants();
-
         final int[] fieldValues = new int[enumConstants.length];
         for (int i = 0; i < fieldValues.length; i++) {
             fieldValues[i] = enumConstants[i].fieldValueAsInt();
         }
-
         return fieldValues;
     }
 
-    int fieldValueAsShort();
+    static <E extends Enum<E> & ShortFieldEnum<E>> E fromFieldValue(
+            final Class<E> enumType, final short fieldValue) {
+        if (enumType == null) {
+            throw new NullPointerException("null enumtype");
+        }
+        for (final E enumConstant : enumType.getEnumConstants()) {
+            final short constantFieldValue = enumConstant.fieldValueAsShort();
+            if (constantFieldValue == fieldValue) {
+                return enumConstant;
+            }
+        }
+        throw new IllegalArgumentException(
+                "unknown fieldValue(" + fieldValue
+                + ") for enumType(" + enumType + ")");
+    }
+
+    /**
+     * Returns the defined field value as a {@code short}.
+     *
+     * @return the defined field value as a {@code short}.
+     */
+    short fieldValueAsShort();
 
 }

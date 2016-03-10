@@ -38,16 +38,13 @@ public enum ResultSetConcurrency implements IntFieldEnum<ResultSetConcurrency> {
     ;
 
     private ResultSetConcurrency(final int fieldValue) {
-
         this.fieldValue = fieldValue;
     }
 
     @Override
     public int fieldValueAsInt() {
-
         return fieldValue;
     }
 
     private final int fieldValue;
-
 }

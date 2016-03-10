@@ -68,8 +68,8 @@ public class Zips {
     }
 
     protected static void zip(final StringBuilder path, final File file,
-            final FileFilter filter,
-            final ZipOutputStream stream, final byte[] buffer)
+                              final FileFilter filter,
+                              final ZipOutputStream stream, final byte[] buffer)
             throws IOException {
 
         if (path == null) {
@@ -121,7 +121,7 @@ public class Zips {
     }
 
     public static void zip(final File directory, final FileFilter filter,
-            final ZipOutputStream stream, final byte[] buffer)
+                           final ZipOutputStream stream, final byte[] buffer)
             throws IOException {
 
         if (directory == null) {
@@ -168,7 +168,7 @@ public class Zips {
      * @throws IOException if an I/O error occurs.
      */
     public static void unzip(final ZipInputStream stream, final File directory,
-            final byte[] buffer)
+                             final byte[] buffer)
             throws IOException {
 
         if (stream == null) {
@@ -212,7 +212,7 @@ public class Zips {
      * @throws IOException if an I/O error occurs.
      */
     public static void unzip(final ZipFile zipfile, final File directory,
-            final byte[] buffer)
+                             final byte[] buffer)
             throws IOException {
 
         if (zipfile == null) {

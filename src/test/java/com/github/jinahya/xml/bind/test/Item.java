@@ -47,7 +47,7 @@ public class Item {
     @Override
     public String toString() {
         return getClass().getSimpleName() + "@" + hashCode()
-                + "?id=" + id + "&name=" + name;
+               + "?id=" + id + "&name=" + name;
     }
 
     @Override

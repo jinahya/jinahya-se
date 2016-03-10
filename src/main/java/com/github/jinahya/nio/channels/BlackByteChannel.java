@@ -27,9 +27,10 @@ import java.nio.channels.WritableByteChannel;
 public final class BlackByteChannel implements WritableByteChannel {
 
     /**
-     * The {@code #write(java.nio.ByteBuffer)} method of
-     * {@code BlackByteChannel} class just set given buffer's {@code position}
-     * as its {@code limit} and returns previous value of {@code remaining}.
+     * Writes a sequence of bytes to this channel from the given buffer. The
+     * {@code #write(java.nio.ByteBuffer)} method of {@code BlackByteChannel}
+     * class just set given buffer's {@code position} as its {@code limit} and
+     * returns previous value of {@code remaining}.
      *
      * @param src {@inheritDoc}
      *
@@ -39,34 +40,30 @@ public final class BlackByteChannel implements WritableByteChannel {
      */
     @Override
     public int write(final ByteBuffer src) throws IOException {
-
         final int remainging = src.remaining();
-
         src.position(src.limit());
-
         return remainging;
     }
 
     /**
-     * The {@code isOpen} method of {@code BlackByteChannel} class always
-     * returns {@code true}.
+     * Tells whether or not this channel is open. The {@code isOpen} method of
+     * {@code BlackByteChannel} class always returns {@code true}.
      *
      * @return {@code true}
      */
     @Override
     public boolean isOpen() {
-
         return true;
     }
 
     /**
-     * The {@code close} method of {@code BlackByteChannel} class does nothing.
+     * Closes this channel. The {@code close} method of {@code BlackByteChannel}
+     * class does nothing.
      *
      * @throws IOException if an I/O error occurs.
      */
     @Override
     public void close() throws IOException {
-
         // does nothing
     }
 

@@ -43,7 +43,7 @@ public final class JinahyaByteStreams {
      * @throws IOException if an I/O error occurs
      */
     public static long copy(final InputStream input, final OutputStream output,
-            final byte[] buffer, final long length)
+                            final byte[] buffer, final long length)
             throws IOException {
 
         if (input == null) {
@@ -100,7 +100,7 @@ public final class JinahyaByteStreams {
      * @throws IOException if an I/O error occurs
      */
     public static long copy(final File input, final OutputStream output,
-            final byte[] buffer, final long length)
+                            final byte[] buffer, final long length)
             throws IOException {
 
         if (input == null) {
@@ -129,7 +129,7 @@ public final class JinahyaByteStreams {
      * @throws IOException if an I/O error occurs
      */
     public static long copy(final InputStream input, final File output,
-            final byte[] buffer, final long length)
+                            final byte[] buffer, final long length)
             throws IOException {
 
         if (output == null) {
@@ -162,7 +162,7 @@ public final class JinahyaByteStreams {
      * @throws IOException if an I/O error occurs
      */
     public static long copy(final File input, final File output,
-            final byte[] buffer, final long length)
+                            final byte[] buffer, final long length)
             throws IOException {
 
         if (output == null) {

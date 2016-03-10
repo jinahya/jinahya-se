@@ -29,16 +29,13 @@ public enum DefaultCaretUpdate implements IntFieldEnum<DefaultCaretUpdate> {
     ALWAYS(DefaultCaret.ALWAYS_UPDATE);
 
     private DefaultCaretUpdate(final int fieldValue) {
-
         this.fieldValue = fieldValue;
     }
 
     @Override
     public int fieldValueAsInt() {
-
         return fieldValue;
     }
 
     private final int fieldValue;
-
 }

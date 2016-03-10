@@ -101,7 +101,7 @@ public final class Dangerous {
      * @see Unsafe#allocateInstance(java.lang.Class)
      */
     public static <T> T allocateInstance(final Unsafe unsafe,
-            final Class<T> cls)
+                                         final Class<T> cls)
             throws InstantiationException {
 
         if (cls == null) {
@@ -112,8 +112,8 @@ public final class Dangerous {
     }
 
     public static boolean compareAndSwapInt(final Unsafe unsafe, Object base,
-            final Field field,
-            final int expected, final int x) {
+                                            final Field field,
+                                            final int expected, final int x) {
 
         if (unsafe == null) {
             throw new NullPointerException("null unsafe");
@@ -143,9 +143,9 @@ public final class Dangerous {
     }
 
     public static boolean compareAndSwapLong(final Unsafe unsafe, Object base,
-            final Field field,
-            final long expected,
-            final long x) {
+                                             final Field field,
+                                             final long expected,
+                                             final long x) {
 
         if (unsafe == null) {
             throw new NullPointerException("null unsafe");
@@ -173,9 +173,9 @@ public final class Dangerous {
     }
 
     public static boolean compareAndSwapObject(final Unsafe unsafe, Object base,
-            final Field field,
-            final Object expected,
-            final Object x) {
+                                               final Field field,
+                                               final Object expected,
+                                               final Object x) {
 
         if (unsafe == null) {
             throw new NullPointerException("null unsafe");
@@ -219,7 +219,7 @@ public final class Dangerous {
      * @see Unsafe#getBooleanVolatile(java.lang.Object, long)
      */
     public static boolean getBoolean(final Unsafe unsafe, Object base,
-            final Field field) {
+                                     final Field field) {
 
         if (unsafe == null) {
             throw new NullPointerException("null unsafe");
@@ -286,7 +286,7 @@ public final class Dangerous {
     }
 
     public static char getChar(final Unsafe unsafe, Object base,
-            final Field field) {
+                               final Field field) {
 
         if (unsafe == null) {
             throw new NullPointerException("null unsafe");
@@ -320,7 +320,7 @@ public final class Dangerous {
     }
 
     public static double getDouble(final Unsafe unsafe, Object base,
-            final Field field) {
+                                   final Field field) {
 
         if (unsafe == null) {
             throw new NullPointerException("null unsafe");
@@ -354,7 +354,7 @@ public final class Dangerous {
     }
 
     public static float getFloat(final Unsafe unsafe, Object base,
-            final Field field) {
+                                 final Field field) {
 
         if (unsafe == null) {
             throw new NullPointerException("null unsafe");
@@ -388,7 +388,7 @@ public final class Dangerous {
     }
 
     public static int getInt(final Unsafe unsafe, Object base,
-            final Field field) {
+                             final Field field) {
 
         if (unsafe == null) {
             throw new NullPointerException("null unsafe");
@@ -422,7 +422,7 @@ public final class Dangerous {
     }
 
     public static long getLong(final Unsafe unsafe, Object base,
-            final Field field) {
+                               final Field field) {
 
         if (unsafe == null) {
             throw new NullPointerException("null unsafe");
@@ -456,7 +456,7 @@ public final class Dangerous {
     }
 
     public static Object getObject(final Unsafe unsafe, Object base,
-            final Field field) {
+                                   final Field field) {
 
         if (unsafe == null) {
             throw new NullPointerException("null unsafe");
@@ -490,7 +490,7 @@ public final class Dangerous {
     }
 
     public static short getShort(final Unsafe unsafe, Object base,
-            final Field field) {
+                                 final Field field) {
 
         if (unsafe == null) {
             throw new NullPointerException("null unsafe");
@@ -524,7 +524,7 @@ public final class Dangerous {
     }
 
     public static void putBoolean(final Unsafe unsafe, Object base,
-            final Field field, final boolean x) {
+                                  final Field field, final boolean x) {
 
         if (unsafe == null) {
             throw new NullPointerException("null unsafe");
@@ -558,7 +558,7 @@ public final class Dangerous {
     }
 
     public static void putByte(final Unsafe unsafe, Object base,
-            final Field field, final byte x) {
+                               final Field field, final byte x) {
 
         if (unsafe == null) {
             throw new NullPointerException("null unsafe");
@@ -592,7 +592,7 @@ public final class Dangerous {
     }
 
     public static void putChar(final Unsafe unsafe, Object base,
-            final Field field, final char x) {
+                               final Field field, final char x) {
 
         if (unsafe == null) {
             throw new NullPointerException("null unsafe");
@@ -626,7 +626,7 @@ public final class Dangerous {
     }
 
     public static void putDouble(final Unsafe unsafe, Object base,
-            final Field field, final double x) {
+                                 final Field field, final double x) {
 
         if (unsafe == null) {
             throw new NullPointerException("null unsafe");
@@ -660,7 +660,7 @@ public final class Dangerous {
     }
 
     public void putFloat(final Unsafe unsafe, Object base, final Field field,
-            final float x) {
+                         final float x) {
 
         if (unsafe == null) {
             throw new NullPointerException("null unsfae");
@@ -727,7 +727,7 @@ public final class Dangerous {
     }
 
     public static void putLong(final Unsafe unsafe, Object base,
-            final Field field, final long x) {
+                               final Field field, final long x) {
 
         if (unsafe == null) {
             throw new NullPointerException("null unsafe");
@@ -761,7 +761,7 @@ public final class Dangerous {
     }
 
     public static void putObject(final Unsafe unsafe, Object base,
-            final Field field, final Object x) {
+                                 final Field field, final Object x) {
 
         if (unsafe == null) {
             throw new NullPointerException("null unsafe");
@@ -795,7 +795,7 @@ public final class Dangerous {
     }
 
     public static void putOrderedInt(final Unsafe unsafe, Object base,
-            final Field field, final int x) {
+                                     final Field field, final int x) {
 
         if (unsafe == null) {
             throw new NullPointerException("null unsafe");
@@ -825,7 +825,7 @@ public final class Dangerous {
     }
 
     public static void putOrderedLong(final Unsafe unsafe, Object base,
-            final Field field, final long x) {
+                                      final Field field, final long x) {
 
         if (unsafe == null) {
             throw new NullPointerException("null unsafe");
@@ -855,7 +855,7 @@ public final class Dangerous {
     }
 
     public static void putOrderedObject(final Unsafe unsafe, Object base,
-            final Field field, final Object x) {
+                                        final Field field, final Object x) {
 
         if (unsafe == null) {
             throw new NullPointerException("null unsafe");
@@ -885,7 +885,7 @@ public final class Dangerous {
     }
 
     public static void putShort(final Unsafe unsafe, Object base,
-            final Field field, final short x) {
+                                final Field field, final short x) {
 
         if (unsafe == null) {
             throw new NullPointerException("null unsafe");

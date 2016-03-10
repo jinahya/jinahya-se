@@ -25,8 +25,6 @@ public final class ImageIoXmlConstants {
             = "http://github.com/jinahya/imageio";
 
     private ImageIoXmlConstants() {
-
         super();
     }
-
 }

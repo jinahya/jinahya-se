@@ -34,7 +34,7 @@ public class VerySimpleNamespaceContext implements NamespaceContext {
      * @param namespaceURI XML namespace URI
      */
     public VerySimpleNamespaceContext(final String prefix,
-            final String namespaceURI) {
+                                      final String namespaceURI) {
 
         this(prefix, namespaceURI, null);
     }
@@ -47,8 +47,8 @@ public class VerySimpleNamespaceContext implements NamespaceContext {
      * @param defaultNamespaceURI default XML namespace URI
      */
     public VerySimpleNamespaceContext(final String prefix,
-            final String namespaceURI,
-            final String defaultNamespaceURI) {
+                                      final String namespaceURI,
+                                      final String defaultNamespaceURI) {
         super();
 
         if (prefix == null) {
@@ -103,7 +103,7 @@ public class VerySimpleNamespaceContext implements NamespaceContext {
         }
 
         if (defaultNamespaceURI != null
-                && defaultNamespaceURI.equals(namespaceURI)) {
+            && defaultNamespaceURI.equals(namespaceURI)) {
             return XMLConstants.DEFAULT_NS_PREFIX;
         }
 

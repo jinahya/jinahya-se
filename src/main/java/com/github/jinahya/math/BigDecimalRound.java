@@ -31,19 +31,16 @@ public enum BigDecimalRound implements IntFieldEnum<BigDecimalRound> {
     HALF_UP(BigDecimal.ROUND_HALF_UP), // 4
     HALF_DOWN(BigDecimal.ROUND_HALF_DOWN), // 5
     HALF_EVEN(BigDecimal.ROUND_HALF_EVEN), // 6
-    UNNECESSARY(BigDecimal.ROUND_UNNECESSARY);// 7// 7
+    UNNECESSARY(BigDecimal.ROUND_UNNECESSARY); // 7
 
     private BigDecimalRound(final int fieldValue) {
-
         this.fieldValue = fieldValue;
     }
 
     @Override
     public int fieldValueAsInt() {
-
         return fieldValue;
     }
 
     private final int fieldValue;
-
 }

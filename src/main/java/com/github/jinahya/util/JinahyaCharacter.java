@@ -37,7 +37,7 @@ public final class JinahyaCharacter {
      * @return the array of Unicode code points in the specified subarray
      */
     public static int[] codePoints(final char[] a, final int offset,
-            final int count) {
+                                   final int count) {
 
         final int[] codePoints
                 = new int[Character.codePointCount(a, offset, count)];
@@ -66,7 +66,7 @@ public final class JinahyaCharacter {
      * @return the array of Unicode code points in the specified text range
      */
     public static int[] codePoints(final CharSequence seq, final int beginIndex,
-            final int endIndex) {
+                                   final int endIndex) {
 
         final int[] codePoints
                 = new int[Character.codePointCount(seq, beginIndex, endIndex)];

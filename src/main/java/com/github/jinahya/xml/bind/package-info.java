@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 @XmlSchema(attributeFormDefault = XmlNsForm.UNQUALIFIED,
-        elementFormDefault = XmlNsForm.QUALIFIED,
-        namespace = "http://jinahya.github.com/xml/bind")
+           elementFormDefault = XmlNsForm.QUALIFIED,
+           namespace = "http://jinahya.github.com/xml/bind")
 @XmlAccessorType(XmlAccessType.NONE)
 package com.github.jinahya.xml.bind;
 

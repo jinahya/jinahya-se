@@ -33,7 +33,7 @@ public class ReadableDigestChannel extends ReadableFilterChannel {
      * @param digest the message digest to associate with this channel
      */
     public ReadableDigestChannel(final ReadableByteChannel channel,
-            final MessageDigest digest) {
+                                 final MessageDigest digest) {
 
         super(channel);
 

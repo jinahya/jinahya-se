@@ -32,8 +32,6 @@ public class FunnelOutputStream extends FilterOutputStream {
      * @param out the underlying output stream
      */
     public FunnelOutputStream(final OutputStream out) {
-
         super(out);
     }
-
 }

@@ -76,7 +76,7 @@ public final class Classes {
      * @see Class#asSubclass(java.lang.Class)
      */
     public static Class<?> requireAssignableTo(final Class<?> is,
-            final Class<?> to) {
+                                               final Class<?> to) {
 
         if (is == null) {
             throw new NullPointerException("null is");
@@ -107,7 +107,7 @@ public final class Classes {
      * {@code from}.
      */
     public static Class<?> requireAssignableFrom(final Class<?> is,
-            final Class<?> from) {
+                                                 final Class<?> from) {
 
         if (is == null) {
             throw new NullPointerException("null is");

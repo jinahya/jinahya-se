@@ -153,7 +153,7 @@ public class LocaleViewer {
 
                                     @Override
                                     public Object getValueAt(int rowIndex,
-                                            int columnIndex) {
+                                                             int columnIndex) {
 
                                         return columns[columnIndex]
                                                 .getValueAt(rows[rowIndex]);

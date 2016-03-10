@@ -15,7 +15,7 @@
  */
 package com.github.jinahya.imageio;
 
-import java.util.Collection;
+import java.util.List;
 import static javax.imageio.ImageIO.getReaderFileSuffixes;
 import static javax.imageio.ImageIO.getWriterFileSuffixes;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -27,15 +27,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class ImageFileSuffix extends ImageFeature<ImageFileSuffix> {
 
-    public static Collection<ImageFileSuffix> availableImageFileSuffix() {
-
+    public static List<ImageFileSuffix> availableImageFileSuffixes() {
         try {
-            return collect(
-                    ImageFileSuffix.class, getReaderFileSuffixes(),
-                    getWriterFileSuffixes());
+            return list(ImageFileSuffix.class, getReaderFileSuffixes(),
+                        getWriterFileSuffixes());
         } catch (InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }
-
 }

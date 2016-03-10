@@ -22,40 +22,39 @@ package com.github.jinahya.lang;
  */
 public interface LongFieldEnum<E extends Enum<E>> {
 
-    public static <E extends Enum<E> & LongFieldEnum<E>> long[] fieldValues(
+    static <E extends Enum<E> & LongFieldEnum<E>> long[] fieldValues(
             final Class<E> type) {
-
         if (type == null) {
             throw new NullPointerException("null type");
         }
-
         final E[] enumConstants = type.getEnumConstants();
-
         final long[] fieldValues = new long[enumConstants.length];
         for (int i = 0; i < fieldValues.length; i++) {
             fieldValues[i] = enumConstants[i].fieldValueAsLong();
         }
-
         return fieldValues;
     }
 
-    public static <E extends Enum<E> & LongFieldEnum<E>> E fromFieldValue(
+    static <E extends Enum<E> & LongFieldEnum<E>> E fromFieldValue(
             final Class<E> enumType, final long fieldValue) {
-
         if (enumType == null) {
             throw new NullPointerException("null enumtype");
         }
-
         for (final E enumConstant : enumType.getEnumConstants()) {
             final long constantFieldValue = enumConstant.fieldValueAsLong();
             if (constantFieldValue == fieldValue) {
                 return enumConstant;
             }
         }
-
-        throw new IllegalArgumentException("unknown fieldValue: " + fieldValue);
+        throw new IllegalArgumentException(
+                "unknown fieldValue(" + fieldValue
+                + ") for enumType(" + enumType + ")");
     }
 
+    /**
+     * Returns the defined field value as a {@code long}.
+     *
+     * @return the defined field value as a {@code long}
+     */
     long fieldValueAsLong();
-
 }

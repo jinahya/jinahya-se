@@ -26,26 +26,21 @@ import java.nio.channels.Channel;
 public class FilterChannel<T extends Channel> implements Channel {
 
     public FilterChannel(final T channel) {
-
         super();
-
         this.channel = channel;
     }
 
     @Override
     public boolean isOpen() {
-
         return channel.isOpen();
     }
 
     @Override
     public void close() throws IOException {
-
         if (channel != null) {
             channel.close();
         }
     }
 
     protected T channel;
-
 }

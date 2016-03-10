@@ -59,7 +59,7 @@ public final class Iterators {
         Objects.requireNonNull(collection, "null collection");
 
         requireSortedAscending(collection.iterator(), comparator,
-                requireUnique);
+                               requireUnique);
     }
 
     public static <T> void requireSortedDescending(
@@ -95,7 +95,7 @@ public final class Iterators {
         Objects.requireNonNull(collection, "null collection");
 
         requireSortedDescending(collection.iterator(), comparator,
-                requireUnique);
+                                requireUnique);
     }
 
     /**

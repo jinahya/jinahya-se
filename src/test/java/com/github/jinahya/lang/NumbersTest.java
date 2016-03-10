@@ -69,7 +69,7 @@ public class NumbersTest {
     }
 
     private static void copyBegins(final byte[] src, final int index,
-            final byte[] dest) {
+                                   final byte[] dest) {
 
         final int srcPos = index;
         final int destPos = 0;
@@ -78,7 +78,7 @@ public class NumbersTest {
     }
 
     private static void copyEnds(final byte[] src, final int index,
-            final byte[] dest) {
+                                 final byte[] dest) {
 
         final int srcPos = Math.max(index - dest.length + 1, 0);
         final int destPos = Math.max(dest.length - index - 1, 0);

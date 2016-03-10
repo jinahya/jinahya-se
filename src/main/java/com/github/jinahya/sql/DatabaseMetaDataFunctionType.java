@@ -15,8 +15,7 @@
  */
 package com.github.jinahya.sql;
 
-import com.github.jinahya.lang.FieldEnum;
-import com.github.jinahya.lang.FieldEnums;
+import com.github.jinahya.lang.IntFieldEnum;
 import java.sql.DatabaseMetaData;
 
 /**
@@ -24,7 +23,7 @@ import java.sql.DatabaseMetaData;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum DatabaseMetaDataFunctionType
-        implements FieldEnum<DatabaseMetaDataFunctionType, Integer> {
+        implements IntFieldEnum<DatabaseMetaDataFunctionType> {
 
     /**
      * A constant for {@link DatabaseMetaData#functionResultUnknown}.
@@ -41,38 +40,19 @@ public enum DatabaseMetaDataFunctionType
      */
     functionReturn(DatabaseMetaData.functionReturn); // 4
 
-    public static DatabaseMetaDataFunctionType fromFieldValue(
-            final int fieldValue) {
-
-        return FieldEnums.fromFieldValue(
-                DatabaseMetaDataFunctionType.class, Integer.valueOf(fieldValue));
-    }
-
-    public static Integer[] fieldValues() {
-
-        return FieldEnums.fieldValues(DatabaseMetaDataFunctionType.class,
-                Integer.class);
-    }
-
     /**
      * Creates a new instance.
      *
      * @param fieldValue field value.
      */
     private DatabaseMetaDataFunctionType(final int fieldValue) {
-
         this.fieldValue = fieldValue;
     }
 
     @Override
-    public Integer fieldValue() {
-
+    public int fieldValueAsInt() {
         return fieldValue;
     }
 
-    /**
-     * field value.
-     */
     private final int fieldValue;
-
 }

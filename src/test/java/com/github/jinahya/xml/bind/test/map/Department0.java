@@ -42,7 +42,7 @@ public class Department0 {
 
         int hash = 5;
         hash = 97 * hash + (this.employees != null
-                ? this.employees.hashCode() : 0);
+                            ? this.employees.hashCode() : 0);
         return hash;
     }
 
@@ -56,7 +56,7 @@ public class Department0 {
         }
         final Department0 other = (Department0) obj;
         if (this.employees != other.employees
-                && (this.employees == null
+            && (this.employees == null
                 || !this.employees.equals(other.employees))) {
             return false;
         }

@@ -15,7 +15,7 @@
  */
 package com.github.jinahya.lang.reflect.modifier;
 
-import static com.github.jinahya.lang.FieldEnums.fieldValues;
+import com.github.jinahya.lang.IntFieldEnum;
 
 /**
  * A utility class for {@link ModifierFieldEnum}s.
@@ -26,81 +26,64 @@ public final class ModifierFieldEnums {
 
     public static <E extends Enum<E> & ModifierFieldEnum<E>> int modifiers(
             final Class<E> enumType) {
-
         int modifiers = 0;
-
-        for (final int modifier : fieldValues(enumType, Integer.class)) {
+        for (final int modifier : IntFieldEnum.fieldValues(enumType)) {
             modifiers |= modifier;
         }
-
         return modifiers;
     }
 
     public static <E extends Enum<E> & ModifierFieldEnum<E>> boolean isAll(
             final int modifiers, final E... constants) {
-
         if (constants == null) {
             throw new NullPointerException("null constants");
         }
-
         for (final E constant : constants) {
-            final int modifier = constant.fieldValue();
+            final int modifier = constant.fieldValueAsInt();
             if ((modifiers & modifier) != modifier) {
                 return false;
             }
         }
-
         return true;
     }
 
     public static <E extends Enum<E> & ModifierFieldEnum<E>> boolean isAny(
             final int modifiers, final E... constants) {
-
         if (constants == null) {
             throw new NullPointerException("null constants");
         }
-
         for (final E constant : constants) {
-            final int modifier = constant.fieldValue();
+            final int modifier = constant.fieldValueAsInt();
             if ((modifiers & modifier) == modifier) {
                 return true;
             }
         }
-
         return false;
     }
 
     public static <E extends Enum<E> & ModifierFieldEnum<E>> int add(
             int modifiers, final E... constants) {
-
         if (constants == null) {
             throw new NullPointerException("null constants");
         }
-
         for (final E constant : constants) {
-            modifiers |= constant.fieldValue().intValue();
+            modifiers |= constant.fieldValueAsInt();
         }
-
         return modifiers;
     }
 
     public static <E extends Enum<E> & ModifierFieldEnum<E>> int remove(
             int modifiers, final E... constants) {
-
         if (constants == null) {
             throw new NullPointerException("null constants");
         }
-
         for (final E constant : constants) {
-            modifiers &= ~constant.fieldValue().intValue();
+            modifiers &= ~constant.fieldValueAsInt();
         }
-
         return modifiers;
     }
 
     private ModifierFieldEnums() {
-
         super();
     }
-
 }

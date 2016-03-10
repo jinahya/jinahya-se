@@ -15,8 +15,7 @@
  */
 package com.github.jinahya.sql;
 
-import com.github.jinahya.lang.FieldEnum;
-import com.github.jinahya.lang.FieldEnums;
+import com.github.jinahya.lang.IntFieldEnum;
 import java.sql.DatabaseMetaData;
 
 /**
@@ -24,7 +23,7 @@ import java.sql.DatabaseMetaData;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum DatabaseMetaDataProcedureType
-        implements FieldEnum<DatabaseMetaDataProcedureType, Integer> {
+        implements IntFieldEnum<DatabaseMetaDataProcedureType> {
 
     /**
      * A constant for {@link DatabaseMetaData#procedureResultUnknown}.
@@ -41,38 +40,19 @@ public enum DatabaseMetaDataProcedureType
      */
     procedureReturnsResult(DatabaseMetaData.procedureReturnsResult); // 2
 
-    public static DatabaseMetaDataProcedureType fromFieldValue(
-            final int fieldValue) {
-
-        return FieldEnums.fromFieldValue(
-                DatabaseMetaDataProcedureType.class, Integer.valueOf(fieldValue));
-    }
-
-    public static Integer[] fieldValues() {
-
-        return FieldEnums.fieldValues(DatabaseMetaDataProcedureType.class,
-                Integer.class);
-    }
-
     /**
      * Creates a new instance.
      *
      * @param fieldValue field value.
      */
     private DatabaseMetaDataProcedureType(final int fieldValue) {
-
         this.fieldValue = fieldValue;
     }
 
     @Override
-    public Integer fieldValue() {
-
+    public int fieldValueAsInt() {
         return fieldValue;
     }
 
-    /**
-     * field value.
-     */
     private final int fieldValue;
-
 }

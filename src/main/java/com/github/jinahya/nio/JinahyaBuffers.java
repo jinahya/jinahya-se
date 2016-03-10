@@ -103,7 +103,7 @@ public final class JinahyaBuffers {
 
     @SuppressWarnings("unchecked")
     public static <T extends Buffer> T limit(final T buffer,
-            final int newLimit) {
+                                             final int newLimit) {
 
         return (T) buffer.limit(newLimit);
     }
@@ -116,7 +116,7 @@ public final class JinahyaBuffers {
 
     @SuppressWarnings("unchecked")
     public static <T extends Buffer> T position(final T buffer,
-            final int newPosition) {
+                                                final int newPosition) {
 
         return (T) buffer.position(newPosition);
     }

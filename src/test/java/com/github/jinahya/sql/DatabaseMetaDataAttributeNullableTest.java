@@ -15,18 +15,17 @@
  */
 package com.github.jinahya.sql;
 
-import com.github.jinahya.lang.FieldEnumTest;
+import com.github.jinahya.lang.IntFieldEnumTest;
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class DatabaseMetaDataAttributeNullableTest
-        extends FieldEnumTest<DatabaseMetaDataAttributeNullable, Integer> {
+        extends IntFieldEnumTest<DatabaseMetaDataAttributeNullable> {
 
     public DatabaseMetaDataAttributeNullableTest() {
-
-        super(DatabaseMetaDataAttributeNullable.class, Integer.class);
+        super(DatabaseMetaDataAttributeNullable.class);
     }
 
 }

@@ -15,7 +15,6 @@
  */
 package com.github.jinahya.imageio;
 
-import static com.github.jinahya.imageio.ImageMimeType.availableImageMimeTypes;
 import java.io.IOException;
 import javax.xml.bind.JAXBException;
 import org.testng.annotations.Test;
@@ -30,14 +29,11 @@ public class ImageMimeTypeTest extends ImageFeatureTest<ImageMimeType> {
      * Creates a new instance.
      */
     public ImageMimeTypeTest() {
-
         super(ImageMimeType.class);
     }
 
     @Test
     public void printXml() throws JAXBException, IOException {
-
-        JaxbTest.printXml(type, availableImageMimeTypes());
+        JaxbTest.printXml(type, ImageMimeType.availableImageMimeTypes());
     }
-
 }

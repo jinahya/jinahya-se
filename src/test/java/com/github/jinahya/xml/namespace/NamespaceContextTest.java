@@ -35,7 +35,7 @@ public class NamespaceContextTest {
                 XMLConstants.NULL_NS_URI);
 
         Assert.assertEquals(context.getNamespaceURI(XMLConstants.XML_NS_PREFIX),
-                XMLConstants.XML_NS_URI);
+                            XMLConstants.XML_NS_URI);
 
         Assert.assertEquals(
                 context.getNamespaceURI(XMLConstants.XMLNS_ATTRIBUTE),
@@ -50,7 +50,7 @@ public class NamespaceContextTest {
                 XMLConstants.NULL_NS_URI);
 
         Assert.assertEquals(context.getNamespaceURI(XMLConstants.XML_NS_PREFIX),
-                XMLConstants.XML_NS_URI);
+                            XMLConstants.XML_NS_URI);
 
         Assert.assertEquals(
                 context.getNamespaceURI(XMLConstants.XMLNS_ATTRIBUTE),

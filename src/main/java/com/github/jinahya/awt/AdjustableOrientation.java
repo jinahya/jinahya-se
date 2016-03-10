@@ -18,27 +18,36 @@ package com.github.jinahya.awt;
 import com.github.jinahya.lang.IntFieldEnum;
 
 /**
+ * Constants defined in {@link AdjustableOrientation}.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum AdjustableOrientation
         implements IntFieldEnum<AdjustableOrientation> {
 
+    /**
+     * A constant for {@link AdjustableOrientation#HORIZONTAL}.
+     */
     HORIZONTAL(java.awt.Adjustable.HORIZONTAL), // 0
-    VERTICAL(java.awt.Adjustable.VERTICAL), // 2
+
+    /**
+     * A constant for {@link AdjustableOrientation#VERTICAL}.
+     */
+    VERTICAL(java.awt.Adjustable.VERTICAL), // 1
+
+    /**
+     * A constant for {@link AdjustableOrientation#NO_OPERATIONAL}.
+     */
     NO_OPERATIONAL(java.awt.Adjustable.NO_ORIENTATION); // 2
 
     private AdjustableOrientation(final int fieldValue) {
-
         this.fieldValue = fieldValue;
     }
 
     @Override
     public int fieldValueAsInt() {
-
         return fieldValue;
     }
 
     private final int fieldValue;
-
 }

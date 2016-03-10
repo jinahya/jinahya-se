@@ -97,7 +97,7 @@ public final class JinahyaFields {
      * @see Classes#requireAssignableTo(java.lang.Class, java.lang.Class)
      */
     public static Field requireTypeAssignableTo(final Field field,
-            final Class<?> to) {
+                                                final Class<?> to) {
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -140,7 +140,7 @@ public final class JinahyaFields {
      * @see Classes#requireAssignableFrom(java.lang.Class, java.lang.Class)
      */
     public static Field requireTypeAssignableFrom(final Field field,
-            final Class<?> from) {
+                                                  final Class<?> from) {
 
         if (field == null) {
             throw new NullPointerException("null field");

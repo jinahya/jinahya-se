@@ -34,8 +34,8 @@ public class JinahyaRandomTest {
             = LoggerFactory.getLogger(JinahyaRandomTest.class);
 
     private static void testNextIntMinMax(final JinahyaRandom random,
-            final int minimum,
-            final int maximum) {
+                                          final int minimum,
+                                          final int maximum) {
 
         LOGGER.debug("testNextIntMinMax({}, {}, {})", random, minimum, maximum);
 
@@ -55,8 +55,8 @@ public class JinahyaRandomTest {
     }
 
     private static void testNextBytes(final JinahyaRandom random,
-            final int minimumLength,
-            final int maximumLength) {
+                                      final int minimumLength,
+                                      final int maximumLength) {
 
         final byte[] bytes = random.nextBytes(minimumLength, maximumLength);
 
@@ -356,7 +356,7 @@ public class JinahyaRandomTest {
 
         final int maximumBitLength
                 = ThreadLocalRandom.current().nextInt(Long.SIZE - minimumBitLength)
-                + minimumBitLength;
+                  + minimumBitLength;
         Assert.assertTrue(maximumBitLength >= minimumBitLength);
         Assert.assertTrue(maximumBitLength < Long.SIZE);
 

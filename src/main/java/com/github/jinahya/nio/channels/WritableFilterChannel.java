@@ -28,14 +28,11 @@ public class WritableFilterChannel
         implements WritableByteChannel {
 
     public WritableFilterChannel(final WritableByteChannel channel) {
-
         super(channel);
     }
 
     @Override
     public int write(final ByteBuffer src) throws IOException {
-
         return channel.write(src);
     }
-
 }

@@ -28,14 +28,11 @@ public class ReadableFilterChannel
         implements ReadableByteChannel {
 
     public ReadableFilterChannel(final ReadableByteChannel channel) {
-
         super(channel);
     }
 
     @Override
     public int read(final ByteBuffer dst) throws IOException {
-
         return channel.read(dst);
     }
-
 }

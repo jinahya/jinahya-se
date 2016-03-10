@@ -33,16 +33,16 @@ public class StringsTest {
 
         Assert.assertEquals(Strings.indexOf(string, '_', -2, 0), 0);
         Assert.assertEquals(Strings.indexOf(string, '_', -2, 0),
-                string.indexOf('_', -2));
+                            string.indexOf('_', -2));
         Assert.assertEquals(Strings.indexOf(string, '_', -1, 0), 0);
         Assert.assertEquals(Strings.indexOf(string, '_', -1, 0),
-                string.indexOf('_', -1));
+                            string.indexOf('_', -1));
         Assert.assertEquals(Strings.indexOf(string, '_', 7, 0), -1);
         Assert.assertEquals(Strings.indexOf(string, '_', 7, 0),
-                string.indexOf('_', 7));
+                            string.indexOf('_', 7));
         Assert.assertEquals(Strings.indexOf(string, '_', 8, 0), -1);
         Assert.assertEquals(Strings.indexOf(string, '_', 8, 0),
-                string.indexOf('_', 8));
+                            string.indexOf('_', 8));
 
         Assert.assertEquals(Strings.indexOf(string, '_', 0, 0), 0);
         Assert.assertEquals(Strings.indexOf(string, '_', 1, 0), 2);
@@ -92,25 +92,25 @@ public class StringsTest {
         final String string = "_a__b_c"; // 0, 2, 3, 5
 
         Assert.assertEquals(Strings.indicesOf(string, '_', -1),
-                Arrays.asList(0, 2, 3, 5));
+                            Arrays.asList(0, 2, 3, 5));
 
         Assert.assertEquals(Strings.indicesOf(string, '_', 0),
-                Arrays.asList(0, 2, 3, 5));
+                            Arrays.asList(0, 2, 3, 5));
 
         Assert.assertEquals(Strings.indicesOf(string, '_', 1),
-                Arrays.asList(2, 3, 5));
+                            Arrays.asList(2, 3, 5));
 
         Assert.assertEquals(Strings.indicesOf(string, '_', 2),
-                Arrays.asList(2, 3, 5));
+                            Arrays.asList(2, 3, 5));
 
         Assert.assertEquals(Strings.indicesOf(string, '_', 3),
-                Arrays.asList(3, 5));
+                            Arrays.asList(3, 5));
 
         Assert.assertEquals(Strings.indicesOf(string, '_', 4),
-                Arrays.asList(5));
+                            Arrays.asList(5));
 
         Assert.assertEquals(Strings.indicesOf(string, '_', 5),
-                Arrays.asList(5));
+                            Arrays.asList(5));
 
         Assert.assertTrue(Strings.indicesOf(string, '_', 6).isEmpty());
 
@@ -125,16 +125,16 @@ public class StringsTest {
 
         Assert.assertEquals(Strings.indexOf(string, "__", -2, 0), 0);
         Assert.assertEquals(Strings.indexOf(string, "__", -2, 0),
-                string.indexOf("__", -2));
+                            string.indexOf("__", -2));
         Assert.assertEquals(Strings.indexOf(string, "__", -1, 0), 0);
         Assert.assertEquals(Strings.indexOf(string, "__", -1, 0),
-                string.indexOf("__", -1));
+                            string.indexOf("__", -1));
         Assert.assertEquals(Strings.indexOf(string, "__", 10, 0), -1);
         Assert.assertEquals(Strings.indexOf(string, "__", 10, 0),
-                string.indexOf("__", 10));
+                            string.indexOf("__", 10));
         Assert.assertEquals(Strings.indexOf(string, "__", 11, 0), -1);
         Assert.assertEquals(Strings.indexOf(string, "__", 11, 0),
-                string.indexOf("__", 11));
+                            string.indexOf("__", 11));
 
         Assert.assertEquals(Strings.indexOf(string, "__", 0, 0), 0);
         Assert.assertEquals(Strings.indexOf(string, "__", 1, 0), 3);
@@ -189,31 +189,31 @@ public class StringsTest {
         final String string = "__a___b__c"; // 0, 3, 7
 
         Assert.assertEquals(Strings.indicesOf(string, "__", -1),
-                Arrays.asList(0, 3, 7));
+                            Arrays.asList(0, 3, 7));
 
         Assert.assertEquals(Strings.indicesOf(string, "__", 0),
-                Arrays.asList(0, 3, 7));
+                            Arrays.asList(0, 3, 7));
 
         Assert.assertEquals(Strings.indicesOf(string, "__", 1),
-                Arrays.asList(3, 7));
+                            Arrays.asList(3, 7));
 
         Assert.assertEquals(Strings.indicesOf(string, "__", 2),
-                Arrays.asList(3, 7));
+                            Arrays.asList(3, 7));
 
         Assert.assertEquals(Strings.indicesOf(string, "__", 3),
-                Arrays.asList(3, 7));
+                            Arrays.asList(3, 7));
 
         Assert.assertEquals(Strings.indicesOf(string, "__", 4),
-                Arrays.asList(4, 7));
+                            Arrays.asList(4, 7));
 
         Assert.assertEquals(Strings.indicesOf(string, "__", 5),
-                Arrays.asList(7));
+                            Arrays.asList(7));
 
         Assert.assertEquals(Strings.indicesOf(string, "__", 6),
-                Arrays.asList(7));
+                            Arrays.asList(7));
 
         Assert.assertEquals(Strings.indicesOf(string, "__", 7),
-                Arrays.asList(7));
+                            Arrays.asList(7));
 
         Assert.assertTrue(Strings.indicesOf(string, "__", 8).isEmpty());
 

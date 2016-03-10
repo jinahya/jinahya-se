@@ -21,8 +21,8 @@ import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
-import java.util.Arrays;
-import java.util.Collections;
+import static java.util.Arrays.asList;
+import static java.util.Collections.unmodifiableMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,24 +48,22 @@ public final class JinahyaCiphers {
 
     static {
         final Map<String, List<Integer>> m = new HashMap<>();
-        m.put("AES/CBC/NoPadding", Arrays.asList(128));
-        m.put("AES/CBC/PKCS5Padding", Arrays.asList(128));
-        m.put("AES/ECB/NoPadding", Arrays.asList(128));
-        m.put("AES/ECB/PKCS5Padding", Arrays.asList(128));
-        m.put("DES/CBC/NoPadding", Arrays.asList(56));
-        m.put("DES/CBC/PKCS5Padding", Arrays.asList(56));
-        m.put("DES/ECB/NoPadding", Arrays.asList(56));
-        m.put("DES/ECB/PKCS5Padding", Arrays.asList(56));
-        m.put("DESede/CBC/NoPadding", Arrays.asList(168));
-        m.put("DESede/CBC/PKCS5Padding", Arrays.asList(168));
-        m.put("DESede/ECB/NoPadding", Arrays.asList(168));
-        m.put("DESede/ECB/PKCS5Padding", Arrays.asList(168));
-        m.put("RSA/ECB/PKCS1Padding", Arrays.asList(1024, 2048));
-        m.put("RSA/ECB/OAEPWithSHA-1AndMGF1Padding",
-                Arrays.asList(1024, 2048));
-        m.put("RSA/ECB/OAEPWithSHA-256AndMGF1Padding",
-                Arrays.asList(1024, 2048));
-        SUPPORTED_TRANSFORMATIONS = Collections.unmodifiableMap(m);
+        m.put("AES/CBC/NoPadding", asList(128));
+        m.put("AES/CBC/PKCS5Padding", asList(128));
+        m.put("AES/ECB/NoPadding", asList(128));
+        m.put("AES/ECB/PKCS5Padding", asList(128));
+        m.put("DES/CBC/NoPadding", asList(56));
+        m.put("DES/CBC/PKCS5Padding", asList(56));
+        m.put("DES/ECB/NoPadding", asList(56));
+        m.put("DES/ECB/PKCS5Padding", asList(56));
+        m.put("DESede/CBC/NoPadding", asList(168));
+        m.put("DESede/CBC/PKCS5Padding", asList(168));
+        m.put("DESede/ECB/NoPadding", asList(168));
+        m.put("DESede/ECB/PKCS5Padding", asList(168));
+        m.put("RSA/ECB/PKCS1Padding", asList(1024, 2048));
+        m.put("RSA/ECB/OAEPWithSHA-1AndMGF1Padding", asList(1024, 2048));
+        m.put("RSA/ECB/OAEPWithSHA-256AndMGF1Padding", asList(1024, 2048));
+        SUPPORTED_TRANSFORMATIONS = unmodifiableMap(m);
     }
 
     /**
@@ -97,8 +95,8 @@ public final class JinahyaCiphers {
      * @see Cipher#update(byte[], int, int, byte[], int)
      */
     public static long update(final Cipher cipher, final InputStream input,
-            final OutputStream output, final int length,
-            final long limit, final boolean finalize)
+                              final OutputStream output, final int length,
+                              final long limit, final boolean finalize)
             throws IOException, IllegalBlockSizeException, BadPaddingException {
 
         if (cipher == null) {
@@ -180,10 +178,10 @@ public final class JinahyaCiphers {
     }
 
     public static long update(final Cipher cipher,
-            final ReadableByteChannel input,
-            final WritableByteChannel output,
-            final int capacity, final long limit,
-            final boolean finalize)
+                              final ReadableByteChannel input,
+                              final WritableByteChannel output,
+                              final int capacity, final long limit,
+                              final boolean finalize)
             throws IOException, IllegalBlockSizeException, BadPaddingException {
 
         if (cipher == null) {
@@ -292,8 +290,6 @@ public final class JinahyaCiphers {
     }
 
     private JinahyaCiphers() {
-
         super();
     }
-
 }

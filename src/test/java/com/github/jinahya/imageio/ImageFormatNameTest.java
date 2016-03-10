@@ -15,7 +15,6 @@
  */
 package com.github.jinahya.imageio;
 
-import static com.github.jinahya.imageio.ImageFormatName.availableImageFormatNames;
 import java.io.IOException;
 import javax.xml.bind.JAXBException;
 import org.testng.annotations.Test;
@@ -30,14 +29,11 @@ public class ImageFormatNameTest extends ImageFeatureTest<ImageFormatName> {
      * Creates a new instance.
      */
     public ImageFormatNameTest() {
-
         super(ImageFormatName.class);
     }
 
     @Test
     public void printXml() throws JAXBException, IOException {
-
-        JaxbTest.printXml(type, availableImageFormatNames());
+        JaxbTest.printXml(type, ImageFormatName.availableImageFormatNames());
     }
-
 }

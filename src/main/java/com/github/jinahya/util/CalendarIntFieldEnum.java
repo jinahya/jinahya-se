@@ -43,7 +43,7 @@ public interface CalendarIntFieldEnum<E extends Enum<E>>
     }
 
     static void set(final Calendar calendar, final int field,
-            final CalendarIntFieldEnum<?> constant) {
+                    final CalendarIntFieldEnum<?> constant) {
 
         calendar.set(field, constant.fieldValueAsInt());
     }

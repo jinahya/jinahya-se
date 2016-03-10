@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlElement;
 public class Employee {
 
     public static Employee newInstance(final long id, final String name,
-            final int age) {
+                                       final int age) {
 
         final Employee employee = new Employee();
 
@@ -62,7 +62,7 @@ public class Employee {
             return false;
         }
         if ((this.name == null)
-                ? (other.name != null) : !this.name.equals(other.name)) {
+            ? (other.name != null) : !this.name.equals(other.name)) {
             return false;
         }
         if (this.age != other.age) {

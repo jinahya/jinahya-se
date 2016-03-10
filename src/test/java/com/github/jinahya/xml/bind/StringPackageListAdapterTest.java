@@ -107,7 +107,7 @@ public class StringPackageListAdapterTest {
     public int hashCode() {
         int hash = 7;
         hash = 23 * hash + (this.packages != null
-                ? this.packages.hashCode() : 0);
+                            ? this.packages.hashCode() : 0);
         return hash;
     }
 
@@ -122,7 +122,7 @@ public class StringPackageListAdapterTest {
         final StringPackageListAdapterTest other
                 = (StringPackageListAdapterTest) obj;
         if (this.packages != other.packages
-                && (this.packages == null
+            && (this.packages == null
                 || !this.packages.equals(other.packages))) {
             return false;
         }

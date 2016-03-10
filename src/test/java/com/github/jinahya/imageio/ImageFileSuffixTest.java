@@ -15,7 +15,6 @@
  */
 package com.github.jinahya.imageio;
 
-import static com.github.jinahya.imageio.ImageFileSuffix.availableImageFileSuffix;
 import java.io.IOException;
 import javax.xml.bind.JAXBException;
 import org.testng.annotations.Test;
@@ -30,14 +29,11 @@ public class ImageFileSuffixTest extends ImageFeatureTest<ImageFileSuffix> {
      * Creates a new instance.
      */
     public ImageFileSuffixTest() {
-
         super(ImageFileSuffix.class);
     }
 
     @Test
     public void printXml() throws JAXBException, IOException {
-
-        JaxbTest.printXml(type, availableImageFileSuffix());
+        JaxbTest.printXml(type, ImageFileSuffix.availableImageFileSuffixes());
     }
-
 }
