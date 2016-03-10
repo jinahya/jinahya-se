@@ -13,21 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind.test.map;
 
-
 import com.github.jinahya.xml.bind.MapEntriesAdapter;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class EmployeesAdapter1
-    extends MapEntriesAdapter<EmployeeEntries, Long, Employee> {
-
+        extends MapEntriesAdapter<EmployeeEntries, Long, Employee> {
 
     public EmployeesAdapter1() {
 
@@ -35,4 +30,3 @@ public class EmployeesAdapter1
     }
 
 }
-

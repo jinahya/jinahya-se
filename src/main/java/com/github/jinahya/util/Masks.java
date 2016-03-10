@@ -13,17 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class Masks {
-
 
     /**
      * Puts specified {@code mask} on to given {@code face}.
@@ -37,7 +33,6 @@ public class Masks {
 
         return face | mask;
     }
-
 
     /**
      * Puts all specified {@code masks} on to given {@code face}.
@@ -61,7 +56,6 @@ public class Masks {
         return face;
     }
 
-
     /**
      * Takes specified {@code mask} off from given {@code face}.
      *
@@ -74,7 +68,6 @@ public class Masks {
 
         return face & ~mask;
     }
-
 
     /**
      * Takes all specified {@code masks} off from given {@code face}.
@@ -98,7 +91,6 @@ public class Masks {
         return face;
     }
 
-
     /**
      * protected constructor.
      */
@@ -108,4 +100,3 @@ public class Masks {
     }
 
 }
-

@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.github.jinahya.imageio;
-
 
 /**
  *
@@ -23,10 +21,8 @@ package com.github.jinahya.imageio;
  */
 public final class ImageIoXmlConstants {
 
-
     public static final String IMAGEIO_NS_URI
-        = "http://github.com/jinahya/imageio";
-
+            = "http://github.com/jinahya/imageio";
 
     private ImageIoXmlConstants() {
 
@@ -34,4 +30,3 @@ public final class ImageIoXmlConstants {
     }
 
 }
-

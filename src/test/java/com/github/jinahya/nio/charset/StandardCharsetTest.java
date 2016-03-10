@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.nio.charset;
-
 
 import com.github.jinahya.lang.ComparableFieldEnumTest;
 import java.nio.charset.Charset;
@@ -27,14 +24,12 @@ import java.util.List;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-
 /**
  *
  * @author Jin Kwon
  */
 public class StandardCharsetTest
-    extends ComparableFieldEnumTest<StandardCharset, Charset> {
-
+        extends ComparableFieldEnumTest<StandardCharset, Charset> {
 
     @Test
     public static void fromFieldValue_() {
@@ -47,17 +42,16 @@ public class StandardCharsetTest
         StandardCharset.fromFieldValue(StandardCharsets.UTF_8);
     }
 
-
     @Test
     public static void fieldValues_() {
 
         final List<Charset> expected = Arrays.asList(
-            StandardCharsets.ISO_8859_1,
-            StandardCharsets.US_ASCII,
-            StandardCharsets.UTF_16,
-            StandardCharsets.UTF_16BE,
-            StandardCharsets.UTF_16LE,
-            StandardCharsets.UTF_8);
+                StandardCharsets.ISO_8859_1,
+                StandardCharsets.US_ASCII,
+                StandardCharsets.UTF_16,
+                StandardCharsets.UTF_16BE,
+                StandardCharsets.UTF_16LE,
+                StandardCharsets.UTF_8);
 
         final List<Charset> actual = new ArrayList<>();
         StandardCharset.fieldValues(actual);
@@ -65,11 +59,9 @@ public class StandardCharsetTest
         Assert.assertEquals(actual, expected);
     }
 
-
     public StandardCharsetTest() {
 
         super(StandardCharset.class, Charset.class);
     }
 
 }
-

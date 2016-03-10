@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import java.util.Map;
 import javax.xml.bind.annotation.XmlTransient;
-
 
 /**
  * An abstract class for JAXB aware type of {@link java.util.Map.Entry}.
@@ -32,7 +28,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlTransient
 public abstract class MapEntry<K, V> {
 
-
     /**
      * Returns key.
      *
@@ -42,7 +37,6 @@ public abstract class MapEntry<K, V> {
 
         return key;
     }
-
 
     /**
      * Sets key.
@@ -54,7 +48,6 @@ public abstract class MapEntry<K, V> {
         this.key = key;
     }
 
-
     /**
      * Returns value.
      *
@@ -65,7 +58,6 @@ public abstract class MapEntry<K, V> {
         return value;
     }
 
-
     /**
      * Sets value.
      *
@@ -75,7 +67,6 @@ public abstract class MapEntry<K, V> {
 
         this.value = value;
     }
-
 
     /**
      * Puts this entry into specified map.
@@ -93,12 +84,10 @@ public abstract class MapEntry<K, V> {
         return map.put(key, value);
     }
 
-
     /**
      * key.
      */
     private K key;
-
 
     /**
      * value.
@@ -106,4 +95,3 @@ public abstract class MapEntry<K, V> {
     private V value;
 
 }
-

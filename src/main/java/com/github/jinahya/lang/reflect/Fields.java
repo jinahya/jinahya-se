@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang.reflect;
-
 
 import com.github.jinahya.lang.Classes;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-
 
 /**
  *
@@ -29,10 +25,9 @@ import java.lang.reflect.Modifier;
  */
 public final class Fields {
 
-
     public static Field findDeclaredField(final Class<?> klass,
-                                          final String name)
-        throws NoSuchFieldException {
+            final String name)
+            throws NoSuchFieldException {
 
         try {
             return klass.getDeclaredField(name);
@@ -44,7 +39,6 @@ public final class Fields {
             return findDeclaredField(superclass, name);
         }
     }
-
 
     /**
      *
@@ -59,7 +53,7 @@ public final class Fields {
      */
     @Deprecated
     public static Field removeModifiers(final Field field, final int delta)
-        throws NoSuchFieldException, IllegalAccessException {
+            throws NoSuchFieldException, IllegalAccessException {
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -77,22 +71,19 @@ public final class Fields {
         return field;
     }
 
-
     @Deprecated
     public static Field unprivate(final Field field)
-        throws NoSuchFieldException, IllegalAccessException {
+            throws NoSuchFieldException, IllegalAccessException {
 
         return removeModifiers(field, Modifier.PRIVATE);
     }
 
-
     @Deprecated
     public static Field unfinal(final Field field)
-        throws NoSuchFieldException, IllegalAccessException {
+            throws NoSuchFieldException, IllegalAccessException {
 
         return removeModifiers(field, Modifier.FINAL);
     }
-
 
     /**
      * Checks that the specified field's type is assignable to specified type.
@@ -121,7 +112,7 @@ public final class Fields {
      * @see Classes#requireAssignableTo(java.lang.Class, java.lang.Class)
      */
     public static Field requireTypeAssignableTo(final Field field,
-                                                final Class<?> to) {
+            final Class<?> to) {
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -135,7 +126,6 @@ public final class Fields {
 
         return field;
     }
-
 
     /**
      * Checks that the specified field's type is assignable from specified type.
@@ -165,7 +155,7 @@ public final class Fields {
      * @see Classes#requireAssignableFrom(java.lang.Class, java.lang.Class)
      */
     public static Field requireTypeAssignableFrom(final Field field,
-                                                  final Class<?> from) {
+            final Class<?> from) {
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -180,7 +170,6 @@ public final class Fields {
         return field;
     }
 
-
     /**
      * Creates a new instance.
      */
@@ -190,4 +179,3 @@ public final class Fields {
     }
 
 }
-

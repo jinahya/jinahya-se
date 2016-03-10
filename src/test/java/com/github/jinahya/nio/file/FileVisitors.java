@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.nio.file;
-
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -26,13 +23,11 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class FileVisitors {
-
 
     /**
      *
@@ -47,19 +42,18 @@ public final class FileVisitors {
 
             @Override
             public FileVisitResult visitFile(final Path file,
-                                             final BasicFileAttributes attrs)
-                throws IOException {
+                    final BasicFileAttributes attrs)
+                    throws IOException {
 
                 Files.delete(file);
 
                 return FileVisitResult.CONTINUE;
             }
 
-
             @Override
             public FileVisitResult postVisitDirectory(final Path dir,
-                                                      final IOException exc)
-                throws IOException {
+                    final IOException exc)
+                    throws IOException {
 
                 Files.delete(dir);
 
@@ -69,11 +63,9 @@ public final class FileVisitors {
         };
     }
 
-
     private FileVisitors() {
 
         super();
     }
 
 }
-

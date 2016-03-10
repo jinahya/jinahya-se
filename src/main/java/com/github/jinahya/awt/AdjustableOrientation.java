@@ -13,30 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.github.jinahya.awt;
 
-
 import com.github.jinahya.lang.IntFieldEnum;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum AdjustableOrientation
-    implements IntFieldEnum<AdjustableOrientation> {
+        implements IntFieldEnum<AdjustableOrientation> {
 
     HORIZONTAL(java.awt.Adjustable.HORIZONTAL), // 0
     VERTICAL(java.awt.Adjustable.VERTICAL), // 2
     NO_OPERATIONAL(java.awt.Adjustable.NO_ORIENTATION); // 2
 
-
     private AdjustableOrientation(final int fieldValue) {
 
         this.fieldValue = fieldValue;
     }
-
 
     @Override
     public int fieldValueAsInt() {
@@ -44,8 +39,6 @@ public enum AdjustableOrientation
         return fieldValue;
     }
 
-
     private final int fieldValue;
 
 }
-

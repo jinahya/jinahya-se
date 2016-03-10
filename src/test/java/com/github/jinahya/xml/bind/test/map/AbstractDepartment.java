@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind.test.map;
-
 
 import java.util.HashMap;
 import java.util.Map;
 import javax.xml.bind.annotation.XmlTransient;
-
 
 /**
  *
@@ -29,7 +25,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @XmlTransient
 public abstract class AbstractDepartment {
-
 
     public Map<Long, Employee> getEmployees() {
 
@@ -40,22 +35,19 @@ public abstract class AbstractDepartment {
         return employees;
     }
 
-
     public void setEmployees(final Map<Long, Employee> employees) {
 
         this.employees = employees;
     }
-
 
     @Override
     public int hashCode() {
 
         int hash = 5;
         hash = 97 * hash + (this.employees != null
-                            ? this.employees.hashCode() : 0);
+                ? this.employees.hashCode() : 0);
         return hash;
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -67,15 +59,13 @@ public abstract class AbstractDepartment {
         }
         final AbstractDepartment other = (AbstractDepartment) obj;
         if (this.employees != other.employees
-            && (this.employees == null
+                && (this.employees == null
                 || !this.employees.equals(other.employees))) {
             return false;
         }
         return true;
     }
 
-
     private Map<Long, Employee> employees;
 
 }
-

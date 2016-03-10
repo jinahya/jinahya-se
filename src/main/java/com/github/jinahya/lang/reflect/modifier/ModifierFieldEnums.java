@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang.reflect.modifier;
 
-
 import static com.github.jinahya.lang.FieldEnums.fieldValues;
-
 
 /**
  * A utility class for {@link ModifierFieldEnum}s.
@@ -27,7 +23,6 @@ import static com.github.jinahya.lang.FieldEnums.fieldValues;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class ModifierFieldEnums {
-
 
     public static <E extends Enum<E> & ModifierFieldEnum<E>> int modifiers(
             final Class<E> enumType) {
@@ -40,7 +35,6 @@ public final class ModifierFieldEnums {
 
         return modifiers;
     }
-
 
     public static <E extends Enum<E> & ModifierFieldEnum<E>> boolean isAll(
             final int modifiers, final E... constants) {
@@ -59,7 +53,6 @@ public final class ModifierFieldEnums {
         return true;
     }
 
-
     public static <E extends Enum<E> & ModifierFieldEnum<E>> boolean isAny(
             final int modifiers, final E... constants) {
 
@@ -77,7 +70,6 @@ public final class ModifierFieldEnums {
         return false;
     }
 
-
     public static <E extends Enum<E> & ModifierFieldEnum<E>> int add(
             int modifiers, final E... constants) {
 
@@ -91,7 +83,6 @@ public final class ModifierFieldEnums {
 
         return modifiers;
     }
-
 
     public static <E extends Enum<E> & ModifierFieldEnum<E>> int remove(
             int modifiers, final E... constants) {
@@ -107,12 +98,9 @@ public final class ModifierFieldEnums {
         return modifiers;
     }
 
-
     private ModifierFieldEnums() {
 
         super();
     }
 
-
 }
-

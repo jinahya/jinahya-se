@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
-
 
 /**
  * An unwrapped value for integers.
@@ -29,7 +25,6 @@ import javax.xml.bind.annotation.XmlValue;
  */
 @XmlRootElement
 public class UnwrappedInteger extends UnwrappedValue<Integer> {
-
 
     /**
      * Creates a new instance with given raw value.
@@ -47,14 +42,12 @@ public class UnwrappedInteger extends UnwrappedValue<Integer> {
         return newInstance(UnwrappedInteger.class, rawValue);
     }
 
-
     @XmlValue
     @Override
     public Integer getRawValue() {
 
         return super.getRawValue();
     }
-
 
     @Override
     public void setRawValue(final Integer rawValue) {
@@ -63,4 +56,3 @@ public class UnwrappedInteger extends UnwrappedValue<Integer> {
     }
 
 }
-

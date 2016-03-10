@@ -13,13 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.github.jinahya.nio.channels;
-
 
 import java.io.IOException;
 import java.nio.channels.Channel;
-
 
 /**
  *
@@ -28,7 +25,6 @@ import java.nio.channels.Channel;
  */
 public class FilterChannel<T extends Channel> implements Channel {
 
-
     public FilterChannel(final T channel) {
 
         super();
@@ -36,13 +32,11 @@ public class FilterChannel<T extends Channel> implements Channel {
         this.channel = channel;
     }
 
-
     @Override
     public boolean isOpen() {
 
         return channel.isOpen();
     }
-
 
     @Override
     public void close() throws IOException {
@@ -52,8 +46,6 @@ public class FilterChannel<T extends Channel> implements Channel {
         }
     }
 
-
     protected T channel;
 
 }
-

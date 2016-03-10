@@ -13,17 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind.annotation.adapters;
-
 
 import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  *
@@ -32,7 +28,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlType(propOrder = {"key", "name", "age"})
 public class Value implements Comparable<Value>, Serializable {
-
 
     /**
      * Returns key.
@@ -43,7 +38,6 @@ public class Value implements Comparable<Value>, Serializable {
         return key;
     }
 
-
     /**
      * Sets key.
      *
@@ -52,7 +46,6 @@ public class Value implements Comparable<Value>, Serializable {
     public void setKey(final Key key) {
         this.key = key;
     }
-
 
     /**
      * Returns name.
@@ -63,7 +56,6 @@ public class Value implements Comparable<Value>, Serializable {
         return name;
     }
 
-
     /**
      * Sets name.
      *
@@ -72,7 +64,6 @@ public class Value implements Comparable<Value>, Serializable {
     public void setName(final String name) {
         this.name = name;
     }
-
 
     /**
      * Returns age.
@@ -83,7 +74,6 @@ public class Value implements Comparable<Value>, Serializable {
         return age;
     }
 
-
     /**
      * Sets age.
      *
@@ -92,7 +82,6 @@ public class Value implements Comparable<Value>, Serializable {
     public void setAge(final int age) {
         this.age = age;
     }
-
 
     @Override
     public int compareTo(final Value o) {
@@ -106,8 +95,7 @@ public class Value implements Comparable<Value>, Serializable {
                 return -1;
             }
         } else // key != null
-        {
-            if (o.key == null) {
+         if (o.key == null) {
                 return 1;
             } else {
                 final int keyCompared = key.compareTo(key);
@@ -115,15 +103,13 @@ public class Value implements Comparable<Value>, Serializable {
                     return keyCompared;
                 }
             }
-        }
 
         if (name == null) {
             if (o.name != null) {
                 return -1;
             }
         } else // key != null
-        {
-            if (o.name == null) {
+         if (o.name == null) {
                 return 1;
             } else {
                 final int nameCompared = name.compareTo(o.name);
@@ -131,7 +117,6 @@ public class Value implements Comparable<Value>, Serializable {
                     return nameCompared;
                 }
             }
-        }
 
         //final int ageCompared = Integer.compare(age, o.age); // jdk7
         final int ageCompared = Integer.valueOf(age).compareTo(o.age);
@@ -142,7 +127,6 @@ public class Value implements Comparable<Value>, Serializable {
 
         return 0;
     }
-
 
     @Override
     public boolean equals(final Object obj) {
@@ -158,12 +142,12 @@ public class Value implements Comparable<Value>, Serializable {
         final Value casted = (Value) obj;
 
         if (!(key == casted.key
-              || (key != null && key.equals(casted.key)))) {
+                || (key != null && key.equals(casted.key)))) {
             return false;
         }
 
         if (!(name == casted.name)
-            || (name != null && name.equals(casted.name))) {
+                || (name != null && name.equals(casted.name))) {
             return false;
         }
 
@@ -173,7 +157,6 @@ public class Value implements Comparable<Value>, Serializable {
 
         return true;
     }
-
 
     @Override
     public int hashCode() {
@@ -189,7 +172,6 @@ public class Value implements Comparable<Value>, Serializable {
         return result;
     }
 
-
     @Override
     public String toString() {
         return (super.toString()
@@ -198,17 +180,13 @@ public class Value implements Comparable<Value>, Serializable {
                 + ", age=" + age);
     }
 
-
     @XmlElement(required = true)
     private Key key;
 
-
     @XmlElement(required = true)
     private String name;
-
 
     @XmlElement(required = true)
     private int age;
 
 }
-

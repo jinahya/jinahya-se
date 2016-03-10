@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.nio;
-
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -30,7 +27,6 @@ import java.nio.InvalidMarkException;
 import java.nio.LongBuffer;
 import java.nio.ShortBuffer;
 
-
 /**
  * Utilities for {@link Buffer}.
  *
@@ -38,9 +34,8 @@ import java.nio.ShortBuffer;
  */
 public final class JinahyaBuffers {
 
-
     public static <T extends Buffer> T allocateZeroCapacity(
-        final Class<T> type) {
+            final Class<T> type) {
 
         if (type == null) {
             throw new NullPointerException("null type");
@@ -60,34 +55,26 @@ public final class JinahyaBuffers {
         }
     }
 
-
     public static final ByteBuffer ZERO_CAPACITY_BYTE_BUFFER
-        = allocateZeroCapacity(ByteBuffer.class);
-
+            = allocateZeroCapacity(ByteBuffer.class);
 
     public static final CharBuffer ZERO_CAPACITY_CHAR_BUFFER
-        = allocateZeroCapacity(CharBuffer.class);
-
+            = allocateZeroCapacity(CharBuffer.class);
 
     public static final DoubleBuffer ZERO_CAPACITY_DOUBLE_BUFFER
-        = allocateZeroCapacity(DoubleBuffer.class);
-
+            = allocateZeroCapacity(DoubleBuffer.class);
 
     public static final FloatBuffer ZERO_CAPACITY_FLOAT_BUFFER
-        = allocateZeroCapacity(FloatBuffer.class);
-
+            = allocateZeroCapacity(FloatBuffer.class);
 
     public static final IntBuffer ZERO_CAPACITY_INT_BUFFER
-        = allocateZeroCapacity(IntBuffer.class);
-
+            = allocateZeroCapacity(IntBuffer.class);
 
     public static final LongBuffer ZERO_CAPACITY_LONG_BUFFER
-        = allocateZeroCapacity(LongBuffer.class);
-
+            = allocateZeroCapacity(LongBuffer.class);
 
     public static final ShortBuffer ZERO_CAPACITY_SHORT_BUFFER
-        = allocateZeroCapacity(ShortBuffer.class);
-
+            = allocateZeroCapacity(ShortBuffer.class);
 
     public static <T extends Buffer> T requireNonZeroCapacity(final T buffer) {
 
@@ -102,13 +89,11 @@ public final class JinahyaBuffers {
         return buffer;
     }
 
-
     @SuppressWarnings("unchecked")
     public static <T extends Buffer> T clear(final T buffer) {
 
         return (T) buffer.clear();
     }
-
 
     @SuppressWarnings("unchecked")
     public static <T extends Buffer> T flip(final T buffer) {
@@ -116,14 +101,12 @@ public final class JinahyaBuffers {
         return (T) buffer.flip();
     }
 
-
     @SuppressWarnings("unchecked")
     public static <T extends Buffer> T limit(final T buffer,
-                                             final int newLimit) {
+            final int newLimit) {
 
         return (T) buffer.limit(newLimit);
     }
-
 
     @SuppressWarnings("unchecked")
     public static <T extends Buffer> T mark(final T buffer) {
@@ -131,14 +114,12 @@ public final class JinahyaBuffers {
         return (T) buffer.mark();
     }
 
-
     @SuppressWarnings("unchecked")
     public static <T extends Buffer> T position(final T buffer,
-                                                final int newPosition) {
+            final int newPosition) {
 
         return (T) buffer.position(newPosition);
     }
-
 
     @SuppressWarnings("unchecked")
     public static <T extends Buffer> T reset(final T buffer) {
@@ -146,13 +127,11 @@ public final class JinahyaBuffers {
         return (T) buffer.reset();
     }
 
-
     @SuppressWarnings("unchecked")
     public static <T extends Buffer> T rewind(final T buffer) {
 
         return (T) buffer.rewind();
     }
-
 
     /**
      * The limit is set to current position and then the position to the
@@ -171,7 +150,6 @@ public final class JinahyaBuffers {
 
         return (T) buffer.limit(buffer.position()).reset();
     }
-
 
     /**
      * Returns the position of given buffer where the mark has been set.
@@ -198,7 +176,6 @@ public final class JinahyaBuffers {
         }
     }
 
-
     /**
      * Restores marked position while preserving current position.
      *
@@ -211,7 +188,7 @@ public final class JinahyaBuffers {
      * @see #markedPosition(java.nio.Buffer)
      */
     public static <T extends Buffer> T markedPosition(
-        final T buffer, final Integer markedPosition) {
+            final T buffer, final Integer markedPosition) {
 
         if (markedPosition != null) {
             final int position = buffer.position();
@@ -222,7 +199,6 @@ public final class JinahyaBuffers {
 
         return buffer;
     }
-
 
     /**
      * Adjusts given buffer's position with specified amount.
@@ -235,10 +211,9 @@ public final class JinahyaBuffers {
      */
     @SuppressWarnings("unchecked")
     public static <T extends Buffer> T adjustPosition(
-        final T buffer, final int delta) {
+            final T buffer, final int delta) {
         return (T) buffer.position(buffer.position() + delta);
     }
-
 
     private JinahyaBuffers() {
 
@@ -246,4 +221,3 @@ public final class JinahyaBuffers {
     }
 
 }
-

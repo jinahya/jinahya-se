@@ -13,16 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang;
-
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 
 /**
  *
@@ -31,15 +27,13 @@ import org.testng.annotations.Test;
  * @param <F> field type parameter
  */
 public abstract class ComparableFieldEnumTest<E extends Enum<E> & ComparableFieldEnum<E, F>, F extends Comparable<? super F>>
-    extends FieldEnumTest<E, F> {
-
+        extends FieldEnumTest<E, F> {
 
     /**
      * logger.
      */
     private static final Logger logger
-        = LoggerFactory.getLogger(ComparableFieldEnumTest.class);
-
+            = LoggerFactory.getLogger(ComparableFieldEnumTest.class);
 
     /**
      *
@@ -47,11 +41,10 @@ public abstract class ComparableFieldEnumTest<E extends Enum<E> & ComparableFiel
      * @param fieldType the field type.
      */
     public ComparableFieldEnumTest(final Class<E> enumType,
-                                   final Class<F> fieldType) {
+            final Class<F> fieldType) {
 
         super(enumType, fieldType);
     }
-
 
     @Test
     public void assertOrderedFieldValues() {
@@ -63,4 +56,3 @@ public abstract class ComparableFieldEnumTest<E extends Enum<E> & ComparableFiel
     }
 
 }
-

@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.nio.channels;
-
 
 import com.github.jinahya.security.MessageDigests;
 import java.io.ByteArrayInputStream;
@@ -30,13 +27,11 @@ import java.util.concurrent.ThreadLocalRandom;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class DigestReadableByteChannelTest {
-
 
     @Test(enabled = false, invocationCount = 1)
     public void test() throws NoSuchAlgorithmException, IOException {
@@ -59,8 +54,8 @@ public class DigestReadableByteChannelTest {
 
             final MessageDigest digest2 = MessageDigest.getInstance(algorithm);
             final ReadableDigestChannel channel
-                = new ReadableDigestChannel(
-                    Channels.newChannel(new ByteArrayInputStream(data)), digest2);
+                    = new ReadableDigestChannel(
+                            Channels.newChannel(new ByteArrayInputStream(data)), digest2);
             final ByteBuffer buffer = ByteBuffer.allocate(1024);
             for (; channel.read(buffer) != -1; buffer.clear()) {
                 buffer.flip();
@@ -77,4 +72,3 @@ public class DigestReadableByteChannelTest {
     }
 
 }
-

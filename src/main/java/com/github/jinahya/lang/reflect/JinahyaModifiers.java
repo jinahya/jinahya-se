@@ -13,20 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang.reflect;
 
-
 import java.lang.reflect.Modifier;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class JinahyaModifiers {
-
 
     /**
      *
@@ -41,17 +36,15 @@ public final class JinahyaModifiers {
         return (Modifier.classModifiers() & modifiers) == modifiers;
     }
 
-
     public static int requireAllClassModifiers(final int modifiers) {
 
         if (!isAllClassModifiers(modifiers)) {
             throw new IllegalArgumentException(
-                "modifiers(" + modifiers + ") is not all for classes");
+                    "modifiers(" + modifiers + ") is not all for classes");
         }
 
         return modifiers;
     }
-
 
     /**
      *
@@ -66,17 +59,15 @@ public final class JinahyaModifiers {
         return (Modifier.fieldModifiers() & modifiers) == modifiers;
     }
 
-
     public static int requireAllFieldModifiers(final int modifiers) {
 
         if (!isAllFieldModifiers(modifiers)) {
             throw new IllegalArgumentException(
-                "modifiers(" + modifiers + ") is not all for fields");
+                    "modifiers(" + modifiers + ") is not all for fields");
         }
 
         return modifiers;
     }
-
 
     /**
      *
@@ -91,34 +82,30 @@ public final class JinahyaModifiers {
         return (Modifier.fieldModifiers() & modifiers) == modifiers;
     }
 
-
     public static int requireAllInterfaceModifiers(final int modifiers) {
 
         if (!isAllInterfaceModifiers(modifiers)) {
             throw new IllegalArgumentException(
-                "modifiers(" + modifiers + ") is not all for interfaces");
+                    "modifiers(" + modifiers + ") is not all for interfaces");
         }
 
         return modifiers;
     }
-
 
     public static boolean isAllMethodModifiers(final int modifiers) {
 
         return (Modifier.fieldModifiers() & modifiers) == modifiers;
     }
 
-
     public static int requireAllMethodModifiers(final int modifiers) {
 
         if (!isAllMethodModifiers(modifiers)) {
             throw new IllegalArgumentException(
-                "modifiers(" + modifiers + ") is not all for methods");
+                    "modifiers(" + modifiers + ") is not all for methods");
         }
 
         return modifiers;
     }
-
 
     private JinahyaModifiers() {
 
@@ -126,4 +113,3 @@ public final class JinahyaModifiers {
     }
 
 }
-

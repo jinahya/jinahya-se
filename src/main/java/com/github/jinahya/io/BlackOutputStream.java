@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.io;
-
 
 import java.io.IOException;
 import java.io.OutputStream;
-
 
 /**
  * An output stream which shallows written bytes.
@@ -29,7 +25,6 @@ import java.io.OutputStream;
  */
 public class BlackOutputStream extends OutputStream {
 
-
     @Override
     public void write(final int b) throws IOException {
 
@@ -37,4 +32,3 @@ public class BlackOutputStream extends OutputStream {
     }
 
 }
-

@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.namespace;
-
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -24,33 +21,29 @@ import java.util.Objects;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public abstract class AbstractNamespaceContext implements NamespaceContext {
 
-
     protected static boolean isReservedPrefix(final String prefix) {
 
         Objects.requireNonNull(prefix, "null prefix");
 
         return XMLConstants.DEFAULT_NS_PREFIX.equals(prefix)
-               || XMLConstants.XML_NS_PREFIX.equals(prefix)
-               || XMLConstants.XMLNS_ATTRIBUTE.equals(prefix);
+                || XMLConstants.XML_NS_PREFIX.equals(prefix)
+                || XMLConstants.XMLNS_ATTRIBUTE.equals(prefix);
     }
-
 
     protected static boolean isReservedNamespaceURI(final String namespaceURI) {
 
         Objects.requireNonNull(namespaceURI, "null namespaceURI");
 
         return XMLConstants.NULL_NS_URI.equals(namespaceURI)
-               || XMLConstants.XML_NS_URI.equals(namespaceURI)
-               || XMLConstants.XMLNS_ATTRIBUTE_NS_URI.equals(namespaceURI);
+                || XMLConstants.XML_NS_URI.equals(namespaceURI)
+                || XMLConstants.XMLNS_ATTRIBUTE_NS_URI.equals(namespaceURI);
     }
-
 
     /**
      *
@@ -77,7 +70,6 @@ public abstract class AbstractNamespaceContext implements NamespaceContext {
         throw new IllegalArgumentException("not predefined");
     }
 
-
     /**
      *
      * @param namespaceURI
@@ -103,7 +95,6 @@ public abstract class AbstractNamespaceContext implements NamespaceContext {
         throw new IllegalArgumentException("not predefined");
     }
 
-
     @Override
     @SuppressWarnings("rawtypes")
     public Iterator getPrefixes(final String namespaceURI) {
@@ -120,4 +111,3 @@ public abstract class AbstractNamespaceContext implements NamespaceContext {
     }
 
 }
-

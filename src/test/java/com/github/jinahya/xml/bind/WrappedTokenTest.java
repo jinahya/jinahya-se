@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import org.apache.commons.lang3.RandomStringUtils;
-
 
 /**
  *
@@ -29,12 +25,10 @@ import org.apache.commons.lang3.RandomStringUtils;
  */
 public class WrappedTokenTest extends WrappedValueTest<WrappedToken, String> {
 
-
     public WrappedTokenTest() {
 
         super(WrappedToken.class);
     }
-
 
     @Override
     protected String generateRawValue() {
@@ -49,4 +43,3 @@ public class WrappedTokenTest extends WrappedValueTest<WrappedToken, String> {
     }
 
 }
-

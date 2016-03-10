@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlTransient;
-
 
 /**
  * An abstract class for map values.
@@ -31,7 +27,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @XmlTransient
 public abstract class MapValues<T> {
-
 
     /**
      * Returns a list of values.
@@ -47,11 +42,9 @@ public abstract class MapValues<T> {
         return values;
     }
 
-
     /**
      * values.
      */
     private List<T> values;
 
 }
-

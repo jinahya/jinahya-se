@@ -13,12 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.github.jinahya.lang.reflect;
 
-
 import java.lang.reflect.Method;
-
 
 /**
  *
@@ -26,11 +23,10 @@ import java.lang.reflect.Method;
  */
 public class Methods {
 
-
     public static Method findDeclaredMethod(final Class<?> klass,
-                                            final String name,
-                                            final Class<?>... parameterTypes)
-        throws NoSuchMethodException {
+            final String name,
+            final Class<?>... parameterTypes)
+            throws NoSuchMethodException {
 
         try {
             return klass.getDeclaredMethod(name, parameterTypes);
@@ -43,9 +39,7 @@ public class Methods {
         }
     }
 
-
     private Methods() {
     }
 
 }
-

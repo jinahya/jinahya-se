@@ -13,16 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang.reflect;
-
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 
 /**
  *
@@ -30,13 +26,11 @@ import org.testng.annotations.Test;
  */
 public class FieldsTest {
 
-
     private static final Object F = null;
-
 
     @Test
     public static void unprivate_()
-        throws NoSuchFieldException, IllegalAccessException {
+            throws NoSuchFieldException, IllegalAccessException {
 
         final Field field = FieldsTest.class.getDeclaredField("F");
         int modifiers = field.getModifiers();
@@ -49,10 +43,9 @@ public class FieldsTest {
         Assert.assertTrue(Modifier.isFinal(modifiers));
     }
 
-
     @Test
     public static void unfinal_()
-        throws NoSuchFieldException, IllegalAccessException {
+            throws NoSuchFieldException, IllegalAccessException {
 
         final Field field = FieldsTest.class.getDeclaredField("F");
         int modifiers = field.getModifiers();
@@ -66,4 +59,3 @@ public class FieldsTest {
     }
 
 }
-

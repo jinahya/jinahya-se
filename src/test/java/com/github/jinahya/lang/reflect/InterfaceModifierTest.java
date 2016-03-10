@@ -13,21 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang.reflect;
 
-
 import java.lang.reflect.Modifier;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class InterfaceModifierTest
-    extends ModifierFieldEnumTest<InterfaceModifier> {
-
+        extends ModifierFieldEnumTest<InterfaceModifier> {
 
     public InterfaceModifierTest() {
 
@@ -35,4 +30,3 @@ public class InterfaceModifierTest
     }
 
 }
-

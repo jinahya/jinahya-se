@@ -13,62 +13,53 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.sql;
-
 
 import com.github.jinahya.lang.FieldEnum;
 import com.github.jinahya.lang.FieldEnums;
 import java.sql.DatabaseMetaData;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum DatabaseMetaDataDeferrability
-    implements FieldEnum<DatabaseMetaDataDeferrability, Integer> {
-
+        implements FieldEnum<DatabaseMetaDataDeferrability, Integer> {
 
     /**
      * A constant for {@link DatabaseMetaData#importedKeyInitiallyDeferred}.
      */
     importedKeyInitiallyDeferred(
-        DatabaseMetaData.importedKeyInitiallyDeferred), // 5
+            DatabaseMetaData.importedKeyInitiallyDeferred), // 5
 
     /**
      * A constant for {@link DatabaseMetaData#importedKeyInitiallyImmediate}.
      */
     importedKeyInitiallyImmediate(
-        DatabaseMetaData.importedKeyInitiallyImmediate), // 6
+            DatabaseMetaData.importedKeyInitiallyImmediate), // 6
 
     /**
      * A constant for {@link DatabaseMetaData#importedKeyNotDeferrable}.
      */
     importedKeyNotDeferrable(DatabaseMetaData.importedKeyNotDeferrable); // 7
 
-
     public static DatabaseMetaDataDeferrability fromFieldValue(
-        final int fieldValue) {
+            final int fieldValue) {
 
         return FieldEnums.fromFieldValue(
-            DatabaseMetaDataDeferrability.class, Integer.valueOf(fieldValue));
+                DatabaseMetaDataDeferrability.class, Integer.valueOf(fieldValue));
     }
-
 
     public static Integer[] fieldValues() {
 
         return FieldEnums.fieldValues(DatabaseMetaDataDeferrability.class,
-                                      Integer.class);
+                Integer.class);
     }
-
 
     private DatabaseMetaDataDeferrability(final int fieldValue) {
 
         this.fieldValue = fieldValue;
     }
-
 
     @Override
     public Integer fieldValue() {
@@ -76,12 +67,9 @@ public enum DatabaseMetaDataDeferrability
         return fieldValue;
     }
 
-
     /**
      * field value.
      */
     private final int fieldValue;
 
-
 }
-

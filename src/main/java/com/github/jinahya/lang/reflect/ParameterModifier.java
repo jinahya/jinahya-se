@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang.reflect;
 
-
 import java.lang.reflect.Modifier;
-
 
 /**
  *
@@ -29,12 +25,10 @@ public enum ParameterModifier implements ModifierFieldEnum<ParameterModifier> {
 
     FINAL(Modifier.FINAL); // 16
 
-
     private ParameterModifier(final int fieldValue) {
 
         this.fieldValue = fieldValue;
     }
-
 
     @Override
     public int fieldValueAsInt() {
@@ -42,8 +36,6 @@ public enum ParameterModifier implements ModifierFieldEnum<ParameterModifier> {
         return fieldValue;
     }
 
-
     private final int fieldValue;
 
 }
-

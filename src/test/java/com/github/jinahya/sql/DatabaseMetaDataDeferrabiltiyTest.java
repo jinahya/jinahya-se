@@ -13,27 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.sql;
 
-
 import com.github.jinahya.lang.FieldEnumTest;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class DatabaseMetaDataDeferrabiltiyTest
-    extends FieldEnumTest<DatabaseMetaDataDeferrability, Integer> {
-
+        extends FieldEnumTest<DatabaseMetaDataDeferrability, Integer> {
 
     public DatabaseMetaDataDeferrabiltiyTest() {
 
         super(DatabaseMetaDataDeferrability.class, Integer.class);
     }
 
-
 }
-

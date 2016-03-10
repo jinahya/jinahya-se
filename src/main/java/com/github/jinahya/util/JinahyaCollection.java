@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.github.jinahya.util;
-
 
 /**
  *
@@ -23,10 +21,8 @@ package com.github.jinahya.util;
  */
 public final class JinahyaCollection {
 
-
     private JinahyaCollection() {
         super();
     }
 
 }
-

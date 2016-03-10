@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang;
-
 
 /**
  *
@@ -24,8 +21,7 @@ package com.github.jinahya.lang;
  * @param <E>
  */
 public abstract class StringFieldEnumTest<E extends Enum<E> & StringFieldEnum<E>>
-    extends ComparableFieldEnumTest<E, String> {
-
+        extends ComparableFieldEnumTest<E, String> {
 
     public StringFieldEnumTest(final Class<E> enumType) {
 
@@ -33,4 +29,3 @@ public abstract class StringFieldEnumTest<E extends Enum<E> & StringFieldEnum<E>
     }
 
 }
-

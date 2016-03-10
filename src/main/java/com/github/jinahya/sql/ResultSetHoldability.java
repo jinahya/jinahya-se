@@ -13,13 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.github.jinahya.sql;
-
 
 import com.github.jinahya.lang.IntFieldEnum;
 import java.sql.ResultSet;
-
 
 /**
  *
@@ -39,19 +36,15 @@ public enum ResultSetHoldability implements IntFieldEnum<ResultSetHoldability> {
      */
     CLOSE_CURSORS_AT_COMMIT(ResultSet.CLOSE_CURSORS_AT_COMMIT); // 2
 
-
     private ResultSetHoldability(final int fieldValue) {
         this.fieldValue = fieldValue;
     }
-
 
     @Override
     public int fieldValueAsInt() {
         return fieldValue;
     }
 
-
     private final int fieldValue;
 
 }
-

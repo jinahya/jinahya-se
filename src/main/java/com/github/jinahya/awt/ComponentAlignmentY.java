@@ -13,13 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.github.jinahya.awt;
-
 
 import com.github.jinahya.lang.FloatFieldEnum;
 import java.awt.Component;
-
 
 /**
  *
@@ -40,19 +37,15 @@ public enum ComponentAlignmentY implements FloatFieldEnum<ComponentAlignmentY> {
      */
     BOTTOM_ALIGHNMENT(Component.BOTTOM_ALIGNMENT); // 1.0f
 
-
     private ComponentAlignmentY(final float fieldValue) {
         this.fieldValue = fieldValue;
     }
-
 
     @Override
     public float fieldValueAsFloat() {
         return fieldValue;
     }
 
-
     private final float fieldValue;
 
 }
-

@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind.test.map;
-
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -30,14 +27,12 @@ import javax.xml.bind.Unmarshaller;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <T>
  */
 public abstract class AbstractDepartmentTest<T extends AbstractDepartment> {
-
 
     public AbstractDepartmentTest(final Class<T> departmentType) {
 
@@ -50,10 +45,9 @@ public abstract class AbstractDepartmentTest<T extends AbstractDepartment> {
         this.departmentType = departmentType;
     }
 
-
     @Test
     public void printXml()
-        throws InstantiationException, IllegalAccessException, JAXBException {
+            throws InstantiationException, IllegalAccessException, JAXBException {
 
         final T expected = departmentType.newInstance();
 
@@ -78,21 +72,19 @@ public abstract class AbstractDepartmentTest<T extends AbstractDepartment> {
         marshaller.marshal(expected, baos);
 
         final String jaxbEncoding
-            = (String) marshaller.getProperty(Marshaller.JAXB_ENCODING);
+                = (String) marshaller.getProperty(Marshaller.JAXB_ENCODING);
         System.out.println(new String(baos.toByteArray(),
-                                      Charset.forName(jaxbEncoding)));
+                Charset.forName(jaxbEncoding)));
 
         final Unmarshaller unmarshaller = context.createUnmarshaller();
 
         final T actual = departmentType.cast(unmarshaller.unmarshal(
-            new ByteArrayInputStream(baos.toByteArray())));
+                new ByteArrayInputStream(baos.toByteArray())));
         System.out.println("actual.employees: " + actual.getEmployees());
 
         Assert.assertEquals(actual, expected);
     }
 
-
     private Class<T> departmentType;
 
 }
-

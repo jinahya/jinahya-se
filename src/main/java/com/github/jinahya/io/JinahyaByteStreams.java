@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.io;
-
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,14 +22,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-
 /**
  * Utilities for InputStreams and OutputStreams.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class JinahyaByteStreams {
-
 
     /**
      * Copies bytes from given input stream to given output stream.
@@ -48,8 +43,8 @@ public final class JinahyaByteStreams {
      * @throws IOException if an I/O error occurs
      */
     public static long copy(final InputStream input, final OutputStream output,
-                            final byte[] buffer, final long length)
-        throws IOException {
+            final byte[] buffer, final long length)
+            throws IOException {
 
         if (input == null) {
             throw new NullPointerException("input == null");
@@ -65,7 +60,7 @@ public final class JinahyaByteStreams {
 
         if (buffer.length == 0) {
             throw new IllegalArgumentException(
-                "buffer.length(" + buffer.length + ") == 0");
+                    "buffer.length(" + buffer.length + ") == 0");
         }
 
         if (length < -1L) {
@@ -91,7 +86,6 @@ public final class JinahyaByteStreams {
         return count;
     }
 
-
     /**
      * Copies bytes from given input file to given output stream.
      *
@@ -106,8 +100,8 @@ public final class JinahyaByteStreams {
      * @throws IOException if an I/O error occurs
      */
     public static long copy(final File input, final OutputStream output,
-                            final byte[] buffer, final long length)
-        throws IOException {
+            final byte[] buffer, final long length)
+            throws IOException {
 
         if (input == null) {
             throw new NullPointerException("input == null");
@@ -120,7 +114,6 @@ public final class JinahyaByteStreams {
             finput.close();
         }
     }
-
 
     /**
      * Copies bytes from given input stream to given output file.
@@ -136,8 +129,8 @@ public final class JinahyaByteStreams {
      * @throws IOException if an I/O error occurs
      */
     public static long copy(final InputStream input, final File output,
-                            final byte[] buffer, final long length)
-        throws IOException {
+            final byte[] buffer, final long length)
+            throws IOException {
 
         if (output == null) {
             throw new NullPointerException("output");
@@ -155,7 +148,6 @@ public final class JinahyaByteStreams {
         }
     }
 
-
     /**
      * Copies bytes from given input file to given output file.
      *
@@ -170,8 +162,8 @@ public final class JinahyaByteStreams {
      * @throws IOException if an I/O error occurs
      */
     public static long copy(final File input, final File output,
-                            final byte[] buffer, final long length)
-        throws IOException {
+            final byte[] buffer, final long length)
+            throws IOException {
 
         if (output == null) {
             throw new NullPointerException("output");
@@ -194,7 +186,6 @@ public final class JinahyaByteStreams {
         }
     }
 
-
     /**
      * Creates a new instance.
      */
@@ -204,4 +195,3 @@ public final class JinahyaByteStreams {
     }
 
 }
-

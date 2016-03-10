@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind.test.map;
-
 
 /**
  *
@@ -24,11 +21,9 @@ package com.github.jinahya.xml.bind.test.map;
  */
 public class Department3Test extends AbstractDepartmentTest<Department3> {
 
-
     public Department3Test() {
 
         super(Department3.class);
     }
 
 }
-

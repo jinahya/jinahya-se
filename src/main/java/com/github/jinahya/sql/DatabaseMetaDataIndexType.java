@@ -13,20 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.github.jinahya.sql;
-
 
 import com.github.jinahya.lang.IntFieldEnum;
 import java.sql.DatabaseMetaData;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum DatabaseMetaDataIndexType
-    implements IntFieldEnum<DatabaseMetaDataIndexType> {
+        implements IntFieldEnum<DatabaseMetaDataIndexType> {
 
     /**
      * A constant for {@link DatabaseMetaData#tableIndexStatistic}.
@@ -48,19 +45,15 @@ public enum DatabaseMetaDataIndexType
      */
     tableIndexOther(DatabaseMetaData.tableIndexOther); // 3
 
-
     private DatabaseMetaDataIndexType(final int fieldValue) {
         this.fieldValue = fieldValue;
     }
-
 
     @Override
     public int fieldValueAsInt() {
         return fieldValue;
     }
 
-
     private final int fieldValue;
 
 }
-

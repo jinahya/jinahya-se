@@ -13,23 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.imageio;
-
 
 import static com.github.jinahya.imageio.ImageFileSuffix.availableImageFileSuffix;
 import java.io.IOException;
 import javax.xml.bind.JAXBException;
 import org.testng.annotations.Test;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class ImageFileSuffixTest extends ImageFeatureTest<ImageFileSuffix> {
-
 
     /**
      * Creates a new instance.
@@ -39,7 +34,6 @@ public class ImageFileSuffixTest extends ImageFeatureTest<ImageFileSuffix> {
         super(ImageFileSuffix.class);
     }
 
-
     @Test
     public void printXml() throws JAXBException, IOException {
 
@@ -47,4 +41,3 @@ public class ImageFileSuffixTest extends ImageFeatureTest<ImageFileSuffix> {
     }
 
 }
-

@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util.function;
 
-
 import java.util.function.Consumer;
-
 
 /**
  *
@@ -27,16 +23,13 @@ import java.util.function.Consumer;
  */
 public final class Consumers {
 
-
     public static final Consumer<?> EMPTY = o -> {
     };
-
 
     public static <T> Consumer<T> of(final Consumer<T> consumer) {
 
         return consumer;
     }
-
 
     public static <T> Consumer<T> empty() {
 
@@ -44,11 +37,9 @@ public final class Consumers {
         };
     }
 
-
     private Consumers() {
 
         super();
     }
 
 }
-

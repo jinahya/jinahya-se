@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -36,7 +33,6 @@ import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
@@ -44,22 +40,20 @@ import org.testng.annotations.Test;
 @XmlRootElement
 public class StringPackageListAdapterTest {
 
-
     /**
      * logger.
      */
     private static final Logger LOGGER
-        = LoggerFactory.getLogger(StringPackageListAdapter.class);
-
+            = LoggerFactory.getLogger(StringPackageListAdapter.class);
 
     @Test
     public void testEmpty() throws JAXBException {
 
         final StringPackageListAdapterTest expected
-            = new StringPackageListAdapterTest();
+                = new StringPackageListAdapterTest();
 
         final JAXBContext context
-            = JAXBContext.newInstance(StringPackageListAdapterTest.class);
+                = JAXBContext.newInstance(StringPackageListAdapterTest.class);
 
         final Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
@@ -71,24 +65,23 @@ public class StringPackageListAdapterTest {
         final Unmarshaller unmarshaller = context.createUnmarshaller();
 
         final StringPackageListAdapterTest actual
-            = (StringPackageListAdapterTest) unmarshaller.unmarshal(
-                new ByteArrayInputStream(baos.toByteArray()));
+                = (StringPackageListAdapterTest) unmarshaller.unmarshal(
+                        new ByteArrayInputStream(baos.toByteArray()));
 
         Assert.assertEquals(actual, expected);
     }
 
-
     @Test
     public void testNonEmpty()
-        throws JAXBException, UnsupportedEncodingException {
+            throws JAXBException, UnsupportedEncodingException {
 
         final StringPackageListAdapterTest expected
-            = new StringPackageListAdapterTest();
+                = new StringPackageListAdapterTest();
 
         expected.getPackages().addAll(Arrays.asList(Package.getPackages()));
 
         final JAXBContext context
-            = JAXBContext.newInstance(StringPackageListAdapterTest.class);
+                = JAXBContext.newInstance(StringPackageListAdapterTest.class);
 
         final Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
@@ -98,27 +91,25 @@ public class StringPackageListAdapterTest {
         marshaller.marshal(expected, baos);
 
         final String charsetName
-            = (String) marshaller.getProperty(Marshaller.JAXB_ENCODING);
+                = (String) marshaller.getProperty(Marshaller.JAXB_ENCODING);
         System.out.println(new String(baos.toByteArray(), charsetName));
 
         final Unmarshaller unmarshaller = context.createUnmarshaller();
 
         final StringPackageListAdapterTest actual
-            = (StringPackageListAdapterTest) unmarshaller.unmarshal(
-                new ByteArrayInputStream(baos.toByteArray()));
+                = (StringPackageListAdapterTest) unmarshaller.unmarshal(
+                        new ByteArrayInputStream(baos.toByteArray()));
 
         Assert.assertEquals(actual, expected);
     }
-
 
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 23 * hash + (this.packages != null
-                            ? this.packages.hashCode() : 0);
+                ? this.packages.hashCode() : 0);
         return hash;
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -129,15 +120,14 @@ public class StringPackageListAdapterTest {
             return false;
         }
         final StringPackageListAdapterTest other
-            = (StringPackageListAdapterTest) obj;
+                = (StringPackageListAdapterTest) obj;
         if (this.packages != other.packages
-            && (this.packages == null
+                && (this.packages == null
                 || !this.packages.equals(other.packages))) {
             return false;
         }
         return true;
     }
-
 
     public List<Package> getPackages() {
 
@@ -150,10 +140,8 @@ public class StringPackageListAdapterTest {
         return packages;
     }
 
-
     @XmlElement
     @XmlJavaTypeAdapter(StringPackageListAdapter.class)
     private List<Package> packages;
 
 }
-

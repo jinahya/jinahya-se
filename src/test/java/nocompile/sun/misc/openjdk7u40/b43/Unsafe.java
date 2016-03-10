@@ -21,16 +21,12 @@
  * visit www.oracle.com if you need additional information or have any
  * questions.
  */
-
-
 package nocompile.sun.misc.openjdk7u40.b43;
-
 
 import java.lang.reflect.*;
 import java.security.*;
 import sun.reflect.CallerSensitive;
 import sun.reflect.Reflection;
-
 
 /**
  * A collection of methods for performing low-level, unsafe operations. Although
@@ -42,22 +38,17 @@ import sun.reflect.Reflection;
  */
 public final class Unsafe {
 
-
     private static native void registerNatives();
-
 
     static {
         registerNatives();
         sun.reflect.Reflection.registerMethodsToFilter(Unsafe.class, "getUnsafe");
     }
 
-
     private Unsafe() {
     }
 
-
     private static final Unsafe theUnsafe = new Unsafe();
-
 
     /**
      * Provides the caller with the capability of performing unsafe operations.
@@ -102,7 +93,6 @@ public final class Unsafe {
 
     /// peek and poke operations
     /// (compilers should optimize these to memory ops)
-
     // These work on object fields in the Java heap.
     // They will not work on elements of packed arrays.
     /**
@@ -160,7 +150,6 @@ public final class Unsafe {
      */
     public native int getInt(Object o, long offset);
 
-
     /**
      * Stores a value into a given Java variable.
      * <p>
@@ -182,14 +171,12 @@ public final class Unsafe {
      */
     public native void putInt(Object o, long offset, int x);
 
-
     /**
      * Fetches a reference value from a given Java variable.
      *
      * @see #getInt(Object, long)
      */
     public native Object getObject(Object o, long offset);
-
 
     /**
      * Stores a reference value into a given Java variable.
@@ -203,90 +190,75 @@ public final class Unsafe {
      */
     public native void putObject(Object o, long offset, Object x);
 
-
     /**
      * @see #getInt(Object, long)
      */
     public native boolean getBoolean(Object o, long offset);
-
 
     /**
      * @see #putInt(Object, int, int)
      */
     public native void putBoolean(Object o, long offset, boolean x);
 
-
     /**
      * @see #getInt(Object, long)
      */
     public native byte getByte(Object o, long offset);
-
 
     /**
      * @see #putInt(Object, int, int)
      */
     public native void putByte(Object o, long offset, byte x);
 
-
     /**
      * @see #getInt(Object, long)
      */
     public native short getShort(Object o, long offset);
-
 
     /**
      * @see #putInt(Object, int, int)
      */
     public native void putShort(Object o, long offset, short x);
 
-
     /**
      * @see #getInt(Object, long)
      */
     public native char getChar(Object o, long offset);
-
 
     /**
      * @see #putInt(Object, int, int)
      */
     public native void putChar(Object o, long offset, char x);
 
-
     /**
      * @see #getInt(Object, long)
      */
     public native long getLong(Object o, long offset);
-
 
     /**
      * @see #putInt(Object, int, int)
      */
     public native void putLong(Object o, long offset, long x);
 
-
     /**
      * @see #getInt(Object, long)
      */
     public native float getFloat(Object o, long offset);
-
 
     /**
      * @see #putInt(Object, int, int)
      */
     public native void putFloat(Object o, long offset, float x);
 
-
     /**
      * @see #getInt(Object, long)
      */
     public native double getDouble(Object o, long offset);
 
-
     /**
      * @see #putInt(Object, int, int)
      */
     public native void putDouble(Object o, long offset, double x);
-
 
     /**
      * This method, like all others with 32-bit offsets, was native in a
@@ -302,7 +274,6 @@ public final class Unsafe {
         return getInt(o, (long) offset);
     }
 
-
     /**
      * @deprecated As of 1.4.1, cast the 32-bit offset argument to a long. See
      * {@link #staticFieldOffset}.
@@ -311,7 +282,6 @@ public final class Unsafe {
     public void putInt(Object o, int offset, int x) {
         putInt(o, (long) offset, x);
     }
-
 
     /**
      * @deprecated As of 1.4.1, cast the 32-bit offset argument to a long. See
@@ -322,7 +292,6 @@ public final class Unsafe {
         return getObject(o, (long) offset);
     }
 
-
     /**
      * @deprecated As of 1.4.1, cast the 32-bit offset argument to a long. See
      * {@link #staticFieldOffset}.
@@ -331,7 +300,6 @@ public final class Unsafe {
     public void putObject(Object o, int offset, Object x) {
         putObject(o, (long) offset, x);
     }
-
 
     /**
      * @deprecated As of 1.4.1, cast the 32-bit offset argument to a long. See
@@ -342,7 +310,6 @@ public final class Unsafe {
         return getBoolean(o, (long) offset);
     }
 
-
     /**
      * @deprecated As of 1.4.1, cast the 32-bit offset argument to a long. See
      * {@link #staticFieldOffset}.
@@ -351,7 +318,6 @@ public final class Unsafe {
     public void putBoolean(Object o, int offset, boolean x) {
         putBoolean(o, (long) offset, x);
     }
-
 
     /**
      * @deprecated As of 1.4.1, cast the 32-bit offset argument to a long. See
@@ -362,7 +328,6 @@ public final class Unsafe {
         return getByte(o, (long) offset);
     }
 
-
     /**
      * @deprecated As of 1.4.1, cast the 32-bit offset argument to a long. See
      * {@link #staticFieldOffset}.
@@ -371,7 +336,6 @@ public final class Unsafe {
     public void putByte(Object o, int offset, byte x) {
         putByte(o, (long) offset, x);
     }
-
 
     /**
      * @deprecated As of 1.4.1, cast the 32-bit offset argument to a long. See
@@ -382,7 +346,6 @@ public final class Unsafe {
         return getShort(o, (long) offset);
     }
 
-
     /**
      * @deprecated As of 1.4.1, cast the 32-bit offset argument to a long. See
      * {@link #staticFieldOffset}.
@@ -391,7 +354,6 @@ public final class Unsafe {
     public void putShort(Object o, int offset, short x) {
         putShort(o, (long) offset, x);
     }
-
 
     /**
      * @deprecated As of 1.4.1, cast the 32-bit offset argument to a long. See
@@ -402,7 +364,6 @@ public final class Unsafe {
         return getChar(o, (long) offset);
     }
 
-
     /**
      * @deprecated As of 1.4.1, cast the 32-bit offset argument to a long. See
      * {@link #staticFieldOffset}.
@@ -411,7 +372,6 @@ public final class Unsafe {
     public void putChar(Object o, int offset, char x) {
         putChar(o, (long) offset, x);
     }
-
 
     /**
      * @deprecated As of 1.4.1, cast the 32-bit offset argument to a long. See
@@ -422,7 +382,6 @@ public final class Unsafe {
         return getLong(o, (long) offset);
     }
 
-
     /**
      * @deprecated As of 1.4.1, cast the 32-bit offset argument to a long. See
      * {@link #staticFieldOffset}.
@@ -431,7 +390,6 @@ public final class Unsafe {
     public void putLong(Object o, int offset, long x) {
         putLong(o, (long) offset, x);
     }
-
 
     /**
      * @deprecated As of 1.4.1, cast the 32-bit offset argument to a long. See
@@ -442,7 +400,6 @@ public final class Unsafe {
         return getFloat(o, (long) offset);
     }
 
-
     /**
      * @deprecated As of 1.4.1, cast the 32-bit offset argument to a long. See
      * {@link #staticFieldOffset}.
@@ -452,7 +409,6 @@ public final class Unsafe {
         putFloat(o, (long) offset, x);
     }
 
-
     /**
      * @deprecated As of 1.4.1, cast the 32-bit offset argument to a long. See
      * {@link #staticFieldOffset}.
@@ -461,7 +417,6 @@ public final class Unsafe {
     public double getDouble(Object o, int offset) {
         return getDouble(o, (long) offset);
     }
-
 
     /**
      * @deprecated As of 1.4.1, cast the 32-bit offset argument to a long. See
@@ -473,7 +428,6 @@ public final class Unsafe {
     }
 
     // These work on values in the C heap.
-
     /**
      * Fetches a value from a given memory address. If the address is zero, or
      * does not point into a block obtained from {@link #allocateMemory}, the
@@ -482,7 +436,6 @@ public final class Unsafe {
      * @see #allocateMemory
      */
     public native byte getByte(long address);
-
 
     /**
      * Stores a value into a given memory address. If the address is zero, or
@@ -493,78 +446,65 @@ public final class Unsafe {
      */
     public native void putByte(long address, byte x);
 
-
     /**
      * @see #getByte(long)
      */
     public native short getShort(long address);
-
 
     /**
      * @see #putByte(long, byte)
      */
     public native void putShort(long address, short x);
 
-
     /**
      * @see #getByte(long)
      */
     public native char getChar(long address);
-
 
     /**
      * @see #putByte(long, byte)
      */
     public native void putChar(long address, char x);
 
-
     /**
      * @see #getByte(long)
      */
     public native int getInt(long address);
-
 
     /**
      * @see #putByte(long, byte)
      */
     public native void putInt(long address, int x);
 
-
     /**
      * @see #getByte(long)
      */
     public native long getLong(long address);
-
 
     /**
      * @see #putByte(long, byte)
      */
     public native void putLong(long address, long x);
 
-
     /**
      * @see #getByte(long)
      */
     public native float getFloat(long address);
-
 
     /**
      * @see #putByte(long, byte)
      */
     public native void putFloat(long address, float x);
 
-
     /**
      * @see #getByte(long)
      */
     public native double getDouble(long address);
 
-
     /**
      * @see #putByte(long, byte)
      */
     public native void putDouble(long address, double x);
-
 
     /**
      * Fetches a native pointer from a given memory address. If the address is
@@ -583,7 +523,6 @@ public final class Unsafe {
      */
     public native long getAddress(long address);
 
-
     /**
      * Stores a native pointer into a given memory address. If the address is
      * zero, or does not point into a block obtained from {@link
@@ -598,7 +537,6 @@ public final class Unsafe {
     public native void putAddress(long address, long x);
 
     /// wrappers for malloc, realloc, free:
-
     /**
      * Allocates a new block of native memory, of the given size in bytes. The
      * contents of the memory are uninitialized; they will generally be garbage.
@@ -615,7 +553,6 @@ public final class Unsafe {
      * @see #putByte(long, byte)
      */
     public native long allocateMemory(long bytes);
-
 
     /**
      * Resizes a new block of native memory, to the given size in bytes. The
@@ -635,7 +572,6 @@ public final class Unsafe {
      * @see #allocateMemory
      */
     public native long reallocateMemory(long address, long bytes);
-
 
     /**
      * Sets all bytes in a given block of memory to a fixed value (usually
@@ -658,7 +594,6 @@ public final class Unsafe {
      */
     public native void setMemory(Object o, long offset, long bytes, byte value);
 
-
     /**
      * Sets all bytes in a given block of memory to a fixed value (usually
      * zero). This provides a <em>single-register</em> addressing mode, as
@@ -670,7 +605,6 @@ public final class Unsafe {
     public void setMemory(long address, long bytes, byte value) {
         setMemory(null, address, bytes, value);
     }
-
 
     /**
      * Sets all bytes in a given block of memory to a copy of another block.
@@ -691,9 +625,8 @@ public final class Unsafe {
      * @since 1.7
      */
     public native void copyMemory(Object srcBase, long srcOffset,
-                                  Object destBase, long destOffset,
-                                  long bytes);
-
+            Object destBase, long destOffset,
+            long bytes);
 
     /**
      * Sets all bytes in a given block of memory to a copy of another block.
@@ -707,7 +640,6 @@ public final class Unsafe {
         copyMemory(null, srcAddress, null, destAddress, bytes);
     }
 
-
     /**
      * Disposes of a block of native memory, as obtained from {@link
      * #allocateMemory} or {@link #reallocateMemory}. The address passed to this
@@ -718,14 +650,12 @@ public final class Unsafe {
     public native void freeMemory(long address);
 
     /// random queries
-
     /**
      * This constant differs from all results that will ever be returned from
      * {@link #staticFieldOffset}, {@link #objectFieldOffset}, or
      * {@link #arrayBaseOffset}.
      */
     public static final int INVALID_FIELD_OFFSET = -1;
-
 
     /**
      * Returns the offset of a field, truncated to 32 bits. This method is
@@ -750,7 +680,6 @@ public final class Unsafe {
             return (int) objectFieldOffset(f);
         }
     }
-
 
     /**
      * Returns the base address for accessing some static field in the given
@@ -781,7 +710,6 @@ public final class Unsafe {
         return null;
     }
 
-
     /**
      * Report the location of a given field in the storage allocation of its
      * class. Do not expect to perform any sort of arithmetic on this offset; it
@@ -805,7 +733,6 @@ public final class Unsafe {
      */
     public native long staticFieldOffset(Field f);
 
-
     /**
      * Report the location of a given static field, in conjunction with {@link
      * #staticFieldBase}.
@@ -828,7 +755,6 @@ public final class Unsafe {
      */
     public native long objectFieldOffset(Field f);
 
-
     /**
      * Report the location of a given static field, in conjunction with {@link
      * #staticFieldOffset}.
@@ -842,7 +768,6 @@ public final class Unsafe {
      */
     public native Object staticFieldBase(Field f);
 
-
     /**
      * Detect if the given class may need to be initialized. This is often
      * needed in conjunction with obtaining the static field base of a class.
@@ -852,13 +777,11 @@ public final class Unsafe {
      */
     public native boolean shouldBeInitialized(Class<?> c);
 
-
     /**
      * Ensure the given class has been initialized. This is often needed in
      * conjunction with obtaining the static field base of a class.
      */
     public native void ensureClassInitialized(Class c);
-
 
     /**
      * Report the offset of the first element in the storage allocation of a
@@ -872,69 +795,59 @@ public final class Unsafe {
      */
     public native int arrayBaseOffset(Class arrayClass);
 
-
     /**
      * The value of {@code arrayBaseOffset(boolean[].class)}
      */
     public static final int ARRAY_BOOLEAN_BASE_OFFSET
-        = theUnsafe.arrayBaseOffset(boolean[].class);
-
+            = theUnsafe.arrayBaseOffset(boolean[].class);
 
     /**
      * The value of {@code arrayBaseOffset(byte[].class)}
      */
     public static final int ARRAY_BYTE_BASE_OFFSET
-        = theUnsafe.arrayBaseOffset(byte[].class);
-
+            = theUnsafe.arrayBaseOffset(byte[].class);
 
     /**
      * The value of {@code arrayBaseOffset(short[].class)}
      */
     public static final int ARRAY_SHORT_BASE_OFFSET
-        = theUnsafe.arrayBaseOffset(short[].class);
-
+            = theUnsafe.arrayBaseOffset(short[].class);
 
     /**
      * The value of {@code arrayBaseOffset(char[].class)}
      */
     public static final int ARRAY_CHAR_BASE_OFFSET
-        = theUnsafe.arrayBaseOffset(char[].class);
-
+            = theUnsafe.arrayBaseOffset(char[].class);
 
     /**
      * The value of {@code arrayBaseOffset(int[].class)}
      */
     public static final int ARRAY_INT_BASE_OFFSET
-        = theUnsafe.arrayBaseOffset(int[].class);
-
+            = theUnsafe.arrayBaseOffset(int[].class);
 
     /**
      * The value of {@code arrayBaseOffset(long[].class)}
      */
     public static final int ARRAY_LONG_BASE_OFFSET
-        = theUnsafe.arrayBaseOffset(long[].class);
-
+            = theUnsafe.arrayBaseOffset(long[].class);
 
     /**
      * The value of {@code arrayBaseOffset(float[].class)}
      */
     public static final int ARRAY_FLOAT_BASE_OFFSET
-        = theUnsafe.arrayBaseOffset(float[].class);
-
+            = theUnsafe.arrayBaseOffset(float[].class);
 
     /**
      * The value of {@code arrayBaseOffset(double[].class)}
      */
     public static final int ARRAY_DOUBLE_BASE_OFFSET
-        = theUnsafe.arrayBaseOffset(double[].class);
-
+            = theUnsafe.arrayBaseOffset(double[].class);
 
     /**
      * The value of {@code arrayBaseOffset(Object[].class)}
      */
     public static final int ARRAY_OBJECT_BASE_OFFSET
-        = theUnsafe.arrayBaseOffset(Object[].class);
-
+            = theUnsafe.arrayBaseOffset(Object[].class);
 
     /**
      * Report the scale factor for addressing elements in the storage allocation
@@ -949,69 +862,59 @@ public final class Unsafe {
      */
     public native int arrayIndexScale(Class arrayClass);
 
-
     /**
      * The value of {@code arrayIndexScale(boolean[].class)}
      */
     public static final int ARRAY_BOOLEAN_INDEX_SCALE
-        = theUnsafe.arrayIndexScale(boolean[].class);
-
+            = theUnsafe.arrayIndexScale(boolean[].class);
 
     /**
      * The value of {@code arrayIndexScale(byte[].class)}
      */
     public static final int ARRAY_BYTE_INDEX_SCALE
-        = theUnsafe.arrayIndexScale(byte[].class);
-
+            = theUnsafe.arrayIndexScale(byte[].class);
 
     /**
      * The value of {@code arrayIndexScale(short[].class)}
      */
     public static final int ARRAY_SHORT_INDEX_SCALE
-        = theUnsafe.arrayIndexScale(short[].class);
-
+            = theUnsafe.arrayIndexScale(short[].class);
 
     /**
      * The value of {@code arrayIndexScale(char[].class)}
      */
     public static final int ARRAY_CHAR_INDEX_SCALE
-        = theUnsafe.arrayIndexScale(char[].class);
-
+            = theUnsafe.arrayIndexScale(char[].class);
 
     /**
      * The value of {@code arrayIndexScale(int[].class)}
      */
     public static final int ARRAY_INT_INDEX_SCALE
-        = theUnsafe.arrayIndexScale(int[].class);
-
+            = theUnsafe.arrayIndexScale(int[].class);
 
     /**
      * The value of {@code arrayIndexScale(long[].class)}
      */
     public static final int ARRAY_LONG_INDEX_SCALE
-        = theUnsafe.arrayIndexScale(long[].class);
-
+            = theUnsafe.arrayIndexScale(long[].class);
 
     /**
      * The value of {@code arrayIndexScale(float[].class)}
      */
     public static final int ARRAY_FLOAT_INDEX_SCALE
-        = theUnsafe.arrayIndexScale(float[].class);
-
+            = theUnsafe.arrayIndexScale(float[].class);
 
     /**
      * The value of {@code arrayIndexScale(double[].class)}
      */
     public static final int ARRAY_DOUBLE_INDEX_SCALE
-        = theUnsafe.arrayIndexScale(double[].class);
-
+            = theUnsafe.arrayIndexScale(double[].class);
 
     /**
      * The value of {@code arrayIndexScale(Object[].class)}
      */
     public static final int ARRAY_OBJECT_INDEX_SCALE
-        = theUnsafe.arrayIndexScale(Object[].class);
-
+            = theUnsafe.arrayIndexScale(Object[].class);
 
     /**
      * Report the size in bytes of a native pointer, as stored via {@link
@@ -1021,12 +924,10 @@ public final class Unsafe {
      */
     public native int addressSize();
 
-
     /**
      * The value of {@code addressSize()}
      */
     public static final int ADDRESS_SIZE = theUnsafe.addressSize();
-
 
     /**
      * Report the size in bytes of a native memory page (whatever that is). This
@@ -1034,16 +935,14 @@ public final class Unsafe {
      */
     public native int pageSize();
 
-
     /// random trusted operations from JNI:
     /**
      * Tell the VM to define a class, without security checks. By default, the
      * class loader and protection domain come from the caller's class.
      */
     public native Class defineClass(String name, byte[] b, int off, int len,
-                                    ClassLoader loader,
-                                    ProtectionDomain protectionDomain);
-
+            ClassLoader loader,
+            ProtectionDomain protectionDomain);
 
     /**
      * @deprecated Use defineClass(String, byte[], int, int, ClassLoader,
@@ -1052,7 +951,6 @@ public final class Unsafe {
     @Deprecated
     @CallerSensitive
     public native Class defineClass(String name, byte[] b, int off, int len);
-
 
     /**
      * Define a class but do not make it known to the class loader or system
@@ -1079,27 +977,23 @@ public final class Unsafe {
      */
     public native Class defineAnonymousClass(Class hostClass, byte[] data, Object[] cpPatches);
 
-
     /**
      * Allocate an instance but do not run any constructor. Initializes the
      * class if it has not yet been.
      */
     public native Object allocateInstance(Class cls)
-        throws InstantiationException;
-
+            throws InstantiationException;
 
     /**
      * Lock the object. It must get unlocked via {@link #monitorExit}.
      */
     public native void monitorEnter(Object o);
 
-
     /**
      * Unlock the object. It must have been locked via {@link
      * #monitorEnter}.
      */
     public native void monitorExit(Object o);
-
 
     /**
      * Tries to lock the object. Returns true or false to indicate whether the
@@ -1108,12 +1002,10 @@ public final class Unsafe {
      */
     public native boolean tryMonitorEnter(Object o);
 
-
     /**
      * Throw the exception without telling the verifier.
      */
     public native void throwException(Throwable ee);
-
 
     /**
      * Atomically update Java variable to <tt>x</tt> if it is currently holding
@@ -1122,9 +1014,8 @@ public final class Unsafe {
      * @return <tt>true</tt> if successful
      */
     public final native boolean compareAndSwapObject(Object o, long offset,
-                                                     Object expected,
-                                                     Object x);
-
+            Object expected,
+            Object x);
 
     /**
      * Atomically update Java variable to <tt>x</tt> if it is currently holding
@@ -1133,9 +1024,8 @@ public final class Unsafe {
      * @return <tt>true</tt> if successful
      */
     public final native boolean compareAndSwapInt(Object o, long offset,
-                                                  int expected,
-                                                  int x);
-
+            int expected,
+            int x);
 
     /**
      * Atomically update Java variable to <tt>x</tt> if it is currently holding
@@ -1144,16 +1034,14 @@ public final class Unsafe {
      * @return <tt>true</tt> if successful
      */
     public final native boolean compareAndSwapLong(Object o, long offset,
-                                                   long expected,
-                                                   long x);
-
+            long expected,
+            long x);
 
     /**
      * Fetches a reference value from a given Java variable, with volatile load
      * semantics. Otherwise identical to {@link #getObject(Object, long)}
      */
     public native Object getObjectVolatile(Object o, long offset);
-
 
     /**
      * Stores a reference value into a given Java variable, with volatile store
@@ -1162,102 +1050,85 @@ public final class Unsafe {
      */
     public native void putObjectVolatile(Object o, long offset, Object x);
 
-
     /**
      * Volatile version of {@link #getInt(Object, long)}
      */
     public native int getIntVolatile(Object o, long offset);
-
 
     /**
      * Volatile version of {@link #putInt(Object, long, int)}
      */
     public native void putIntVolatile(Object o, long offset, int x);
 
-
     /**
      * Volatile version of {@link #getBoolean(Object, long)}
      */
     public native boolean getBooleanVolatile(Object o, long offset);
-
 
     /**
      * Volatile version of {@link #putBoolean(Object, long, boolean)}
      */
     public native void putBooleanVolatile(Object o, long offset, boolean x);
 
-
     /**
      * Volatile version of {@link #getByte(Object, long)}
      */
     public native byte getByteVolatile(Object o, long offset);
-
 
     /**
      * Volatile version of {@link #putByte(Object, long, byte)}
      */
     public native void putByteVolatile(Object o, long offset, byte x);
 
-
     /**
      * Volatile version of {@link #getShort(Object, long)}
      */
     public native short getShortVolatile(Object o, long offset);
-
 
     /**
      * Volatile version of {@link #putShort(Object, long, short)}
      */
     public native void putShortVolatile(Object o, long offset, short x);
 
-
     /**
      * Volatile version of {@link #getChar(Object, long)}
      */
     public native char getCharVolatile(Object o, long offset);
-
 
     /**
      * Volatile version of {@link #putChar(Object, long, char)}
      */
     public native void putCharVolatile(Object o, long offset, char x);
 
-
     /**
      * Volatile version of {@link #getLong(Object, long)}
      */
     public native long getLongVolatile(Object o, long offset);
-
 
     /**
      * Volatile version of {@link #putLong(Object, long, long)}
      */
     public native void putLongVolatile(Object o, long offset, long x);
 
-
     /**
      * Volatile version of {@link #getFloat(Object, long)}
      */
     public native float getFloatVolatile(Object o, long offset);
-
 
     /**
      * Volatile version of {@link #putFloat(Object, long, float)}
      */
     public native void putFloatVolatile(Object o, long offset, float x);
 
-
     /**
      * Volatile version of {@link #getDouble(Object, long)}
      */
     public native double getDoubleVolatile(Object o, long offset);
 
-
     /**
      * Volatile version of {@link #putDouble(Object, long, double)}
      */
     public native void putDoubleVolatile(Object o, long offset, double x);
-
 
     /**
      * Version of {@link #putObjectVolatile(Object, long, Object)} that does not
@@ -1268,18 +1139,15 @@ public final class Unsafe {
      */
     public native void putOrderedObject(Object o, long offset, Object x);
 
-
     /**
      * Ordered/Lazy version of {@link #putIntVolatile(Object, long, int)}
      */
     public native void putOrderedInt(Object o, long offset, int x);
 
-
     /**
      * Ordered/Lazy version of {@link #putLongVolatile(Object, long, long)}
      */
     public native void putOrderedLong(Object o, long offset, long x);
-
 
     /**
      * Unblock the given thread blocked on <tt>park</tt>, or, if it is not
@@ -1295,7 +1163,6 @@ public final class Unsafe {
      */
     public native void unpark(Object thread);
 
-
     /**
      * Block current thread, returning when a balancing
      * <tt>unpark</tt> occurs, or a balancing <tt>unpark</tt> has already
@@ -1307,7 +1174,6 @@ public final class Unsafe {
      * elsewhere.
      */
     public native void park(boolean isAbsolute, long time);
-
 
     /**
      * Gets the load average in the system run queue assigned to the available
@@ -1325,4 +1191,3 @@ public final class Unsafe {
     public native int getLoadAverage(double[] loadavg, int nelems);
 
 }
-

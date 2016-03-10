@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind.annotation.adapters;
-
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlValue;
-
 
 /**
  *
@@ -28,13 +24,10 @@ import javax.xml.bind.annotation.XmlValue;
  */
 public class Entity {
 
-
     @XmlAttribute(required = true)
     private long id;
-
 
     @XmlValue
     private String name;
 
 }
-

@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
-
 
 /**
  *
@@ -28,7 +24,6 @@ import javax.xml.bind.annotation.XmlValue;
  */
 @XmlRootElement
 public class UnwrappedBoolean extends UnwrappedValue<Boolean> {
-
 
     public static UnwrappedBoolean newInstance(final Boolean rawValue) {
 
@@ -39,14 +34,12 @@ public class UnwrappedBoolean extends UnwrappedValue<Boolean> {
         return newInstance(UnwrappedBoolean.class, rawValue);
     }
 
-
     @XmlValue
     @Override
     public Boolean getRawValue() {
 
         return super.getRawValue();
     }
-
 
     @Override
     public void setRawValue(final Boolean rawValue) {
@@ -55,4 +48,3 @@ public class UnwrappedBoolean extends UnwrappedValue<Boolean> {
     }
 
 }
-

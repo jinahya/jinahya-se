@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util.function;
-
 
 /**
  * Represents a predicate (boolean-valued function) of one boolean-valued
@@ -31,7 +28,6 @@ package com.github.jinahya.util.function;
  */
 public interface BooleanPredicate {
 
-
     /**
      * Evaluates this predicate on the given argument.
      *
@@ -41,7 +37,6 @@ public interface BooleanPredicate {
      * otherwise {@code false}
      */
     boolean test(boolean value);
-
 
     /**
      * Returns a predicate that represents the logical negation of this
@@ -54,7 +49,6 @@ public interface BooleanPredicate {
 
         return v -> !test(v);
     }
-
 
     /**
      * Returns a composed predicate that represents a short-circuiting logical
@@ -78,7 +72,6 @@ public interface BooleanPredicate {
         return v -> test(v) && other.test(v);
     }
 
-
     /**
      * Returns a composed predicate that represents a short-circuiting logical
      * OR of this predicate and another. When evaluating the composed predicate,
@@ -101,6 +94,4 @@ public interface BooleanPredicate {
         return v -> test(v) || other.test(v);
     }
 
-
 }
-

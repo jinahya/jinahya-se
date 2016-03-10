@@ -13,23 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.nio.channels;
-
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.WritableByteChannel;
 import java.security.MessageDigest;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class WritableDigestChannel extends WritableFilterChannel {
-
 
     /**
      * Creates a new instance.
@@ -38,13 +33,12 @@ public class WritableDigestChannel extends WritableFilterChannel {
      * @param digest the message digest to associate with this channel
      */
     public WritableDigestChannel(final WritableByteChannel channel,
-                                 final MessageDigest digest) {
+            final MessageDigest digest) {
 
         super(channel);
 
         this.digest = digest;
     }
-
 
     @Override
     public int write(final ByteBuffer src) throws IOException {
@@ -62,20 +56,16 @@ public class WritableDigestChannel extends WritableFilterChannel {
         }
     }
 
-
     public MessageDigest getDigest() {
 
         return digest;
     }
-
 
     public void setDigest(final MessageDigest digest) {
 
         this.digest = digest;
     }
 
-
     protected MessageDigest digest;
 
 }
-

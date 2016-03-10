@@ -13,29 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import org.apache.commons.lang3.RandomStringUtils;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class UnwrappedStringTest
-    extends UnwrappedValueTest<UnwrappedString, String> {
-
+        extends UnwrappedValueTest<UnwrappedString, String> {
 
     public UnwrappedStringTest() {
 
         super(UnwrappedString.class);
     }
-
 
     @Override
     protected String generateRawValue() {
@@ -46,4 +40,3 @@ public class UnwrappedStringTest
     }
 
 }
-

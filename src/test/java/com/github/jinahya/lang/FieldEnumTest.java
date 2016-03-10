@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang;
-
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -26,7 +23,6 @@ import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
@@ -35,13 +31,11 @@ import org.testng.annotations.Test;
  */
 public abstract class FieldEnumTest<E extends Enum<E> & FieldEnum<E, F>, F> {
 
-
     /**
      * logger.
      */
     private static final Logger logger
-        = LoggerFactory.getLogger(FieldEnumTest.class);
-
+            = LoggerFactory.getLogger(FieldEnumTest.class);
 
     public FieldEnumTest(final Class<E> enumType, final Class<F> fieldType) {
 
@@ -53,7 +47,6 @@ public abstract class FieldEnumTest<E extends Enum<E> & FieldEnum<E, F>, F> {
         this.enumType = enumType;
         this.fieldType = fieldType;
     }
-
 
     @Test
     public void assertUniqueFieldValues() {
@@ -67,12 +60,10 @@ public abstract class FieldEnumTest<E extends Enum<E> & FieldEnum<E, F>, F> {
         }
     }
 
-
     /**
      * enum type.
      */
     protected final Class<E> enumType;
-
 
     /**
      * field type.
@@ -80,4 +71,3 @@ public abstract class FieldEnumTest<E extends Enum<E> & FieldEnum<E, F>, F> {
     protected final Class<F> fieldType;
 
 }
-

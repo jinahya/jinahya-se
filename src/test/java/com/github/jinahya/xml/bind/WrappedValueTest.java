@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -32,7 +29,6 @@ import javax.xml.transform.stream.StreamResult;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
@@ -41,7 +37,6 @@ import org.testng.annotations.Test;
  */
 public abstract class WrappedValueTest<W extends WrappedValue<R>, R> {
 
-
     public WrappedValueTest(final Class<W> valueType) {
 
         super();
@@ -49,24 +44,21 @@ public abstract class WrappedValueTest<W extends WrappedValue<R>, R> {
         this.valueType = Objects.requireNonNull(valueType, "valueType");
     }
 
-
     protected abstract R generateRawValue();
-
 
     @Test
     public void testSetRawValue()
-        throws InstantiationException, IllegalAccessException {
+            throws InstantiationException, IllegalAccessException {
 
         final W value = valueType.newInstance();
 
         value.setRawValue(generateRawValue());
     }
 
-
     @Test(invocationCount = 1)
     public void testXml()
-        throws JAXBException, InstantiationException, IllegalAccessException,
-               IOException {
+            throws JAXBException, InstantiationException, IllegalAccessException,
+            IOException {
 
         final JAXBContext context = JAXBContext.newInstance(valueType);
 
@@ -83,7 +75,7 @@ public abstract class WrappedValueTest<W extends WrappedValue<R>, R> {
 
         final byte[] bytes = baos.toByteArray();
         System.out.println(new String(
-            bytes, (String) marshaller.getProperty(Marshaller.JAXB_ENCODING)));
+                bytes, (String) marshaller.getProperty(Marshaller.JAXB_ENCODING)));
 
         final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
 
@@ -94,7 +86,6 @@ public abstract class WrappedValueTest<W extends WrappedValue<R>, R> {
         Assert.assertEquals(actual, expected);
     }
 
-
     @Test
     public void testXsd() throws JAXBException, IOException {
 
@@ -104,8 +95,8 @@ public abstract class WrappedValueTest<W extends WrappedValue<R>, R> {
 
             @Override
             public Result createOutput(final String namespaceUri,
-                                       final String suggestedFileName)
-                throws IOException {
+                    final String suggestedFileName)
+                    throws IOException {
 
                 return new StreamResult(System.out) {
 
@@ -120,8 +111,6 @@ public abstract class WrappedValueTest<W extends WrappedValue<R>, R> {
         });
     }
 
-
     protected final Class<W> valueType;
 
 }
-

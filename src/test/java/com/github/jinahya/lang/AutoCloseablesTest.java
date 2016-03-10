@@ -13,16 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang;
-
 
 import static java.lang.invoke.MethodHandles.lookup;
 import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
 import org.testng.annotations.Test;
-
 
 /**
  *
@@ -30,12 +26,9 @@ import org.testng.annotations.Test;
  */
 public class AutoCloseablesTest {
 
-
     private static final Logger logger = getLogger(lookup().lookupClass());
 
-
     private static class NotAutoCloseable {
-
 
         public void notClose() {
 
@@ -44,17 +37,15 @@ public class AutoCloseablesTest {
 
     }
 
-
     @Test
     public static void of() throws Exception {
 
         final AutoCloseable autoCloseable = AutoCloseables.of(
-            AutoCloseablesTest.class.getClassLoader(), new NotAutoCloseable(),
-            o -> o.notClose());
+                AutoCloseablesTest.class.getClassLoader(), new NotAutoCloseable(),
+                o -> o.notClose());
 
         try (AutoCloseable resource = autoCloseable) {
         }
     }
 
 }
-

@@ -13,18 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class CalendarPeriodOfDayTest
-    extends CalendarIntFieldEnumTest<CalendarPeriodOfDay> {
-
+        extends CalendarIntFieldEnumTest<CalendarPeriodOfDay> {
 
     public CalendarPeriodOfDayTest() {
 
@@ -32,4 +28,3 @@ public class CalendarPeriodOfDayTest
     }
 
 }
-

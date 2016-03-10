@@ -13,21 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang.reflect;
-
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class Methods {
-
 
     /**
      * Invokes specified method, on the specified object with the specified
@@ -46,7 +41,7 @@ public final class Methods {
      * @see Method#invoke(java.lang.Object, java.lang.Object...)
      */
     public static Object invokeUnchecked(final Method method, final Object obj,
-                                         final Object... args) {
+            final Object... args) {
 
         if (method == null) {
             throw new NullPointerException("null method");
@@ -65,11 +60,9 @@ public final class Methods {
         }
     }
 
-
     private Methods() {
 
         super();
     }
 
 }
-

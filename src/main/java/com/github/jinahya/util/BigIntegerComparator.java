@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util;
 
-
 import java.math.BigInteger;
-
 
 /**
  *
@@ -28,4 +24,3 @@ import java.math.BigInteger;
 public class BigIntegerComparator extends NumberComparator<BigInteger> {
 
 }
-

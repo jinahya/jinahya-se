@@ -13,22 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.sql;
-
 
 import com.github.jinahya.lang.FieldEnum;
 import com.github.jinahya.lang.FieldEnums;
 import java.sql.DatabaseMetaData;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum DatabaseMetaDataForeignKeyRule
-    implements FieldEnum<DatabaseMetaDataForeignKeyRule, Integer> {
+        implements FieldEnum<DatabaseMetaDataForeignKeyRule, Integer> {
 
     /**
      * A constant for {@link DatabaseMetaData#importedKeyCascade}.
@@ -55,27 +51,23 @@ public enum DatabaseMetaDataForeignKeyRule
      */
     importedKeySetDefault(DatabaseMetaData.importedKeySetDefault); // 4
 
-
     public static DatabaseMetaDataForeignKeyRule fromFieldValue(
-        final int fieldValue) {
+            final int fieldValue) {
 
         return FieldEnums.fromFieldValue(
-            DatabaseMetaDataForeignKeyRule.class, Integer.valueOf(fieldValue));
+                DatabaseMetaDataForeignKeyRule.class, Integer.valueOf(fieldValue));
     }
-
 
     public static Integer[] fieldValues() {
 
         return FieldEnums.fieldValues(DatabaseMetaDataForeignKeyRule.class,
-                                      Integer.class);
+                Integer.class);
     }
-
 
     private DatabaseMetaDataForeignKeyRule(final int fieldValue) {
 
         this.fieldValue = fieldValue;
     }
-
 
     @Override
     public Integer fieldValue() {
@@ -83,11 +75,9 @@ public enum DatabaseMetaDataForeignKeyRule
         return fieldValue;
     }
 
-
     /**
      * field value.
      */
     private final int fieldValue;
 
 }
-

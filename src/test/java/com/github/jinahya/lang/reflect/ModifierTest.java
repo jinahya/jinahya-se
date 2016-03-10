@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang.reflect;
-
 
 import com.github.jinahya.lang.IntFieldEnum;
 import java.util.Arrays;
@@ -25,22 +22,19 @@ import java.util.stream.Collectors;
 import static org.testng.Assert.assertEquals;
 import org.testng.annotations.Test;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class ModifierTest {
 
-
     @Test
     public static void assertUniqueFieldValues() {
 
         final int[] array = IntFieldEnum.fieldValues(Modifier.class);
         final Set<Integer> set
-            = Arrays.stream(array).boxed().collect(Collectors.toSet());
+                = Arrays.stream(array).boxed().collect(Collectors.toSet());
         assertEquals(set.size(), Modifier.values().length);
     }
 
 }
-

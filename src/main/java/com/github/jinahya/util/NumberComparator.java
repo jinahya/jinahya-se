@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util;
-
 
 /**
  *
@@ -24,7 +21,6 @@ package com.github.jinahya.util;
  * @param <T>
  */
 public class NumberComparator<T extends Number & Comparable<? super T>>
-    extends ComparableComparator<T> {
+        extends ComparableComparator<T> {
 
 }
-

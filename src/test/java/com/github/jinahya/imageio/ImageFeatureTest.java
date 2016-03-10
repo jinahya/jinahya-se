@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.imageio;
-
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.AnnotationIntrospector;
@@ -39,14 +36,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <T> image feature type parameter
  */
 abstract class ImageFeatureTest<T extends ImageFeature<T>> {
-
 
     /**
      * Creates a new instance.
@@ -60,15 +55,14 @@ abstract class ImageFeatureTest<T extends ImageFeature<T>> {
         this.type = Objects.requireNonNull(type, "null type");
     }
 
-
     @Test
     public void json_schema_()
-        throws JsonMappingException, JsonProcessingException {
+            throws JsonMappingException, JsonProcessingException {
 
         final ObjectMapper mapper = new ObjectMapper();
         final TypeFactory factory = TypeFactory.defaultInstance();
         final AnnotationIntrospector introspector
-            = new JaxbAnnotationIntrospector(factory);
+                = new JaxbAnnotationIntrospector(factory);
         mapper.setAnnotationIntrospector(introspector);
 
         final SchemaFactoryWrapper visitor = new SchemaFactoryWrapper();
@@ -82,7 +76,6 @@ abstract class ImageFeatureTest<T extends ImageFeature<T>> {
         logger.info("{}.schema: {}", type.getSimpleName(), string);
     }
 
-
     @Test
     public void xml_schema_() throws JAXBException, IOException {
 
@@ -92,8 +85,8 @@ abstract class ImageFeatureTest<T extends ImageFeature<T>> {
 
             @Override
             public Result createOutput(final String namespaceUri,
-                                       final String suggestedFileName)
-                throws IOException {
+                    final String suggestedFileName)
+                    throws IOException {
                 return new StreamResult(System.out) {
 
                     public String getSystemId() {
@@ -106,11 +99,8 @@ abstract class ImageFeatureTest<T extends ImageFeature<T>> {
         });
     }
 
-
     protected final Logger logger = LoggerFactory.getLogger(getClass());
-
 
     protected final Class<T> type;
 
 }
-

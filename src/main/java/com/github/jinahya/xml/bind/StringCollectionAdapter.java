@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import java.util.Collection;
 import java.util.Iterator;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
-
 
 /**
  * An abstract XmlAdapter for marshalling collections to concatenated strings
@@ -32,8 +28,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * @param <E> element type parameter
  */
 public abstract class StringCollectionAdapter<C extends Collection<E>, E>
-    extends XmlAdapter<String, C> {
-
+        extends XmlAdapter<String, C> {
 
     /**
      * Creates a new instance.
@@ -51,7 +46,6 @@ public abstract class StringCollectionAdapter<C extends Collection<E>, E>
         this.delimiter = delimiter;
     }
 
-
     @Override
     public C unmarshal(final String value) throws Exception {
 
@@ -68,7 +62,6 @@ public abstract class StringCollectionAdapter<C extends Collection<E>, E>
         return bound;
     }
 
-
     /**
      * Returns a collection for given concatenated string
      *
@@ -78,7 +71,6 @@ public abstract class StringCollectionAdapter<C extends Collection<E>, E>
      */
     protected abstract C bound(String value);
 
-
     /**
      * Parses given token to desired element.
      *
@@ -87,7 +79,6 @@ public abstract class StringCollectionAdapter<C extends Collection<E>, E>
      * @return a desired element
      */
     protected abstract E element(String token);
-
 
     @Override
     public String marshal(final C bound) throws Exception {
@@ -109,7 +100,6 @@ public abstract class StringCollectionAdapter<C extends Collection<E>, E>
         return string(appendable);
     }
 
-
     /**
      * Returns an appendable.
      *
@@ -122,7 +112,6 @@ public abstract class StringCollectionAdapter<C extends Collection<E>, E>
         return new StringBuilder();
     }
 
-
     /**
      * Prints given element.
      *
@@ -131,7 +120,6 @@ public abstract class StringCollectionAdapter<C extends Collection<E>, E>
      * @return printed value.
      */
     protected abstract String token(E element);
-
 
     /**
      * Prints given appendable.
@@ -145,11 +133,9 @@ public abstract class StringCollectionAdapter<C extends Collection<E>, E>
         return appendable.toString();
     }
 
-
     /**
      * the delimiter.
      */
     protected final String delimiter;
 
 }
-

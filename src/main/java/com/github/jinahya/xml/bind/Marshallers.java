@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -29,16 +26,13 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class Marshallers {
 
-
     private static final Map<Class<?>, Method> MARSHAL_METHODS;
-
 
     static {
         final Map<Class<?>, Method> methods = new HashMap<Class<?>, Method>();
@@ -66,7 +60,6 @@ public class Marshallers {
         MARSHAL_METHODS = Collections.unmodifiableMap(methods);
     }
 
-
     /**
      * Marshals given {@code value} to {@code output} using specified
      * {@code marshaller}.
@@ -80,10 +73,10 @@ public class Marshallers {
      * @throws JAXBException if a JAXB error occurs.
      */
     public static <T> void marshal(final Marshaller marshaller,
-                                   final Object value,
-                                   final Class<? super T> outputType,
-                                   final T output)
-        throws JAXBException {
+            final Object value,
+            final Class<? super T> outputType,
+            final T output)
+            throws JAXBException {
 
         if (marshaller == null) {
             throw new NullPointerException("marshaller");
@@ -104,7 +97,7 @@ public class Marshallers {
         final Method method = MARSHAL_METHODS.get(outputType);
         if (method == null) {
             throw new IllegalArgumentException(
-                "can't marshal to " + outputType);
+                    "can't marshal to " + outputType);
         }
 
         try {
@@ -120,7 +113,6 @@ public class Marshallers {
         }
     }
 
-
     /**
      * Marshals given {@code value} to {@code output} using specified
      * {@code context}.
@@ -134,10 +126,10 @@ public class Marshallers {
      * @throws JAXBException if a JAXB error occurs.
      */
     public static <T> void marshal(final JAXBContext context,
-                                   final Object value,
-                                   final Class<? super T> outputType,
-                                   final T output)
-        throws JAXBException {
+            final Object value,
+            final Class<? super T> outputType,
+            final T output)
+            throws JAXBException {
 
         if (context == null) {
             throw new NullPointerException("context");
@@ -145,7 +137,6 @@ public class Marshallers {
 
         marshal(context.createMarshaller(), value, outputType, output);
     }
-
 
     /**
      * Marshals {@code value} to {@code output}.
@@ -158,9 +149,9 @@ public class Marshallers {
      * @throws JAXBException if a JAXB error occurs.
      */
     public static <T> void marshal(final Object value,
-                                   final Class<? super T> outputType,
-                                   final T output)
-        throws JAXBException {
+            final Class<? super T> outputType,
+            final T output)
+            throws JAXBException {
 
         if (value == null) {
             throw new NullPointerException("value");
@@ -170,7 +161,6 @@ public class Marshallers {
 
         marshal(context, value, outputType, output);
     }
-
 
     /**
      * Marshals {@code value} to {@code output}.
@@ -182,8 +172,8 @@ public class Marshallers {
      * @throws JAXBException if a JAXB error occurs.
      */
     public static void marshal(final Marshaller marshaller,
-                               final Object value, final Object output)
-        throws JAXBException {
+            final Object value, final Object output)
+            throws JAXBException {
 
         if (marshaller == null) {
             throw new NullPointerException("marshaller");
@@ -207,7 +197,7 @@ public class Marshallers {
 
         if (method == null) {
             throw new IllegalArgumentException(
-                "can't marshal to " + output.getClass());
+                    "can't marshal to " + output.getClass());
         }
 
         try {
@@ -223,7 +213,6 @@ public class Marshallers {
         }
     }
 
-
     /**
      * Marshals given {@code value} to specified {@code output}.
      *
@@ -234,8 +223,8 @@ public class Marshallers {
      * @throws JAXBException if a JAXB error occurs.
      */
     public static void marshal(final JAXBContext context, final Object value,
-                               final Object output)
-        throws JAXBException {
+            final Object output)
+            throws JAXBException {
 
         if (context == null) {
             throw new NullPointerException("context");
@@ -243,7 +232,6 @@ public class Marshallers {
 
         marshal(context.createMarshaller(), value, output);
     }
-
 
     /**
      * Marshals given {@code value} to specified {@code output}.
@@ -254,7 +242,7 @@ public class Marshallers {
      * @throws JAXBException if a JAXB error occurs.
      */
     public static void marshal(final Object value, final Object output)
-        throws JAXBException {
+            throws JAXBException {
 
         if (value == null) {
             throw new NullPointerException("value");
@@ -264,7 +252,6 @@ public class Marshallers {
 
         marshal(context, value, output);
     }
-
 
 //    /**
 //     * Prints given {@code value} using specified {@code marshaller}.
@@ -354,4 +341,3 @@ public class Marshallers {
     }
 
 }
-

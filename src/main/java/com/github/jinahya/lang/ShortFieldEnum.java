@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang;
-
 
 /**
  *
@@ -26,9 +23,8 @@ package com.github.jinahya.lang;
 public interface ShortFieldEnum<E extends Enum<E>> {
 //    extends ComparableFieldEnum<E, Short> {
 
-
     static <E extends Enum<E> & IntFieldEnum<E>> int[] fieldValues(
-        final Class<E> type) {
+            final Class<E> type) {
 
         if (type == null) {
             throw new NullPointerException("null type");
@@ -44,8 +40,6 @@ public interface ShortFieldEnum<E extends Enum<E>> {
         return fieldValues;
     }
 
-
     int fieldValueAsShort();
 
 }
-

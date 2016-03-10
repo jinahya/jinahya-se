@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.security;
-
 
 import static java.lang.invoke.MethodHandles.lookup;
 import java.net.URL;
@@ -26,13 +23,11 @@ import static org.slf4j.LoggerFactory.getLogger;
 import static org.testng.Assert.assertTrue;
 import org.testng.annotations.Test;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class CodeSourcesTest {
-
 
     @Test
     public static void getLocation() {
@@ -40,11 +35,10 @@ public class CodeSourcesTest {
         final Logger logger = getLogger(lookup().lookupClass());
 
         final Optional<URL> location
-            = CodeSources.getLocation(CodeSourcesTest.class);
+                = CodeSources.getLocation(CodeSourcesTest.class);
 
         assertTrue(location.isPresent());
         logger.debug("location: {}", location.get());
     }
 
 }
-

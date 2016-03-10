@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util;
-
 
 import java.awt.Container;
 import java.awt.event.WindowEvent;
@@ -29,126 +26,103 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
-
 /**
  *
  * @author Jin Kwon
  */
 public class LocaleViewer {
 
-
     private enum Column {
-
 
         NAME() {
 
+            @Override
+            public Object getValueAt(final Locale locale) {
 
-                    @Override
-                    public Object getValueAt(final Locale locale) {
+                return locale.toString();
+            }
 
-                        return locale.toString();
-                    }
-
-
-                },
+        },
         LANGUAGE() {
 
+            @Override
+            public Object getValueAt(final Locale locale) {
 
-                    @Override
-                    public Object getValueAt(final Locale locale) {
+                return locale.getDisplayLanguage(locale);
+            }
 
-                        return locale.getDisplayLanguage(locale);
-                    }
-
-
-                },
+        },
         COUNTRY {
 
+            @Override
+            public Object getValueAt(final Locale locale) {
 
-                    @Override
-                    public Object getValueAt(final Locale locale) {
+                return locale.getDisplayCountry(locale);
+            }
 
-                        return locale.getDisplayCountry(locale);
-                    }
-
-
-                },
+        },
         LAN() {
 
+            @Override
+            public Object getValueAt(final Locale locale) {
 
-                    @Override
-                    public Object getValueAt(final Locale locale) {
+                try {
+                    return locale.getISO3Language();
+                } catch (final MissingResourceException mre) {
+                    return "N/A";
+                }
+            }
 
-                        try {
-                            return locale.getISO3Language();
-                        } catch (final MissingResourceException mre) {
-                            return "N/A";
-                        }
-                    }
-
-
-                },
+        },
         CON() {
 
+            @Override
+            public Object getValueAt(final Locale locale) {
 
-                    @Override
-                    public Object getValueAt(final Locale locale) {
+                try {
+                    return locale.getISO3Country();
+                } catch (final MissingResourceException mre) {
+                    return "N/A";
+                }
+            }
 
-                        try {
-                            return locale.getISO3Country();
-                        } catch (final MissingResourceException mre) {
-                            return "N/A";
-                        }
-                    }
-
-
-                },
+        },
         LN() {
 
+            @Override
+            public Object getValueAt(final Locale locale) {
 
-                    @Override
-                    public Object getValueAt(final Locale locale) {
+                return locale.getLanguage();
+            }
 
-                        return locale.getLanguage();
-                    }
-
-
-                },
+        },
         CO() {
 
+            @Override
+            public Object getValueAt(final Locale locale) {
 
-                    @Override
-                    public Object getValueAt(final Locale locale) {
+                return locale.getCountry();
+            }
 
-                        return locale.getCountry();
-                    }
-
-
-                };
-
+        };
 
         abstract Object getValueAt(Locale locale);
 
-
     }
-
 
     public static void main(final String[] args) {
 
         new JFrame("Locale Viewer") {
-
 
             @Override
             protected JRootPane createRootPane() {
 
                 return new JRootPane() {
 
-
                     @Override
                     protected Container createContentPane() {
 
                         return new JScrollPane(new JTable() {
-
 
                             @Override
                             protected TableModel createDefaultDataModel() {
@@ -159,13 +133,11 @@ public class LocaleViewer {
 
                                 return new AbstractTableModel() {
 
-
                                     @Override
                                     public int getRowCount() {
 
                                         return rows.length;
                                     }
-
 
                                     @Override
                                     public int getColumnCount() {
@@ -173,34 +145,28 @@ public class LocaleViewer {
                                         return columns.length;
                                     }
 
-
                                     @Override
                                     public String getColumnName(int column) {
 
                                         return columns[column].name();
                                     }
 
-
                                     @Override
                                     public Object getValueAt(int rowIndex,
-                                                             int columnIndex) {
+                                            int columnIndex) {
 
                                         return columns[columnIndex]
                                                 .getValueAt(rows[rowIndex]);
                                     }
 
-
                                 };
                             }
-
 
                         });
                     }
 
-
                 };
             }
-
 
             @Override
             protected void processWindowEvent(final WindowEvent we) {
@@ -211,7 +177,6 @@ public class LocaleViewer {
                 }
             }
 
-
             @Override
             public void frameInit() {
 
@@ -219,10 +184,7 @@ public class LocaleViewer {
                 pack();
             }
 
-
         }.setVisible(true);
     }
 
-
 }
-

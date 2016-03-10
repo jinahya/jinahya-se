@@ -13,16 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.imageio;
-
 
 import java.util.Collection;
 import static javax.imageio.ImageIO.getReaderFileSuffixes;
 import static javax.imageio.ImageIO.getWriterFileSuffixes;
 import javax.xml.bind.annotation.XmlRootElement;
-
 
 /**
  *
@@ -31,17 +27,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class ImageFileSuffix extends ImageFeature<ImageFileSuffix> {
 
-
     public static Collection<ImageFileSuffix> availableImageFileSuffix() {
 
         try {
             return collect(
-                ImageFileSuffix.class, getReaderFileSuffixes(),
-                getWriterFileSuffixes());
+                    ImageFileSuffix.class, getReaderFileSuffixes(),
+                    getWriterFileSuffixes());
         } catch (InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }
 
 }
-

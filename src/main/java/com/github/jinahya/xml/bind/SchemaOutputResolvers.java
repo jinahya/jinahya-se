@@ -13,16 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import java.io.IOException;
 import java.util.function.BiFunction;
 import javax.xml.bind.SchemaOutputResolver;
 import javax.xml.transform.Result;
-
 
 /**
  *
@@ -30,10 +26,8 @@ import javax.xml.transform.Result;
  */
 public class SchemaOutputResolvers {
 
-
     @FunctionalInterface
     public static interface Functional {
-
 
         /**
          *
@@ -48,19 +42,17 @@ public class SchemaOutputResolvers {
          * java.lang.String)
          */
         Result createOutput(String namespaceUri, String suggestedFileName)
-            throws IOException;
+                throws IOException;
 
     }
 
-
     @FunctionalInterface
     public static interface Functional2
-        extends Functional, BiFunction<String, String, Result> {
-
+            extends Functional, BiFunction<String, String, Result> {
 
         @Override
         default Result apply(final String namespaceUri,
-                             final String suggestedFileName) {
+                final String suggestedFileName) {
             try {
                 return createOutput(namespaceUri, suggestedFileName);
             } catch (final IOException ioe) {
@@ -69,7 +61,6 @@ public class SchemaOutputResolvers {
         }
 
     }
-
 
     /**
      *
@@ -83,8 +74,8 @@ public class SchemaOutputResolvers {
 
             @Override
             public Result createOutput(final String namespaceUri,
-                                       final String suggestedFileName)
-                throws IOException {
+                    final String suggestedFileName)
+                    throws IOException {
 
                 return functional.createOutput(namespaceUri, suggestedFileName);
             }
@@ -92,11 +83,9 @@ public class SchemaOutputResolvers {
         };
     }
 
-
     private SchemaOutputResolvers() {
 
         super();
     }
 
 }
-

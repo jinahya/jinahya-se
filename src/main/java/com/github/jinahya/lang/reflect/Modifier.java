@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang.reflect;
 
-
 import com.github.jinahya.lang.IntFieldEnum;
-
 
 /**
  *
@@ -40,12 +36,10 @@ public enum Modifier implements IntFieldEnum<Modifier> {
     ABSTRACT(java.lang.reflect.Modifier.ABSTRACT),
     STRICT(java.lang.reflect.Modifier.STRICT);
 
-
     Modifier(final int fieldValue) {
 
         this.fieldValue = fieldValue;
     }
-
 
     @Override
     public int fieldValueAsInt() {
@@ -53,8 +47,6 @@ public enum Modifier implements IntFieldEnum<Modifier> {
         return fieldValue;
     }
 
-
     private final int fieldValue;
 
 }
-

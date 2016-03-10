@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.misc;
-
 
 /**
  *
@@ -24,13 +21,10 @@ package com.github.jinahya.misc;
  */
 public class Untouchable1 {
 
-
     public boolean getAlcohol() {
         return alcohol;
     }
 
-
     private boolean alcohol = false;
 
 }
-

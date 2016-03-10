@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind.test;
 
-
 import com.github.jinahya.xml.bind.PluralTest;
-
 
 /**
  *
@@ -27,10 +23,8 @@ import com.github.jinahya.xml.bind.PluralTest;
  */
 public class ItemsTest extends PluralTest<Items, Item> {
 
-
     public ItemsTest() {
         super(Items.class, Item.class);
     }
 
 }
-

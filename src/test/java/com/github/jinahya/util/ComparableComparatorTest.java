@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util;
-
 
 import com.github.jinahya.util.ComparableComparator.Nulls;
 import java.util.ArrayList;
@@ -24,7 +21,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import org.testng.Assert;
-
 
 /**
  *
@@ -34,9 +30,8 @@ import org.testng.Assert;
  */
 public class ComparableComparatorTest<T extends ComparableComparator<U>, U extends Comparable<? super U>> {
 
-
     protected static <T extends ComparableComparator<U>, U extends Comparable<? super U>> void sort_(
-        final List<U> list, final T comparator) {
+            final List<U> list, final T comparator) {
 
         Objects.requireNonNull(list, "null list");
 
@@ -57,4 +52,3 @@ public class ComparableComparatorTest<T extends ComparableComparator<U>, U exten
     }
 
 }
-

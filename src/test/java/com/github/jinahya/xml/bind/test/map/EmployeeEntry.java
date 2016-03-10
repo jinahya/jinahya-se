@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind.test.map;
-
 
 import com.github.jinahya.xml.bind.MapEntry;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  *
@@ -30,19 +26,16 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {"id", "employee"})
 public class EmployeeEntry extends MapEntry<Long, Employee> {
 
-
     @XmlElement
     public Long getId() {
 
         return getKey();
     }
 
-
     public void setId(final Long id) {
 
         setKey(id);
     }
-
 
     @XmlElement
     public Employee getEmployee() {
@@ -50,11 +43,9 @@ public class EmployeeEntry extends MapEntry<Long, Employee> {
         return getValue();
     }
 
-
     public void setEmployee(final Employee employee) {
 
         setValue(employee);
     }
 
 }
-

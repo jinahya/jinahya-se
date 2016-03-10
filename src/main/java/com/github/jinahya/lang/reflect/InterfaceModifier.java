@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang.reflect;
 
-
 import java.lang.reflect.Modifier;
-
 
 /**
  *
@@ -57,7 +53,6 @@ public enum InterfaceModifier implements ModifierFieldEnum<InterfaceModifier> {
      */
     STRICT(Modifier.STRICT); // 2048
 
-
     /**
      * Creates a new instance with given field value.
      *
@@ -68,15 +63,12 @@ public enum InterfaceModifier implements ModifierFieldEnum<InterfaceModifier> {
         this.fieldValue = fieldValue;
     }
 
-
     @Override
     public int fieldValueAsInt() {
 
         return fieldValue;
     }
 
-
     private final int fieldValue;
 
 }
-

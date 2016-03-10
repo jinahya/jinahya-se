@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.io;
-
 
 import java.io.IOException;
 import java.io.InputStream;
-
 
 /**
  * An input stream always reads zeros.
@@ -28,7 +24,6 @@ import java.io.InputStream;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class WhiteInputStream extends InputStream {
-
 
     /**
      * Reads the next byte of data from the input stream. The {@code read()}
@@ -45,4 +40,3 @@ public class WhiteInputStream extends InputStream {
     }
 
 }
-

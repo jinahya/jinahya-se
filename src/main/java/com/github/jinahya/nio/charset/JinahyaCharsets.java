@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.nio.charset;
-
 
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
-
 
 /**
  *
@@ -29,28 +25,24 @@ import java.util.List;
  */
 public final class JinahyaCharsets {
 
-
     /**
      * An unmodifiable list of character set names that every implementation of
      * the Java platform is required to support.
      */
     public static final List<String> SUPPORTED_CHARSET_NAMES;
 
-
     static {
 
         SUPPORTED_CHARSET_NAMES = Arrays.asList(
-            "US-ASCII",
-            "ISO-8859-1",
-            "UTF-8",
-            "UTF-16BE",
-            "UTF-16LE",
-            "UTF-16");
+                "US-ASCII",
+                "ISO-8859-1",
+                "UTF-8",
+                "UTF-16BE",
+                "UTF-16LE",
+                "UTF-16");
     }
 
-
     public static final List<Charset> SUPPORTED_CHARSETS;
-
 
     static {
 
@@ -61,11 +53,9 @@ public final class JinahyaCharsets {
         SUPPORTED_CHARSETS = Arrays.asList(charsets);
     }
 
-
     private JinahyaCharsets() {
 
         super();
     }
 
 }
-

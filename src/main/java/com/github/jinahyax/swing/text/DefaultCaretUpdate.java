@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahyax.swing.text;
-
 
 import com.github.jinahya.lang.IntFieldEnum;
 import javax.swing.text.DefaultCaret;
-
 
 /**
  *
@@ -32,12 +28,10 @@ public enum DefaultCaretUpdate implements IntFieldEnum<DefaultCaretUpdate> {
     NEVER(DefaultCaret.NEVER_UPDATE),
     ALWAYS(DefaultCaret.ALWAYS_UPDATE);
 
-
     private DefaultCaretUpdate(final int fieldValue) {
 
         this.fieldValue = fieldValue;
     }
-
 
     @Override
     public int fieldValueAsInt() {
@@ -45,8 +39,6 @@ public enum DefaultCaretUpdate implements IntFieldEnum<DefaultCaretUpdate> {
         return fieldValue;
     }
 
-
     private final int fieldValue;
 
 }
-

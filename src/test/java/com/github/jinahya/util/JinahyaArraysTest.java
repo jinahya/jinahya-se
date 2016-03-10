@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util;
-
 
 import static com.github.jinahya.util.JinahyaArrays.reverse;
 import static java.lang.invoke.MethodHandles.lookup;
@@ -27,16 +24,13 @@ import static org.slf4j.LoggerFactory.getLogger;
 import static org.testng.Assert.assertEquals;
 import org.testng.annotations.Test;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class JinahyaArraysTest {
 
-
     private static final Logger logger = getLogger(lookup().lookupClass());
-
 
     @Test
     public static void reverseByteArrayEmpty() {
@@ -46,7 +40,6 @@ public class JinahyaArraysTest {
         JinahyaArrays.reverse(a);
     }
 
-
     @Test
     public static void reverseByteArrayOne() {
 
@@ -55,7 +48,6 @@ public class JinahyaArraysTest {
 
         JinahyaArrays.reverse(a);
     }
-
 
     @Test(invocationCount = 1)
     public static void reverseByteArray() {
@@ -75,4 +67,3 @@ public class JinahyaArraysTest {
     }
 
 }
-

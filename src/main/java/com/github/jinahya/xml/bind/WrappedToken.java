@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -24,14 +21,12 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 @XmlRootElement
 public class WrappedToken extends WrappedValue<String> {
-
 
     /**
      * Creates a new instance.
@@ -45,7 +40,6 @@ public class WrappedToken extends WrappedValue<String> {
         return newInstance(WrappedToken.class, rawValue);
     }
 
-
     @XmlElement(nillable = true, required = true)
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     @XmlSchemaType(name = "token")
@@ -55,7 +49,6 @@ public class WrappedToken extends WrappedValue<String> {
         return super.getRawValue();
     }
 
-
     @Override
     public void setRawValue(final String rawValue) {
 
@@ -63,4 +56,3 @@ public class WrappedToken extends WrappedValue<String> {
     }
 
 }
-

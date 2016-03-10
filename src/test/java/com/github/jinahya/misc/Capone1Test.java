@@ -13,21 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.misc;
-
 
 import java.lang.reflect.Field;
 import org.testng.annotations.Test;
-
 
 /**
  *
  * @author Jin Kwon
  */
 public class Capone1Test {
-
 
     @Test
     public void test() throws NoSuchFieldException, IllegalAccessException {
@@ -44,4 +39,3 @@ public class Capone1Test {
     }
 
 }
-

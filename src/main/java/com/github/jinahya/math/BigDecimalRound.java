@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.math;
-
 
 import com.github.jinahya.lang.IntFieldEnum;
 import java.math.BigDecimal;
-
 
 /**
  *
@@ -37,12 +33,10 @@ public enum BigDecimalRound implements IntFieldEnum<BigDecimalRound> {
     HALF_EVEN(BigDecimal.ROUND_HALF_EVEN), // 6
     UNNECESSARY(BigDecimal.ROUND_UNNECESSARY);// 7// 7
 
-
     private BigDecimalRound(final int fieldValue) {
 
         this.fieldValue = fieldValue;
     }
-
 
     @Override
     public int fieldValueAsInt() {
@@ -50,8 +44,6 @@ public enum BigDecimalRound implements IntFieldEnum<BigDecimalRound> {
         return fieldValue;
     }
 
-
     private final int fieldValue;
 
 }
-

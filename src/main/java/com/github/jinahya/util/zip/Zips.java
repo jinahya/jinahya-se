@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util.zip;
-
 
 import com.github.jinahya.io.JinahyaByteStreams;
 import java.io.File;
@@ -29,7 +26,6 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-
 /**
  * Zip Utilities.
  *
@@ -37,9 +33,8 @@ import java.util.zip.ZipOutputStream;
  */
 public class Zips {
 
-
     protected static File file(final File root, final ZipEntry entry)
-        throws IOException {
+            throws IOException {
 
         if (root == null) {
             throw new NullPointerException("root");
@@ -47,7 +42,7 @@ public class Zips {
 
         if (!root.isDirectory()) {
             throw new IllegalArgumentException(
-                "root is not an existing directory");
+                    "root is not an existing directory");
         }
 
         if (entry == null) {
@@ -66,17 +61,16 @@ public class Zips {
         }
         if (parent != null && !parent.isDirectory() && !parent.mkdirs()) {
             throw new IOException(
-                "failed to create a directory: " + parent.getPath());
+                    "failed to create a directory: " + parent.getPath());
         }
 
         return file;
     }
 
-
     protected static void zip(final StringBuilder path, final File file,
-                              final FileFilter filter,
-                              final ZipOutputStream stream, final byte[] buffer)
-        throws IOException {
+            final FileFilter filter,
+            final ZipOutputStream stream, final byte[] buffer)
+            throws IOException {
 
         if (path == null) {
             throw new NullPointerException("path");
@@ -104,7 +98,7 @@ public class Zips {
 
         if (buffer.length == 0) {
             throw new IllegalArgumentException(
-                "buffer.length(" + buffer.length + ") == 0");
+                    "buffer.length(" + buffer.length + ") == 0");
         }
 
         if (file.isDirectory()) {
@@ -126,10 +120,9 @@ public class Zips {
         }
     }
 
-
     public static void zip(final File directory, final FileFilter filter,
-                           final ZipOutputStream stream, final byte[] buffer)
-        throws IOException {
+            final ZipOutputStream stream, final byte[] buffer)
+            throws IOException {
 
         if (directory == null) {
             throw new NullPointerException("directory");
@@ -153,7 +146,7 @@ public class Zips {
 
         if (buffer.length == 0) {
             throw new IllegalArgumentException(
-                "buffer.length(" + buffer.length + ") == 0");
+                    "buffer.length(" + buffer.length + ") == 0");
         }
 
         final StringBuilder path = new StringBuilder();
@@ -165,7 +158,6 @@ public class Zips {
         }
     }
 
-
     /**
      * Unzips entries from {@code stream} into {@code directory}.
      *
@@ -176,8 +168,8 @@ public class Zips {
      * @throws IOException if an I/O error occurs.
      */
     public static void unzip(final ZipInputStream stream, final File directory,
-                             final byte[] buffer)
-        throws IOException {
+            final byte[] buffer)
+            throws IOException {
 
         if (stream == null) {
             throw new NullPointerException("stream");
@@ -197,7 +189,7 @@ public class Zips {
 
         if (buffer.length == 0) {
             throw new IllegalArgumentException(
-                "buffer.length(" + buffer.length + ") == 0");
+                    "buffer.length(" + buffer.length + ") == 0");
         }
 
         ZipEntry entry;
@@ -210,7 +202,6 @@ public class Zips {
         }
     }
 
-
     /**
      * Unzips entries from {@code zipfile} into {@code directory}.
      *
@@ -221,8 +212,8 @@ public class Zips {
      * @throws IOException if an I/O error occurs.
      */
     public static void unzip(final ZipFile zipfile, final File directory,
-                             final byte[] buffer)
-        throws IOException {
+            final byte[] buffer)
+            throws IOException {
 
         if (zipfile == null) {
             throw new NullPointerException("zipfile");
@@ -242,7 +233,7 @@ public class Zips {
 
         if (buffer.length == 0) {
             throw new IllegalArgumentException(
-                "buffer.length(" + buffer.length + ") == 0");
+                    "buffer.length(" + buffer.length + ") == 0");
         }
 
         final Enumeration<? extends ZipEntry> entries = zipfile.entries();
@@ -261,7 +252,6 @@ public class Zips {
         }
     }
 
-
     /**
      * Creates a new instance.
      */
@@ -271,4 +261,3 @@ public class Zips {
     }
 
 }
-

@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.crypto;
-
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,14 +31,12 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.ShortBufferException;
 
-
 /**
  * A utility class for {@link Cipher}s.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class JinahyaCiphers {
-
 
     /**
      * An immutable map of transformations and lists of available key sizes that
@@ -50,7 +45,6 @@ public final class JinahyaCiphers {
      * @see Cipher
      */
     public static final Map<String, List<Integer>> SUPPORTED_TRANSFORMATIONS;
-
 
     static {
         final Map<String, List<Integer>> m = new HashMap<>();
@@ -68,12 +62,11 @@ public final class JinahyaCiphers {
         m.put("DESede/ECB/PKCS5Padding", Arrays.asList(168));
         m.put("RSA/ECB/PKCS1Padding", Arrays.asList(1024, 2048));
         m.put("RSA/ECB/OAEPWithSHA-1AndMGF1Padding",
-              Arrays.asList(1024, 2048));
+                Arrays.asList(1024, 2048));
         m.put("RSA/ECB/OAEPWithSHA-256AndMGF1Padding",
-              Arrays.asList(1024, 2048));
+                Arrays.asList(1024, 2048));
         SUPPORTED_TRANSFORMATIONS = Collections.unmodifiableMap(m);
     }
-
 
     /**
      * Updates and optionally finishes a multi-part encryption or description
@@ -104,9 +97,9 @@ public final class JinahyaCiphers {
      * @see Cipher#update(byte[], int, int, byte[], int)
      */
     public static long update(final Cipher cipher, final InputStream input,
-                              final OutputStream output, final int length,
-                              final long limit, final boolean finalize)
-        throws IOException, IllegalBlockSizeException, BadPaddingException {
+            final OutputStream output, final int length,
+            final long limit, final boolean finalize)
+            throws IOException, IllegalBlockSizeException, BadPaddingException {
 
         if (cipher == null) {
             throw new NullPointerException("cipher == null");
@@ -167,7 +160,6 @@ public final class JinahyaCiphers {
         return count;
     }
 
-
     private static ByteBuffer enlarge(final ByteBuffer source) {
 
         final ByteBuffer target = ByteBuffer.allocate(source.capacity() * 2);
@@ -187,13 +179,12 @@ public final class JinahyaCiphers {
         return target;
     }
 
-
     public static long update(final Cipher cipher,
-                              final ReadableByteChannel input,
-                              final WritableByteChannel output,
-                              final int capacity, final long limit,
-                              final boolean finalize)
-        throws IOException, IllegalBlockSizeException, BadPaddingException {
+            final ReadableByteChannel input,
+            final WritableByteChannel output,
+            final int capacity, final long limit,
+            final boolean finalize)
+            throws IOException, IllegalBlockSizeException, BadPaddingException {
 
         if (cipher == null) {
             throw new IllegalArgumentException("cipher");
@@ -214,7 +205,7 @@ public final class JinahyaCiphers {
         final int blockSize = cipher.getBlockSize();
         if (blockSize != 0 && capacity < blockSize) {
             throw new IllegalArgumentException(
-                "capacity(" + capacity + ") < blockSize(" + blockSize + ")");
+                    "capacity(" + capacity + ") < blockSize(" + blockSize + ")");
         }
 
         long count = 0L;
@@ -300,11 +291,9 @@ public final class JinahyaCiphers {
         return count;
     }
 
-
     private JinahyaCiphers() {
 
         super();
     }
 
 }
-

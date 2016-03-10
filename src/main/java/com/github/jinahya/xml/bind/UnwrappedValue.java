@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
 
-
 import javax.xml.bind.annotation.XmlTransient;
-
 
 /**
  *
@@ -28,7 +24,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @XmlTransient
 public abstract class UnwrappedValue<R> extends WrappedValue<R> {
-
 
     @Override
     public boolean equals(final Object obj) {
@@ -44,7 +39,6 @@ public abstract class UnwrappedValue<R> extends WrappedValue<R> {
         return super.equals(obj);
     }
 
-
     @Override
     public int hashCode() {
 
@@ -55,13 +49,11 @@ public abstract class UnwrappedValue<R> extends WrappedValue<R> {
         return hash;
     }
 
-
     @Override
     public R getRawValue() {
 
         return super.getRawValue();
     }
-
 
     /**
      * {@inheritDoc}. Overridden to throw a {@code NullPointerException} if
@@ -80,4 +72,3 @@ public abstract class UnwrappedValue<R> extends WrappedValue<R> {
     }
 
 }
-

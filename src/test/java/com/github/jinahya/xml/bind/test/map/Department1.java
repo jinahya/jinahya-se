@@ -13,16 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind.test.map;
-
 
 import java.util.Map;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 
 /**
  *
@@ -30,7 +26,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  */
 @XmlRootElement
 public class Department1 extends AbstractDepartment {
-
 
     @XmlElement
     @XmlJavaTypeAdapter(EmployeesAdapter1.class)
@@ -41,4 +36,3 @@ public class Department1 extends AbstractDepartment {
     }
 
 }
-

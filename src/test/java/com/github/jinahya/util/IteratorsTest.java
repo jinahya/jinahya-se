@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util;
-
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -24,13 +21,11 @@ import java.util.List;
 import java.util.Set;
 import org.testng.annotations.Test;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class IteratorsTest {
-
 
     @Test
     public void requireSorted_empty() {
@@ -44,7 +39,6 @@ public class IteratorsTest {
         Iterators.requireSortedDescending(empty, comparator, true);
         Iterators.requireSortedDescending(empty, comparator, false);
     }
-
 
     @Test
     public static void requireSorted_single() {
@@ -60,4 +54,3 @@ public class IteratorsTest {
     }
 
 }
-

@@ -13,23 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.sql;
-
 
 import com.github.jinahya.lang.FieldEnum;
 import com.github.jinahya.lang.FieldEnums;
 import java.sql.DatabaseMetaData;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum DatabaseMetaDataBestRowPsuedo
-    implements FieldEnum<DatabaseMetaDataBestRowPsuedo, Integer> {
-
+        implements FieldEnum<DatabaseMetaDataBestRowPsuedo, Integer> {
 
     /**
      * A constant for {@link DatabaseMetaData#bestRowUnknown}.
@@ -46,28 +41,24 @@ public enum DatabaseMetaDataBestRowPsuedo
      */
     bestRowPseudo(DatabaseMetaData.bestRowPseudo); // 2
 
-
     public static DatabaseMetaDataBestRowPsuedo fromFieldValue(
-        final int fieldValue) {
+            final int fieldValue) {
 
         return FieldEnums.fromFieldValue(
-            DatabaseMetaDataBestRowPsuedo.class,
-            Integer.valueOf(fieldValue));
+                DatabaseMetaDataBestRowPsuedo.class,
+                Integer.valueOf(fieldValue));
     }
-
 
     public static Integer[] fieldValues() {
 
         return FieldEnums.fieldValues(
-            DatabaseMetaDataBestRowPsuedo.class, Integer.class);
+                DatabaseMetaDataBestRowPsuedo.class, Integer.class);
     }
-
 
     private DatabaseMetaDataBestRowPsuedo(final int fieldValue) {
 
         this.fieldValue = fieldValue;
     }
-
 
     @Override
     public Integer fieldValue() {
@@ -75,12 +66,9 @@ public enum DatabaseMetaDataBestRowPsuedo
         return fieldValue;
     }
 
-
     /**
      * field value.
      */
     private final int fieldValue;
 
-
 }
-

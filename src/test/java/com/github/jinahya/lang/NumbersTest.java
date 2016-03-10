@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang;
-
 
 import java.util.concurrent.ThreadLocalRandom;
 import org.slf4j.Logger;
@@ -24,29 +21,24 @@ import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class NumbersTest {
 
-
     private static final Logger logger
-        = LoggerFactory.getLogger(NumbersTest.class);
-
+            = LoggerFactory.getLogger(NumbersTest.class);
 
     private static short newShort() {
 
         return (short) (ThreadLocalRandom.current().nextInt() & 0xFFFF);
     }
 
-
     private static int newInt() {
 
         return ThreadLocalRandom.current().nextInt();
     }
-
 
     private static float newFloat() {
 
@@ -54,19 +46,16 @@ public class NumbersTest {
         return value * (value < .0f ? Float.MIN_VALUE : Float.MAX_VALUE);
     }
 
-
     private static long newLong() {
 
         return ThreadLocalRandom.current().nextLong();
     }
-
 
     private static double newDouble() {
 
         final double value = 2d * ThreadLocalRandom.current().nextDouble() - 1d;
         return value * (value < .0d ? Double.MIN_VALUE : Double.MAX_VALUE);
     }
-
 
     private static String hex(final byte[] bytes) {
 
@@ -79,9 +68,8 @@ public class NumbersTest {
         return builder.toString();
     }
 
-
     private static void copyBegins(final byte[] src, final int index,
-                                   final byte[] dest) {
+            final byte[] dest) {
 
         final int srcPos = index;
         final int destPos = 0;
@@ -89,16 +77,14 @@ public class NumbersTest {
         System.arraycopy(src, srcPos, dest, destPos, length);
     }
 
-
     private static void copyEnds(final byte[] src, final int index,
-                                 final byte[] dest) {
+            final byte[] dest) {
 
         final int srcPos = Math.max(index - dest.length + 1, 0);
         final int destPos = Math.max(dest.length - index - 1, 0);
         final int length = Math.min(dest.length, index + 1);
         System.arraycopy(src, srcPos, dest, destPos, length);
     }
-
 
     @Test(invocationCount = 1)
     public static void toBytes_short_() {
@@ -110,7 +96,6 @@ public class NumbersTest {
         final String expected = String.format("%1$04x", value);
         Assert.assertEquals(actual, expected);
     }
-
 
     @Test
     public static void toShortBegins_() {
@@ -127,7 +112,6 @@ public class NumbersTest {
         }
     }
 
-
     @Test
     public static void toShortEnds_() {
 
@@ -143,7 +127,6 @@ public class NumbersTest {
         }
     }
 
-
     @Test(invocationCount = 1)
     public static void toBytes_int_() {
 
@@ -154,7 +137,6 @@ public class NumbersTest {
         final String expected = String.format("%1$08x", value);
         Assert.assertEquals(actual, expected);
     }
-
 
     @Test
     public static void toIntBegins_() {
@@ -171,7 +153,6 @@ public class NumbersTest {
         }
     }
 
-
     @Test
     public static void toIntEnds_() {
 
@@ -187,7 +168,6 @@ public class NumbersTest {
         }
     }
 
-
     @Test(enabled = true, invocationCount = 1)
     public static void toBytes_float_() {
 
@@ -196,10 +176,9 @@ public class NumbersTest {
 
         final String actual = hex(bytes);
         final String expected
-            = String.format("%1$08x", Float.floatToRawIntBits(value));
+                = String.format("%1$08x", Float.floatToRawIntBits(value));
         Assert.assertEquals(actual, expected);
     }
-
 
     @Test(enabled = true)
     public static void toFloat_() {
@@ -219,7 +198,6 @@ public class NumbersTest {
         }
     }
 
-
     @Test(invocationCount = 1)
     public static void toBytes_long_() {
 
@@ -231,7 +209,6 @@ public class NumbersTest {
         final String expected = String.format("%1$016x", value);
         Assert.assertEquals(actual, expected);
     }
-
 
     @Test
     public static void toLongBegins_() {
@@ -248,7 +225,6 @@ public class NumbersTest {
         }
     }
 
-
     @Test
     public static void toLongEnds_() {
 
@@ -264,7 +240,6 @@ public class NumbersTest {
         }
     }
 
-
     @Test(invocationCount = 1)
     public static void toBytes_double_() {
 
@@ -274,10 +249,9 @@ public class NumbersTest {
 
         final String actual = hex(bytes);
         final String expected
-            = String.format("%1$016x", Double.doubleToRawLongBits(value));
+                = String.format("%1$016x", Double.doubleToRawLongBits(value));
         Assert.assertEquals(actual, expected);
     }
-
 
     @Test
     public static void toDoubleBegins_() {
@@ -294,7 +268,6 @@ public class NumbersTest {
         }
     }
 
-
     @Test
     public static void toDoubleEnds_() {
 
@@ -310,6 +283,4 @@ public class NumbersTest {
         }
     }
 
-
 }
-

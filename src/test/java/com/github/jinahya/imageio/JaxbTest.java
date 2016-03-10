@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.imageio;
-
 
 import java.io.IOException;
 import java.util.Collection;
@@ -28,26 +25,24 @@ import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamResult;
 import org.testng.annotations.Test;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class JaxbTest {
 
-
     @Test
     public static void printSchema() throws JAXBException, IOException {
 
         final JAXBContext context
-            = JAXBContext.newInstance(JaxbTest.class.getPackage().getName());
+                = JAXBContext.newInstance(JaxbTest.class.getPackage().getName());
 
         context.generateSchema(new SchemaOutputResolver() {
 
             @Override
             public Result createOutput(final String namespaceUri,
-                                       final String suggestedFileName)
-                throws IOException {
+                    final String suggestedFileName)
+                    throws IOException {
 
                 return new StreamResult(System.out) {
 
@@ -63,10 +58,9 @@ public class JaxbTest {
         });
     }
 
-
     static <T extends ImageFeature<T>> void printXml(final Class<T> type,
-                                                     final T instances)
-        throws JAXBException, IOException {
+            final T instances)
+            throws JAXBException, IOException {
 
         final JAXBContext context = JAXBContext.newInstance(type);
 
@@ -76,13 +70,12 @@ public class JaxbTest {
         marshaller.marshal(instances, System.out);
     }
 
-
     static <T extends ImageFeature<T>> void printXml(
-        final Class<T> type, final Collection<T> instances)
-        throws JAXBException, IOException {
+            final Class<T> type, final Collection<T> instances)
+            throws JAXBException, IOException {
 
         final JAXBContext context
-            = JAXBContext.newInstance(type, ImageFeatures.class);
+                = JAXBContext.newInstance(type, ImageFeatures.class);
 
         final ImageFeatures<T> features = new ImageFeatures<>();
         features.getFeatures().addAll(instances);
@@ -94,4 +87,3 @@ public class JaxbTest {
     }
 
 }
-

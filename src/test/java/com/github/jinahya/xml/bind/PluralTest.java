@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import com.sun.jersey.api.json.JSONConfiguration;
 import com.sun.jersey.api.json.JSONMarshaller;
@@ -36,7 +33,6 @@ import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamResult;
 import org.testng.annotations.Test;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
@@ -49,7 +45,6 @@ import org.testng.annotations.Test;
  */
 public abstract class PluralTest<P extends Plural<S>, S> {
 
-
     public PluralTest(final Class<P> pluralType, final Class<S> singularType) {
         super();
 
@@ -57,26 +52,22 @@ public abstract class PluralTest<P extends Plural<S>, S> {
         this.singularType = singularType;
     }
 
-
     protected JAXBContext newJAXBContext() throws JAXBException {
 
         return JAXBContext.newInstance(pluralType);
     }
 
-
     protected P newPluralInstance()
-        throws InstantiationException, IllegalAccessException {
+            throws InstantiationException, IllegalAccessException {
 
         return pluralType.newInstance();
     }
 
-
     protected S newSingularInstance()
-        throws InstantiationException, IllegalAccessException {
+            throws InstantiationException, IllegalAccessException {
 
         return singularType.newInstance();
     }
-
 
     protected P newPlural() {
 
@@ -87,7 +78,6 @@ public abstract class PluralTest<P extends Plural<S>, S> {
         }
     }
 
-
     protected S newSingular() {
 
         try {
@@ -96,7 +86,6 @@ public abstract class PluralTest<P extends Plural<S>, S> {
             throw new RuntimeException("failed to create new plural", e);
         }
     }
-
 
     @Test
     public void testXsd() throws JAXBException, IOException {
@@ -107,8 +96,8 @@ public abstract class PluralTest<P extends Plural<S>, S> {
 
             @Override
             public Result createOutput(final String namespaceUri,
-                                       final String suggestedFileName)
-                throws IOException {
+                    final String suggestedFileName)
+                    throws IOException {
 
                 return new StreamResult(System.out) {
 
@@ -123,9 +112,8 @@ public abstract class PluralTest<P extends Plural<S>, S> {
         });
     }
 
-
     protected void testXml(final int singularCount)
-        throws JAXBException, IOException {
+            throws JAXBException, IOException {
 
         final JAXBContext context = newJAXBContext();
 
@@ -148,9 +136,8 @@ public abstract class PluralTest<P extends Plural<S>, S> {
         final Unmarshaller unmarshaller = context.createUnmarshaller();
 
         final P actual = pluralType.cast(unmarshaller.unmarshal(
-            new ByteArrayInputStream(baos.toByteArray())));
+                new ByteArrayInputStream(baos.toByteArray())));
     }
-
 
     @Test
     public void testXml() throws JAXBException, IOException {
@@ -160,14 +147,13 @@ public abstract class PluralTest<P extends Plural<S>, S> {
         testXml(ThreadLocalRandom.current().nextInt(128) + 1);
     }
 
-
     public void testJson(final int singularCount)
-        throws JAXBException, IOException {
+            throws JAXBException, IOException {
 
         final JAXBContext context = newJAXBContext();
 
         final JSONConfiguration configuration
-            = JSONConfiguration.natural().build();
+                = JSONConfiguration.natural().build();
 
         final P expected = newPlural();
 
@@ -176,7 +162,7 @@ public abstract class PluralTest<P extends Plural<S>, S> {
         }
 
         final JSONMarshaller marshaller
-            = new BaseJSONMarshaller(context, configuration);
+                = new BaseJSONMarshaller(context, configuration);
         marshaller.setProperty(JSONMarshaller.FORMATTED, Boolean.TRUE);
 
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -187,12 +173,11 @@ public abstract class PluralTest<P extends Plural<S>, S> {
         System.out.println(new String(baos.toByteArray(), "UTF-8"));
 
         final JSONUnmarshaller unmarshaller
-            = new BaseJSONUnmarshaller(context, configuration);
+                = new BaseJSONUnmarshaller(context, configuration);
 
         final P actual = unmarshaller.unmarshalFromJSON(
-            new ByteArrayInputStream(baos.toByteArray()), pluralType);
+                new ByteArrayInputStream(baos.toByteArray()), pluralType);
     }
-
 
     @Test
     public void testJsonEmpty() throws JAXBException, IOException {
@@ -202,11 +187,8 @@ public abstract class PluralTest<P extends Plural<S>, S> {
         testJson(ThreadLocalRandom.current().nextInt(128) + 1);
     }
 
-
     protected final Class<P> pluralType;
-
 
     protected final Class<S> singularType;
 
 }
-

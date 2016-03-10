@@ -13,29 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.github.jinahya.nio.channels;
-
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.WritableByteChannel;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class WritableFilterChannel
-    extends FilterChannel<WritableByteChannel>
-    implements WritableByteChannel {
-
+        extends FilterChannel<WritableByteChannel>
+        implements WritableByteChannel {
 
     public WritableFilterChannel(final WritableByteChannel channel) {
 
         super(channel);
     }
-
 
     @Override
     public int write(final ByteBuffer src) throws IOException {
@@ -44,4 +39,3 @@ public class WritableFilterChannel
     }
 
 }
-

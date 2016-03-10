@@ -13,31 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class StringPackageListAdapter
-    extends StringPackageCollectionAdapter<List<Package>> {
-
+        extends StringPackageCollectionAdapter<List<Package>> {
 
     /**
      * logger.
      */
     private static final Logger LOGGER
-        = LoggerFactory.getLogger(StringPackageListAdapter.class);
-
+            = LoggerFactory.getLogger(StringPackageListAdapter.class);
 
     @Override
     protected List<Package> bound(final String value) {
@@ -46,4 +40,3 @@ public class StringPackageListAdapter
     }
 
 }
-

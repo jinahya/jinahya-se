@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang;
-
 
 /**
  *
@@ -25,9 +22,8 @@ package com.github.jinahya.lang;
  */
 public interface DoubleFieldEnum<E extends Enum<E>> {
 
-
     static <E extends Enum<E> & DoubleFieldEnum<E>> double[] fieldValues(
-        final Class<E> type) {
+            final Class<E> type) {
 
         if (type == null) {
             throw new NullPointerException("null type");
@@ -43,8 +39,6 @@ public interface DoubleFieldEnum<E extends Enum<E>> {
         return fieldValues;
     }
 
-
     double fieldValueAsDouble();
 
 }
-

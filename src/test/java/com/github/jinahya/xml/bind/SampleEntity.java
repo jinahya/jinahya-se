@@ -13,16 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  *
@@ -32,17 +28,13 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {"name", "age"})
 public class SampleEntity {
 
-
     @XmlAttribute
     private Long id;
 
-
     @XmlElement(required = true)
     private String name;
-
 
     @XmlElement(required = true)
     private int age;
 
 }
-

@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
 
 /**
  *
@@ -28,7 +24,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class WrappedString extends WrappedValue<String> {
-
 
     /**
      * Creates a new instance.
@@ -42,14 +37,12 @@ public class WrappedString extends WrappedValue<String> {
         return newInstance(WrappedString.class, rawValue);
     }
 
-
     @XmlElement(nillable = true, required = true)
     @Override
     public String getRawValue() {
 
         return super.getRawValue();
     }
-
 
     @Override
     public void setRawValue(final String rawValue) {
@@ -58,4 +51,3 @@ public class WrappedString extends WrappedValue<String> {
     }
 
 }
-

@@ -13,22 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.nio.channels;
-
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.ReadableByteChannel;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class WhiteByteChannel implements ReadableByteChannel {
-
 
     @Override
     public int read(final ByteBuffer dst) throws IOException {
@@ -40,13 +35,11 @@ public final class WhiteByteChannel implements ReadableByteChannel {
         return remainging;
     }
 
-
     @Override
     public boolean isOpen() {
 
         return true;
     }
-
 
     @Override
     public void close() throws IOException {
@@ -55,4 +48,3 @@ public final class WhiteByteChannel implements ReadableByteChannel {
     }
 
 }
-

@@ -13,16 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util;
-
 
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Objects;
-
 
 /**
  *
@@ -30,10 +26,9 @@ import java.util.Objects;
  */
 public final class Iterators {
 
-
     public static <T> void requireSortedAscending(
-        final Iterator<? extends T> iterator,
-        final Comparator<? super T> comparator, final boolean requireUnique) {
+            final Iterator<? extends T> iterator,
+            final Comparator<? super T> comparator, final boolean requireUnique) {
 
         Objects.requireNonNull(iterator, "null iterator");
 
@@ -48,7 +43,7 @@ public final class Iterators {
             final int compared = comparator.compare(previous, next);
             if (compared > 0) {
                 throw new IllegalArgumentException(
-                    "not sorted in ascending order");
+                        "not sorted in ascending order");
             }
             if (compared == 0 && requireUnique) {
                 throw new IllegalArgumentException("not unique");
@@ -57,21 +52,19 @@ public final class Iterators {
         }
     }
 
-
     public static <T> void requireSortedAscending(
-        final Collection<? extends T> collection,
-        final Comparator<? super T> comparator, final boolean requireUnique) {
+            final Collection<? extends T> collection,
+            final Comparator<? super T> comparator, final boolean requireUnique) {
 
         Objects.requireNonNull(collection, "null collection");
 
         requireSortedAscending(collection.iterator(), comparator,
-                               requireUnique);
+                requireUnique);
     }
 
-
     public static <T> void requireSortedDescending(
-        final Iterator<? extends T> iterator,
-        final Comparator<? super T> comparator, final boolean requireUnique) {
+            final Iterator<? extends T> iterator,
+            final Comparator<? super T> comparator, final boolean requireUnique) {
 
         Objects.requireNonNull(iterator, "null iterator");
 
@@ -86,7 +79,7 @@ public final class Iterators {
             final int compared = comparator.compare(previous, current);
             if (compared < 0) {
                 throw new IllegalArgumentException(
-                    "not sorted in descending order");
+                        "not sorted in descending order");
             }
             if (compared == 0 && requireUnique) {
                 throw new IllegalArgumentException("not unique");
@@ -95,17 +88,15 @@ public final class Iterators {
         }
     }
 
-
     public static <T> void requireSortedDescending(
-        final Collection<? extends T> collection,
-        final Comparator<? super T> comparator, final boolean requireUnique) {
+            final Collection<? extends T> collection,
+            final Comparator<? super T> comparator, final boolean requireUnique) {
 
         Objects.requireNonNull(collection, "null collection");
 
         requireSortedDescending(collection.iterator(), comparator,
-                                requireUnique);
+                requireUnique);
     }
-
 
     /**
      * private constructor.
@@ -116,4 +107,3 @@ public final class Iterators {
     }
 
 }
-

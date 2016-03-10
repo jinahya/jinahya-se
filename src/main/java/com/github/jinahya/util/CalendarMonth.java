@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util;
 
-
 import java.util.Calendar;
-
 
 /**
  * Constants for {@link Calendar#MONTH}.
@@ -53,7 +49,6 @@ public enum CalendarMonth implements CalendarIntFieldEnum<CalendarMonth> {
     DECEMBER(Calendar.DECEMBER); // 11
 
     //UNDECIMBER(Calendar.UNDECIMBER); // 12
-
     /**
      * The target field of {@link Calendar} which this enum type is for.
      *
@@ -61,13 +56,11 @@ public enum CalendarMonth implements CalendarIntFieldEnum<CalendarMonth> {
      */
     public static final int CALENDAR_FIELD = Calendar.MONTH;
 
-
     public static CalendarMonth fromCalendar(final Calendar calendar) {
 
         return CalendarIntFieldEnum.fromCalendar(
-            CalendarMonth.class, calendar, CALENDAR_FIELD);
+                CalendarMonth.class, calendar, CALENDAR_FIELD);
     }
-
 
     /**
      * Creates a new instance.
@@ -79,13 +72,11 @@ public enum CalendarMonth implements CalendarIntFieldEnum<CalendarMonth> {
         this.fieldValue = fieldValue;
     }
 
-
     @Override
     public int fieldValueAsInt() {
 
         return fieldValue;
     }
-
 
     @Override
     public void set(final Calendar calendar) {
@@ -93,8 +84,6 @@ public enum CalendarMonth implements CalendarIntFieldEnum<CalendarMonth> {
         CalendarIntFieldEnum.set(calendar, CALENDAR_FIELD, this);
     }
 
-
     private final int fieldValue;
 
 }
-

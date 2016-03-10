@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util.logging;
-
 
 import com.github.jinahya.lang.FieldEnum;
 import com.github.jinahya.lang.FieldEnums;
 import java.util.logging.Level;
-
 
 /**
  *
@@ -39,7 +35,6 @@ public enum LoggingLevel implements FieldEnum<LoggingLevel, Integer> {
     FINEST(Level.FINEST),
     ALL(Level.ALL);
 
-
     /**
      * Returns the enum constant of this type with the specified field value.
      *
@@ -54,7 +49,6 @@ public enum LoggingLevel implements FieldEnum<LoggingLevel, Integer> {
 
         return FieldEnums.fromFieldValue(LoggingLevel.class, fieldValue);
     }
-
 
     /**
      * Returns the enum constant of this type with the specified level's int
@@ -76,7 +70,6 @@ public enum LoggingLevel implements FieldEnum<LoggingLevel, Integer> {
         return fromFieldValue(level.intValue());
     }
 
-
     /**
      * Returns an array containing the field values of this enum type, in order
      * they are declared.
@@ -89,18 +82,15 @@ public enum LoggingLevel implements FieldEnum<LoggingLevel, Integer> {
         return FieldEnums.fieldValues(LoggingLevel.class, int.class);
     }
 
-
     private LoggingLevel(final int fieldValue) {
 
         this.fieldValue = fieldValue;
     }
 
-
     private LoggingLevel(final Level level) {
 
         this(level.intValue());
     }
-
 
     @Override
     public Integer fieldValue() {
@@ -108,11 +98,9 @@ public enum LoggingLevel implements FieldEnum<LoggingLevel, Integer> {
         return fieldValue;
     }
 
-
     /**
      * field value.
      */
     private final int fieldValue;
 
 }
-

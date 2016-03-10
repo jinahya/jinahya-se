@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind.test.map;
-
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,14 +23,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 @XmlRootElement
 public class Department7 extends AbstractDepartment {
-
 
     @XmlElement(name = "employee")
     private List<Employee> getEmployeeList() {
@@ -47,14 +42,12 @@ public class Department7 extends AbstractDepartment {
         return new ArrayList<>(employees);
     }
 
-
     private void setEmployeeList(final List<Employee> employeeList) {
 
         for (Employee employee : employeeList) {
             getEmployees().put(employee.getId(), employee);
         }
     }
-
 
     @XmlTransient
     @Override
@@ -64,4 +57,3 @@ public class Department7 extends AbstractDepartment {
     }
 
 }
-

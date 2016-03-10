@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.security;
-
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -29,23 +26,20 @@ import java.util.concurrent.ThreadLocalRandom;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class MessageDigestsTest {
 
-
     public static MessageDigest newMessageDigestWithRandomAlgorithm()
-        throws NoSuchAlgorithmException {
+            throws NoSuchAlgorithmException {
 
         return MessageDigest.getInstance(
-            MessageDigests.SUPPORTED_ALGORITHMS
-            .get(ThreadLocalRandom.current().nextInt(
-                MessageDigests.SUPPORTED_ALGORITHMS.size())));
+                MessageDigests.SUPPORTED_ALGORITHMS
+                .get(ThreadLocalRandom.current().nextInt(
+                        MessageDigests.SUPPORTED_ALGORITHMS.size())));
     }
-
 
     @Test(enabled = false, invocationCount = 1)
     public void test() throws NoSuchAlgorithmException, IOException {
@@ -60,11 +54,11 @@ public class MessageDigestsTest {
             final MessageDigest digest = MessageDigest.getInstance(algorithm);
 
             final byte[] hash1 = MessageDigests.digest(
-                digest, new ByteArrayInputStream(data), new byte[17], -1L);
+                    digest, new ByteArrayInputStream(data), new byte[17], -1L);
 
             final byte[] hash2 = MessageDigests.digest(
-                digest, Channels.newChannel(new ByteArrayInputStream(data)),
-                ByteBuffer.allocate(31), -1L);
+                    digest, Channels.newChannel(new ByteArrayInputStream(data)),
+                    ByteBuffer.allocate(31), -1L);
 
             Assert.assertEquals(hash1, hash2);
         }
@@ -72,4 +66,3 @@ public class MessageDigestsTest {
     }
 
 }
-

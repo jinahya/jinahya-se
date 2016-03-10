@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.io;
-
 
 import java.io.File;
 import java.io.IOException;
@@ -26,25 +23,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class IoTests {
 
-
     /**
      *
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(IoTests.class);
 
-
     public static long newTempFileLength() {
 
         return ThreadLocalRandom.current().nextLong(65536);
     }
-
 
     public static File newTempFile(final long length) throws IOException {
 
@@ -67,7 +60,6 @@ public class IoTests {
         return file;
     }
 
-
     /**
      * private constructor.
      */
@@ -77,4 +69,3 @@ public class IoTests {
     }
 
 }
-

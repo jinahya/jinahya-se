@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * An abstract XmlAdapter for marshalling lists to concatenated strings with
@@ -29,14 +25,12 @@ import java.util.List;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public abstract class StringListAdapter<E>
-    extends StringCollectionAdapter<List<E>, E> {
-
+        extends StringCollectionAdapter<List<E>, E> {
 
     public StringListAdapter(final String delimiter) {
 
         super(delimiter);
     }
-
 
     @Override
     protected List<E> bound(final String value) {
@@ -45,4 +39,3 @@ public abstract class StringListAdapter<E>
     }
 
 }
-

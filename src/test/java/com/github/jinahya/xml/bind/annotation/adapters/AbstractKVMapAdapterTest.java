@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind.annotation.adapters;
-
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -29,7 +26,6 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.transform.stream.StreamSource;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
@@ -37,10 +33,9 @@ import javax.xml.transform.stream.StreamSource;
 @XmlRootElement
 public abstract class AbstractKVMapAdapterTest {
 
-
     protected static <T extends AbstractKVMapAdapterTest> void printXml(
-        final Class<T> type, final T toBeMarshalled)
-        throws JAXBException, IOException {
+            final Class<T> type, final T toBeMarshalled)
+            throws JAXBException, IOException {
 
         for (int i = 0; i < 10; i++) {
             final Key key = new Key();
@@ -53,7 +48,7 @@ public abstract class AbstractKVMapAdapterTest {
         }
 
         final JAXBContext context
-            = JAXBContext.newInstance(AbstractKVMapAdapterTest.class, type);
+                = JAXBContext.newInstance(AbstractKVMapAdapterTest.class, type);
         final Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -66,14 +61,12 @@ public abstract class AbstractKVMapAdapterTest {
 
         final Unmarshaller unmarshaller = context.createUnmarshaller();
         final T unmarshalled = unmarshaller.unmarshal(
-            new StreamSource(new ByteArrayInputStream(bytes)), type).getValue();
+                new StreamSource(new ByteArrayInputStream(bytes)), type).getValue();
         for (Value value : unmarshalled.getValues().values()) {
             System.out.println(value);
         }
     }
 
-
     protected abstract Map<Key, Value> getValues();
 
 }
-

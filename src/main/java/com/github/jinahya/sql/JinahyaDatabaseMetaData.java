@@ -13,15 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.github.jinahya.sql;
-
 
 import com.github.jinahya.lang.IntFieldEnum;
 import java.sql.DatabaseMetaData;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
-
 
 /**
  *
@@ -29,9 +26,8 @@ import javax.xml.bind.annotation.XmlEnumValue;
  */
 public final class JinahyaDatabaseMetaData {
 
-
     public static enum BestRowIdentifierPseudoColumn
-        implements IntFieldEnum<BestRowIdentifierPseudoColumn> {
+            implements IntFieldEnum<BestRowIdentifierPseudoColumn> {
 
         /**
          * A constant for {@link DatabaseMetaData#bestRowUnknown}.
@@ -48,12 +44,10 @@ public final class JinahyaDatabaseMetaData {
          */
         bestRowPseudo(DatabaseMetaData.bestRowPseudo); // 2
 
-
         private BestRowIdentifierPseudoColumn(final int fieldValue) {
 
             this.fieldValue = fieldValue;
         }
-
 
         @Override
         public int fieldValueAsInt() {
@@ -61,14 +55,12 @@ public final class JinahyaDatabaseMetaData {
             return fieldValue;
         }
 
-
         private final int fieldValue;
 
     }
 
-
     public static enum BestRowIdentifierScope
-        implements IntFieldEnum<BestRowIdentifierScope> {
+            implements IntFieldEnum<BestRowIdentifierScope> {
 
         /**
          * A constant for {@link DatabaseMetaData#bestRowTemporary}.
@@ -85,12 +77,10 @@ public final class JinahyaDatabaseMetaData {
          */
         bestRowSession(DatabaseMetaData.bestRowSession); // 2// 2
 
-
         private BestRowIdentifierScope(final int fieldValue) {
 
             this.fieldValue = fieldValue;
         }
-
 
         @Override
         public int fieldValueAsInt() {
@@ -98,14 +88,12 @@ public final class JinahyaDatabaseMetaData {
             return fieldValue;
         }
 
-
         private final int fieldValue;
 
     }
 
-
     public static enum AttributeNullable
-        implements IntFieldEnum<AttributeNullable> {
+            implements IntFieldEnum<AttributeNullable> {
 
         /**
          * A constant for
@@ -125,12 +113,10 @@ public final class JinahyaDatabaseMetaData {
          */
         attributeNullableUnknown(DatabaseMetaData.attributeNullableUnknown); // 2
 
-
         private AttributeNullable(final int fieldValue) {
 
             this.fieldValue = fieldValue;
         }
-
 
         @Override
         public int fieldValueAsInt() {
@@ -138,11 +124,9 @@ public final class JinahyaDatabaseMetaData {
             return fieldValue;
         }
 
-
         private final int fieldValue;
 
     }
-
 
     public static enum Deferrability implements IntFieldEnum<Deferrability> {
 
@@ -151,14 +135,14 @@ public final class JinahyaDatabaseMetaData {
          * {@link DatabaseMetaData#importedKeyInitiallyDeferred}({@value DatabaseMetaData#importedKeyInitiallyDeferred}).
          */
         importedKeyInitiallyDeferred(
-            DatabaseMetaData.importedKeyInitiallyDeferred), // 5
+                DatabaseMetaData.importedKeyInitiallyDeferred), // 5
 
         /**
          * A constant for
          * {@link DatabaseMetaData#importedKeyInitiallyImmediate}({@value DatabaseMetaData#importedKeyInitiallyImmediate}).
          */
         importedKeyInitiallyImmediate(
-            DatabaseMetaData.importedKeyInitiallyImmediate), // 6
+                DatabaseMetaData.importedKeyInitiallyImmediate), // 6
 
         /**
          * A constant for
@@ -166,19 +150,16 @@ public final class JinahyaDatabaseMetaData {
          */
         importedKeyNotDeferrable(DatabaseMetaData.importedKeyNotDeferrable);
 
-
         private Deferrability(final int fieldValue) {
 
             this.fieldValue = fieldValue;
         }
-
 
         @Override
         public int fieldValueAsInt() {
 
             return fieldValue;
         }
-
 
         /**
          * field value.
@@ -187,9 +168,8 @@ public final class JinahyaDatabaseMetaData {
 
     }
 
-
     public static enum DatabaseMetaDataForeignKeyRule
-        implements IntFieldEnum<DatabaseMetaDataForeignKeyRule> {
+            implements IntFieldEnum<DatabaseMetaDataForeignKeyRule> {
 
         /**
          * A constant for {@link DatabaseMetaData#importedKeyCascade}.
@@ -217,12 +197,10 @@ public final class JinahyaDatabaseMetaData {
         importedKeySetDefault(DatabaseMetaData.importedKeySetDefault); // 4
 
         //importedKeyInitiallyImmediate(DatabaseMetaData.importedKeyInitiallyImmediate) // 6
-
         private DatabaseMetaDataForeignKeyRule(final int fieldValue) {
 
             this.fieldValue = fieldValue;
         }
-
 
         @Override
         public int fieldValueAsInt() {
@@ -230,11 +208,9 @@ public final class JinahyaDatabaseMetaData {
             return fieldValue;
         }
 
-
         private final int fieldValue;
 
     }
-
 
     public static enum SQLState implements IntFieldEnum<SQLState> {
 
@@ -243,12 +219,10 @@ public final class JinahyaDatabaseMetaData {
         sqlStateSQL99(DatabaseMetaData.sqlStateSQL99),
         sqlStateXOpen(DatabaseMetaData.sqlStateXOpen);
 
-
         SQLState(final int fieldValue) {
 
             this.fieldValue = fieldValue;
         }
-
 
         @Override
         public int fieldValueAsInt() {
@@ -256,11 +230,9 @@ public final class JinahyaDatabaseMetaData {
             return fieldValue;
         }
 
-
         private final int fieldValue;
 
     }
-
 
     @XmlEnum(Integer.class)
     public static enum TypeNullable implements IntFieldEnum<TypeNullable> {
@@ -286,12 +258,10 @@ public final class JinahyaDatabaseMetaData {
         @XmlEnumValue("2")
         typeNullableUnknown(DatabaseMetaData.typeNullableUnknown); // 2
 
-
         private TypeNullable(final int fieldValue) {
 
             this.fieldValue = fieldValue;
         }
-
 
         @Override
         public int fieldValueAsInt() {
@@ -299,11 +269,9 @@ public final class JinahyaDatabaseMetaData {
             return fieldValue;
         }
 
-
         private final int fieldValue;
 
     }
-
 
     public static enum ProcedureType implements IntFieldEnum<ProcedureType> {
 
@@ -322,12 +290,10 @@ public final class JinahyaDatabaseMetaData {
          */
         procedureReturnsResult(DatabaseMetaData.procedureReturnsResult); // 2
 
-
         private ProcedureType(final int fieldValue) {
 
             this.fieldValue = fieldValue;
         }
-
 
         @Override
         public int fieldValueAsInt() {
@@ -335,11 +301,9 @@ public final class JinahyaDatabaseMetaData {
             return fieldValue;
         }
 
-
         private final int fieldValue;
 
     }
-
 
     public static enum FunctionType implements IntFieldEnum<FunctionType> {
 
@@ -358,12 +322,10 @@ public final class JinahyaDatabaseMetaData {
          */
         functionReturn(DatabaseMetaData.functionReturn); // 4// 4
 
-
         private FunctionType(final int fieldValue) {
 
             this.fieldValue = fieldValue;
         }
-
 
         @Override
         public int fieldValueAsInt() {
@@ -371,11 +333,9 @@ public final class JinahyaDatabaseMetaData {
             return fieldValue;
         }
 
-
         private final int fieldValue;
 
     }
-
 
     private JinahyaDatabaseMetaData() {
 
@@ -383,4 +343,3 @@ public final class JinahyaDatabaseMetaData {
     }
 
 }
-

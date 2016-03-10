@@ -13,17 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class JinahyaArrays {
-
 
     public static void reverse(final short[] a) {
 
@@ -35,7 +31,6 @@ public class JinahyaArrays {
         }
     }
 
-
     public static void reverse(final boolean[] a) {
 
         final int h = a.length / 2;
@@ -45,7 +40,6 @@ public class JinahyaArrays {
             a[j] = t;
         }
     }
-
 
     public static void reverse(final byte[] a) {
 
@@ -57,7 +51,6 @@ public class JinahyaArrays {
         }
     }
 
-
     public static void reverse(final char[] a) {
 
         final int h = a.length / 2;
@@ -67,7 +60,6 @@ public class JinahyaArrays {
             a[j] = t;
         }
     }
-
 
     public static void reverse(final double[] a) {
 
@@ -79,7 +71,6 @@ public class JinahyaArrays {
         }
     }
 
-
     public static void reverse(final float[] a) {
 
         final int h = a.length / 2;
@@ -89,7 +80,6 @@ public class JinahyaArrays {
             a[j] = t;
         }
     }
-
 
     public static void reverse(final int[] a) {
 
@@ -101,7 +91,6 @@ public class JinahyaArrays {
         }
     }
 
-
     public static void reverse(final long[] a) {
 
         final int h = a.length / 2;
@@ -111,7 +100,6 @@ public class JinahyaArrays {
             a[j] = t;
         }
     }
-
 
     public static void reverse(final Object[] a) {
 
@@ -123,11 +111,9 @@ public class JinahyaArrays {
         }
     }
 
-
     private JinahyaArrays() {
 
         super();
     }
 
 }
-

@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlTransient;
-
 
 /**
  * The abstract class for simple values.
@@ -30,7 +26,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @XmlTransient
 public abstract class WrappedValue<R> {
-
 
     /**
      * Creates a new typed instance.
@@ -43,7 +38,7 @@ public abstract class WrappedValue<R> {
      * @return a new instance
      */
     public static <W extends WrappedValue<R>, R> W newInstance(
-        final Class<W> wrappedValueType, final R rawValue) {
+            final Class<W> wrappedValueType, final R rawValue) {
 
         Objects.requireNonNull(wrappedValueType, "wrappedValueType");
 
@@ -57,7 +52,6 @@ public abstract class WrappedValue<R> {
             throw new RuntimeException(iae);
         }
     }
-
 
     @Override
     public boolean equals(final Object obj) {
@@ -73,7 +67,7 @@ public abstract class WrappedValue<R> {
         final WrappedValue<?> other = (WrappedValue<?>) obj;
 
         if (this.rawValue != other.rawValue
-            && (this.rawValue == null
+                && (this.rawValue == null
                 || !this.rawValue.equals(other.rawValue))) {
             return false;
         }
@@ -81,18 +75,16 @@ public abstract class WrappedValue<R> {
         return true;
     }
 
-
     @Override
     public int hashCode() {
 
         int hash = 7;
 
         hash = 97 * hash
-               + (this.rawValue != null ? this.rawValue.hashCode() : 0);
+                + (this.rawValue != null ? this.rawValue.hashCode() : 0);
 
         return hash;
     }
-
 
     /**
      * Returns the raw value.
@@ -104,7 +96,6 @@ public abstract class WrappedValue<R> {
         return rawValue;
     }
 
-
     /**
      * Sets the raw value.
      *
@@ -115,11 +106,9 @@ public abstract class WrappedValue<R> {
         this.rawValue = rawValue;
     }
 
-
     /**
      * raw value.
      */
     private R rawValue;
 
 }
-

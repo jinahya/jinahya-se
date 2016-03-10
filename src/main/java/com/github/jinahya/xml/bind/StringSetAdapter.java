@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import java.util.HashSet;
 import java.util.Set;
-
 
 /**
  * An abstract XmlAdapter for marshalling sets to concatenated strings with
@@ -29,14 +25,12 @@ import java.util.Set;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public abstract class StringSetAdapter<E>
-    extends StringCollectionAdapter<Set<E>, E> {
-
+        extends StringCollectionAdapter<Set<E>, E> {
 
     public StringSetAdapter(final String delimiter) {
 
         super(delimiter);
     }
-
 
     @Override
     protected Set<E> bound(final String value) {
@@ -45,4 +39,3 @@ public abstract class StringSetAdapter<E>
     }
 
 }
-

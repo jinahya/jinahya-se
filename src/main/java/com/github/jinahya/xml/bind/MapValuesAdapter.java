@@ -13,17 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
-
 
 /**
  * An XmlAdapter for {@link MapValues} and {@link Map}.
@@ -34,8 +30,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * @param <V> Value type parameter
  */
 public abstract class MapValuesAdapter<T extends MapValues<V>, K, V>
-    extends XmlAdapter<T, Map<K, V>> {
-
+        extends XmlAdapter<T, Map<K, V>> {
 
     /**
      * Creates a new instance.
@@ -53,7 +48,6 @@ public abstract class MapValuesAdapter<T extends MapValues<V>, K, V>
         this.mapValuesType = mapValuesType;
     }
 
-
     @Override
     public Map<K, V> unmarshal(final T v) throws Exception {
 
@@ -70,12 +64,10 @@ public abstract class MapValuesAdapter<T extends MapValues<V>, K, V>
         return b;
     }
 
-
     protected Map<K, V> newMap(final int size) {
 
         return new HashMap<K, V>(size);
     }
-
 
     /**
      * Returns the map key for specified map value.
@@ -85,7 +77,6 @@ public abstract class MapValuesAdapter<T extends MapValues<V>, K, V>
      * @return map key for specified {@code value}.
      */
     protected abstract K getKey(V value);
-
 
     @Override
     public T marshal(final Map<K, V> b) throws Exception {
@@ -105,11 +96,9 @@ public abstract class MapValuesAdapter<T extends MapValues<V>, K, V>
         return v;
     }
 
-
     /**
      * map values type.
      */
     private final Class<T> mapValuesType;
 
 }
-

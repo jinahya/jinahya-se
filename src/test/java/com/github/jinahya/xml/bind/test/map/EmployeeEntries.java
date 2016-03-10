@@ -13,16 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind.test.map;
-
 
 import com.github.jinahya.xml.bind.MapEntries;
 import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
 
 /**
  *
@@ -31,12 +27,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class EmployeeEntries extends MapEntries<EmployeeEntry, Long, Employee> {
 
-
     public EmployeeEntries() {
 
         super(EmployeeEntry.class);
     }
-
 
     @XmlElement(name = "employeeEntry")
     public List<EmployeeEntry> getEmployeeEntries() {
@@ -45,4 +39,3 @@ public class EmployeeEntries extends MapEntries<EmployeeEntry, Long, Employee> {
     }
 
 }
-

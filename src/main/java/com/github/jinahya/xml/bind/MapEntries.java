@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +21,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlTransient;
-
 
 /**
  *
@@ -35,7 +31,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @XmlTransient
 public abstract class MapEntries<T extends MapEntry<K, V>, K, V> {
-
 
     /**
      * Creates a new instance.
@@ -48,7 +43,6 @@ public abstract class MapEntries<T extends MapEntry<K, V>, K, V> {
 
         this.entryType = Objects.requireNonNull(entryType, "entryType");
     }
-
 
     /**
      * Returns entries.
@@ -63,7 +57,6 @@ public abstract class MapEntries<T extends MapEntry<K, V>, K, V> {
 
         return entries;
     }
-
 
     /**
      * Adds a new entry.
@@ -88,7 +81,6 @@ public abstract class MapEntries<T extends MapEntry<K, V>, K, V> {
         getEntries().add(entry);
     }
 
-
     /**
      * Adds a new entry.
      *
@@ -102,7 +94,6 @@ public abstract class MapEntries<T extends MapEntry<K, V>, K, V> {
 
         addEntry(entry.getKey(), entry.getValue());
     }
-
 
     /**
      * Adds entries from specified map.
@@ -120,12 +111,10 @@ public abstract class MapEntries<T extends MapEntry<K, V>, K, V> {
         }
     }
 
-
     /**
      * entry type.
      */
     protected final Class<T> entryType;
-
 
     /**
      * entries.
@@ -133,4 +122,3 @@ public abstract class MapEntries<T extends MapEntry<K, V>, K, V> {
     private List<T> entries;
 
 }
-

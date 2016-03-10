@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang;
-
 
 /**
  *
@@ -25,7 +22,6 @@ package com.github.jinahya.lang;
  */
 public abstract class FloatFieldEnumTest<E extends Enum<E> & FloatFieldEnum<E>> {
 
-
     public FloatFieldEnumTest(final Class<E> enumType) {
 
         super();
@@ -33,8 +29,6 @@ public abstract class FloatFieldEnumTest<E extends Enum<E> & FloatFieldEnum<E>> 
         this.enumType = enumType;
     }
 
-
     protected final Class<E> enumType;
 
 }
-

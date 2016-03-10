@@ -13,11 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 @XmlAccessorType(XmlAccessType.NONE)
 package com.github.jinahya.xml.bind.annotations.adapters;
-
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

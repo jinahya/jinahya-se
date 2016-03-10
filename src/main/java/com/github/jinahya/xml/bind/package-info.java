@@ -13,14 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 @XmlSchema(attributeFormDefault = XmlNsForm.UNQUALIFIED,
-           elementFormDefault = XmlNsForm.QUALIFIED,
-           namespace = "http://jinahya.github.com/xml/bind")
+        elementFormDefault = XmlNsForm.QUALIFIED,
+        namespace = "http://jinahya.github.com/xml/bind")
 @XmlAccessorType(XmlAccessType.NONE)
 package com.github.jinahya.xml.bind;
-
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

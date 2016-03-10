@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.nio.charset;
-
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -25,13 +22,11 @@ import java.nio.charset.StandardCharsets;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-
 /**
  *
  * @author Jin Kwon
  */
 public class CharsetsTest {
-
 
     @Test
     public void SUPPORTED_CHARSET_NAMES_() throws IllegalAccessException {
@@ -52,11 +47,10 @@ public class CharsetsTest {
                 }
             }
             Assert.assertTrue(
-                matches, charset + " is not found in "
-                         + StandardCharsets.class);
+                    matches, charset + " is not found in "
+                    + StandardCharsets.class);
         }
     }
-
 
     @Test
     public void SUPPORTED_CHARSET_() throws IllegalAccessException {
@@ -76,9 +70,8 @@ public class CharsetsTest {
                 }
             }
             Assert.assertTrue(matches, charset + " is not found in "
-                                       + StandardCharsets.class);
+                    + StandardCharsets.class);
         }
     }
 
 }
-

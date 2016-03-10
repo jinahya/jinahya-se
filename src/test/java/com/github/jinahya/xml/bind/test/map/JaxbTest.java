@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind.test.map;
-
 
 import java.io.IOException;
 import javax.xml.bind.JAXBContext;
@@ -26,26 +23,24 @@ import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamResult;
 import org.testng.annotations.Test;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class JaxbTest {
 
-
     @Test
     public void printSchema() throws JAXBException, IOException {
 
         final JAXBContext context = JAXBContext.newInstance(
-            JaxbTest.class.getPackage().getName());
+                JaxbTest.class.getPackage().getName());
 
         context.generateSchema(new SchemaOutputResolver() {
 
             @Override
             public Result createOutput(final String namespaceUri,
-                                       final String suggestedFileName)
-                throws IOException {
+                    final String suggestedFileName)
+                    throws IOException {
 
                 return new StreamResult(System.out) {
 
@@ -61,4 +56,3 @@ public class JaxbTest {
     }
 
 }
-

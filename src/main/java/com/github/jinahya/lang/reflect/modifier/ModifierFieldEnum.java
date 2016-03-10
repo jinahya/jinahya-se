@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang.reflect.modifier;
 
-
 import com.github.jinahya.lang.IntegerFieldEnum;
-
 
 /**
  *
@@ -27,11 +23,9 @@ import com.github.jinahya.lang.IntegerFieldEnum;
  * @param <E> enum type parameter
  */
 public interface ModifierFieldEnum<E extends Enum<E>>
-    extends IntegerFieldEnum<E> {
-
+        extends IntegerFieldEnum<E> {
 
     boolean is(int modifiers);
-
 
     /**
      *
@@ -41,7 +35,6 @@ public interface ModifierFieldEnum<E extends Enum<E>>
      */
     int add(int modifiers);
 
-
     /**
      *
      * @param modifiers
@@ -50,6 +43,4 @@ public interface ModifierFieldEnum<E extends Enum<E>>
      */
     int remove(int modifiers);
 
-
 }
-

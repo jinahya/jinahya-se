@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang;
-
 
 import java.lang.reflect.Array;
 import java.util.Collection;
-
 
 /**
  * A helper class for {@link FieldEnum}.
@@ -28,7 +24,6 @@ import java.util.Collection;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class FieldEnums {
-
 
     /**
      * Returns an array containing the field values of specified enum type, in
@@ -42,7 +37,7 @@ public final class FieldEnums {
      * @return an array containing the field values of this enum type
      */
     public static <E extends Enum<E> & FieldEnum<E, V>, V> V[] fieldValues(
-        final Class<E> enumType, final Class<V> fieldType) {
+            final Class<E> enumType, final Class<V> fieldType) {
 
         if (enumType == null) {
             throw new NullPointerException("null enumtype");
@@ -56,7 +51,7 @@ public final class FieldEnums {
 
         @SuppressWarnings("unchecked")
         final V[] fieldValues
-            = (V[]) Array.newInstance(fieldType, enumConstants.length);
+                = (V[]) Array.newInstance(fieldType, enumConstants.length);
 
         for (int i = 0; i < fieldValues.length; i++) {
             fieldValues[i] = enumConstants[i].fieldValue();
@@ -64,7 +59,6 @@ public final class FieldEnums {
 
         return fieldValues;
     }
-
 
     /**
      * Adds all field values of given enum type to specified collection.
@@ -75,7 +69,7 @@ public final class FieldEnums {
      * @param fieldValues the collection to which field values are added.
      */
     public static <E extends Enum<E> & FieldEnum<E, V>, V> void fieldValues(
-        final Class<E> enumType, final Collection<? super V> fieldValues) {
+            final Class<E> enumType, final Collection<? super V> fieldValues) {
 
         if (enumType == null) {
             throw new NullPointerException("null enumtype");
@@ -89,7 +83,6 @@ public final class FieldEnums {
             fieldValues.add(enumConstant.fieldValue());
         }
     }
-
 
     /**
      * Returns the enum constant of specified enum type with specified field
@@ -108,7 +101,7 @@ public final class FieldEnums {
      * @return the mapped enum constant.
      */
     public static <E extends Enum<E> & FieldEnum<E, V>, V> E fromFieldValue(
-        final Class<E> enumType, final V fieldValue) {
+            final Class<E> enumType, final V fieldValue) {
 
         if (enumType == null) {
             throw new NullPointerException("null enumtype");
@@ -121,14 +114,13 @@ public final class FieldEnums {
         for (final E enumConstant : enumType.getEnumConstants()) {
             final V constantFieldValue = enumConstant.fieldValue();
             if (constantFieldValue == null
-                ? fieldValue == null : constantFieldValue.equals(fieldValue)) {
+                    ? fieldValue == null : constantFieldValue.equals(fieldValue)) {
                 return enumConstant;
             }
         }
 
         throw new IllegalArgumentException("unknown fieldValue: " + fieldValue);
     }
-
 
     /**
      * Creates a new instance.
@@ -139,4 +131,3 @@ public final class FieldEnums {
     }
 
 }
-

@@ -13,17 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class Iterables {
-
 
     public static <T> void requireSortedAscending(final Iterable<T> iterable, final Comparable<? super T> comparator) {
 
@@ -36,11 +32,9 @@ public final class Iterables {
         }
     }
 
-
     private Iterables() {
 
         super();
     }
 
 }
-

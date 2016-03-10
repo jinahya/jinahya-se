@@ -13,15 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.github.jinahya.crypto;
-
 
 import com.github.jinahya.lang.IntFieldEnum;
 import javax.crypto.Cipher;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
-
 
 /**
  *
@@ -54,11 +51,9 @@ public enum CipherMode implements IntFieldEnum<CipherMode> {
     @XmlEnumValue(value = "4")
     UNWRAP_MODE(Cipher.UNWRAP_MODE);
 
-
     private CipherMode(final int fieldValue) {
         this.fieldValue = fieldValue;
     }
-
 
     @Override
     public int fieldValueAsInt() {
@@ -66,8 +61,6 @@ public enum CipherMode implements IntFieldEnum<CipherMode> {
         return fieldValue;
     }
 
-
     private final int fieldValue;
 
 }
-

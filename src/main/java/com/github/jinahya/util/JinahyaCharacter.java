@@ -13,17 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class JinahyaCharacter {
-
 
     /**
      * Returns the array of Unicode code points in a subarray of the
@@ -41,10 +37,10 @@ public final class JinahyaCharacter {
      * @return the array of Unicode code points in the specified subarray
      */
     public static int[] codePoints(final char[] a, final int offset,
-                                   final int count) {
+            final int count) {
 
         final int[] codePoints
-            = new int[Character.codePointCount(a, offset, count)];
+                = new int[Character.codePointCount(a, offset, count)];
         int index = offset;
         for (int i = 0; i < codePoints.length; i++) {
             codePoints[i] = Character.codePointAt(a, index);
@@ -53,7 +49,6 @@ public final class JinahyaCharacter {
 
         return codePoints;
     }
-
 
     /**
      * Returns the array of Unicode code points in the text range of the
@@ -71,10 +66,10 @@ public final class JinahyaCharacter {
      * @return the array of Unicode code points in the specified text range
      */
     public static int[] codePoints(final CharSequence seq, final int beginIndex,
-                                   final int endIndex) {
+            final int endIndex) {
 
         final int[] codePoints
-            = new int[Character.codePointCount(seq, beginIndex, endIndex)];
+                = new int[Character.codePointCount(seq, beginIndex, endIndex)];
         int index = beginIndex;
         for (int i = 0; i < codePoints.length; i++) {
             codePoints[i] = Character.codePointAt(seq, index);
@@ -83,7 +78,6 @@ public final class JinahyaCharacter {
 
         return codePoints;
     }
-
 
     /**
      *
@@ -114,7 +108,6 @@ public final class JinahyaCharacter {
         return true;
     }
 
-
     /**
      *
      * @param seq
@@ -133,7 +126,6 @@ public final class JinahyaCharacter {
 
         return isJavaIdentifier(codePoints(seq, 0, seq.length()));
     }
-
 
     /**
      *
@@ -154,7 +146,6 @@ public final class JinahyaCharacter {
         return isJavaIdentifier(codePoints(a, 0, a.length));
     }
 
-
     /**
      * PRIVATE.
      */
@@ -163,4 +154,3 @@ public final class JinahyaCharacter {
     }
 
 }
-

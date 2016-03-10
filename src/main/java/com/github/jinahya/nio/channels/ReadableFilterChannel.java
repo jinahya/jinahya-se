@@ -13,29 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.github.jinahya.nio.channels;
-
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.ReadableByteChannel;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class ReadableFilterChannel
-    extends FilterChannel<ReadableByteChannel>
-    implements ReadableByteChannel {
-
+        extends FilterChannel<ReadableByteChannel>
+        implements ReadableByteChannel {
 
     public ReadableFilterChannel(final ReadableByteChannel channel) {
 
         super(channel);
     }
-
 
     @Override
     public int read(final ByteBuffer dst) throws IOException {
@@ -44,4 +39,3 @@ public class ReadableFilterChannel
     }
 
 }
-

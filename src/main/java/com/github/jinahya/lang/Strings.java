@@ -13,21 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang;
-
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class Strings {
-
 
     public static String concat(String string, final String... strs) {
 
@@ -45,7 +40,6 @@ public final class Strings {
 
         return string;
     }
-
 
     public static boolean containsAny(final String string, final CharSequence... ss) {
 
@@ -66,7 +60,6 @@ public final class Strings {
         return false;
     }
 
-
     public static boolean containsAll(final String string, final CharSequence... ss) {
 
         if (string == null) {
@@ -86,7 +79,6 @@ public final class Strings {
         return true;
     }
 
-
     /**
      * Test if give string ends with any of specified suffixes.
      *
@@ -99,7 +91,7 @@ public final class Strings {
      * @see String#endsWith(java.lang.String)
      */
     public static boolean endsWith(final String string,
-                                   final String... suffixes) {
+            final String... suffixes) {
 
         if (string == null) {
             throw new NullPointerException("null string");
@@ -118,7 +110,6 @@ public final class Strings {
         return false;
     }
 
-
     /**
      *
      * @param string
@@ -131,7 +122,7 @@ public final class Strings {
      * @see String#indexOf(int, int)
      */
     public static int indexOf(final String string, final int ch, int fromIndex,
-                              int ordinal) {
+            int ordinal) {
 
         if (string == null) {
             throw new NullPointerException("string == null");
@@ -154,9 +145,8 @@ public final class Strings {
         return index;
     }
 
-
     public static List<Integer> indicesOf(final String string, final int ch,
-                                          int fromIndex) {
+            int fromIndex) {
 
         if (string == null) {
             throw new NullPointerException("string == null");
@@ -176,7 +166,6 @@ public final class Strings {
         return indices;
     }
 
-
     /**
      *
      * @param string
@@ -189,7 +178,7 @@ public final class Strings {
      * @see String#indexOf(java.lang.String, int)
      */
     public static int indexOf(final String string, final String str,
-                              int fromIndex, int ordinal) {
+            int fromIndex, int ordinal) {
 
         if (string == null) {
             throw new NullPointerException("string == null");
@@ -212,9 +201,8 @@ public final class Strings {
         return index;
     }
 
-
     public static List<Integer> indicesOf(final String string, final String str,
-                                          int fromIndex) {
+            int fromIndex) {
 
         if (string == null) {
             throw new NullPointerException("string == null");
@@ -234,11 +222,9 @@ public final class Strings {
         return indices;
     }
 
-
     private Strings() {
 
         super();
     }
 
 }
-

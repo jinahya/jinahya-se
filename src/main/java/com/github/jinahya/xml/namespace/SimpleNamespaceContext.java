@@ -13,23 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.namespace;
-
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.xml.XMLConstants;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class SimpleNamespaceContext extends AbstractNamespaceContext {
-
 
     /**
      * Creates a new instance.
@@ -39,7 +34,6 @@ public class SimpleNamespaceContext extends AbstractNamespaceContext {
 
         list = new ArrayList<String>();
     }
-
 
     @Override
     public String getNamespaceURI(final String prefix) {
@@ -61,7 +55,6 @@ public class SimpleNamespaceContext extends AbstractNamespaceContext {
         return XMLConstants.NULL_NS_URI;
     }
 
-
     @Override
     public String getPrefix(final String namespaceURI) {
 
@@ -82,7 +75,6 @@ public class SimpleNamespaceContext extends AbstractNamespaceContext {
         return null;
     }
 
-
     @Override
     @SuppressWarnings("rawtypes")
     public Iterator getPrefixes(final String namespaceURI) {
@@ -101,7 +93,6 @@ public class SimpleNamespaceContext extends AbstractNamespaceContext {
 
         return prefixes.iterator();
     }
-
 
     /**
      * Adds a new namespace. \
@@ -125,13 +116,12 @@ public class SimpleNamespaceContext extends AbstractNamespaceContext {
 
         if (isReservedNamespaceURI(namespaceURI)) {
             throw new IllegalArgumentException(
-                "predefined namespaceURI: " + namespaceURI);
+                    "predefined namespaceURI: " + namespaceURI);
         }
 
         list.add(prefix);
         list.add(namespaceURI);
     }
-
 
     /**
      * list.
@@ -139,4 +129,3 @@ public class SimpleNamespaceContext extends AbstractNamespaceContext {
     private final List<String> list;
 
 }
-

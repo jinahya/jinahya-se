@@ -13,22 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util;
-
 
 import java.util.concurrent.ThreadLocalRandom;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class MasksTest {
-
 
     @Test(invocationCount = 1)
     public static void testPutOnWithSingleMask() {
@@ -38,13 +33,11 @@ public class MasksTest {
         Assert.assertEquals(Masks.putOn(0x00, mask), mask);
     }
 
-
     @Test(expectedExceptions = {NullPointerException.class})
     public static void testPutOnWithNullMasks() {
 
         Masks.putOn(0, (int[]) null);
     }
-
 
     @Test(invocationCount = 1)
     public void testTakeOffWithSingleMask() {
@@ -54,7 +47,6 @@ public class MasksTest {
         Assert.assertEquals(Masks.takeOff(mask, mask), 0x00);
     }
 
-
     @Test(expectedExceptions = {NullPointerException.class})
     public static void testTakeOffWithNullMasks() {
 
@@ -62,4 +54,3 @@ public class MasksTest {
     }
 
 }
-

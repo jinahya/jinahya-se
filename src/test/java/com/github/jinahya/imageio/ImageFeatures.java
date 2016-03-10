@@ -13,14 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.github.jinahya.imageio;
-
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
-
 
 /**
  *
@@ -29,7 +26,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 class ImageFeatures<T extends ImageFeature<T>> {
-
 
     public List<T> getFeatures() {
 
@@ -40,8 +36,6 @@ class ImageFeatures<T extends ImageFeature<T>> {
         return features;
     }
 
-
     private List<T> features;
 
 }
-

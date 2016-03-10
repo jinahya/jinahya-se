@@ -13,23 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.sql;
-
 
 import com.github.jinahya.lang.FieldEnum;
 import com.github.jinahya.lang.FieldEnums;
 import java.sql.DatabaseMetaData;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum DatabaseMetaDataBestRowScope
-    implements FieldEnum<DatabaseMetaDataBestRowScope, Integer> {
-
+        implements FieldEnum<DatabaseMetaDataBestRowScope, Integer> {
 
     /**
      * A constant for {@link DatabaseMetaData#bestRowTemporary}.
@@ -46,28 +41,24 @@ public enum DatabaseMetaDataBestRowScope
      */
     bestRowSession(DatabaseMetaData.bestRowSession); // 2
 
-
     public static DatabaseMetaDataBestRowScope fromFieldValue(
-        final int fieldValue) {
+            final int fieldValue) {
 
         return FieldEnums.fromFieldValue(
-            DatabaseMetaDataBestRowScope.class,
-            Integer.valueOf(fieldValue));
+                DatabaseMetaDataBestRowScope.class,
+                Integer.valueOf(fieldValue));
     }
-
 
     public static Integer[] fieldValues() {
 
         return FieldEnums.fieldValues(
-            DatabaseMetaDataBestRowScope.class, Integer.class);
+                DatabaseMetaDataBestRowScope.class, Integer.class);
     }
-
 
     private DatabaseMetaDataBestRowScope(final int fieldValue) {
 
         this.fieldValue = fieldValue;
     }
-
 
     @Override
     public Integer fieldValue() {
@@ -75,12 +66,9 @@ public enum DatabaseMetaDataBestRowScope
         return fieldValue;
     }
 
-
     /**
      * field value.
      */
     private final int fieldValue;
 
-
 }
-

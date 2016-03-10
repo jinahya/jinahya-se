@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util;
-
 
 import com.github.jinahya.lang.FieldEnum;
 import java.util.Calendar;
-
 
 /**
  *
@@ -29,11 +25,8 @@ import java.util.Calendar;
  * @param <F> field value type parameter
  */
 public interface CalendarFieldEnum<E extends Enum<E>, F>
-    extends FieldEnum<E, F> {
-
+        extends FieldEnum<E, F> {
 
     void set(final Calendar calendar);
 
-
 }
-

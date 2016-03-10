@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.io;
-
 
 import java.io.FilterOutputStream;
 import java.io.OutputStream;
-
 
 /**
  * An output stream writes bytes only through {@link OutputStream#write(int) }.
@@ -28,7 +24,6 @@ import java.io.OutputStream;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class FunnelOutputStream extends FilterOutputStream {
-
 
     /**
      * Creates a funnel output stream built on top of the specified underlying
@@ -42,4 +37,3 @@ public class FunnelOutputStream extends FilterOutputStream {
     }
 
 }
-

@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang.reflect;
 
-
 import java.lang.reflect.Modifier;
-
 
 /**
  *
@@ -37,12 +33,10 @@ public enum MethodModifier implements ModifierFieldEnum<MethodModifier> {
     ABSTRACT(Modifier.ABSTRACT), // 1024
     STRICT(Modifier.STRICT); // 2048
 
-
     private MethodModifier(final int fieldValue) {
 
         this.fieldValue = fieldValue;
     }
-
 
     @Override
     public int fieldValueAsInt() {
@@ -50,8 +44,6 @@ public enum MethodModifier implements ModifierFieldEnum<MethodModifier> {
         return fieldValue;
     }
 
-
     private final int fieldValue;
 
 }
-

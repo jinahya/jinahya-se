@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import java.io.IOException;
 import javax.xml.bind.JAXBContext;
@@ -24,13 +21,11 @@ import javax.xml.bind.JAXBException;
 import javax.xml.transform.stream.StreamResult;
 import org.testng.annotations.Test;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class SchemaOutputResolversTest {
-
 
     @Test
     public static void of() throws JAXBException, IOException {
@@ -38,8 +33,8 @@ public class SchemaOutputResolversTest {
         final JAXBContext context = JAXBContext.newInstance(SampleEntity.class);
 
         context.generateSchema(SchemaOutputResolvers.of(
-            (namespaceUri, suggestedFileName) -> {
-                return new StreamResult(System.out) {
+                (namespaceUri, suggestedFileName) -> {
+                    return new StreamResult(System.out) {
 
                 @Override
                 public String getSystemId() {
@@ -47,9 +42,8 @@ public class SchemaOutputResolversTest {
                 }
 
             };
-            }));
+                }));
 
     }
 
 }
-

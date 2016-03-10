@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.crypto;
-
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -46,38 +43,33 @@ import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class CiphersTest {
 
-
     private static final Logger logger
-        = LoggerFactory.getLogger(CiphersTest.class);
-
+            = LoggerFactory.getLogger(CiphersTest.class);
 
     @Test
     public static void SUPPORTED_TRANSFORMATIONS()
-        throws NoSuchAlgorithmException, NoSuchPaddingException {
+            throws NoSuchAlgorithmException, NoSuchPaddingException {
 
         for (final String transformation
-             : JinahyaCiphers.SUPPORTED_TRANSFORMATIONS.keySet()) {
+                : JinahyaCiphers.SUPPORTED_TRANSFORMATIONS.keySet()) {
             final Cipher cipher = Cipher.getInstance(transformation);
         }
     }
 
-
     private static Key newKey(final String algorithm, final int keySize)
-        throws NoSuchAlgorithmException {
+            throws NoSuchAlgorithmException {
 
         final KeyGenerator keygen = KeyGenerator.getInstance(algorithm);
         keygen.init(keySize);
 
         return keygen.generateKey();
     }
-
 
     private static AlgorithmParameterSpec newIv(final int blockSize) {
 
@@ -91,15 +83,13 @@ public class CiphersTest {
         return new IvParameterSpec(iv);
     }
 
-
     private static AlgorithmParameterSpec newIv(final Cipher cipher) {
 
         return newIv(cipher.getBlockSize());
     }
 
-
     private static KeyPair newKeyPair(final String algorithm, final int keySize)
-        throws NoSuchAlgorithmException {
+            throws NoSuchAlgorithmException {
 
         final KeyPairGenerator keygen = KeyPairGenerator.getInstance(algorithm);
         keygen.initialize(keySize);
@@ -107,29 +97,28 @@ public class CiphersTest {
         return keygen.generateKeyPair();
     }
 
-
     private static void symmetric(final String transformation,
-                                  final int keySize, final boolean requiresIv,
-                                  final boolean noPadding)
-        throws NoSuchAlgorithmException, NoSuchPaddingException,
-               InvalidKeyException, InvalidAlgorithmParameterException,
-               IOException, IllegalBlockSizeException, BadPaddingException {
+            final int keySize, final boolean requiresIv,
+            final boolean noPadding)
+            throws NoSuchAlgorithmException, NoSuchPaddingException,
+            InvalidKeyException, InvalidAlgorithmParameterException,
+            IOException, IllegalBlockSizeException, BadPaddingException {
 
         logger.debug("symmetric({}, {}, {}, {})",
-                     transformation, keySize, requiresIv, noPadding);
+                transformation, keySize, requiresIv, noPadding);
 
         final Random random = ThreadLocalRandom.current();
 
         final String algorithm
-            = transformation.substring(0, transformation.indexOf('/'));
+                = transformation.substring(0, transformation.indexOf('/'));
         final Key key = newKey(algorithm, keySize);
         final Cipher cipher = Cipher.getInstance(transformation);
         final AlgorithmParameterSpec iv = requiresIv ? newIv(cipher) : null;
 
         final byte[] expected
-            = noPadding
-              ? new byte[cipher.getBlockSize() * random.nextInt(512)]
-              : new byte[random.nextInt(65536)];
+                = noPadding
+                        ? new byte[cipher.getBlockSize() * random.nextInt(512)]
+                        : new byte[random.nextInt(65536)];
         random.nextBytes(expected);
 
         {
@@ -145,16 +134,16 @@ public class CiphersTest {
                 cipher.init(Cipher.ENCRYPT_MODE, key, iv);
                 final ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 JinahyaCiphers.update(
-                    cipher, new ByteArrayInputStream(expected), baos, length,
-                    -1L, true);
+                        cipher, new ByteArrayInputStream(expected), baos, length,
+                        -1L, true);
                 encrypted = baos.toByteArray();
             }
             {
                 cipher.init(Cipher.DECRYPT_MODE, key, iv);
                 final ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 JinahyaCiphers.update(
-                    cipher, new ByteArrayInputStream(encrypted), baos, length,
-                    -1L, true);
+                        cipher, new ByteArrayInputStream(encrypted), baos, length,
+                        -1L, true);
                 actual = baos.toByteArray();
             }
             Assert.assertEquals(actual, expected);
@@ -173,34 +162,33 @@ public class CiphersTest {
             {
                 cipher.init(Cipher.ENCRYPT_MODE, key, iv);
                 final ReadableByteChannel input
-                    = Channels.newChannel(new ByteArrayInputStream(expected));
+                        = Channels.newChannel(new ByteArrayInputStream(expected));
                 final ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 final WritableByteChannel output = Channels.newChannel(baos);
                 JinahyaCiphers.update(
-                    cipher, input, output, capacity, -1L, true);
+                        cipher, input, output, capacity, -1L, true);
                 baos.flush();
                 encrypted = baos.toByteArray();
             }
             {
                 cipher.init(Cipher.DECRYPT_MODE, key, iv);
                 final ReadableByteChannel input
-                    = Channels.newChannel(new ByteArrayInputStream(encrypted));
+                        = Channels.newChannel(new ByteArrayInputStream(encrypted));
                 final ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 final WritableByteChannel output = Channels.newChannel(baos);
                 JinahyaCiphers.update(
-                    cipher, input, output, capacity, -1L, true);
+                        cipher, input, output, capacity, -1L, true);
                 actual = baos.toByteArray();
                 Assert.assertEquals(actual, expected);
             }
         }
     }
 
-
     @Test(invocationCount = 1)
     public void test() throws Exception {
 
         for (Entry<String, List<Integer>> entry
-             : JinahyaCiphers.SUPPORTED_TRANSFORMATIONS.entrySet()) {
+                : JinahyaCiphers.SUPPORTED_TRANSFORMATIONS.entrySet()) {
 
             final String transformation = entry.getKey();
             final String[] split = transformation.split("/");
@@ -229,4 +217,3 @@ public class CiphersTest {
     }
 
 }
-

@@ -13,17 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.imageio;
-
 
 import static com.github.jinahya.imageio.ImageFeature.collect;
 import java.util.Collection;
 import static javax.imageio.ImageIO.getReaderMIMETypes;
 import static javax.imageio.ImageIO.getWriterMIMETypes;
 import javax.xml.bind.annotation.XmlRootElement;
-
 
 /**
  *
@@ -32,17 +28,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class ImageMimeType extends ImageFeature<ImageMimeType> {
 
-
     public static Collection<ImageMimeType> availableImageMimeTypes() {
 
         try {
             return collect(
-                ImageMimeType.class, getReaderMIMETypes(),
-                getWriterMIMETypes());
+                    ImageMimeType.class, getReaderMIMETypes(),
+                    getWriterMIMETypes());
         } catch (InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }
 
 }
-

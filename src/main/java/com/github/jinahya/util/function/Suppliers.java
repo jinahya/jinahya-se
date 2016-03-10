@@ -13,22 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util.function;
-
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class Suppliers {
-
 
     public static <T> Supplier<T> cacheable(final Supplier<T> wrappee) {
 
@@ -44,7 +39,6 @@ public final class Suppliers {
         return wrapper;
     }
 
-
     /**
      * Returns given supplier.
      *
@@ -58,18 +52,15 @@ public final class Suppliers {
         return supplier;
     }
 
-
     public static <T> Supplier<T> supplying(final T supplied) {
 
         return of(() -> supplied);
     }
 
-
     public static <T> Supplier<T> supplyingNull() {
 
         return supplying(null);
     }
-
 
     private Suppliers() {
 
@@ -77,4 +68,3 @@ public final class Suppliers {
     }
 
 }
-

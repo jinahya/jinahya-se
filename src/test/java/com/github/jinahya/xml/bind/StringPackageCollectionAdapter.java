@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
 
-
 import java.util.Collection;
-
 
 /**
  *
@@ -27,13 +23,11 @@ import java.util.Collection;
  * @param <C>
  */
 public abstract class StringPackageCollectionAdapter<C extends Collection<Package>>
-    extends StringCollectionAdapter<C, Package> {
-
+        extends StringCollectionAdapter<C, Package> {
 
     public StringPackageCollectionAdapter() {
         super(":");
     }
-
 
     @Override
     public String marshal(C bound) throws Exception {
@@ -42,7 +36,6 @@ public abstract class StringPackageCollectionAdapter<C extends Collection<Packag
 
         return super.marshal(bound);
     }
-
 
     @Override
     protected Package element(final String token) {
@@ -53,7 +46,6 @@ public abstract class StringPackageCollectionAdapter<C extends Collection<Packag
 
         return Package.getPackage(token);
     }
-
 
     @Override
     protected String token(final Package element) {
@@ -66,4 +58,3 @@ public abstract class StringPackageCollectionAdapter<C extends Collection<Packag
     }
 
 }
-

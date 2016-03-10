@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang;
-
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 
 /**
  *
@@ -28,20 +24,17 @@ import org.testng.annotations.Test;
  */
 public class ClassesTest {
 
-
     @Test(expectedExceptions = {NullPointerException.class})
     public static void requireIntanceOf_nullIs() {
 
         Classes.requireInstanceOf(null, Object.class);
     }
 
-
     @Test(expectedExceptions = {NullPointerException.class})
     public static void requireIntanceOf_nullOf() {
 
         Classes.requireInstanceOf(new Object(), null);
     }
-
 
     @Test
     public static void requireIntanceOf_() {
@@ -67,20 +60,17 @@ public class ClassesTest {
         }
     }
 
-
     @Test(expectedExceptions = {NullPointerException.class})
     public static void requireAssignableTo_nullIs() {
 
         Classes.requireAssignableTo(null, Object.class);
     }
 
-
     @Test(expectedExceptions = {NullPointerException.class})
     public static void requireAssignableTo_nullTo() {
 
         Classes.requireAssignableTo(Object.class, null);
     }
-
 
     @Test
     public static void requireAssignableTo_() {
@@ -98,40 +88,38 @@ public class ClassesTest {
         try {
             Classes.requireAssignableTo(Object.class, String.class);
             Assert.fail(
-                "passed: requireAssignableTo(Object.class, String.class)");
+                    "passed: requireAssignableTo(Object.class, String.class)");
         } catch (final IllegalArgumentException aie) {
             // expected;
         }
     }
-
 
     @Test
     public static void requireAssignableFrom_() {
 
         // Object.class is assignable to Object.class
         Assert.assertEquals(
-            Classes.requireAssignableFrom(Object.class, Object.class),
-            Object.class);
+                Classes.requireAssignableFrom(Object.class, Object.class),
+                Object.class);
 
         // String.class is assignable to Object.class
         Assert.assertEquals(
-            Classes.requireAssignableFrom(Object.class, String.class),
-            Object.class);
+                Classes.requireAssignableFrom(Object.class, String.class),
+                Object.class);
 
         // Integer.class is assignable to Number.class
         Assert.assertEquals(
-            Classes.requireAssignableFrom(Number.class, Integer.class),
-            Number.class);
+                Classes.requireAssignableFrom(Number.class, Integer.class),
+                Number.class);
 
         // Object.class is not assignble to String.class
         try {
             Classes.requireAssignableFrom(String.class, Object.class);
             Assert.fail(
-                "passed: requireAssignableFrom(String.class, Object.class)");
+                    "passed: requireAssignableFrom(String.class, Object.class)");
         } catch (final IllegalArgumentException aie) {
             // expected;
         }
     }
 
 }
-

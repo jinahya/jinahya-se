@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,14 +22,12 @@ import java.util.concurrent.ThreadLocalRandom;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.annotations.Test;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class StringComparatorTest
-    extends ComparableComparatorTest<StringComparator, String> {
-
+        extends ComparableComparatorTest<StringComparator, String> {
 
     @Test
     public void sort_() {
@@ -58,4 +53,3 @@ public class StringComparatorTest
     }
 
 }
-

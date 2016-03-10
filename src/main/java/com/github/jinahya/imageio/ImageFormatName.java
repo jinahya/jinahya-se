@@ -13,17 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.imageio;
-
 
 import static com.github.jinahya.imageio.ImageFeature.collect;
 import java.util.Collection;
 import static javax.imageio.ImageIO.getReaderFormatNames;
 import static javax.imageio.ImageIO.getWriterFormatNames;
 import javax.xml.bind.annotation.XmlRootElement;
-
 
 /**
  *
@@ -32,17 +28,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class ImageFormatName extends ImageFeature<ImageFormatName> {
 
-
     public static Collection<ImageFormatName> availableImageFormatNames() {
 
         try {
             return collect(
-                ImageFormatName.class, getReaderFormatNames(),
-                getWriterFormatNames());
+                    ImageFormatName.class, getReaderFormatNames(),
+                    getWriterFormatNames());
         } catch (InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }
 
 }
-

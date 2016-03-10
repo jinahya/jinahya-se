@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.awt;
 
-
 import com.github.jinahya.lang.FloatFieldEnumTest;
-
 
 /**
  *
@@ -28,12 +24,9 @@ import com.github.jinahya.lang.FloatFieldEnumTest;
 public class ComponentAlignmentYTest
         extends FloatFieldEnumTest<ComponentAlignmentY> {
 
-
     public ComponentAlignmentYTest() {
 
         super(ComponentAlignmentY.class);
     }
 
-
 }
-

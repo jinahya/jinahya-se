@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.security;
-
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,7 +27,6 @@ import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.List;
 
-
 /**
  * A utility class for {@link MessageDigest}s.
  *
@@ -38,14 +34,12 @@ import java.util.List;
  */
 public final class MessageDigests {
 
-
     /**
      * Algorithms that every implementation of the Java platform is required to
      * support.
      */
     public static final List<String> SUPPORTED_ALGORITHMS
-        = Arrays.asList("MD5", "SHA-1", "SHA-256");
-
+            = Arrays.asList("MD5", "SHA-1", "SHA-256");
 
     /**
      * Digests on given {@code digest} with bytes read from given input stream
@@ -62,9 +56,9 @@ public final class MessageDigests {
      * @throws IOException if an I/O error occurs
      */
     public static byte[] digest(final MessageDigest digest,
-                                final InputStream input, final byte[] buffer,
-                                final long length)
-        throws IOException {
+            final InputStream input, final byte[] buffer,
+            final long length)
+            throws IOException {
 
         if (digest == null) {
             throw new NullPointerException("digest");
@@ -85,7 +79,7 @@ public final class MessageDigests {
         long count = 0L;
         for (int read; length < 0L || count < length; count += read) {
             final int l = length < 0L ? buffer.length
-                          : (int) Math.min(buffer.length, length - count);
+                    : (int) Math.min(buffer.length, length - count);
             read = input.read(buffer, 0, l);
             if (read == -1) {
                 break;
@@ -95,7 +89,6 @@ public final class MessageDigests {
 
         return digest.digest();
     }
-
 
     /**
      * Digests on given {@code digest} with bytes read from given input file
@@ -114,8 +107,8 @@ public final class MessageDigests {
      * @see #digest(MessageDigest, InputStream, byte[], long)
      */
     public static byte[] digest(final MessageDigest digest, final File input,
-                                final byte[] buffer, final long length)
-        throws IOException {
+            final byte[] buffer, final long length)
+            throws IOException {
 
         if (input == null) {
             throw new NullPointerException("input");
@@ -128,7 +121,6 @@ public final class MessageDigests {
             input_.close();
         }
     }
-
 
     /**
      * Digests on give {@code digest} with bytes read from given input channel
@@ -145,9 +137,9 @@ public final class MessageDigests {
      * @throws IOException if an I/O error occurs
      */
     public static byte[] digest(final MessageDigest digest,
-                                final ReadableByteChannel input,
-                                final ByteBuffer buffer, final long length)
-        throws IOException {
+            final ReadableByteChannel input,
+            final ByteBuffer buffer, final long length)
+            throws IOException {
 
         if (digest == null) {
             throw new NullPointerException("digest");
@@ -185,7 +177,6 @@ public final class MessageDigests {
         return digest.digest();
     }
 
-
     /**
      * Digests on given {@code digest} with bytes read from given input file
      * using specified {@code buffer}.
@@ -201,22 +192,21 @@ public final class MessageDigests {
      * @throws IOException if an I/O error occurs
      */
     public static byte[] digest(final MessageDigest digest, final File input,
-                                final ByteBuffer buffer, final long length)
-        throws IOException {
+            final ByteBuffer buffer, final long length)
+            throws IOException {
 
         if (input == null) {
             throw new NullPointerException("input");
         }
 
         final ReadableByteChannel input_
-            = new FileInputStream(input).getChannel();
+                = new FileInputStream(input).getChannel();
         try {
             return digest(digest, input_, buffer, length);
         } finally {
             input_.close();
         }
     }
-
 
     /**
      * Digests on given digest with bytes read from given input stream and
@@ -234,10 +224,10 @@ public final class MessageDigests {
      * @throws IOException if an I/O error occurs
      */
     public static long digest(final MessageDigest digest,
-                              final InputStream input,
-                              final OutputStream output, final byte[] buffer,
-                              final long length)
-        throws IOException {
+            final InputStream input,
+            final OutputStream output, final byte[] buffer,
+            final long length)
+            throws IOException {
 
         if (digest == null) {
             throw new NullPointerException("digest");
@@ -263,7 +253,7 @@ public final class MessageDigests {
 
         for (int read; length < 0L || count < length; count += read) {
             final int l = length < 0L ? buffer.length
-                          : (int) Math.min(buffer.length, length - count);
+                    : (int) Math.min(buffer.length, length - count);
             read = input.read(buffer, 0, l);
             if (read == -1) {
                 break;
@@ -275,7 +265,6 @@ public final class MessageDigests {
 
         return count;
     }
-
 
     /**
      * Digests on give digest with bytes read from given input channel and
@@ -293,10 +282,10 @@ public final class MessageDigests {
      * @throws IOException if an I/O error occurs
      */
     public static long digest(final MessageDigest digest,
-                              final ReadableByteChannel input,
-                              final WritableByteChannel output,
-                              final ByteBuffer buffer, final long length)
-        throws IOException {
+            final ReadableByteChannel input,
+            final WritableByteChannel output,
+            final ByteBuffer buffer, final long length)
+            throws IOException {
 
         if (digest == null) {
             throw new NullPointerException("digest");
@@ -344,7 +333,6 @@ public final class MessageDigests {
         return count;
     }
 
-
     /**
      * Creates a new instance.
      */
@@ -354,4 +342,3 @@ public final class MessageDigests {
     }
 
 }
-

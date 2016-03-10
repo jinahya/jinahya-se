@@ -13,16 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.namespace;
-
 
 import java.util.Collections;
 import java.util.Iterator;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
-
 
 /**
  * Very simple implementation for NamespaceContext.
@@ -31,7 +27,6 @@ import javax.xml.namespace.NamespaceContext;
  */
 public class VerySimpleNamespaceContext implements NamespaceContext {
 
-
     /**
      * Creates a new instance.
      *
@@ -39,11 +34,10 @@ public class VerySimpleNamespaceContext implements NamespaceContext {
      * @param namespaceURI XML namespace URI
      */
     public VerySimpleNamespaceContext(final String prefix,
-                                      final String namespaceURI) {
+            final String namespaceURI) {
 
         this(prefix, namespaceURI, null);
     }
-
 
     /**
      * Creates a new instance.
@@ -53,8 +47,8 @@ public class VerySimpleNamespaceContext implements NamespaceContext {
      * @param defaultNamespaceURI default XML namespace URI
      */
     public VerySimpleNamespaceContext(final String prefix,
-                                      final String namespaceURI,
-                                      final String defaultNamespaceURI) {
+            final String namespaceURI,
+            final String defaultNamespaceURI) {
         super();
 
         if (prefix == null) {
@@ -70,7 +64,6 @@ public class VerySimpleNamespaceContext implements NamespaceContext {
 
         this.defaultNamespaceURI = defaultNamespaceURI;
     }
-
 
     @Override
     public String getNamespaceURI(final String prefix) {
@@ -102,7 +95,6 @@ public class VerySimpleNamespaceContext implements NamespaceContext {
         return XMLConstants.NULL_NS_URI;
     }
 
-
     @Override
     public String getPrefix(final String namespaceURI) {
 
@@ -111,7 +103,7 @@ public class VerySimpleNamespaceContext implements NamespaceContext {
         }
 
         if (defaultNamespaceURI != null
-            && defaultNamespaceURI.equals(namespaceURI)) {
+                && defaultNamespaceURI.equals(namespaceURI)) {
             return XMLConstants.DEFAULT_NS_PREFIX;
         }
 
@@ -130,7 +122,6 @@ public class VerySimpleNamespaceContext implements NamespaceContext {
         return null;
     }
 
-
     @Override
     @SuppressWarnings({"rawtypes"})
     public Iterator getPrefixes(final String namespaceURI) {
@@ -148,18 +139,15 @@ public class VerySimpleNamespaceContext implements NamespaceContext {
         return Collections.singletonList(prefix).iterator();
     }
 
-
     /**
      * namespace prefix.
      */
     private final String prefix;
 
-
     /**
      * namespaceURI.
      */
     private final String namespaceURI;
-
 
     /**
      * default namespaceURI.
@@ -167,4 +155,3 @@ public class VerySimpleNamespaceContext implements NamespaceContext {
     private final String defaultNamespaceURI;
 
 }
-

@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind.test.map;
 
-
 import javax.xml.bind.annotation.XmlElement;
-
 
 /**
  *
@@ -27,9 +23,8 @@ import javax.xml.bind.annotation.XmlElement;
  */
 public class Employee {
 
-
     public static Employee newInstance(final long id, final String name,
-                                       final int age) {
+            final int age) {
 
         final Employee employee = new Employee();
 
@@ -40,12 +35,10 @@ public class Employee {
         return employee;
     }
 
-
     public long getId() {
 
         return id;
     }
-
 
     @Override
     public int hashCode() {
@@ -55,7 +48,6 @@ public class Employee {
         hash = 31 * hash + this.age;
         return hash;
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -70,7 +62,7 @@ public class Employee {
             return false;
         }
         if ((this.name == null)
-            ? (other.name != null) : !this.name.equals(other.name)) {
+                ? (other.name != null) : !this.name.equals(other.name)) {
             return false;
         }
         if (this.age != other.age) {
@@ -79,17 +71,13 @@ public class Employee {
         return true;
     }
 
-
     @XmlElement
     private long id;
 
-
     @XmlElement
     private String name;
-
 
     @XmlElement
     private int age;
 
 }
-

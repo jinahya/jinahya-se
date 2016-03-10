@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang.reflect;
-
 
 import com.github.jinahya.lang.IntFieldEnum;
 import com.github.jinahya.lang.IntFieldEnumTest;
@@ -25,15 +22,13 @@ import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 import org.testng.annotations.Test;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <E> enum type parameter
  */
 abstract class ModifierFieldEnumTest<E extends Enum<E> & ModifierFieldEnum<E>>
-    extends IntFieldEnumTest<E> {
-
+        extends IntFieldEnumTest<E> {
 
     public ModifierFieldEnumTest(final Class<E> enumType, final int modifiers) {
 
@@ -41,7 +36,6 @@ abstract class ModifierFieldEnumTest<E extends Enum<E> & ModifierFieldEnum<E>>
 
         this.all = modifiers;
     }
-
 
     @Test
     public void all() {
@@ -54,7 +48,6 @@ abstract class ModifierFieldEnumTest<E extends Enum<E> & ModifierFieldEnum<E>>
         assertEquals(actual, all);
     }
 
-
     @Test
     public void is() {
 
@@ -62,7 +55,6 @@ abstract class ModifierFieldEnumTest<E extends Enum<E> & ModifierFieldEnum<E>>
             assertTrue(enumConstant.is(all));
         }
     }
-
 
     @Test
     public void add() {
@@ -74,7 +66,6 @@ abstract class ModifierFieldEnumTest<E extends Enum<E> & ModifierFieldEnum<E>>
         }
     }
 
-
     @Test
     public void remove() {
 
@@ -85,8 +76,6 @@ abstract class ModifierFieldEnumTest<E extends Enum<E> & ModifierFieldEnum<E>>
         }
     }
 
-
     protected final int all;
 
 }
-

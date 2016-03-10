@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind.test.map;
-
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,14 +21,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 @XmlRootElement
 public class Department0 {
-
 
     public Map<Long, Employee> getEmployees() {
 
@@ -42,16 +37,14 @@ public class Department0 {
         return employees;
     }
 
-
     @Override
     public int hashCode() {
 
         int hash = 5;
         hash = 97 * hash + (this.employees != null
-                            ? this.employees.hashCode() : 0);
+                ? this.employees.hashCode() : 0);
         return hash;
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -63,17 +56,15 @@ public class Department0 {
         }
         final Department0 other = (Department0) obj;
         if (this.employees != other.employees
-            && (this.employees == null
+                && (this.employees == null
                 || !this.employees.equals(other.employees))) {
             return false;
         }
         return true;
     }
 
-
     @XmlElement
     @XmlJavaTypeAdapter(EmployeesAdapter0.class)
     private Map<Long, Employee> employees;
 
 }
-

@@ -13,23 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.nio.channels;
-
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.ReadableByteChannel;
 import java.security.MessageDigest;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class ReadableDigestChannel extends ReadableFilterChannel {
-
 
     /**
      * Creates a new instance.
@@ -38,13 +33,12 @@ public class ReadableDigestChannel extends ReadableFilterChannel {
      * @param digest the message digest to associate with this channel
      */
     public ReadableDigestChannel(final ReadableByteChannel channel,
-                                 final MessageDigest digest) {
+            final MessageDigest digest) {
 
         super(channel);
 
         this.digest = digest;
     }
-
 
     @Override
     public int read(final ByteBuffer dst) throws IOException {
@@ -62,20 +56,16 @@ public class ReadableDigestChannel extends ReadableFilterChannel {
         }
     }
 
-
     public MessageDigest getDigest() {
 
         return digest;
     }
-
 
     public void setDigest(final MessageDigest digest) {
 
         this.digest = digest;
     }
 
-
     protected MessageDigest digest;
 
 }
-

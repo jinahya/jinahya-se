@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util;
-
 
 /**
  *
@@ -24,30 +21,25 @@ package com.github.jinahya.util;
  */
 public final class Strings {
 
-
     public static boolean isEmpty(final String string) {
 
         return string.isEmpty();
     }
-
 
     public static boolean nonEmpty(final String string) {
 
         return !isEmpty(string);
     }
 
-
     public static boolean isTrimmedEmpty(final String string) {
 
         return string.trim().isEmpty();
     }
 
-
     public static boolean nonTrimmedEmpty(final String string) {
 
         return !isTrimmedEmpty(string);
     }
-
 
     private Strings() {
 
@@ -55,4 +47,3 @@ public final class Strings {
     }
 
 }
-

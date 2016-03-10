@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang;
-
 
 /**
  *
@@ -25,9 +22,8 @@ package com.github.jinahya.lang;
  */
 public interface IntFieldEnum<E extends Enum<E>> {
 
-
     public static <E extends Enum<E> & IntFieldEnum<E>> int[] fieldValues(
-        final Class<E> type) {
+            final Class<E> type) {
 
         if (type == null) {
             throw new NullPointerException("null type");
@@ -43,9 +39,8 @@ public interface IntFieldEnum<E extends Enum<E>> {
         return fieldValues;
     }
 
-
     public static <E extends Enum<E> & IntFieldEnum<E>> E fromFieldValue(
-        final Class<E> enumType, final int fieldValue) {
+            final Class<E> enumType, final int fieldValue) {
 
         if (enumType == null) {
             throw new NullPointerException("null enumtype");
@@ -61,8 +56,6 @@ public interface IntFieldEnum<E extends Enum<E>> {
         throw new IllegalArgumentException("unknown fieldValue: " + fieldValue);
     }
 
-
     int fieldValueAsInt();
 
 }
-

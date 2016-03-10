@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util;
-
 
 import com.github.jinahya.lang.IntFieldEnumTest;
 import java.util.Calendar;
 import org.testng.annotations.Test;
-
 
 /**
  *
@@ -29,17 +25,15 @@ import org.testng.annotations.Test;
  * @param <E>
  */
 public abstract class CalendarIntFieldEnumTest<E extends Enum<E> & CalendarIntFieldEnum<E>>
-    extends IntFieldEnumTest<E> {
-
+        extends IntFieldEnumTest<E> {
 
     public CalendarIntFieldEnumTest(final Class<E> enumType,
-                                    final int calendarField) {
+            final int calendarField) {
 
         super(enumType);
 
         this.calendarField = calendarField;
     }
-
 
     @Test
     public void set() {
@@ -51,8 +45,6 @@ public abstract class CalendarIntFieldEnumTest<E extends Enum<E> & CalendarIntFi
         }
     }
 
-
     protected final int calendarField;
 
 }
-

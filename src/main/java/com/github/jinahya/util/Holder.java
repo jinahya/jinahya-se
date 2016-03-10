@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util;
-
 
 /**
  *
@@ -24,7 +21,6 @@ package com.github.jinahya.util;
  * @param <T>
  */
 public class Holder<T> {
-
 
     public static <T> Holder<T> newImmutableInstance(final T value) {
 
@@ -39,7 +35,6 @@ public class Holder<T> {
         };
     }
 
-
     public Holder(final T value) {
 
         super();
@@ -47,20 +42,16 @@ public class Holder<T> {
         this.value = value;
     }
 
-
     public T get() {
 
         return value;
     }
-
 
     public void set(final T value) {
 
         this.value = value;
     }
 
-
     private T value;
 
 }
-

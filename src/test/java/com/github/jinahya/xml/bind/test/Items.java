@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind.test;
-
 
 import com.github.jinahya.xml.bind.Plural;
 import java.util.Collection;
 import javax.xml.bind.annotation.XmlRootElement;
-
 
 /**
  *
@@ -30,13 +26,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Items extends Plural<Item> {
 
-
     private static final long serialVersionUID = -6764070724647027265L;
-
 
     public Collection<Item> getItems() {
         return getSingular();
     }
 
 }
-

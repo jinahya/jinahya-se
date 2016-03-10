@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util;
-
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Comparator;
-
 
 /**
  * A {@link java.util.Comparator} implementation for
@@ -31,8 +27,7 @@ import java.util.Comparator;
  * @param <T> comparable type parameter
  */
 public class ComparableComparator<T extends Comparable<? super T>>
-    implements Comparator<T> {
-
+        implements Comparator<T> {
 
     /**
      * An enum constants for ordering {@code null} references.
@@ -62,7 +57,6 @@ public class ComparableComparator<T extends Comparable<? super T>>
 
         };
 
-
         /**
          * Compares given object references.
          *
@@ -74,7 +68,6 @@ public class ComparableComparator<T extends Comparable<? super T>>
          * is less than, equal to, or greater than {@code o2).
          */
         abstract <T extends Comparable<? super T>> int compare(T o1, T o2);
-
 
         /**
          *
@@ -91,54 +84,45 @@ public class ComparableComparator<T extends Comparable<? super T>>
 
     }
 
-
     public static Comparator<Byte> byteComparator(final Nulls nulls) {
 
         return new ComparableComparator<Byte>().nulls(nulls);
     }
-
 
     public static Comparator<Short> shortComparator(final Nulls nulls) {
 
         return new ComparableComparator<Short>().nulls(nulls);
     }
 
-
     public static Comparator<Integer> integerComparator(final Nulls nulls) {
 
         return new ComparableComparator<Integer>().nulls(nulls);
     }
-
 
     public static Comparator<Long> longComparator(final Nulls nulls) {
 
         return new ComparableComparator<Long>().nulls(nulls);
     }
 
-
     public static Comparator<BigInteger> bigIntegerComparator(final Nulls nulls) {
 
         return new ComparableComparator<BigInteger>().nulls(nulls);
     }
-
 
     public static Comparator<Float> floatComparator(final Nulls nulls) {
 
         return new ComparableComparator<Float>().nulls(nulls);
     }
 
-
     public static Comparator<Double> doubleComparator(final Nulls nulls) {
 
         return new ComparableComparator<Double>().nulls(nulls);
     }
 
-
     public static Comparator<BigDecimal> bigDecimalComparator(final Nulls nulls) {
 
         return new ComparableComparator<BigDecimal>().nulls(nulls);
     }
-
 
     @Override
     public int compare(final T o1, final T o2) {
@@ -149,7 +133,6 @@ public class ComparableComparator<T extends Comparable<? super T>>
 
         return o1.compareTo(o2);
     }
-
 
     /**
      * Replaces the value of {@code nulls} with given value.
@@ -165,11 +148,9 @@ public class ComparableComparator<T extends Comparable<? super T>>
         return this;
     }
 
-
     /**
      * nulls.
      */
     private Nulls nulls;
 
 }
-

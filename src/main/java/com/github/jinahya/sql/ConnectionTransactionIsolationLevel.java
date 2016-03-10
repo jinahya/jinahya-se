@@ -13,20 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.github.jinahya.sql;
-
 
 import com.github.jinahya.lang.IntFieldEnum;
 import java.sql.Connection;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum ConnectionTransactionIsolationLevel
-    implements IntFieldEnum<ConnectionTransactionIsolationLevel> {
+        implements IntFieldEnum<ConnectionTransactionIsolationLevel> {
 
     /**
      * A constant for {@link Connection#TRANSACTION_NONE}.
@@ -53,19 +50,15 @@ public enum ConnectionTransactionIsolationLevel
      */
     TRANSACTION_SERIALIZABLE(Connection.TRANSACTION_SERIALIZABLE); // 8
 
-
     private ConnectionTransactionIsolationLevel(final int fieldValue) {
         this.fieldValue = fieldValue;
     }
-
 
     @Override
     public int fieldValueAsInt() {
         return fieldValue;
     }
 
-
     private final int fieldValue;
 
 }
-

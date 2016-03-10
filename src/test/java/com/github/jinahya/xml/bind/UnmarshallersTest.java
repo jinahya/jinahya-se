@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
 
-
 import org.testng.annotations.Test;
-
 
 /**
  *
@@ -27,11 +23,9 @@ import org.testng.annotations.Test;
  */
 public class UnmarshallersTest {
 
-
     @Test
     public static void test() throws ClassNotFoundException {
         Class.forName(Unmarshallers.class.getName());
     }
 
 }
-

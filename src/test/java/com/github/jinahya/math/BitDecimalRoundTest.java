@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.math;
 
-
 import com.github.jinahya.lang.IntFieldEnumTest;
-
 
 /**
  *
@@ -27,11 +23,9 @@ import com.github.jinahya.lang.IntFieldEnumTest;
  */
 public class BitDecimalRoundTest extends IntFieldEnumTest<BigDecimalRound> {
 
-
     public BitDecimalRoundTest() {
 
         super(BigDecimalRound.class);
     }
 
 }
-

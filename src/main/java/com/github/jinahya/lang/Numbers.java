@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang;
-
 
 /**
  *
@@ -24,13 +21,11 @@ package com.github.jinahya.lang;
  */
 public final class Numbers {
 
-
     /**
      * The number of bytes used to represent a {@code byte} value in two's
      * complement binary form.
      */
     public static final int BYTE_BYTES = Byte.SIZE / Byte.SIZE;
-
 
     /**
      * The number of bytes used to represent a {@code short} value in two's
@@ -38,13 +33,11 @@ public final class Numbers {
      */
     public static final int SHORT_BYTES = Short.SIZE / Byte.SIZE;
 
-
     /**
      * The number of bytes used to represent a {@code int} value in two's
      * complement binary form.
      */
     public static final int INTEGER_BYTES = Integer.SIZE / Byte.SIZE;
-
 
     /**
      * The number of bytes used to represent a {@code long} value in two's
@@ -52,18 +45,15 @@ public final class Numbers {
      */
     public static final int LONG_BYTES = Long.SIZE / Byte.SIZE;
 
-
     /**
      * The number of bytes used to represent a {@code float} value.
      */
     public static final int FLOAT_BYTES = Float.SIZE / Byte.SIZE;
 
-
     /**
      * The number of bytes used to represent a {@code double} value.
      */
     public static final int DOUBLE_BYTES = Double.SIZE / Byte.SIZE;
-
 
     /**
      *
@@ -83,7 +73,6 @@ public final class Numbers {
         return bytes;
     }
 
-
     public static short toShortBegins(final byte[] bytes, final int index) {
 
         if (bytes == null) {
@@ -100,7 +89,7 @@ public final class Numbers {
 
         if (index >= bytes.length) {
             throw new IllegalArgumentException(
-                "index(" + index + ") >= bytes.length(" + bytes.length + ")");
+                    "index(" + index + ") >= bytes.length(" + bytes.length + ")");
         }
 
         short value = 0;
@@ -117,12 +106,10 @@ public final class Numbers {
         return value;
     }
 
-
     public static short toShortBegins(final byte[] bytes) {
 
         return toShortBegins(bytes, 0);
     }
-
 
     /**
      *
@@ -152,7 +139,7 @@ public final class Numbers {
 
         if (index >= bytes.length) {
             throw new IllegalArgumentException(
-                "index(" + index + ") >= bytes.length(" + bytes.length + ")");
+                    "index(" + index + ") >= bytes.length(" + bytes.length + ")");
         }
 
         short value = 0;
@@ -168,7 +155,6 @@ public final class Numbers {
         return value;
     }
 
-
     /**
      *
      * @param bytes
@@ -179,7 +165,6 @@ public final class Numbers {
 
         return toShortEnds(bytes, bytes.length - 1);
     }
-
 
     /**
      * Converts given int value to an array of {@value #INTEGER_BYTES} bytes.
@@ -199,7 +184,6 @@ public final class Numbers {
 
         return bytes;
     }
-
 
     /**
      *
@@ -230,7 +214,7 @@ public final class Numbers {
 
         if (index >= bytes.length) {
             throw new IllegalArgumentException(
-                "index(" + index + ") >= bytes.length(" + bytes.length + ")");
+                    "index(" + index + ") >= bytes.length(" + bytes.length + ")");
         }
 
         int value = 0;
@@ -247,12 +231,10 @@ public final class Numbers {
         return value;
     }
 
-
     public static int toIntBegins(final byte[] bytes) {
 
         return toIntBegins(bytes, 0);
     }
-
 
     /**
      *
@@ -277,7 +259,7 @@ public final class Numbers {
 
         if (index >= bytes.length) {
             throw new IllegalArgumentException(
-                "index(" + index + ") >= bytes.length(" + bytes.length + ")");
+                    "index(" + index + ") >= bytes.length(" + bytes.length + ")");
         }
 
         int value = 0;
@@ -293,42 +275,35 @@ public final class Numbers {
         return value;
     }
 
-
     public static int toIntEnds(final byte[] bytes) {
 
         return toIntEnds(bytes, bytes.length - 1);
     }
-
 
     public static byte[] toBytes(final float value) {
 
         return toBytes(Float.floatToRawIntBits(value));
     }
 
-
     public static float toFloatBegins(final byte[] bytes, final int index) {
 
         return Float.intBitsToFloat(toIntBegins(bytes, index));
     }
-
 
     public static float toFloatBegins(final byte[] bytes) {
 
         return toFloatBegins(bytes, bytes.length - 1);
     }
 
-
     public static float toFloatEnds(final byte[] bytes, final int index) {
 
         return Float.intBitsToFloat(toIntEnds(bytes, index));
     }
 
-
     public static float toFloatEnds(final byte[] bytes) {
 
         return toFloatEnds(bytes, bytes.length - 1);
     }
-
 
     public static byte[] toBytes(long value) {
 
@@ -341,7 +316,6 @@ public final class Numbers {
 
         return bytes;
     }
-
 
     public static long toLongBegins(final byte[] bytes, final int index) {
 
@@ -359,7 +333,7 @@ public final class Numbers {
 
         if (index >= bytes.length) {
             throw new IllegalArgumentException(
-                "index(" + index + ") >= bytes.length(" + bytes.length + ")");
+                    "index(" + index + ") >= bytes.length(" + bytes.length + ")");
         }
 
         long value = 0;
@@ -376,12 +350,10 @@ public final class Numbers {
         return value;
     }
 
-
     public static long toLongBegins(final byte[] bytes) {
 
         return toLongBegins(bytes, 0);
     }
-
 
     public static long toLongEnds(final byte[] bytes, final int index) {
 
@@ -399,7 +371,7 @@ public final class Numbers {
 
         if (index >= bytes.length) {
             throw new IllegalArgumentException(
-                "index(" + index + ") >= bytes.length(" + bytes.length + ")");
+                    "index(" + index + ") >= bytes.length(" + bytes.length + ")");
         }
 
         long value = 0;
@@ -415,42 +387,35 @@ public final class Numbers {
         return value;
     }
 
-
     public static long toLongEnds(final byte[] bytes) {
 
         return toLongEnds(bytes, bytes.length - 1);
     }
-
 
     public static byte[] toBytes(final double value) {
 
         return toBytes(Double.doubleToRawLongBits(value));
     }
 
-
     public static double toDoubleBegins(final byte[] bytes, final int index) {
 
         return Double.longBitsToDouble(toLongBegins(bytes, index));
     }
-
 
     public static double toDoubleBegin(final byte[] bytes) {
 
         return toDoubleBegins(bytes, bytes.length - 1);
     }
 
-
     public static double toDoubleEnds(final byte[] bytes, final int index) {
 
         return Double.longBitsToDouble(toLongEnds(bytes, index));
     }
 
-
     public static double toDoubleEnds(final byte[] bytes) {
 
         return toDoubleEnds(bytes, bytes.length - 1);
     }
-
 
     private Numbers() {
 
@@ -458,4 +423,3 @@ public final class Numbers {
     }
 
 }
-

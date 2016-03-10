@@ -13,22 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang.reflect;
-
 
 import com.github.jinahya.lang.Classes;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class JinahyaFields {
-
 
     /**
      *
@@ -43,7 +38,7 @@ public final class JinahyaFields {
      */
     @Deprecated
     public static Field removeModifiers(final Field field, final int delta)
-        throws NoSuchFieldException, IllegalAccessException {
+            throws NoSuchFieldException, IllegalAccessException {
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -61,22 +56,19 @@ public final class JinahyaFields {
         return field;
     }
 
-
     @Deprecated
     public static Field unprivate(final Field field)
-        throws NoSuchFieldException, IllegalAccessException {
+            throws NoSuchFieldException, IllegalAccessException {
 
         return removeModifiers(field, Modifier.PRIVATE);
     }
 
-
     @Deprecated
     public static Field unfinal(final Field field)
-        throws NoSuchFieldException, IllegalAccessException {
+            throws NoSuchFieldException, IllegalAccessException {
 
         return removeModifiers(field, Modifier.FINAL);
     }
-
 
     /**
      * Checks that the specified field's type is assignable to specified type.
@@ -105,7 +97,7 @@ public final class JinahyaFields {
      * @see Classes#requireAssignableTo(java.lang.Class, java.lang.Class)
      */
     public static Field requireTypeAssignableTo(final Field field,
-                                                final Class<?> to) {
+            final Class<?> to) {
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -119,7 +111,6 @@ public final class JinahyaFields {
 
         return field;
     }
-
 
     /**
      * Checks that the specified field's type is assignable from specified type.
@@ -149,7 +140,7 @@ public final class JinahyaFields {
      * @see Classes#requireAssignableFrom(java.lang.Class, java.lang.Class)
      */
     public static Field requireTypeAssignableFrom(final Field field,
-                                                  final Class<?> from) {
+            final Class<?> from) {
 
         if (field == null) {
             throw new NullPointerException("null field");
@@ -164,7 +155,6 @@ public final class JinahyaFields {
         return field;
     }
 
-
     /**
      * Creates a new instance.
      */
@@ -174,4 +164,3 @@ public final class JinahyaFields {
     }
 
 }
-

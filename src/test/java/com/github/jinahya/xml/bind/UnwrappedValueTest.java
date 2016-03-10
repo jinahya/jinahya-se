@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 /**
  *
@@ -25,8 +22,7 @@ package com.github.jinahya.xml.bind;
  * @param <R> rawValue type parameter
  */
 public abstract class UnwrappedValueTest<U extends UnwrappedValue<R>, R>
-    extends WrappedValueTest<U, R> {
-
+        extends WrappedValueTest<U, R> {
 
     public UnwrappedValueTest(final Class<U> unwrappedValueType) {
 
@@ -34,4 +30,3 @@ public abstract class UnwrappedValueTest<U extends UnwrappedValue<R>, R>
     }
 
 }
-

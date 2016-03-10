@@ -13,23 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.sql;
-
 
 import com.github.jinahya.lang.FieldEnum;
 import com.github.jinahya.lang.FieldEnums;
 import java.sql.DatabaseMetaData;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum DatabaseMetaDataAttributeNullable
-    implements FieldEnum<DatabaseMetaDataAttributeNullable, Integer> {
-
+        implements FieldEnum<DatabaseMetaDataAttributeNullable, Integer> {
 
     /**
      * A constant for {@link DatabaseMetaData#attributeNoNulls}.
@@ -46,28 +41,24 @@ public enum DatabaseMetaDataAttributeNullable
      */
     attributeNullableUnknown(DatabaseMetaData.attributeNullableUnknown); // 2
 
-
     public static DatabaseMetaDataAttributeNullable fromFieldValue(
-        final int fieldValue) {
+            final int fieldValue) {
 
         return FieldEnums.fromFieldValue(
-            DatabaseMetaDataAttributeNullable.class,
-            Integer.valueOf(fieldValue));
+                DatabaseMetaDataAttributeNullable.class,
+                Integer.valueOf(fieldValue));
     }
-
 
     public static Integer[] fieldValues() {
 
         return FieldEnums.fieldValues(
-            DatabaseMetaDataAttributeNullable.class, Integer.class);
+                DatabaseMetaDataAttributeNullable.class, Integer.class);
     }
-
 
     private DatabaseMetaDataAttributeNullable(final int fieldValue) {
 
         this.fieldValue = fieldValue;
     }
-
 
     @Override
     public Integer fieldValue() {
@@ -75,12 +66,9 @@ public enum DatabaseMetaDataAttributeNullable
         return fieldValue;
     }
 
-
     /**
      * field value.
      */
     private final int fieldValue;
 
-
 }
-

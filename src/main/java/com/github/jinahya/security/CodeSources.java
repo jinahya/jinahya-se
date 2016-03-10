@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.security;
-
 
 import java.net.URL;
 import java.security.CodeSource;
@@ -25,13 +22,11 @@ import static java.util.Objects.requireNonNull;
 import java.util.Optional;
 import static java.util.Optional.ofNullable;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class CodeSources {
-
 
     /**
      *
@@ -45,9 +40,8 @@ public final class CodeSources {
     public static Optional<URL> getLocation(final ProtectionDomain domain) {
 
         return ofNullable(requireNonNull(domain, "null domain").getCodeSource())
-            .map(CodeSource::getLocation);
+                .map(CodeSource::getLocation);
     }
-
 
     /**
      *
@@ -61,9 +55,8 @@ public final class CodeSources {
     public static Optional<URL> getLocation(final Class<?> klass) {
 
         return getLocation(
-            requireNonNull(klass, "null klass").getProtectionDomain());
+                requireNonNull(klass, "null klass").getProtectionDomain());
     }
-
 
     private CodeSources() {
 
@@ -71,4 +64,3 @@ public final class CodeSources {
     }
 
 }
-

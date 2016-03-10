@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.nio.charset;
-
 
 import com.github.jinahya.lang.ComparableFieldEnum;
 import com.github.jinahya.lang.FieldEnums;
@@ -24,14 +21,13 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 
-
 /**
  * Constants for fields defined in {@link StandardCharsets}.
  *
  * @author Jin Kwon
  */
 public enum StandardCharset
-    implements ComparableFieldEnum<StandardCharset, Charset> {
+        implements ComparableFieldEnum<StandardCharset, Charset> {
 
     /**
      * Constant for {@link StandardCharsets#ISO_8859_1}.
@@ -58,7 +54,6 @@ public enum StandardCharset
      */
     UTF_8(StandardCharsets.UTF_8);
 
-
     /**
      *
      * @param charset
@@ -72,7 +67,6 @@ public enum StandardCharset
         return FieldEnums.fromFieldValue(StandardCharset.class, charset);
     }
 
-
     /**
      *
      * @param fieldValues
@@ -81,17 +75,15 @@ public enum StandardCharset
      * @see FieldEnums#fieldValues(java.lang.Class, java.lang.Class)
      */
     public static void fieldValues(
-        final Collection<? super Charset> fieldValues) {
+            final Collection<? super Charset> fieldValues) {
 
         FieldEnums.fieldValues(StandardCharset.class, fieldValues);
     }
-
 
     StandardCharset(final Charset fieldValue) {
 
         this.fieldValue = fieldValue;
     }
-
 
     @Override
     public Charset fieldValue() {
@@ -99,8 +91,6 @@ public enum StandardCharset
         return fieldValue;
     }
 
-
     private final Charset fieldValue;
 
 }
-

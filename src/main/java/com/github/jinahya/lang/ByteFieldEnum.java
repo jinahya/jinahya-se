@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang;
-
 
 /**
  *
@@ -25,7 +22,6 @@ package com.github.jinahya.lang;
  * @param <E> enum type parameter
  */
 public interface ByteFieldEnum<E extends Enum<E>>
-    extends ComparableFieldEnum<E, Byte> {
+        extends ComparableFieldEnum<E, Byte> {
 
 }
-

@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind.test.map;
-
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -27,17 +24,15 @@ import javax.xml.bind.Unmarshaller;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class Department0Test {
 
-
     @Test
     public void printXml()
-        throws InstantiationException, IllegalAccessException, JAXBException {
+            throws InstantiationException, IllegalAccessException, JAXBException {
 
         final Department0 expected = new Department0();
 
@@ -61,10 +56,9 @@ public class Department0Test {
         final Unmarshaller unmarshaller = context.createUnmarshaller();
 
         final Department0 actual = (Department0) unmarshaller.unmarshal(
-            new ByteArrayInputStream(baos.toByteArray()));
+                new ByteArrayInputStream(baos.toByteArray()));
 
         Assert.assertEquals(actual, expected);
     }
 
 }
-

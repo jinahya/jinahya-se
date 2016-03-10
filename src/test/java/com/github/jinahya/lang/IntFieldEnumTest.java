@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang;
-
 
 import java.util.Objects;
 import static org.testng.Assert.fail;
 import org.testng.annotations.Test;
-
 
 /**
  *
@@ -30,14 +26,12 @@ import org.testng.annotations.Test;
  */
 public abstract class IntFieldEnumTest<E extends Enum<E> & IntFieldEnum<E>> {
 
-
     public IntFieldEnumTest(final Class<E> enumType) {
 
         super();
 
         this.enumType = Objects.requireNonNull(enumType, "null enumType");
     }
-
 
     @Test
     public void assertUniqueFieldValues() {
@@ -52,8 +46,6 @@ public abstract class IntFieldEnumTest<E extends Enum<E> & IntFieldEnum<E>> {
         }
     }
 
-
     protected final Class<E> enumType;
 
 }
-

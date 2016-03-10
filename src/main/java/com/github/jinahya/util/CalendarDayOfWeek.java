@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util;
 
-
 import java.util.Calendar;
-
 
 /**
  * Constants for {@link Calendar#DAY_OF_WEEK}.
@@ -57,14 +53,12 @@ public enum CalendarDayOfWeek implements CalendarIntFieldEnum<CalendarDayOfWeek>
      */
     SATURDAY(Calendar.SATURDAY); //   7
 
-
     /**
      * The target field of {@link Calendar} which this enum type is for.
      *
      * @see Calendar#DAY_OF_WEEK
      */
     public static final int CALENDAR_FIELD = Calendar.DAY_OF_WEEK;
-
 
 //    /**
 //     * Returns the enum constant of this type with the specified field value.
@@ -84,7 +78,7 @@ public enum CalendarDayOfWeek implements CalendarIntFieldEnum<CalendarDayOfWeek>
     public static CalendarDayOfWeek fromCalendar(final Calendar calendar) {
 
         return CalendarIntFieldEnum.fromCalendar(CalendarDayOfWeek.class, calendar,
-                                                 CALENDAR_FIELD);
+                CALENDAR_FIELD);
     }
 //    /**
 //     * Returns an array containing the field values of this enum type, in order
@@ -98,7 +92,6 @@ public enum CalendarDayOfWeek implements CalendarIntFieldEnum<CalendarDayOfWeek>
 //        return FieldEnums.fieldValues(CalendarDayOfWeek.class, int.class);
 //    }
 
-
     /**
      * Creates a new instance.
      *
@@ -109,13 +102,11 @@ public enum CalendarDayOfWeek implements CalendarIntFieldEnum<CalendarDayOfWeek>
         this.fieldValue = fieldValue;
     }
 
-
     @Override
     public int fieldValueAsInt() {
 
         return fieldValue;
     }
-
 
     @Override
     public void set(final Calendar calendar) {
@@ -127,8 +118,6 @@ public enum CalendarDayOfWeek implements CalendarIntFieldEnum<CalendarDayOfWeek>
         CalendarIntFieldEnum.set(calendar, CALENDAR_FIELD, this);
     }
 
-
     private final int fieldValue;
 
 }
-

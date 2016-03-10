@@ -13,27 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind.test.map;
 
-
 import com.github.jinahya.xml.bind.MapValuesAdapter;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class EmployeesAdapter3
-    extends MapValuesAdapter<EmployeeValues, Long, Employee> {
-
+        extends MapValuesAdapter<EmployeeValues, Long, Employee> {
 
     public EmployeesAdapter3() {
 
         super(EmployeeValues.class);
     }
-
 
     @Override
     protected Long getKey(final Employee value) {
@@ -42,4 +36,3 @@ public class EmployeesAdapter3
     }
 
 }
-

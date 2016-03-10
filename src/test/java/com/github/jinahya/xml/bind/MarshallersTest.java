@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import com.github.jinahya.xml.bind.test.Item;
 import com.github.jinahya.xml.bind.test.Items;
@@ -30,20 +27,18 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import org.testng.annotations.Test;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class MarshallersTest {
 
-
     @Test
     public static void printMarshalMethods()
-        throws NoSuchFieldException, IllegalAccessException {
+            throws NoSuchFieldException, IllegalAccessException {
 
         final Field field
-            = Marshallers.class.getDeclaredField("MARSHAL_METHODS");
+                = Marshallers.class.getDeclaredField("MARSHAL_METHODS");
         field.setAccessible(true);
         @SuppressWarnings("unchecked")
         final Map<?, ?> value = (Map<?, ?>) field.get(null);
@@ -54,7 +49,6 @@ public class MarshallersTest {
             System.out.println("method: " + method);
         }
     }
-
 
     @Test
     public static void testMarshal() throws JAXBException {
@@ -75,4 +69,3 @@ public class MarshallersTest {
     }
 
 }
-

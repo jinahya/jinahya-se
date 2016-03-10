@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.io;
-
 
 import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
 
 /**
  * An input stream reads bytes only through {@link #read()}.
@@ -29,7 +25,6 @@ import java.io.InputStream;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class FunnelInputStream extends FilterInputStream {
-
 
     /**
      * Creates a funnel input stream built on top of the specified underlying
@@ -42,10 +37,9 @@ public class FunnelInputStream extends FilterInputStream {
         super(in);
     }
 
-
     @Override
     public int read(final byte[] b, final int off, final int len)
-        throws IOException {
+            throws IOException {
 
         if (b == null) {
             throw new NullPointerException();
@@ -72,4 +66,3 @@ public class FunnelInputStream extends FilterInputStream {
     }
 
 }
-

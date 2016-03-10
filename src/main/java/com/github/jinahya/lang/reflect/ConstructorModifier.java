@@ -13,20 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang.reflect;
 
-
 import java.lang.reflect.Modifier;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum ConstructorModifier
-    implements ModifierFieldEnum<ConstructorModifier> {
+        implements ModifierFieldEnum<ConstructorModifier> {
 
     /**
      * Constant for {@link Modifier#PUBLIC}.
@@ -43,7 +39,6 @@ public enum ConstructorModifier
      */
     PROTECTED(Modifier.PROTECTED); // 4
 
-
     /**
      * Creates a new instance with given field value.
      *
@@ -54,15 +49,12 @@ public enum ConstructorModifier
         this.fieldValue = fieldValue;
     }
 
-
     @Override
     public int fieldValueAsInt() {
 
         return fieldValue;
     }
 
-
     private final int fieldValue;
 
 }
-

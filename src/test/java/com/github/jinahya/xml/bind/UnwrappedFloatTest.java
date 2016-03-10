@@ -13,28 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class UnwrappedFloatTest
-    extends UnwrappedValueTest<UnwrappedFloat, Float> {
-
+        extends UnwrappedValueTest<UnwrappedFloat, Float> {
 
     public UnwrappedFloatTest() {
 
         super(UnwrappedFloat.class);
     }
-
 
     @Override
     protected Float generateRawValue() {
@@ -45,4 +39,3 @@ public class UnwrappedFloatTest
     }
 
 }
-

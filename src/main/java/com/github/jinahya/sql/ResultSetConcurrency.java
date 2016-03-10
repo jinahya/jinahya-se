@@ -13,13 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.github.jinahya.sql;
-
 
 import com.github.jinahya.lang.IntFieldEnum;
 import java.sql.ResultSet;
-
 
 /**
  *
@@ -40,12 +37,10 @@ public enum ResultSetConcurrency implements IntFieldEnum<ResultSetConcurrency> {
     CONCUR_UPDATABLE(ResultSet.CONCUR_UPDATABLE) // 1008
     ;
 
-
     private ResultSetConcurrency(final int fieldValue) {
 
         this.fieldValue = fieldValue;
     }
-
 
     @Override
     public int fieldValueAsInt() {
@@ -53,8 +48,6 @@ public enum ResultSetConcurrency implements IntFieldEnum<ResultSetConcurrency> {
         return fieldValue;
     }
 
-
     private final int fieldValue;
 
 }
-

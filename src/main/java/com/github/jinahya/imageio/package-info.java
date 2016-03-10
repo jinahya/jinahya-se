@@ -13,15 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlSchema(
-    attributeFormDefault = XmlNsForm.UNQUALIFIED,
-    elementFormDefault = XmlNsForm.QUALIFIED,
-    namespace = IMAGEIO_NS_URI)
+        attributeFormDefault = XmlNsForm.UNQUALIFIED,
+        elementFormDefault = XmlNsForm.QUALIFIED,
+        namespace = IMAGEIO_NS_URI)
 package com.github.jinahya.imageio;
-
 
 import static com.github.jinahya.imageio.ImageIoXmlConstants.IMAGEIO_NS_URI;
 import javax.xml.bind.annotation.XmlAccessType;

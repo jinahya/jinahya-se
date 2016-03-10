@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang;
-
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.function.Consumer;
-
 
 /**
  *
@@ -29,9 +25,7 @@ import java.util.function.Consumer;
  */
 public class AutoCloseables {
 
-
     private static final Method CLOSE;
-
 
     static {
         try {
@@ -40,7 +34,6 @@ public class AutoCloseables {
             throw new InstantiationError(nsme.getMessage());
         }
     }
-
 
     /**
      * Creates a proxy of {@code AutoCloseable}.
@@ -55,25 +48,23 @@ public class AutoCloseables {
      * @see AutoCloseable
      */
     public static <T> AutoCloseable of(final ClassLoader loader,
-                                       final T instance,
-                                       final Consumer<T> closer) {
+            final T instance,
+            final Consumer<T> closer) {
 
         return (AutoCloseable) Proxy.newProxyInstance(
-            loader,
-            new Class<?>[]{AutoCloseable.class},
-            (proxy, method, args) -> {
-                if (CLOSE.equals(method)) {
-                    closer.accept(instance);
-                    return null;
-                }
-                return method.invoke(instance, args);
-            });
+                loader,
+                new Class<?>[]{AutoCloseable.class},
+                (proxy, method, args) -> {
+                    if (CLOSE.equals(method)) {
+                        closer.accept(instance);
+                        return null;
+                    }
+                    return method.invoke(instance, args);
+                });
     }
-
 
     private AutoCloseables() {
         super();
     }
 
 }
-

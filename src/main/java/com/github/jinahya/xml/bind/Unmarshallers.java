@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -31,7 +28,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.UnmarshalException;
 import javax.xml.bind.Unmarshaller;
 
-
 /**
  * A utility class for {@link Unmarshaller}.
  *
@@ -39,9 +35,7 @@ import javax.xml.bind.Unmarshaller;
  */
 public class Unmarshallers {
 
-
     private static final Map<Class<?>, Method> UNMARSHAL_METHODS;
-
 
     static {
         final Map<Class<?>, Method> methods = new HashMap<Class<?>, Method>();
@@ -66,9 +60,7 @@ public class Unmarshallers {
         UNMARSHAL_METHODS = Collections.unmodifiableMap(methods);
     }
 
-
     private static final Map<Class<?>, Method> DECLARED_UNMARSHAL_METHODS;
-
 
     static {
         final Map<Class<?>, Method> methods = new HashMap<Class<?>, Method>();
@@ -92,7 +84,7 @@ public class Unmarshallers {
                 continue;
             }
             if (!returnType.getTypeParameters()[0].getName().equals(
-                parameterTypes[1].getTypeParameters()[0].getName())) { // T==T ?
+                    parameterTypes[1].getTypeParameters()[0].getName())) { // T==T ?
                 continue;
             }
             methods.put(parameterTypes[0], method);
@@ -100,11 +92,10 @@ public class Unmarshallers {
         DECLARED_UNMARSHAL_METHODS = Collections.unmodifiableMap(methods);
     }
 
-
     public static <T> Object unmarshal(final Unmarshaller unmarshaller,
-                                       final Class<? super T> inputType,
-                                       final T input)
-        throws UnmarshalException {
+            final Class<? super T> inputType,
+            final T input)
+            throws UnmarshalException {
 
         if (unmarshaller == null) {
             throw new NullPointerException("unmarshaller");
@@ -121,7 +112,7 @@ public class Unmarshallers {
         final Method method = UNMARSHAL_METHODS.get(inputType);
         if (method == null) {
             throw new IllegalArgumentException(
-                "can't unmarshal from " + inputType);
+                    "can't unmarshal from " + inputType);
         }
 
         try {
@@ -137,11 +128,10 @@ public class Unmarshallers {
         }
     }
 
-
     public static <T> Object unmarshal(final JAXBContext context,
-                                       final Class<? super T> inputType,
-                                       final T input)
-        throws JAXBException {
+            final Class<? super T> inputType,
+            final T input)
+            throws JAXBException {
 
         if (context == null) {
             throw new NullPointerException("context");
@@ -150,10 +140,9 @@ public class Unmarshallers {
         return unmarshal(context.createUnmarshaller(), inputType, input);
     }
 
-
     public static Object unmarshal(final Unmarshaller unmarshaller,
-                                   final Object input)
-        throws UnmarshalException {
+            final Object input)
+            throws UnmarshalException {
 
         if (unmarshaller == null) {
             throw new NullPointerException("unmarshaller");
@@ -175,7 +164,7 @@ public class Unmarshallers {
 
         if (method == null) {
             throw new IllegalArgumentException(
-                "can't unmarshal from " + inputType);
+                    "can't unmarshal from " + inputType);
         }
 
         try {
@@ -191,10 +180,9 @@ public class Unmarshallers {
         }
     }
 
-
     public static Object unmarshal(final JAXBContext context,
-                                   final Object input)
-        throws JAXBException {
+            final Object input)
+            throws JAXBException {
 
         if (context == null) {
             throw new NullPointerException("context");
@@ -203,11 +191,10 @@ public class Unmarshallers {
         return unmarshal(context.createUnmarshaller(), input);
     }
 
-
     public static <T, V> JAXBElement<V> unmarshal(
-        final Unmarshaller unmarshaller, final Class<? super T> inputType,
-        final T input, final Class<V> valueType)
-        throws UnmarshalException {
+            final Unmarshaller unmarshaller, final Class<? super T> inputType,
+            final T input, final Class<V> valueType)
+            throws UnmarshalException {
 
         if (unmarshaller == null) {
             throw new NullPointerException("unmarshaller");
@@ -228,13 +215,13 @@ public class Unmarshallers {
         final Method method = DECLARED_UNMARSHAL_METHODS.get(inputType);
         if (method == null) {
             throw new IllegalArgumentException(
-                "can't unmarshal from " + input.getClass());
+                    "can't unmarshal from " + input.getClass());
         }
 
         try {
             @SuppressWarnings("unchecked")
             final JAXBElement<V> result = (JAXBElement<V>) method.invoke(
-                unmarshaller, input, valueType);
+                    unmarshaller, input, valueType);
             return result;
 //            final JAXBElement<?> result = (JAXBElement<?>) method.invoke(
 //                unmarshaller, input, valueType);
@@ -252,11 +239,10 @@ public class Unmarshallers {
         }
     }
 
-
     public static <T, V> JAXBElement<V> unmarshal(
-        final JAXBContext context, final Class<? super T> inputType,
-        final T input, final Class<V> valueType)
-        throws JAXBException {
+            final JAXBContext context, final Class<? super T> inputType,
+            final T input, final Class<V> valueType)
+            throws JAXBException {
 
         if (context == null) {
             throw new NullPointerException("context");
@@ -265,22 +251,20 @@ public class Unmarshallers {
         return unmarshal(context.createUnmarshaller(), input, valueType);
     }
 
-
     public static <T, V> JAXBElement<V> unmarshal(
-        final Class<? super T> inputType, final T input,
-        final Class<V> valueType)
-        throws JAXBException {
+            final Class<? super T> inputType, final T input,
+            final Class<V> valueType)
+            throws JAXBException {
 
         final JAXBContext context = JAXBContext.newInstance(valueType);
 
         return unmarshal(context, input, valueType);
     }
 
-
     public static <V> JAXBElement<V> unmarshal(final Unmarshaller unmarshaller,
-                                               final Object input,
-                                               final Class<V> valueType)
-        throws UnmarshalException {
+            final Object input,
+            final Class<V> valueType)
+            throws UnmarshalException {
 
         if (unmarshaller == null) {
             throw new NullPointerException("unmarshaller");
@@ -298,7 +282,7 @@ public class Unmarshallers {
 
         Method method = null;
         for (Entry<Class<?>, Method> entry
-             : DECLARED_UNMARSHAL_METHODS.entrySet()) {
+                : DECLARED_UNMARSHAL_METHODS.entrySet()) {
             if (entry.getKey().isAssignableFrom(inputType)) {
                 method = entry.getValue();
                 break;
@@ -307,13 +291,13 @@ public class Unmarshallers {
 
         if (method == null) {
             throw new IllegalArgumentException(
-                "can't unmarshal from " + inputType);
+                    "can't unmarshal from " + inputType);
         }
 
         try {
             @SuppressWarnings("unchecked")
             final JAXBElement<V> result = (JAXBElement<V>) method.invoke(
-                unmarshaller, input, valueType);
+                    unmarshaller, input, valueType);
             return result;
         } catch (IllegalAccessException iae) {
             throw new UnmarshalException(iae);
@@ -326,11 +310,10 @@ public class Unmarshallers {
         }
     }
 
-
     public static <V> JAXBElement<V> unmarshal(final JAXBContext context,
-                                               final Object input,
-                                               final Class<V> valueType)
-        throws JAXBException {
+            final Object input,
+            final Class<V> valueType)
+            throws JAXBException {
 
         if (context == null) {
             throw new NullPointerException("context");
@@ -339,16 +322,14 @@ public class Unmarshallers {
         return unmarshal(context.createUnmarshaller(), input, valueType);
     }
 
-
     public static <V> JAXBElement<V> unmarshal(final Object input,
-                                               final Class<V> valueType)
-        throws JAXBException {
+            final Class<V> valueType)
+            throws JAXBException {
 
         final JAXBContext context = JAXBContext.newInstance(valueType);
 
         return unmarshal(context, input, valueType);
     }
-
 
     protected Unmarshallers() {
 
@@ -356,4 +337,3 @@ public class Unmarshallers {
     }
 
 }
-

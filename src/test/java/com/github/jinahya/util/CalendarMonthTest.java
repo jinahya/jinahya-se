@@ -13,18 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class CalendarMonthTest
-    extends CalendarIntFieldEnumTest<CalendarMonth> {
-
+        extends CalendarIntFieldEnumTest<CalendarMonth> {
 
     public CalendarMonthTest() {
 
@@ -32,4 +28,3 @@ public class CalendarMonthTest
     }
 
 }
-

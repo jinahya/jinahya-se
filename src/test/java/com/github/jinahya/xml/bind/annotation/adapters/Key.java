@@ -13,16 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind.annotation.adapters;
-
 
 import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-
 
 /**
  *
@@ -30,7 +26,6 @@ import javax.xml.bind.annotation.XmlElement;
  */
 @XmlAccessorType(XmlAccessType.NONE)
 public class Key implements Comparable<Key>, Serializable {
-
 
     /**
      * Returns id.
@@ -41,7 +36,6 @@ public class Key implements Comparable<Key>, Serializable {
         return id;
     }
 
-
     /**
      * Sets id.
      *
@@ -50,7 +44,6 @@ public class Key implements Comparable<Key>, Serializable {
     public void setId(final long id) {
         this.id = id;
     }
-
 
     @Override
     public int compareTo(final Key o) {
@@ -68,7 +61,6 @@ public class Key implements Comparable<Key>, Serializable {
         return 0;
     }
 
-
     @Override
     public int hashCode() {
 
@@ -78,7 +70,6 @@ public class Key implements Comparable<Key>, Serializable {
 
         return result;
     }
-
 
     @Override
     public boolean equals(final Object obj) {
@@ -96,9 +87,7 @@ public class Key implements Comparable<Key>, Serializable {
         return id == key.id;
     }
 
-
     @XmlElement(required = true)
     private long id;
 
 }
-

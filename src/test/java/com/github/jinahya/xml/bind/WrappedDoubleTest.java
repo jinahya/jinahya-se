@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
-
 
 /**
  *
@@ -28,12 +24,10 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class WrappedDoubleTest extends WrappedValueTest<WrappedDouble, Double> {
 
-
     public WrappedDoubleTest() {
 
         super(WrappedDouble.class);
     }
-
 
     @Override
     protected Double generateRawValue() {
@@ -48,4 +42,3 @@ public class WrappedDoubleTest extends WrappedValueTest<WrappedDouble, Double> {
     }
 
 }
-

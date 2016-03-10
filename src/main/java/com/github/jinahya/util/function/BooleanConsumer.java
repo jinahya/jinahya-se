@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util.function;
-
 
 /**
  * Represents an operation that accepts a single {@code boolean}-valued argument
@@ -35,14 +32,12 @@ package com.github.jinahya.util.function;
 @FunctionalInterface
 public interface BooleanConsumer {
 
-
     /**
      * Performs this operation on the given argument.
      *
      * @param value the input value
      */
     void accept(boolean value);
-
 
     /**
      * Returns a composed {@code BooleanConsumer} that performs, in sequence,
@@ -66,6 +61,4 @@ public interface BooleanConsumer {
         };
     }
 
-
 }
-

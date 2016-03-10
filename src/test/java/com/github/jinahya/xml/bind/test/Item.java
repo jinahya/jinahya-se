@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind.test;
-
 
 import java.util.Objects;
 import java.util.Random;
@@ -25,7 +22,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
@@ -33,11 +29,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Item {
 
-
     public static Item newInstance() {
         return newInstance(ThreadLocalRandom.current());
     }
-
 
     public static Item newInstance(final Random random) {
         final Item instance = new Item();
@@ -50,13 +44,11 @@ public class Item {
         return instance;
     }
 
-
     @Override
     public String toString() {
         return getClass().getSimpleName() + "@" + hashCode()
-               + "?id=" + id + "&name=" + name;
+                + "?id=" + id + "&name=" + name;
     }
-
 
     @Override
     public int hashCode() {
@@ -65,7 +57,6 @@ public class Item {
         hash = 97 * hash + Objects.hashCode(this.name);
         return hash;
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -85,14 +76,11 @@ public class Item {
         return true;
     }
 
-
     @XmlAttribute
     private Long id;
-
 
 //    @XmlValue
     @XmlElement(nillable = true)
     private String name;
 
 }
-

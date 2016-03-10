@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util.concurrent;
-
 
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
-
 
 /**
  *
@@ -29,40 +25,35 @@ import java.util.stream.IntStream;
  */
 public class JinahyaThreadLocalRandoms {
 
-
     public static DoubleStream floats() {
         return ThreadLocalRandom.current()
-            .doubles()
-            .map(d -> (float) d);
+                .doubles()
+                .map(d -> (float) d);
     }
-
 
     public static DoubleStream floats(final float randomNumberOrigin,
-                                      final float randomNumberBound) {
+            final float randomNumberBound) {
 
         return ThreadLocalRandom.current()
-            .doubles(randomNumberOrigin, randomNumberBound)
-            .map(d -> (float) d);
+                .doubles(randomNumberOrigin, randomNumberBound)
+                .map(d -> (float) d);
     }
-
 
     public static DoubleStream floats(final long streamSize) {
 
         return ThreadLocalRandom.current()
-            .doubles(streamSize)
-            .map(d -> (float) d);
+                .doubles(streamSize)
+                .map(d -> (float) d);
     }
-
 
     public static DoubleStream floats(final long streamSize,
-                                      final float randomNumberOrigin,
-                                      final float randomNumberBound) {
+            final float randomNumberOrigin,
+            final float randomNumberBound) {
 
         return ThreadLocalRandom.current()
-            .doubles(streamSize, randomNumberOrigin, randomNumberBound)
-            .map(d -> (float) d);
+                .doubles(streamSize, randomNumberOrigin, randomNumberBound)
+                .map(d -> (float) d);
     }
-
 
     /**
      *
@@ -73,10 +64,9 @@ public class JinahyaThreadLocalRandoms {
     public static IntStream bytes() {
 
         return ThreadLocalRandom.current()
-            .ints()
-            .map(i -> (byte) i);
+                .ints()
+                .map(i -> (byte) i);
     }
-
 
     /**
      *
@@ -88,35 +78,31 @@ public class JinahyaThreadLocalRandoms {
      * @see ThreadLocalRandom#ints(int, int)
      */
     public static IntStream bytes(final byte randomNumberOrigin,
-                                  final byte randomNumberBound) {
+            final byte randomNumberBound) {
 
         return ThreadLocalRandom.current()
-            .ints(randomNumberOrigin, randomNumberBound)
-            .map(i -> (byte) i);
+                .ints(randomNumberOrigin, randomNumberBound)
+                .map(i -> (byte) i);
     }
-
 
     public static IntStream bytes(final long streamSize) {
 
         return ThreadLocalRandom.current()
-            .ints(streamSize)
-            .map(i -> (byte) i);
+                .ints(streamSize)
+                .map(i -> (byte) i);
     }
-
 
     public static IntStream bytes(final long streamSize,
-                                  final byte randomNumberOrigin,
-                                  final byte randomNumberBound) {
+            final byte randomNumberOrigin,
+            final byte randomNumberBound) {
 
         return ThreadLocalRandom.current()
-            .ints(streamSize, randomNumberOrigin, randomNumberBound)
-            .map(i -> (byte) i);
+                .ints(streamSize, randomNumberOrigin, randomNumberBound)
+                .map(i -> (byte) i);
     }
-
 
     private JinahyaThreadLocalRandoms() {
         super();
     }
 
 }
-

@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.nio.channels;
-
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.WritableByteChannel;
-
 
 /**
  * A byte channel which consumes all remaining bytes.
@@ -29,7 +25,6 @@ import java.nio.channels.WritableByteChannel;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class BlackByteChannel implements WritableByteChannel {
-
 
     /**
      * The {@code #write(java.nio.ByteBuffer)} method of
@@ -52,7 +47,6 @@ public final class BlackByteChannel implements WritableByteChannel {
         return remainging;
     }
 
-
     /**
      * The {@code isOpen} method of {@code BlackByteChannel} class always
      * returns {@code true}.
@@ -64,7 +58,6 @@ public final class BlackByteChannel implements WritableByteChannel {
 
         return true;
     }
-
 
     /**
      * The {@code close} method of {@code BlackByteChannel} class does nothing.
@@ -78,4 +71,3 @@ public final class BlackByteChannel implements WritableByteChannel {
     }
 
 }
-

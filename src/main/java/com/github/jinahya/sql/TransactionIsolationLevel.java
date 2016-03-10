@@ -13,16 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.sql;
-
 
 import com.github.jinahya.lang.FieldEnum;
 import com.github.jinahya.lang.FieldEnums;
 import java.sql.Connection;
 import java.sql.SQLException;
-
 
 /**
  *
@@ -32,7 +28,6 @@ import java.sql.SQLException;
 @Deprecated
 public enum TransactionIsolationLevel
         implements FieldEnum<TransactionIsolationLevel, Integer> {
-
 
     /**
      * A constant for {@link Connection#TRANSACTION_NONE}.
@@ -55,7 +50,6 @@ public enum TransactionIsolationLevel
      */
     TRANSACTION_SERIALIZABLE(Connection.TRANSACTION_SERIALIZABLE); // 8
 
-
     /**
      * Returns the enum constant of this type with the specified transaction
      * isolation level.
@@ -70,7 +64,6 @@ public enum TransactionIsolationLevel
         return FieldEnums.fromFieldValue(
                 TransactionIsolationLevel.class, fieldValue);
     }
-
 
     /**
      * Returns the enum constant of this type with the specified connection's
@@ -97,7 +90,6 @@ public enum TransactionIsolationLevel
         return fromFieldValue(connection.getTransactionIsolation());
     }
 
-
     /**
      * Returns an array containing the field values of this enum type.
      *
@@ -109,7 +101,6 @@ public enum TransactionIsolationLevel
                 TransactionIsolationLevel.class, Integer.class);
     }
 
-
     /**
      * Creates a new instance.
      *
@@ -120,13 +111,11 @@ public enum TransactionIsolationLevel
         this.fieldValue = fieldValue;
     }
 
-
     @Override
     public Integer fieldValue() {
 
         return fieldValue;
     }
-
 
     /**
      * Attempts to change the transaction isolation level for given connection
@@ -148,12 +137,9 @@ public enum TransactionIsolationLevel
         connection.setTransactionIsolation(fieldValue);
     }
 
-
     /**
      * field value.
      */
     private final int fieldValue;
 
-
 }
-

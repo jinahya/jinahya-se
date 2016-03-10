@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang;
-
 
 /**
  *
@@ -26,7 +23,6 @@ package com.github.jinahya.lang;
  * @param <F> field type parameter
  */
 public interface ComparableFieldEnum<E extends Enum<E>, F extends Comparable<? super F>>
-    extends FieldEnum<E, F> {
+        extends FieldEnum<E, F> {
 
 }
-

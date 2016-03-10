@@ -13,17 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.github.jinahya.crypto;
-
 
 import com.github.jinahya.lang.IntFieldEnum;
 import javax.crypto.Cipher;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 
-
 /**
+ * Constants for types of keys defined in {@link Cipher}.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
@@ -48,21 +46,14 @@ public enum CipherKey implements IntFieldEnum<CipherKey> {
     @XmlEnumValue(value = "3")
     SECRET_KEY(Cipher.SECRET_KEY); // 3
 
-
     private CipherKey(final int fieldValue) {
-
         this.fieldValue = fieldValue;
     }
 
-
     @Override
     public int fieldValueAsInt() {
-
         return fieldValue;
     }
 
-
     private final int fieldValue;
-
 }
-

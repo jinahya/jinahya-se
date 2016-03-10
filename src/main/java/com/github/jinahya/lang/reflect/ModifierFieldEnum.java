@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang.reflect;
 
-
 import com.github.jinahya.lang.IntFieldEnum;
-
 
 /**
  *
@@ -28,12 +24,10 @@ import com.github.jinahya.lang.IntFieldEnum;
  */
 public interface ModifierFieldEnum<E extends Enum<E>> extends IntFieldEnum<E> {
 
-
     default boolean is(final int modifiers) {
 
         return (modifiers & fieldValueAsInt()) == fieldValueAsInt();
     }
-
 
     /**
      * Adds this constant's field value to specified value.
@@ -46,7 +40,6 @@ public interface ModifierFieldEnum<E extends Enum<E>> extends IntFieldEnum<E> {
 
         return modifiers | fieldValueAsInt();
     }
-
 
     /**
      * Removes this constant's field value from specified value.
@@ -62,4 +55,3 @@ public interface ModifierFieldEnum<E extends Enum<E>> extends IntFieldEnum<E> {
     }
 
 }
-

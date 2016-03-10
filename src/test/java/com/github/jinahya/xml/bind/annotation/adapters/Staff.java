@@ -13,17 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind.annotation.adapters;
-
 
 import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlValue;
-
 
 /**
  * Person.
@@ -33,12 +29,10 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlAccessorType(XmlAccessType.NONE)
 public class Staff implements Comparable<Staff>, Serializable {
 
-
     /**
      * GENERATED.
      */
     private static final long serialVersionUID = -1696007229340041164L;
-
 
     /**
      * Creates a new person with given <code>id</code> and <code>name</code>.
@@ -57,7 +51,6 @@ public class Staff implements Comparable<Staff>, Serializable {
         return instance;
     }
 
-
     /**
      * Returns id.
      *
@@ -66,7 +59,6 @@ public class Staff implements Comparable<Staff>, Serializable {
     public long getId() {
         return id;
     }
-
 
     /**
      * Sets id.
@@ -77,7 +69,6 @@ public class Staff implements Comparable<Staff>, Serializable {
         this.id = id;
     }
 
-
     /**
      * Returns name.
      *
@@ -87,7 +78,6 @@ public class Staff implements Comparable<Staff>, Serializable {
         return name;
     }
 
-
     /**
      * Sets name.
      *
@@ -96,7 +86,6 @@ public class Staff implements Comparable<Staff>, Serializable {
     public void setName(final String name) {
         this.name = name;
     }
-
 
     @Override
     public int compareTo(final Staff o) {
@@ -116,8 +105,7 @@ public class Staff implements Comparable<Staff>, Serializable {
                 return -1;
             }
         } else // key != null
-        {
-            if (o.name == null) {
+         if (o.name == null) {
                 return 1;
             } else {
                 final int nameCompared = name.compareTo(o.name);
@@ -125,11 +113,9 @@ public class Staff implements Comparable<Staff>, Serializable {
                     return nameCompared;
                 }
             }
-        }
 
         return 0;
     }
-
 
     @Override
     public boolean equals(final Object obj) {
@@ -149,13 +135,12 @@ public class Staff implements Comparable<Staff>, Serializable {
         }
 
         if (!(name == casted.name)
-            || (name != null && name.equals(casted.name))) {
+                || (name != null && name.equals(casted.name))) {
             return false;
         }
 
         return true;
     }
-
 
     @Override
     public int hashCode() {
@@ -169,19 +154,16 @@ public class Staff implements Comparable<Staff>, Serializable {
         return result;
     }
 
-
     @Override
     public String toString() {
         return (super.toString() + " id=" + id + ", name=" + name);
     }
-
 
     /**
      * id.
      */
     @XmlAttribute(required = true)
     private long id;
-
 
     /**
      * name.
@@ -190,4 +172,3 @@ public class Staff implements Comparable<Staff>, Serializable {
     private String name;
 
 }
-

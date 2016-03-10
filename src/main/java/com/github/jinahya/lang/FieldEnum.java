@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.lang;
-
 
 /**
  * An interface for implementing an {@code Enum} for old school constant fields.
@@ -27,7 +24,6 @@ package com.github.jinahya.lang;
  */
 public interface FieldEnum<E extends Enum<E>, V> {
 
-
     /**
      * Returns field value.
      *
@@ -36,4 +32,3 @@ public interface FieldEnum<E extends Enum<E>, V> {
     V fieldValue();
 
 }
-

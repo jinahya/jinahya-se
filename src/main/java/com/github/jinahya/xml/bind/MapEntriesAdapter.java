@@ -13,17 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
-
 
 /**
  * An {@code XmlAdapter} for {@link MapEntries} and {@link Map}.
@@ -34,8 +30,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * @param <V> Map value type parameter
  */
 public abstract class MapEntriesAdapter<T extends MapEntries<?, K, V>, K, V>
-    extends XmlAdapter<T, Map<K, V>> {
-
+        extends XmlAdapter<T, Map<K, V>> {
 
     /**
      * Creates a new instance.
@@ -48,7 +43,6 @@ public abstract class MapEntriesAdapter<T extends MapEntries<?, K, V>, K, V>
 
         this.entriesType = Objects.requireNonNull(entriesType, "entriesType");
     }
-
 
     @Override
     public Map<K, V> unmarshal(final T value) throws Exception {
@@ -68,7 +62,6 @@ public abstract class MapEntriesAdapter<T extends MapEntries<?, K, V>, K, V>
         return bound;
     }
 
-
     @Override
     public T marshal(final Map<K, V> bound) throws Exception {
 
@@ -83,11 +76,9 @@ public abstract class MapEntriesAdapter<T extends MapEntries<?, K, V>, K, V>
         return value;
     }
 
-
     /**
      * entries type.
      */
     private final Class<T> entriesType;
 
 }
-

@@ -13,16 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.namespace;
-
 
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 
 /**
  *
@@ -30,38 +26,35 @@ import org.testng.annotations.Test;
  */
 public class NamespaceContextTest {
 
-
     @Test
     public static void testForPredefinedPrefixes(
-        final NamespaceContext context) {
+            final NamespaceContext context) {
 
         Assert.assertEquals(
-            context.getNamespaceURI(XMLConstants.DEFAULT_NS_PREFIX),
-            XMLConstants.NULL_NS_URI);
+                context.getNamespaceURI(XMLConstants.DEFAULT_NS_PREFIX),
+                XMLConstants.NULL_NS_URI);
 
         Assert.assertEquals(context.getNamespaceURI(XMLConstants.XML_NS_PREFIX),
-                            XMLConstants.XML_NS_URI);
+                XMLConstants.XML_NS_URI);
 
         Assert.assertEquals(
-            context.getNamespaceURI(XMLConstants.XMLNS_ATTRIBUTE),
-            XMLConstants.XMLNS_ATTRIBUTE_NS_URI);
+                context.getNamespaceURI(XMLConstants.XMLNS_ATTRIBUTE),
+                XMLConstants.XMLNS_ATTRIBUTE_NS_URI);
     }
-
 
     @Test
     public static void testForPredefinedNamespaceURIs(final NamespaceContext context) {
 
         Assert.assertEquals(
-            context.getNamespaceURI(XMLConstants.DEFAULT_NS_PREFIX),
-            XMLConstants.NULL_NS_URI);
+                context.getNamespaceURI(XMLConstants.DEFAULT_NS_PREFIX),
+                XMLConstants.NULL_NS_URI);
 
         Assert.assertEquals(context.getNamespaceURI(XMLConstants.XML_NS_PREFIX),
-                            XMLConstants.XML_NS_URI);
+                XMLConstants.XML_NS_URI);
 
         Assert.assertEquals(
-            context.getNamespaceURI(XMLConstants.XMLNS_ATTRIBUTE),
-            XMLConstants.XMLNS_ATTRIBUTE_NS_URI);
+                context.getNamespaceURI(XMLConstants.XMLNS_ATTRIBUTE),
+                XMLConstants.XMLNS_ATTRIBUTE_NS_URI);
     }
 
 }
-

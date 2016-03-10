@@ -13,22 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import java.util.HashSet;
 import java.util.Set;
-
 
 /**
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class StringPackageSetAdapter
-    extends StringPackageCollectionAdapter<Set<Package>> {
-
+        extends StringPackageCollectionAdapter<Set<Package>> {
 
     @Override
     protected Set<Package> bound(final String value) {
@@ -37,4 +32,3 @@ public class StringPackageSetAdapter
     }
 
 }
-

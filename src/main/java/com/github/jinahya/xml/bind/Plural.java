@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.xml.bind;
-
 
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.xml.bind.annotation.XmlTransient;
-
 
 /**
  * General class for wrapper classes.
@@ -31,7 +27,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @XmlTransient
 public abstract class Plural<S> {
-
 
     /**
      * Creates a new instance of given {@code pluralType} contains specified
@@ -45,7 +40,7 @@ public abstract class Plural<S> {
      * @return a new instance of given {@code pluralType}.
      */
     public static <P extends Plural<S>, S> P newInstance(
-        final Class<P> pluralType, final Collection<? extends S> singulars) {
+            final Class<P> pluralType, final Collection<? extends S> singulars) {
 
         if (pluralType == null) {
             throw new NullPointerException("pluralType");
@@ -64,7 +59,6 @@ public abstract class Plural<S> {
         }
     }
 
-
     /**
      * Creates a new empty instance of given plural type.
      *
@@ -75,11 +69,10 @@ public abstract class Plural<S> {
      * @return a new empty instance of given {@code pluralType}
      */
     public static <P extends Plural<S>, S> P newInstance(
-        final Class<P> pluralType) {
+            final Class<P> pluralType) {
 
         return newInstance(pluralType, null);
     }
-
 
     /**
      * Returns singular collection.
@@ -96,7 +89,6 @@ public abstract class Plural<S> {
         return singular;
     }
 
-
     /**
      * singular collection.
      */
@@ -104,4 +96,3 @@ public abstract class Plural<S> {
     private Collection<S> singular;
 
 }
-

@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.util;
-
 
 import com.github.jinahya.lang.IntFieldEnum;
 import java.util.Calendar;
-
 
 /**
  *
@@ -28,11 +24,10 @@ import java.util.Calendar;
  * @param <E> enum type parameter
  */
 public interface CalendarIntFieldEnum<E extends Enum<E>>
-    extends IntFieldEnum<E> {
-
+        extends IntFieldEnum<E> {
 
     static <E extends Enum<E> & CalendarIntFieldEnum<E>> E fromCalendar(
-        final Class<E> enumType, final Calendar calendar, final int field) {
+            final Class<E> enumType, final Calendar calendar, final int field) {
 
         if (enumType == null) {
             throw new NullPointerException("null enumType");
@@ -47,15 +42,12 @@ public interface CalendarIntFieldEnum<E extends Enum<E>>
         return IntFieldEnum.fromFieldValue(enumType, fieldValue);
     }
 
-
     static void set(final Calendar calendar, final int field,
-                    final CalendarIntFieldEnum<?> constant) {
+            final CalendarIntFieldEnum<?> constant) {
 
         calendar.set(field, constant.fieldValueAsInt());
     }
 
-
     void set(final Calendar calendar);
 
 }
-
