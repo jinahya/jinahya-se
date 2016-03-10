@@ -18,11 +18,11 @@
 package com.github.jinahya.imageio;
 
 
+import static com.github.jinahya.imageio.ImageFeature.collect;
 import java.util.Collection;
 import static javax.imageio.ImageIO.getReaderFormatNames;
 import static javax.imageio.ImageIO.getWriterFormatNames;
 import javax.xml.bind.annotation.XmlRootElement;
-import static com.github.jinahya.imageio.ImageFeature.collect;
 
 
 /**

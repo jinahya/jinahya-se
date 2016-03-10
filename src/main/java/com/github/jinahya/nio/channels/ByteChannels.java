@@ -20,12 +20,16 @@ package com.github.jinahya.nio.channels;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import static java.lang.reflect.Proxy.newProxyInstance;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import static java.util.concurrent.ThreadLocalRandom.current;
 
 
 /**
@@ -500,6 +504,102 @@ public final class ByteChannels {
         } finally {
             foutput.close();
         }
+    }
+
+
+    public static <T extends ReadableByteChannel> T nonBlocking(
+        final Class<T> type, final T channel) {
+
+        final Method method;
+        try {
+            method = ReadableByteChannel.class.getMethod(
+                "read", ByteBuffer.class);
+        } catch (final NoSuchMethodException nsme) {
+            throw new RuntimeException(nsme);
+        }
+
+        final InvocationHandler handler = (p, m, a) -> {
+            if (method.equals(m)) {
+                final ByteBuffer dst = (ByteBuffer) a[0];
+                final int limit = dst.limit();
+                try {
+                    dst.limit(dst.position()
+                              + current().nextInt(dst.remaining() + 1));
+                    return channel.read(dst);
+                } finally {
+                    dst.limit(limit);
+                }
+            }
+            return m.invoke(channel, a);
+        };
+
+        final Object proxy = newProxyInstance(
+            type.getClassLoader(), new Class<?>[]{type}, handler);
+
+        return type.cast(proxy);
+    }
+
+
+    private static <T extends ReadableByteChannel> T nonBlockingHelper(
+        final Class<T> type, final ReadableByteChannel channel) {
+
+        return nonBlocking(type, type.cast(channel));
+    }
+
+
+    @SuppressWarnings("unchecked")
+    public static <T extends ReadableByteChannel> T nonBlocking(
+        final T channel) {
+
+        return (T) nonBlockingHelper(channel.getClass(), channel);
+    }
+
+
+    public static <T extends WritableByteChannel> T nonBlocking(
+        final Class<T> type, final T channel) {
+
+        final Method method;
+        try {
+            method = ReadableByteChannel.class.getMethod(
+                "write", ByteBuffer.class);
+        } catch (final NoSuchMethodException nsme) {
+            throw new RuntimeException(nsme);
+        }
+
+        final InvocationHandler handler = (p, m, a) -> {
+            if (method.equals(m)) {
+                final ByteBuffer src = (ByteBuffer) a[0];
+                final int limit = src.limit();
+                try {
+                    src.limit(src.position()
+                              + current().nextInt(src.remaining() + 1));
+                    return channel.write(src);
+                } finally {
+                    src.limit(limit);
+                }
+            }
+            return m.invoke(channel, a);
+        };
+
+        final Object proxy = newProxyInstance(
+            type.getClassLoader(), new Class<?>[]{type}, handler);
+
+        return type.cast(proxy);
+    }
+
+
+    private static <T extends WritableByteChannel> T nonBlockingHelper(
+        final Class<T> type, final WritableByteChannel channel) {
+
+        return nonBlocking(type, type.cast(channel));
+    }
+
+
+    @SuppressWarnings("unchecked")
+    public static <T extends WritableByteChannel> T nonBlocking(
+        final T channel) {
+
+        return (T) nonBlockingHelper(channel.getClass(), channel);
     }
 
 
