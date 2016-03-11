@@ -17,10 +17,6 @@ package com.github.jinahya.lang.reflect;
 
 import java.lang.reflect.Modifier;
 
-/**
- *
- * @author Jin Kwon <onacit at gmail.com>
- */
 public final class Modifiers {
 
     public static boolean isClassModifiers(final int modifiers) {

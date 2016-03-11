@@ -16,23 +16,32 @@
 package com.github.jinahya.lang;
 
 /**
+ * An interface for defining an enum for double constant fields.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
- * @param <E>
+ * @param <E> enum type parameter
  */
 public interface DoubleFieldEnum<E extends Enum<E>> {
 
-    static <E extends Enum<E> & DoubleFieldEnum<E>> double[] fieldValues(
-            final Class<E> type) {
-        if (type == null) {
-            throw new NullPointerException("null type");
-        }
-        final E[] enumConstants = type.getEnumConstants();
+    static <E extends Enum<E> & DoubleFieldEnum<E>> double[] doubleFieldValues(
+            final Class<E> enumType) {
+        final E[] enumConstants = enumType.getEnumConstants();
         final double[] fieldValues = new double[enumConstants.length];
         for (int i = 0; i < fieldValues.length; i++) {
             fieldValues[i] = enumConstants[i].fieldValueAsDouble();
         }
         return fieldValues;
+    }
+
+    static <E extends Enum<E> & DoubleFieldEnum<E>> E fromDoubleFieldValue(
+            final Class<E> enumType, final double fieldValue) {
+        for (final E enumConstant : enumType.getEnumConstants()) {
+            final double constantFieldValue = enumConstant.fieldValueAsDouble();
+            if (constantFieldValue == fieldValue) {
+                return enumConstant;
+            }
+        }
+        throw new IllegalArgumentException("unknown fieldValue: " + fieldValue);
     }
 
     /**

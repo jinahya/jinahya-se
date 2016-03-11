@@ -28,7 +28,6 @@ public final class Fields {
     public static Field findDeclaredField(final Class<?> klass,
                                           final String name)
             throws NoSuchFieldException {
-
         try {
             return klass.getDeclaredField(name);
         } catch (final NoSuchFieldException nsfe) {
@@ -170,12 +169,7 @@ public final class Fields {
         return field;
     }
 
-    /**
-     * Creates a new instance.
-     */
     private Fields() {
-
         super();
     }
-
 }

@@ -38,25 +38,19 @@ public final class FieldEnums {
      */
     public static <E extends Enum<E> & FieldEnum<E, V>, V> V[] fieldValues(
             final Class<E> enumType, final Class<V> fieldType) {
-
         if (enumType == null) {
             throw new NullPointerException("null enumtype");
         }
-
         if (fieldType == null) {
             throw new NullPointerException("null fieldType");
         }
-
         final E[] enumConstants = enumType.getEnumConstants();
-
         @SuppressWarnings("unchecked")
-        final V[] fieldValues
-                = (V[]) Array.newInstance(fieldType, enumConstants.length);
-
+        final V[] fieldValues = (V[]) Array.newInstance(
+                fieldType, enumConstants.length);
         for (int i = 0; i < fieldValues.length; i++) {
             fieldValues[i] = enumConstants[i].fieldValue();
         }
-
         return fieldValues;
     }
 
@@ -65,23 +59,23 @@ public final class FieldEnums {
      *
      * @param <E> enum type parameter
      * @param <V> field value type parameter
+     * @param <T> collection type parameter
      * @param enumType enum type
      * @param fieldValues the collection to which field values are added.
+     * @return given collection
      */
-    public static <E extends Enum<E> & FieldEnum<E, V>, V> void fieldValues(
-            final Class<E> enumType, final Collection<? super V> fieldValues) {
-
+    public static <E extends Enum<E> & FieldEnum<E, V>, V, T extends Collection<? super V>> T fieldValues(
+            final Class<E> enumType, final T fieldValues) {
         if (enumType == null) {
             throw new NullPointerException("null enumtype");
         }
-
         if (fieldValues == null) {
             throw new NullPointerException("null fieldValues");
         }
-
         for (final E enumConstant : enumType.getEnumConstants()) {
             fieldValues.add(enumConstant.fieldValue());
         }
+        return fieldValues;
     }
 
     /**
@@ -102,32 +96,24 @@ public final class FieldEnums {
      */
     public static <E extends Enum<E> & FieldEnum<E, V>, V> E fromFieldValue(
             final Class<E> enumType, final V fieldValue) {
-
         if (enumType == null) {
             throw new NullPointerException("null enumtype");
         }
-
         if (fieldValue == null) {
             // ok
         }
-
         for (final E enumConstant : enumType.getEnumConstants()) {
-            final V constantFieldValue = enumConstant.fieldValue();
-            if (constantFieldValue == null
-                ? fieldValue == null : constantFieldValue.equals(fieldValue)) {
+            final V enumConstantFieldValue = enumConstant.fieldValue();
+            if (enumConstantFieldValue == null
+                ? fieldValue == null
+                : enumConstantFieldValue.equals(fieldValue)) {
                 return enumConstant;
             }
         }
-
         throw new IllegalArgumentException("unknown fieldValue: " + fieldValue);
     }
 
-    /**
-     * Creates a new instance.
-     */
     private FieldEnums() {
-
         super();
     }
-
 }

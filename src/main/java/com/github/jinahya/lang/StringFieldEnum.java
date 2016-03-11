@@ -16,6 +16,7 @@
 package com.github.jinahya.lang;
 
 /**
+ * An interface for defining enum from {@code String} fields.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <E> enum type parameter

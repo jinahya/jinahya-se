@@ -41,7 +41,7 @@ abstract class ModifierFieldEnumTest<E extends Enum<E> & ModifierFieldEnum<E>>
     public void all() {
 
         int actual = 0;
-        for (final int fieldValues : IntFieldEnum.fieldValues(enumType)) {
+        for (final int fieldValues : IntFieldEnum.intFieldValues(enumType)) {
             actual |= fieldValues;
         }
 

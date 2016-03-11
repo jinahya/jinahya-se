@@ -21,26 +21,19 @@ package com.github.jinahya.lang;
  * @param <E> enum type parameter
  */
 public interface ShortFieldEnum<E extends Enum<E>> {
-//    extends ComparableFieldEnum<E, Short> {
 
-    static <E extends Enum<E> & IntFieldEnum<E>> int[] fieldValues(
-            final Class<E> type) {
-        if (type == null) {
-            throw new NullPointerException("null type");
-        }
-        final E[] enumConstants = type.getEnumConstants();
-        final int[] fieldValues = new int[enumConstants.length];
+    static <E extends Enum<E> & ShortFieldEnum<E>> short[] shortFieldValues(
+            final Class<E> enumType) {
+        final E[] enumConstants = enumType.getEnumConstants();
+        final short[] fieldValues = new short[enumConstants.length];
         for (int i = 0; i < fieldValues.length; i++) {
-            fieldValues[i] = enumConstants[i].fieldValueAsInt();
+            fieldValues[i] = enumConstants[i].fieldValueAsShort();
         }
         return fieldValues;
     }
 
-    static <E extends Enum<E> & ShortFieldEnum<E>> E fromFieldValue(
+    static <E extends Enum<E> & ShortFieldEnum<E>> E fromShortFieldValue(
             final Class<E> enumType, final short fieldValue) {
-        if (enumType == null) {
-            throw new NullPointerException("null enumtype");
-        }
         for (final E enumConstant : enumType.getEnumConstants()) {
             final short constantFieldValue = enumConstant.fieldValueAsShort();
             if (constantFieldValue == fieldValue) {
@@ -58,5 +51,4 @@ public interface ShortFieldEnum<E extends Enum<E>> {
      * @return the defined field value as a {@code short}.
      */
     short fieldValueAsShort();
-
 }

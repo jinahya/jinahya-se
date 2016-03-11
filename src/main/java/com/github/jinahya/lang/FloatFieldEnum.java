@@ -22,17 +22,25 @@ package com.github.jinahya.lang;
  */
 public interface FloatFieldEnum<E extends Enum<E>> {
 
-    static <E extends Enum<E> & FloatFieldEnum<E>> float[] fieldValues(
-            final Class<E> type) {
-        if (type == null) {
-            throw new NullPointerException("null type");
-        }
-        final E[] enumConstants = type.getEnumConstants();
+    static <E extends Enum<E> & FloatFieldEnum<E>> float[] floatFieldValues(
+            final Class<E> enumType) {
+        final E[] enumConstants = enumType.getEnumConstants();
         final float[] fieldValues = new float[enumConstants.length];
         for (int i = 0; i < fieldValues.length; i++) {
             fieldValues[i] = enumConstants[i].fieldValueAsFloat();
         }
         return fieldValues;
+    }
+
+    static <E extends Enum<E> & FloatFieldEnum<E>> E fromDoubleFieldValue(
+            final Class<E> enumType, final float fieldValue) {
+        for (final E enumConstant : enumType.getEnumConstants()) {
+            final float constantFieldValue = enumConstant.fieldValueAsFloat();
+            if (constantFieldValue == fieldValue) {
+                return enumConstant;
+            }
+        }
+        throw new IllegalArgumentException("unknown fieldValue: " + fieldValue);
     }
 
     /**
@@ -41,5 +49,4 @@ public interface FloatFieldEnum<E extends Enum<E>> {
      * @return the field value as {@code float} type.
      */
     float fieldValueAsFloat();
-
 }

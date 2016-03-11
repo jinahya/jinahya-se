@@ -24,52 +24,61 @@ public final class Numbers {
     /**
      * The number of bytes used to represent a {@code byte} value in two's
      * complement binary form.
+     *
+     * @deprecated Use {@link Byte#BYTES}
      */
+    @Deprecated
     public static final int BYTE_BYTES = Byte.SIZE / Byte.SIZE;
 
     /**
      * The number of bytes used to represent a {@code short} value in two's
      * complement binary form.
+     *
+     * @deprecated Use {@link Short#BYTES}
      */
+    @Deprecated
     public static final int SHORT_BYTES = Short.SIZE / Byte.SIZE;
 
     /**
      * The number of bytes used to represent a {@code int} value in two's
      * complement binary form.
+     *
+     * @deprecated Use {@link Integer#BYTES}
      */
+    @Deprecated
     public static final int INTEGER_BYTES = Integer.SIZE / Byte.SIZE;
 
     /**
      * The number of bytes used to represent a {@code long} value in two's
      * complement binary form.
+     *
+     * @deprecated Use {@link Long#BYTES}
      */
+    @Deprecated
     public static final int LONG_BYTES = Long.SIZE / Byte.SIZE;
 
     /**
      * The number of bytes used to represent a {@code float} value.
+     *
+     * @deprecated Use {@link Float#BYTES}
      */
+    @Deprecated
     public static final int FLOAT_BYTES = Float.SIZE / Byte.SIZE;
 
     /**
      * The number of bytes used to represent a {@code double} value.
+     *
+     * @deprecated Use {@link Double#BYTES}
      */
+    @Deprecated
     public static final int DOUBLE_BYTES = Double.SIZE / Byte.SIZE;
 
-    /**
-     *
-     * @param value
-     *
-     * @return
-     */
     public static byte[] toBytes(short value) {
-
         final byte[] bytes = new byte[SHORT_BYTES];
-
         for (int i = bytes.length - 1; i >= 0; i--) {
             bytes[i] = (byte) (value & 0xFF);
             value >>= Byte.SIZE;
         }
-
         return bytes;
     }
 
@@ -418,8 +427,6 @@ public final class Numbers {
     }
 
     private Numbers() {
-
         super();
     }
-
 }

@@ -53,22 +53,14 @@ public enum InterfaceModifier implements ModifierFieldEnum<InterfaceModifier> {
      */
     STRICT(Modifier.STRICT); // 2048
 
-    /**
-     * Creates a new instance with given field value.
-     *
-     * @param fieldValue the field value.
-     */
     private InterfaceModifier(final int fieldValue) {
-
         this.fieldValue = fieldValue;
     }
 
     @Override
     public int fieldValueAsInt() {
-
         return fieldValue;
     }
 
     private final int fieldValue;
-
 }

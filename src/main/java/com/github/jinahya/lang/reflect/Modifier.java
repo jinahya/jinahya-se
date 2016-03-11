@@ -37,16 +37,13 @@ public enum Modifier implements IntFieldEnum<Modifier> {
     STRICT(java.lang.reflect.Modifier.STRICT);
 
     Modifier(final int fieldValue) {
-
         this.fieldValue = fieldValue;
     }
 
     @Override
     public int fieldValueAsInt() {
-
         return fieldValue;
     }
 
     private final int fieldValue;
-
 }

@@ -45,16 +45,13 @@ public enum ConstructorModifier
      * @param fieldValue the field value.
      */
     private ConstructorModifier(final int fieldValue) {
-
         this.fieldValue = fieldValue;
     }
 
     @Override
     public int fieldValueAsInt() {
-
         return fieldValue;
     }
 
     private final int fieldValue;
-
 }

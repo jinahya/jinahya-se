@@ -26,16 +26,13 @@ public enum ParameterModifier implements ModifierFieldEnum<ParameterModifier> {
     FINAL(Modifier.FINAL); // 16
 
     private ParameterModifier(final int fieldValue) {
-
         this.fieldValue = fieldValue;
     }
 
     @Override
     public int fieldValueAsInt() {
-
         return fieldValue;
     }
 
     private final int fieldValue;
-
 }

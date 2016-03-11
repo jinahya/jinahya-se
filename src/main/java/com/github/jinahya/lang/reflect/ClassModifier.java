@@ -64,16 +64,13 @@ public enum ClassModifier implements ModifierFieldEnum<ClassModifier> {
      * @param fieldValue the field value.
      */
     private ClassModifier(final int fieldValue) {
-
         this.fieldValue = fieldValue;
     }
 
     @Override
     public int fieldValueAsInt() {
-
         return fieldValue;
     }
 
     private final int fieldValue;
-
 }

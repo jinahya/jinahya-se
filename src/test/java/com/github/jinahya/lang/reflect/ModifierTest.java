@@ -31,7 +31,7 @@ public class ModifierTest {
     @Test
     public static void assertUniqueFieldValues() {
 
-        final int[] array = IntFieldEnum.fieldValues(Modifier.class);
+        final int[] array = IntFieldEnum.intFieldValues(Modifier.class);
         final Set<Integer> set
                 = Arrays.stream(array).boxed().collect(Collectors.toSet());
         assertEquals(set.size(), Modifier.values().length);

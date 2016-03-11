@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Jin Kwon &lt;jinahya_at_gmail.com&gt;.
+ * Copyright 2016 Jin Kwon &lt;onacit_at_gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,16 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.jinahya.lang;
+package com.github.jinahya.util.function;
 
 /**
- * An interface for defining enum from constant fields which each value is an
- * instance of {@link Comparable}.
  *
- * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
- * @param <E> enum type parameter
- * @param <F> field type parameter
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-public interface ComparableFieldEnum<E extends Enum<E>, F extends Comparable<? super F>>
-        extends FieldEnum<E, F> {
+public interface ObjLongFunction<T, R> {
+
+    R apply(T t, long value);
 }

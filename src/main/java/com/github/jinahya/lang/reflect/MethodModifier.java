@@ -34,16 +34,13 @@ public enum MethodModifier implements ModifierFieldEnum<MethodModifier> {
     STRICT(Modifier.STRICT); // 2048
 
     private MethodModifier(final int fieldValue) {
-
         this.fieldValue = fieldValue;
     }
 
     @Override
     public int fieldValueAsInt() {
-
         return fieldValue;
     }
 
     private final int fieldValue;
-
 }

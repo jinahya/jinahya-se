@@ -22,12 +22,9 @@ package com.github.jinahya.lang;
  */
 public interface LongFieldEnum<E extends Enum<E>> {
 
-    static <E extends Enum<E> & LongFieldEnum<E>> long[] fieldValues(
-            final Class<E> type) {
-        if (type == null) {
-            throw new NullPointerException("null type");
-        }
-        final E[] enumConstants = type.getEnumConstants();
+    static <E extends Enum<E> & LongFieldEnum<E>> long[] longFieldValues(
+            final Class<E> enumType) {
+        final E[] enumConstants = enumType.getEnumConstants();
         final long[] fieldValues = new long[enumConstants.length];
         for (int i = 0; i < fieldValues.length; i++) {
             fieldValues[i] = enumConstants[i].fieldValueAsLong();
@@ -35,11 +32,8 @@ public interface LongFieldEnum<E extends Enum<E>> {
         return fieldValues;
     }
 
-    static <E extends Enum<E> & LongFieldEnum<E>> E fromFieldValue(
+    static <E extends Enum<E> & LongFieldEnum<E>> E fromLongFieldValue(
             final Class<E> enumType, final long fieldValue) {
-        if (enumType == null) {
-            throw new NullPointerException("null enumtype");
-        }
         for (final E enumConstant : enumType.getEnumConstants()) {
             final long constantFieldValue = enumConstant.fieldValueAsLong();
             if (constantFieldValue == fieldValue) {

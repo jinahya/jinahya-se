@@ -27,18 +27,22 @@ public enum FieldModifier implements ModifierFieldEnum<FieldModifier> {
      *
      */
     PUBLIC(Modifier.PUBLIC), // 1
+
     /**
      *
      */
     PRIVATE(Modifier.PRIVATE), // 2
+
     /**
      *
      */
     PROTECTED(Modifier.PROTECTED), // 4
+
     /**
      *
      */
     STATIC(Modifier.STATIC), // 8
+
     /**
      *
      */
@@ -52,25 +56,14 @@ public enum FieldModifier implements ModifierFieldEnum<FieldModifier> {
      */
     TRANSIENT(Modifier.TRANSIENT); // 128
 
-    /**
-     * Creates a new instance with given field value.
-     *
-     * @param fieldValue the field value.
-     */
     private FieldModifier(final int fieldValue) {
-
         this.fieldValue = fieldValue;
     }
 
     @Override
     public int fieldValueAsInt() {
-
         return fieldValue;
     }
 
-    /**
-     * field value.
-     */
     private final int fieldValue;
-
 }
