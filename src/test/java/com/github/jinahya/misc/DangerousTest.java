@@ -15,14 +15,16 @@
  */
 package com.github.jinahya.misc;
 
-import static com.github.jinahya.misc.Dangerous.newUnsafe;
-import static com.github.jinahya.misc.Dangerous.theUnsafe;
+import java.lang.reflect.Field;
 import static java.util.concurrent.ThreadLocalRandom.current;
 import org.slf4j.Logger;
-import static org.slf4j.LoggerFactory.getLogger;
-import static org.testng.Assert.assertNotNull;
 import org.testng.annotations.Test;
 import sun.misc.Unsafe;
+import static org.slf4j.LoggerFactory.getLogger;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
 
 /**
  *
@@ -31,6 +33,11 @@ import sun.misc.Unsafe;
 public class DangerousTest {
 
     private static transient final Logger logger = getLogger(Dangerous.class);
+
+    static int sint;
+    static volatile int svint;
+    int oint;
+    volatile int ovint;
 
     @Test
     public static void constants() {
@@ -57,20 +64,20 @@ public class DangerousTest {
     }
 
     @Test
-    public static void theInstance() throws ReflectiveOperationException {
-        final Unsafe theUnsafe = theUnsafe();
+    public static void theUnsafe() throws ReflectiveOperationException {
+        final Unsafe theUnsafe = Dangerous.theUnsafe();
         assertNotNull(theUnsafe);
     }
 
     @Test
-    public static void newInstance() throws ReflectiveOperationException {
-        final Unsafe newUnsafe = newUnsafe();
+    public static void newUnsafe() throws ReflectiveOperationException {
+        final Unsafe newUnsafe = Dangerous.newUnsafe();
         assertNotNull(newUnsafe);
     }
 
     @Test
     public static void allocateAndFree() throws ReflectiveOperationException {
-        final Unsafe unsafe = theUnsafe();
+        final Unsafe unsafe = Dangerous.theUnsafe();
         final long size = current().nextLong(1L, 1024L);
         final long address = unsafe.allocateMemory(size);
         unsafe.freeMemory(address);
@@ -78,7 +85,7 @@ public class DangerousTest {
 
     @Test
     public static void reallocateAndFree() throws ReflectiveOperationException {
-        final Unsafe unsafe = theUnsafe();
+        final Unsafe unsafe = Dangerous.theUnsafe();
         long size = current().nextLong(1L, 1024L);
         long allocated = unsafe.allocateMemory(size);
         logger.debug("allocated: {}", allocated);
@@ -86,5 +93,22 @@ public class DangerousTest {
         allocated = unsafe.reallocateMemory(allocated, size);
         logger.debug("reallocated: {}", allocated);
         unsafe.freeMemory(allocated);
+    }
+
+    @Test
+    public static void compareAndSwapInt() throws ReflectiveOperationException {
+        final Unsafe unsafe = Dangerous.newUnsafe();
+        {
+            Object base = null;
+            final Field field = DangerousTest.class.getDeclaredField("sint");
+            assertFalse(Dangerous.compareAndSwapInt(unsafe, base, field, 1, 0));
+            assertEquals(DangerousTest.sint, 0);
+            assertTrue(Dangerous.compareAndSwapInt(unsafe, base, field, 0, 1));
+            assertEquals(DangerousTest.sint, 1);
+            base = unsafe.staticFieldBase(field);
+            assertFalse(Dangerous.compareAndSwapInt(unsafe, base, field, 0, 1));
+            assertTrue(Dangerous.compareAndSwapInt(unsafe, base, field, 1, 0));
+            assertEquals(DangerousTest.sint, 0);
+        }
     }
 }

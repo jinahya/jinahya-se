@@ -20,16 +20,62 @@ import java.lang.reflect.Field;
 import static java.lang.reflect.Modifier.isStatic;
 import static java.lang.reflect.Modifier.isVolatile;
 import java.security.ProtectionDomain;
+import static java.util.Objects.requireNonNull;
 import sun.misc.Unsafe;
 
 /**
  * A dangerous class.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
- * @deprecated don't use this if you don't know what you're gonna do.
  */
-@Deprecated
 public final class Dangerous {
+
+    public static class FieldDescriptor {
+
+        public FieldDescriptor(final Unsafe unsafe, final Field field,
+                               Object base) {
+            super();
+            this.unsafe = requireNonNull(unsafe, "null unsafe");
+            final int modifier = field.getModifiers();
+            if (this.$static = isStatic(modifier)) {
+                if (base == null) {
+                    base = unsafe.staticFieldBase(field);
+                }
+                this.$offset = unsafe.staticFieldOffset(field);
+            } else {
+                if (base == null) {
+                    throw new NullPointerException(
+                            "null base for non-static field");
+                }
+                this.$offset = unsafe.objectFieldOffset(field);
+            }
+            this.$base = base;
+            $volatile = isVolatile(modifier);
+        }
+
+        public FieldDescriptor(final Unsafe unsafe, final Field field) {
+            this(unsafe, field, null);
+        }
+
+        public FieldDescriptor base(final Object base) {
+            if ($static) {
+                throw new IllegalStateException(
+                        "can't change base for static field");
+            }
+            if (base == null) {
+                throw new NullPointerException(
+                        "null base for non-static field");
+            }
+            $base = base;
+            return this;
+        }
+
+        private final Unsafe unsafe;
+        private final boolean $static;
+        private Object $base;
+        private long $offset;
+        private boolean $volatile;
+    }
 
     public static Object fieldBase(final Unsafe unsafe, final Field field,
                                    final Object base) {
@@ -59,18 +105,13 @@ public final class Dangerous {
         if (!field.isAccessible()) {
             field.setAccessible(true);
         }
-        try {
-            return (Unsafe) field.get(null);
-        } catch (final IllegalAccessException iae) {
-            throw new InstantiationError(iae.getMessage());
-        }
+        return (Unsafe) field.get(null);
     }
 
     /**
      * Creates a new instance of {@link Unsafe} class.
      *
      * @return a new instance of {@link Unsafe} class.
-     *
      * @throws ReflectiveOperationException if failed to create a new instance.
      */
     public static Unsafe newUnsafe() throws ReflectiveOperationException {
@@ -126,11 +167,6 @@ public final class Dangerous {
         return cls.cast(unsafe.allocateInstance(cls));
     }
 
-    public static <T> T allocateInstance(final Class<T> cls)
-            throws ReflectiveOperationException, InstantiationException {
-        return allocateInstance(theUnsafe(), cls);
-    }
-
     // ---------------------------------------------------------- allocateMemory
     @Deprecated
     public static long allocateMemory(final Unsafe unsafe, final long bytes) {
@@ -182,6 +218,12 @@ public final class Dangerous {
                                             final int expected, final int x)
             throws ReflectiveOperationException {
         return compareAndSwapInt(theUnsafe(), o, offset, expected, x);
+    }
+
+    public static boolean compareAndSwapInt(final FieldDescriptor descriptor,
+                                            final int expected, final int x) {
+        return descriptor.unsafe.compareAndSwapInt(
+                descriptor.$base, descriptor.$offset, expected, x);
     }
 
     public static boolean compareAndSwapInt(final Unsafe unsafe, Object base,
@@ -848,6 +890,15 @@ public final class Dangerous {
             unsafe.putShortVolatile(base, offset, x);
         } else {
             unsafe.putShort(base, offset, x);
+        }
+    }
+
+    public static void putShort(final Unsafe unsafe, FieldDescriptor descriptor,
+                                final short x) {
+        if (descriptor.$volatile) {
+            unsafe.putShortVolatile(descriptor.$base, descriptor.$offset, x);
+        } else {
+            unsafe.putShort(descriptor.$base, descriptor.$offset, x);
         }
     }
 
