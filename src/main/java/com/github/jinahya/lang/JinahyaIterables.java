@@ -7,7 +7,7 @@ import java.util.Comparator;
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public final class Iterables {
+public final class JinahyaIterables {
 
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -49,6 +49,8 @@ public final class Iterables {
      * @param iterable the iterable to check.
      * @param <T>      the type of elements returned by the iterator
      * @return {@code true} if specified iterable is sorted; {@code false} otherwise.
+     * @see Comparator#naturalOrder()
+     * @see #isSorted(Iterable, Comparator)
      */
     public static <T extends Comparable<? super T>> boolean isSortedInNaturalOrder(
             final Iterable<? extends T> iterable) {
@@ -59,15 +61,13 @@ public final class Iterables {
     }
 
     /**
-     * Indicates whether all <i>comparable</i> elements in specified iterable are sorted in reverse order. This method
-     * invokes {@link #isSortedInNaturalOrder(Iterable)} with specified iterable and a {@link Comparator#reversed()
-     * reversed} one of specified comparator.
+     * Indicates whether all <i>comparable</i> elements in specified iterable are sorted in reverse order.
      *
      * @param iterable the iterable to check.
      * @param <T>      the type of elements returned by the iterator
      * @return {@code true} if specified iterable is sorted; {@code false} otherwise.
-     * @see Comparator#reversed()
-     * @see #isSortedInNaturalOrder(Iterable)
+     * @see Comparator#reverseOrder()
+     * @see #isSorted(Iterable, Comparator)
      */
     public static <T extends Comparable<? super T>> boolean isSortedInReverseOrder(
             final Iterable<? extends T> iterable) {
@@ -82,7 +82,7 @@ public final class Iterables {
     /**
      * Creates a new instance.
      */
-    private Iterables() {
+    private JinahyaIterables() {
         super();
     }
 }
