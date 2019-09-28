@@ -27,11 +27,11 @@ public final class JinahyaIterables {
         if (comparator == null) {
             throw new NullPointerException("comparator is null");
         }
-        boolean beforeTheFirst = true;
+        boolean first = true;
         T previous = null; // null shouldn't be considered as the before-the-first state.
         for (final T current : iterable) {
-            if (beforeTheFirst) {
-                beforeTheFirst = false;
+            if (first) {
+                first = false;
                 previous = current;
                 continue;
             }
