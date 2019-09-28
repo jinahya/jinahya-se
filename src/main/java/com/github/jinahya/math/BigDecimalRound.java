@@ -16,10 +16,10 @@
 package com.github.jinahya.math;
 
 import com.github.jinahya.lang.IntFieldEnum;
+
 import java.math.BigDecimal;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum BigDecimalRound implements IntFieldEnum<BigDecimalRound> {

@@ -134,12 +134,10 @@ public final class JinahyaBuffers {
     }
 
     /**
-     * The limit is set to current position and then the position to the
-     * previously-marked position.
+     * The limit is set to current position and then the position to the previously-marked position.
      *
-     * @param <T> buffer type parameter.
+     * @param <T>    buffer type parameter.
      * @param buffer the buffer.
-     *
      * @return
      */
     public static <T extends Buffer> T flipToMark(final T buffer) {
@@ -155,10 +153,7 @@ public final class JinahyaBuffers {
      * Returns the position of given buffer where the mark has been set.
      *
      * @param buffer the buffer
-     *
-     * @return the position of given buffer where the mark has been set or
-     * {@code null} if the mark has not been set
-     *
+     * @return the position of given buffer where the mark has been set or {@code null} if the mark has not been set
      * @see #markedPosition(java.nio.Buffer, java.lang.Integer)
      */
     public static Integer markedPosition(final Buffer buffer) {
@@ -179,12 +174,10 @@ public final class JinahyaBuffers {
     /**
      * Restores marked position while preserving current position.
      *
-     * @param <T> buffer type parameter
-     * @param buffer the buffer
+     * @param <T>            buffer type parameter
+     * @param buffer         the buffer
      * @param markedPosition the marked position
-     *
      * @return given buffer
-     *
      * @see #markedPosition(java.nio.Buffer)
      */
     public static <T extends Buffer> T markedPosition(
@@ -203,10 +196,9 @@ public final class JinahyaBuffers {
     /**
      * Adjusts given buffer's position with specified amount.
      *
-     * @param <T> buffer type parameter
+     * @param <T>    buffer type parameter
      * @param buffer the buffer
-     * @param delta the amount to adjust
-     *
+     * @param delta  the amount to adjust
      * @return given buffer.
      */
     @SuppressWarnings("unchecked")
@@ -219,5 +211,4 @@ public final class JinahyaBuffers {
 
         super();
     }
-
 }

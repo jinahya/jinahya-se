@@ -17,10 +17,10 @@ package com.github.jinahya.util.logging;
 
 import com.github.jinahya.lang.FieldEnum;
 import com.github.jinahya.lang.FieldEnums;
+
 import java.util.logging.Level;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum LoggingLevel implements FieldEnum<LoggingLevel, Integer> {
@@ -39,11 +39,8 @@ public enum LoggingLevel implements FieldEnum<LoggingLevel, Integer> {
      * Returns the enum constant of this type with the specified field value.
      *
      * @param fieldValue field value
-     *
-     * @throws IllegalArgumentException if this enum type has no constant with
-     * the specified field value.
-     *
      * @return the enum constant with the specified field value.
+     * @throws IllegalArgumentException if this enum type has no constant with the specified field value.
      */
     public static LoggingLevel fromFieldValue(final int fieldValue) {
 
@@ -51,15 +48,11 @@ public enum LoggingLevel implements FieldEnum<LoggingLevel, Integer> {
     }
 
     /**
-     * Returns the enum constant of this type with the specified level's int
-     * value.
+     * Returns the enum constant of this type with the specified level's int value.
      *
      * @param level level
-     *
-     * @throws IllegalArgumentException if this enum type has no constant with
-     * the specified level's int value.
-     *
      * @return the enum constant with the specified level's field value.
+     * @throws IllegalArgumentException if this enum type has no constant with the specified level's int value.
      */
     public static LoggingLevel fromLevel(final Level level) {
 
@@ -71,11 +64,9 @@ public enum LoggingLevel implements FieldEnum<LoggingLevel, Integer> {
     }
 
     /**
-     * Returns an array containing the field values of this enum type, in order
-     * they are declared.
+     * Returns an array containing the field values of this enum type, in order they are declared.
      *
-     * @return an array containing the fields values of this enum type, in the
-     * order they are declared
+     * @return an array containing the fields values of this enum type, in the order they are declared
      */
     public Integer[] fieldValues() {
 
@@ -102,5 +93,4 @@ public enum LoggingLevel implements FieldEnum<LoggingLevel, Integer> {
      * field value.
      */
     private final int fieldValue;
-
 }

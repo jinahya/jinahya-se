@@ -15,12 +15,12 @@
  */
 package com.github.jinahya.lang;
 
-import java.util.Arrays;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
+
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class StringsTest {
@@ -179,7 +179,6 @@ public class StringsTest {
         Assert.assertEquals(Strings.indexOf(string, "__", 7, 3), -1);
         Assert.assertEquals(Strings.indexOf(string, "__", 8, 3), -1);
         Assert.assertEquals(Strings.indexOf(string, "__", 9, 3), -1);
-
     }
 
     @Test
@@ -221,5 +220,4 @@ public class StringsTest {
 
         Assert.assertTrue(Strings.indicesOf(string, "__", 10).isEmpty());
     }
-
 }

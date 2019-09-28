@@ -21,7 +21,6 @@ import java.nio.channels.ReadableByteChannel;
 import java.security.MessageDigest;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class ReadableDigestChannel extends ReadableFilterChannel {
@@ -30,7 +29,7 @@ public class ReadableDigestChannel extends ReadableFilterChannel {
      * Creates a new instance.
      *
      * @param channel the input channel
-     * @param digest the message digest to associate with this channel
+     * @param digest  the message digest to associate with this channel
      */
     public ReadableDigestChannel(final ReadableByteChannel channel,
                                  final MessageDigest digest) {
@@ -67,5 +66,4 @@ public class ReadableDigestChannel extends ReadableFilterChannel {
     }
 
     protected MessageDigest digest;
-
 }

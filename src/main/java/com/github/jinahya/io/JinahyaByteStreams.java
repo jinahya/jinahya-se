@@ -32,43 +32,31 @@ public final class JinahyaByteStreams {
     /**
      * Copies bytes from given input stream to given output stream.
      *
-     * @param input the input stream
+     * @param input  the input stream
      * @param output the output stream
      * @param buffer a buffer to use
-     * @param length the maximum number of bytes to copy; {@code -1L} for all
-     * available bytes in {@code input}.
-     *
+     * @param length the maximum number of bytes to copy; {@code -1L} for all available bytes in {@code input}.
      * @return the actual number of bytes copied.
-     *
      * @throws IOException if an I/O error occurs
      */
-    public static long copy(final InputStream input, final OutputStream output,
-                            final byte[] buffer, final long length)
+    public static long copy(final InputStream input, final OutputStream output, final byte[] buffer, final long length)
             throws IOException {
-
         if (input == null) {
-            throw new NullPointerException("input == null");
+            throw new NullPointerException("input is null");
         }
-
         if (output == null) {
-            throw new NullPointerException("output == null");
+            throw new NullPointerException("output is null");
         }
-
         if (buffer == null) {
-            throw new NullPointerException("buffer == null");
+            throw new NullPointerException("buffer is null");
         }
-
         if (buffer.length == 0) {
-            throw new IllegalArgumentException(
-                    "buffer.length(" + buffer.length + ") == 0");
+            throw new IllegalArgumentException("buffer.length(" + buffer.length + ") == 0");
         }
-
         if (length < -1L) {
             throw new IllegalArgumentException("length(" + length + ") < -1L");
         }
-
         long count = 0L;
-
         long remained = length - count;
         for (int read; length == -1L || remained > 0; count += read) {
             int limit = buffer.length;
@@ -82,31 +70,24 @@ public final class JinahyaByteStreams {
             output.write(buffer, 0, read);
             remained -= read;
         }
-
         return count;
     }
 
     /**
      * Copies bytes from given input file to given output stream.
      *
-     * @param input the input file
+     * @param input  the input file
      * @param output the output stream
      * @param buffer a buffer
-     * @param length the maximum number of bytes to copy; {@code -1L} for all
-     * available bytes in {@code input}.
-     *
+     * @param length the maximum number of bytes to copy; {@code -1L} for all available bytes in {@code input}.
      * @return the actual number of bytes copied.
-     *
      * @throws IOException if an I/O error occurs
      */
-    public static long copy(final File input, final OutputStream output,
-                            final byte[] buffer, final long length)
+    public static long copy(final File input, final OutputStream output, final byte[] buffer, final long length)
             throws IOException {
-
         if (input == null) {
             throw new NullPointerException("input == null");
         }
-
         final InputStream finput = new FileInputStream(input);
         try {
             return copy(finput, output, buffer, length);
@@ -118,24 +99,18 @@ public final class JinahyaByteStreams {
     /**
      * Copies bytes from given input stream to given output file.
      *
-     * @param input the input stream
+     * @param input  the input stream
      * @param output the output file
      * @param buffer a buffer to use
-     * @param length the maximum number of bytes to copy; {@code -1L} for all
-     * available bytes in {@code input}.
-     *
+     * @param length the maximum number of bytes to copy; {@code -1L} for all available bytes in {@code input}.
      * @return the actual number of bytes copied.
-     *
      * @throws IOException if an I/O error occurs
      */
-    public static long copy(final InputStream input, final File output,
-                            final byte[] buffer, final long length)
+    public static long copy(final InputStream input, final File output, final byte[] buffer, final long length)
             throws IOException {
-
         if (output == null) {
             throw new NullPointerException("output");
         }
-
         final OutputStream foutput = new FileOutputStream(output);
         try {
             try {
@@ -151,24 +126,18 @@ public final class JinahyaByteStreams {
     /**
      * Copies bytes from given input file to given output file.
      *
-     * @param input the input file
+     * @param input  the input file
      * @param output the output file
      * @param buffer a buffer
-     * @param length the maximum number of bytes to copy; {@code -1L} for all
-     * available bytes in {@code input}.
-     *
+     * @param length the maximum number of bytes to copy; {@code -1L} for all available bytes in {@code input}.
      * @return the actual number of bytes copied.
-     *
      * @throws IOException if an I/O error occurs
      */
-    public static long copy(final File input, final File output,
-                            final byte[] buffer, final long length)
+    public static long copy(final File input, final File output, final byte[] buffer, final long length)
             throws IOException {
-
         if (output == null) {
             throw new NullPointerException("output");
         }
-
         final InputStream finput = new FileInputStream(input);
         try {
             final OutputStream foutput = new FileOutputStream(output);
@@ -190,8 +159,6 @@ public final class JinahyaByteStreams {
      * Creates a new instance.
      */
     private JinahyaByteStreams() {
-
         super();
     }
-
 }

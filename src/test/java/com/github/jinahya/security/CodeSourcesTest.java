@@ -15,16 +15,17 @@
  */
 package com.github.jinahya.security;
 
-import static java.lang.invoke.MethodHandles.lookup;
-import java.net.URL;
-import java.util.Optional;
 import org.slf4j.Logger;
-import static org.slf4j.LoggerFactory.getLogger;
-import static org.testng.Assert.assertTrue;
 import org.testng.annotations.Test;
 
+import java.net.URL;
+import java.util.Optional;
+
+import static java.lang.invoke.MethodHandles.lookup;
+import static org.slf4j.LoggerFactory.getLogger;
+import static org.testng.Assert.assertTrue;
+
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class CodeSourcesTest {
@@ -40,5 +41,4 @@ public class CodeSourcesTest {
         assertTrue(location.isPresent());
         logger.debug("location: {}", location.get());
     }
-
 }

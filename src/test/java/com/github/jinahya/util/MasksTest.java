@@ -15,12 +15,12 @@
  */
 package com.github.jinahya.util;
 
-import java.util.concurrent.ThreadLocalRandom;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class MasksTest {
@@ -52,5 +52,4 @@ public class MasksTest {
 
         Masks.takeOff(0, (int[]) null);
     }
-
 }

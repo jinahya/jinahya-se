@@ -16,9 +16,8 @@
 package com.github.jinahya.lang;
 
 /**
- *
- * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <E> enum type parameter
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public interface IntFieldEnum<E extends Enum<E>> {
 

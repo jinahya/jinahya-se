@@ -18,7 +18,6 @@ package com.github.jinahya.lang.reflect;
 import org.testng.annotations.Test;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class GenericArrayTest {
@@ -27,5 +26,4 @@ public class GenericArrayTest {
     public static void testNewInstance1() {
 
     }
-
 }

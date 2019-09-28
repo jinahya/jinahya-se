@@ -19,13 +19,14 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import static java.lang.reflect.Proxy.newProxyInstance;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+
+import static java.lang.reflect.Proxy.newProxyInstance;
 import static java.util.concurrent.ThreadLocalRandom.current;
 
 /**
@@ -36,15 +37,11 @@ import static java.util.concurrent.ThreadLocalRandom.current;
 public final class ByteChannels {
 
     /**
-     *
      * @param input
      * @param output
      * @param length
-     *
      * @return the actual number of bytes copied.
-     *
      * @throws IOException if an I/O error occurs.
-     *
      * @see FileChannel#transferTo(long, long, WritableByteChannel)
      */
     public static long copy(final FileChannel input,
@@ -90,15 +87,11 @@ public final class ByteChannels {
     }
 
     /**
-     *
      * @param input
      * @param output
      * @param length
-     *
      * @return the actual number of bytes copied.
-     *
      * @throws IOException if an I/O error occurs.
-     *
      * @see FileChannel#transferFrom(ReadableByteChannel, long, long)
      */
     public static long copy(final ReadableByteChannel input,
@@ -153,17 +146,13 @@ public final class ByteChannels {
     }
 
     /**
-     * Copies bytes from {@code input} to {@code output} using specified
-     * {@code buffer}.
+     * Copies bytes from {@code input} to {@code output} using specified {@code buffer}.
      *
-     * @param input the input channel
+     * @param input  the input channel
      * @param output the output channel
      * @param buffer the buffer to use
-     * @param length the maximum number of bytes to copy; {@code -1L} for all
-     * available bytes from {@code input}.
-     *
+     * @param length the maximum number of bytes to copy; {@code -1L} for all available bytes from {@code input}.
      * @return the actual number of bytes copied.
-     *
      * @throws IOException if an I/O error occurs.
      */
     public static long copy1(final ReadableByteChannel input,
@@ -234,17 +223,13 @@ public final class ByteChannels {
     }
 
     /**
-     * Copies bytes from {@code input} to {@code output} using specified
-     * {@code buffer}.
+     * Copies bytes from {@code input} to {@code output} using specified {@code buffer}.
      *
-     * @param input the input channel
+     * @param input  the input channel
      * @param output the output channel
      * @param buffer the buffer to use
-     * @param length the maximum number of bytes to copy; {@code -1L} for all
-     * available bytes from {@code input}.
-     *
+     * @param length the maximum number of bytes to copy; {@code -1L} for all available bytes from {@code input}.
      * @return the actual number of bytes copied.
-     *
      * @throws IOException if an I/O error occurs.
      */
     public static long copy2(final ReadableByteChannel input,
@@ -338,18 +323,13 @@ public final class ByteChannels {
     }
 
     /**
-     * Copies bytes from {@code input} to {@code output} using specified
-     * {@code buffer}.
+     * Copies bytes from {@code input} to {@code output} using specified {@code buffer}.
      *
-     * @param input the input path
+     * @param input  the input path
      * @param output the output channel
-     * @param length the maximum number of bytes to copy; {@code -1L} for all
-     * available bytes in {@code input}.
-     *
+     * @param length the maximum number of bytes to copy; {@code -1L} for all available bytes in {@code input}.
      * @return the actual number of bytes copied.
-     *
      * @throws IOException if an I/O error occurs.
-     *
      * @see #copy(FileChannel, WritableByteChannel, long)
      */
     public static long copy(final Path input, final WritableByteChannel output,
@@ -370,18 +350,14 @@ public final class ByteChannels {
     }
 
     /**
-     * Copies bytes from {@code input} to {@code output} using specified
-     * {@code buffer}.
+     * Copies bytes from {@code input} to {@code output} using specified {@code buffer}.
      *
-     * @param input the input file
+     * @param input  the input file
      * @param output the output channel
-     * @param length the maximum number of bytes to copy; {@code -1L} for all
-     * available bytes in {@code input}.
-     *
+     * @param length the maximum number of bytes to copy; {@code -1L} for all available bytes in {@code input}.
      * @return the actual number of bytes copied.
-     *
      * @throws NullPointerException if {@code input} is {@code null}
-     * @throws IOException if an I/O error occurs.
+     * @throws IOException          if an I/O error occurs.
      */
     public static long copy(final File input, final WritableByteChannel output,
                             final long length)
@@ -399,18 +375,14 @@ public final class ByteChannels {
     }
 
     /**
-     * Copies all or specified number of bytes from input channel to output
-     * path.
+     * Copies all or specified number of bytes from input channel to output path.
      *
-     * @param input the input channel
+     * @param input  the input channel
      * @param output the output path
-     * @param length the maximum number of bytes to copy; {@code -1L} for for
-     * all available bytes in {@code input}.
-     *
+     * @param length the maximum number of bytes to copy; {@code -1L} for for all available bytes in {@code input}.
      * @return the actual number of bytes copied.
-     *
      * @throws NullPointerException if {@code output} is {@code null}.
-     * @throws IOException if an I/O error occurs.
+     * @throws IOException          if an I/O error occurs.
      */
     public static long copy(final ReadableByteChannel input, final Path output,
                             final long length)
@@ -436,18 +408,14 @@ public final class ByteChannels {
     }
 
     /**
-     * Copies all or specified number of bytes from input channel to output file
-     * using given buffer.
+     * Copies all or specified number of bytes from input channel to output file using given buffer.
      *
-     * @param input the input channel
+     * @param input  the input channel
      * @param output the output file
-     * @param length the maximum number of bytes to copy; {@code -1L} for all
-     * available bytes in {@code input}.
-     *
+     * @param length the maximum number of bytes to copy; {@code -1L} for all available bytes in {@code input}.
      * @return the actual number of bytes copied.
-     *
      * @throws NullPointerException if {@code output} is {@code null}.
-     * @throws IOException if an I/O error occurs.
+     * @throws IOException          if an I/O error occurs.
      */
     public static long copy(final ReadableByteChannel input, final File output,
                             final long length)
@@ -463,13 +431,10 @@ public final class ByteChannels {
     /**
      * Copies all or specified number of bytes from input file to output file.
      *
-     * @param input the input file
+     * @param input  the input file
      * @param output the output file
-     * @param length the maximum number of bytes to copy; {@code -1L} for all
-     * available bytes in {@code input}.
-     *
+     * @param length the maximum number of bytes to copy; {@code -1L} for all available bytes in {@code input}.
      * @return the actual number of bytes copied.
-     *
      * @throws IOException if an I/O error occurs.
      */
     public static long copy(final File input, final File output,
@@ -519,7 +484,7 @@ public final class ByteChannels {
         };
 
         final Object proxy = newProxyInstance(
-                type.getClassLoader(), new Class<?>[]{type}, handler);
+                type.getClassLoader(), new Class<?>[] {type}, handler);
 
         return type.cast(proxy);
     }
@@ -564,7 +529,7 @@ public final class ByteChannels {
         };
 
         final Object proxy = newProxyInstance(
-                type.getClassLoader(), new Class<?>[]{type}, handler);
+                type.getClassLoader(), new Class<?>[] {type}, handler);
 
         return type.cast(proxy);
     }
@@ -589,5 +554,4 @@ public final class ByteChannels {
 
         super();
     }
-
 }

@@ -18,7 +18,6 @@ package com.github.jinahya.math;
 import com.github.jinahya.lang.IntFieldEnumTest;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class BitDecimalRoundTest extends IntFieldEnumTest<BigDecimalRound> {
@@ -27,5 +26,4 @@ public class BitDecimalRoundTest extends IntFieldEnumTest<BigDecimalRound> {
 
         super(BigDecimalRound.class);
     }
-
 }

@@ -26,8 +26,7 @@ import java.io.OutputStream;
 public class FunnelOutputStream extends FilterOutputStream {
 
     /**
-     * Creates a funnel output stream built on top of the specified underlying
-     * output stream.
+     * Creates a funnel output stream built on top of the specified underlying output stream.
      *
      * @param out the underlying output stream
      */

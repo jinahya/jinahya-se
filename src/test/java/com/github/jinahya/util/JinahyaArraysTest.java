@@ -15,17 +15,18 @@
  */
 package com.github.jinahya.util;
 
-import static com.github.jinahya.util.JinahyaArrays.reverse;
-import static java.lang.invoke.MethodHandles.lookup;
-import java.util.concurrent.ThreadLocalRandom;
-import static java.util.concurrent.ThreadLocalRandom.current;
 import org.slf4j.Logger;
-import static org.slf4j.LoggerFactory.getLogger;
-import static org.testng.Assert.assertEquals;
 import org.testng.annotations.Test;
 
+import java.util.concurrent.ThreadLocalRandom;
+
+import static com.github.jinahya.util.JinahyaArrays.reverse;
+import static java.lang.invoke.MethodHandles.lookup;
+import static java.util.concurrent.ThreadLocalRandom.current;
+import static org.slf4j.LoggerFactory.getLogger;
+import static org.testng.Assert.assertEquals;
+
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class JinahyaArraysTest {
@@ -65,5 +66,4 @@ public class JinahyaArraysTest {
 
         assertEquals(actual, expected);
     }
-
 }

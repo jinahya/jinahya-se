@@ -15,14 +15,15 @@
  */
 package com.github.jinahya.lang;
 
-import java.util.Objects;
-import static org.testng.Assert.fail;
 import org.testng.annotations.Test;
 
+import java.util.Objects;
+
+import static org.testng.Assert.fail;
+
 /**
- *
- * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <E> enum type parameter
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public abstract class IntFieldEnumTest<E extends Enum<E> & IntFieldEnum<E>> {
 
@@ -47,5 +48,4 @@ public abstract class IntFieldEnumTest<E extends Enum<E> & IntFieldEnum<E>> {
     }
 
     protected final Class<E> enumType;
-
 }

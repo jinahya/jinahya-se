@@ -15,6 +15,9 @@
  */
 package com.github.jinahya.security;
 
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -23,11 +26,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
-import org.testng.Assert;
-import org.testng.annotations.Test;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class MessageDigestsTest {
@@ -37,8 +37,8 @@ public class MessageDigestsTest {
 
         return MessageDigest.getInstance(
                 MessageDigests.SUPPORTED_ALGORITHMS
-                .get(ThreadLocalRandom.current().nextInt(
-                        MessageDigests.SUPPORTED_ALGORITHMS.size())));
+                        .get(ThreadLocalRandom.current().nextInt(
+                                MessageDigests.SUPPORTED_ALGORITHMS.size())));
     }
 
     @Test(enabled = false, invocationCount = 1)
@@ -62,7 +62,5 @@ public class MessageDigestsTest {
 
             Assert.assertEquals(hash1, hash2);
         }
-
     }
-
 }

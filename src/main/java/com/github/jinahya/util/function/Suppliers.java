@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.function.Supplier;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class Suppliers {
@@ -42,9 +41,8 @@ public final class Suppliers {
     /**
      * Returns given supplier.
      *
-     * @param <T> the type of results supplied by specified supplier.
+     * @param <T>      the type of results supplied by specified supplier.
      * @param supplier the supplier.
-     *
      * @return the supplier.
      */
     public static <T> Supplier<T> of(final Supplier<T> supplier) {
@@ -66,5 +64,4 @@ public final class Suppliers {
 
         super();
     }
-
 }

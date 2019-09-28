@@ -18,17 +18,13 @@ package com.github.jinahya.lang.reflect;
 import java.lang.reflect.Modifier;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class JinahyaModifiers {
 
     /**
-     *
      * @param modifiers
-     *
      * @return
-     *
      * @see Modifier#classModifiers()
      */
     public static boolean isAllClassModifiers(final int modifiers) {
@@ -47,11 +43,8 @@ public final class JinahyaModifiers {
     }
 
     /**
-     *
      * @param modifiers
-     *
      * @return
-     *
      * @see Modifier#fieldModifiers()
      */
     public static boolean isAllFieldModifiers(final int modifiers) {
@@ -70,11 +63,8 @@ public final class JinahyaModifiers {
     }
 
     /**
-     *
      * @param modifiers
-     *
      * @return
-     *
      * @see Modifier#interfaceModifiers()
      */
     public static boolean isAllInterfaceModifiers(final int modifiers) {
@@ -111,5 +101,4 @@ public final class JinahyaModifiers {
 
         super();
     }
-
 }

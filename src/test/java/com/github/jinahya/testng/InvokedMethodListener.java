@@ -15,15 +15,15 @@
  */
 package com.github.jinahya.testng;
 
-import static java.lang.invoke.MethodHandles.lookup;
 import org.slf4j.Logger;
-import static org.slf4j.LoggerFactory.getLogger;
 import org.testng.IInvokedMethod;
 import org.testng.IInvokedMethodListener;
 import org.testng.ITestResult;
 
+import static java.lang.invoke.MethodHandles.lookup;
+import static org.slf4j.LoggerFactory.getLogger;
+
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class InvokedMethodListener implements IInvokedMethodListener {
@@ -41,5 +41,4 @@ public class InvokedMethodListener implements IInvokedMethodListener {
     }
 
     private final transient Logger logger = getLogger(lookup().lookupClass());
-
 }

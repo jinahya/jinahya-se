@@ -15,17 +15,17 @@
  */
 package com.github.jinahya.util;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class JinahyaRandomTest {
@@ -182,7 +182,7 @@ public class JinahyaRandomTest {
 
         final int maximumBitLength
                 = ThreadLocalRandom.current().nextInt(
-                        Integer.SIZE - minimumBitLength) + minimumBitLength;
+                Integer.SIZE - minimumBitLength) + minimumBitLength;
         Assert.assertTrue(maximumBitLength >= minimumBitLength);
         Assert.assertTrue(maximumBitLength < Integer.SIZE);
 
@@ -237,7 +237,7 @@ public class JinahyaRandomTest {
 
         final int maximumBitLength
                 = ThreadLocalRandom.current().nextInt(
-                        Integer.SIZE + 1 - minimumBitLength) + minimumBitLength;
+                Integer.SIZE + 1 - minimumBitLength) + minimumBitLength;
         Assert.assertTrue(maximumBitLength >= minimumBitLength);
         Assert.assertTrue(maximumBitLength <= Integer.SIZE);
 
@@ -296,7 +296,7 @@ public class JinahyaRandomTest {
 
         final int maximumBitLength
                 = ThreadLocalRandom.current().nextInt(
-                        Long.SIZE + 1 - minimumBitLength) + minimumBitLength;
+                Long.SIZE + 1 - minimumBitLength) + minimumBitLength;
         Assert.assertTrue(maximumBitLength >= minimumBitLength);
         Assert.assertTrue(maximumBitLength <= Long.SIZE);
 
@@ -366,5 +366,4 @@ public class JinahyaRandomTest {
         Assert.assertTrue(unsignedLong >= 0L);
         Assert.assertTrue(unsignedLong >> maximumBitLength == 0L);
     }
-
 }

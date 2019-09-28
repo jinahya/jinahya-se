@@ -15,24 +15,25 @@
  */
 package com.github.jinahya.nio.channels;
 
+import org.slf4j.Logger;
+import org.testng.annotations.Test;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
-import static java.nio.channels.Channels.newChannel;
 import java.nio.channels.FileChannel;
-import static java.nio.channels.FileChannel.open;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
+
+import static java.nio.channels.Channels.newChannel;
+import static java.nio.channels.FileChannel.open;
 import static java.nio.file.StandardOpenOption.APPEND;
 import static java.nio.file.StandardOpenOption.WRITE;
-import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
-import org.testng.annotations.Test;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class JinahyaFileChannelsTest {
@@ -41,7 +42,7 @@ public class JinahyaFileChannelsTest {
     public void transferFrom1() throws IOException {
         final Path path = Files.createTempFile(null, null);
         try (RandomAccessFile raw
-                = new RandomAccessFile(path.toFile(), "rwd")) {
+                     = new RandomAccessFile(path.toFile(), "rwd")) {
             raw.setLength(1024);
         }
         logger.debug("path.size: {}", Files.size(path));
@@ -58,7 +59,7 @@ public class JinahyaFileChannelsTest {
     public void transferFrom2() throws IOException {
         final Path path = Files.createTempFile(null, null);
         try (RandomAccessFile raw
-                = new RandomAccessFile(path.toFile(), "rwd")) {
+                     = new RandomAccessFile(path.toFile(), "rwd")) {
             raw.setLength(1024);
         }
         logger.debug("path.size: {}", Files.size(path));
@@ -79,5 +80,4 @@ public class JinahyaFileChannelsTest {
     }
 
     private transient final Logger logger = getLogger(getClass());
-
 }

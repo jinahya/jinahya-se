@@ -20,7 +20,6 @@ import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class JinahyaThreadLocalRandoms {
@@ -56,9 +55,7 @@ public class JinahyaThreadLocalRandoms {
     }
 
     /**
-     *
      * @return a stream of pseudorandom byte values
-     *
      * @see ThreadLocalRandom#ints()
      */
     public static IntStream bytes() {
@@ -69,12 +66,9 @@ public class JinahyaThreadLocalRandoms {
     }
 
     /**
-     *
      * @param randomNumberOrigin
      * @param randomNumberBound
-     *
      * @return
-     *
      * @see ThreadLocalRandom#ints(int, int)
      */
     public static IntStream bytes(final byte randomNumberOrigin,
@@ -104,5 +98,4 @@ public class JinahyaThreadLocalRandoms {
     private JinahyaThreadLocalRandoms() {
         super();
     }
-
 }

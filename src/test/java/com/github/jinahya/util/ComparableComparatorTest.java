@@ -16,17 +16,17 @@
 package com.github.jinahya.util;
 
 import com.github.jinahya.util.ComparableComparator.Nulls;
+import org.testng.Assert;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import org.testng.Assert;
 
 /**
- *
- * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <T>
  * @param <U>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class ComparableComparatorTest<T extends ComparableComparator<U>, U extends Comparable<? super U>> {
 
@@ -50,5 +50,4 @@ public class ComparableComparatorTest<T extends ComparableComparator<U>, U exten
             Collections.sort(new ArrayList<>(list), comparator);
         }
     }
-
 }

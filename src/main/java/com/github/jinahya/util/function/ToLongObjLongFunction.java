@@ -16,7 +16,6 @@
 package com.github.jinahya.util.function;
 
 /**
- *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 public interface ToLongObjLongFunction<T> {

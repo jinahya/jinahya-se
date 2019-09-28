@@ -43,15 +43,11 @@ public enum CalendarPeriodOfDay
     public static final int CALENDAR_FIELD = Calendar.AM_PM;
 
     /**
-     * Returns the enum constant of this type with the specified calendar's
-     * field value.
+     * Returns the enum constant of this type with the specified calendar's field value.
      *
      * @param calendar calendar
-     *
-     * @throws IllegalArgumentException if this enum type has no constant with
-     * the specified calendar's field value.
-     *
      * @return the enum constant with the specified calendar's field value.
+     * @throws IllegalArgumentException if this enum type has no constant with the specified calendar's field value.
      */
     public static CalendarPeriodOfDay fromCalendar(final Calendar calendar) {
 
@@ -85,5 +81,4 @@ public enum CalendarPeriodOfDay
      * field value.
      */
     private final int fieldValue;
-
 }

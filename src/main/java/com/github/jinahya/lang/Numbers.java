@@ -16,14 +16,12 @@
 package com.github.jinahya.lang;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class Numbers {
 
     /**
-     * The number of bytes used to represent a {@code byte} value in two's
-     * complement binary form.
+     * The number of bytes used to represent a {@code byte} value in two's complement binary form.
      *
      * @deprecated Use {@link Byte#BYTES}
      */
@@ -31,8 +29,7 @@ public final class Numbers {
     public static final int BYTE_BYTES = Byte.SIZE / Byte.SIZE;
 
     /**
-     * The number of bytes used to represent a {@code short} value in two's
-     * complement binary form.
+     * The number of bytes used to represent a {@code short} value in two's complement binary form.
      *
      * @deprecated Use {@link Short#BYTES}
      */
@@ -40,8 +37,7 @@ public final class Numbers {
     public static final int SHORT_BYTES = Short.SIZE / Byte.SIZE;
 
     /**
-     * The number of bytes used to represent a {@code int} value in two's
-     * complement binary form.
+     * The number of bytes used to represent a {@code int} value in two's complement binary form.
      *
      * @deprecated Use {@link Integer#BYTES}
      */
@@ -49,8 +45,7 @@ public final class Numbers {
     public static final int INTEGER_BYTES = Integer.SIZE / Byte.SIZE;
 
     /**
-     * The number of bytes used to represent a {@code long} value in two's
-     * complement binary form.
+     * The number of bytes used to represent a {@code long} value in two's complement binary form.
      *
      * @deprecated Use {@link Long#BYTES}
      */
@@ -121,16 +116,13 @@ public final class Numbers {
     }
 
     /**
-     *
      * @param bytes the byte array to convert
      * @param index
-     *
      * @return
-     *
-     * @throws NullPointerException if {@code bytes} is {@code null}.
+     * @throws NullPointerException     if {@code bytes} is {@code null}.
      * @throws IllegalArgumentException if {@code bytes.length} is zero.
-     * @throws IllegalArgumentException {@code limit} is less than zero, or
-     * greater than or equals to {@code bytes.length}.
+     * @throws IllegalArgumentException {@code limit} is less than zero, or greater than or equals to {@code
+     *                                  bytes.length}.
      */
     public static short toShortEnds(final byte[] bytes, final int index) {
 
@@ -165,9 +157,7 @@ public final class Numbers {
     }
 
     /**
-     *
      * @param bytes
-     *
      * @return
      */
     public static short toShortEnds(final byte[] bytes) {
@@ -179,7 +169,6 @@ public final class Numbers {
      * Converts given int value to an array of {@value #INTEGER_BYTES} bytes.
      *
      * @param value the int value to convert.
-     *
      * @return an array of {@value #INTEGER_BYTES} bytes.
      */
     public static byte[] toBytes(int value) {
@@ -195,17 +184,13 @@ public final class Numbers {
     }
 
     /**
-     *
      * @param bytes
-     * @param index the starting index in {@code bytes} between 0 (inclusive)
-     * and {@code bytes.length} (exclusive).
-     *
+     * @param index the starting index in {@code bytes} between 0 (inclusive) and {@code bytes.length} (exclusive).
      * @return
-     *
-     * @throws NullPointerException if {@code bytes} is {@code null}.
+     * @throws NullPointerException     if {@code bytes} is {@code null}.
      * @throws IllegalArgumentException if {@code bytes.length} is zero.
-     * @throws IllegalArgumentException if {@code position} is less than zero,
-     * or greater than or equals to {@code bytes.length}.
+     * @throws IllegalArgumentException if {@code position} is less than zero, or greater than or equals to {@code
+     *                                  bytes.length}.
      */
     public static int toIntBegins(final byte[] bytes, final int index) {
 
@@ -246,10 +231,8 @@ public final class Numbers {
     }
 
     /**
-     *
      * @param bytes
      * @param index
-     *
      * @return
      */
     public static int toIntEnds(final byte[] bytes, final int index) {

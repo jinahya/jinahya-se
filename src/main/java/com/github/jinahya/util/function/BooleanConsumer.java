@@ -16,11 +16,9 @@
 package com.github.jinahya.util.function;
 
 /**
- * Represents an operation that accepts a single {@code boolean}-valued argument
- * and returns no results. This is the primitive type specialization of
- * {@link java.util.function.Consumer} for {@code boolean}. Unlike most other
- * functional interfaces, {@code BooleanConsumer} is expected to operate via
- * side-effects.
+ * Represents an operation that accepts a single {@code boolean}-valued argument and returns no results. This is the
+ * primitive type specialization of {@link java.util.function.Consumer} for {@code boolean}. Unlike most other
+ * functional interfaces, {@code BooleanConsumer} is expected to operate via side-effects.
  * <p/>
  * This is a
  * <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html">functional
@@ -40,17 +38,12 @@ public interface BooleanConsumer {
     void accept(boolean value);
 
     /**
-     * Returns a composed {@code BooleanConsumer} that performs, in sequence,
-     * this operation followed by the {@code after} operation. If performing
-     * either operation throws an exception, it is relayed to the caller of the
-     * composed operation. If performing this operation throws an exception, the
-     * {@code after} operation will not be performed.
+     * Returns a composed {@code BooleanConsumer} that performs, in sequence, this operation followed by the {@code
+     * after} operation. If performing either operation throws an exception, it is relayed to the caller of the composed
+     * operation. If performing this operation throws an exception, the {@code after} operation will not be performed.
      *
      * @param after the operation to perform after this operation
-     *
-     * @return a composed LongConsumer that performs in sequence this operation
-     * followed by the after operation.
-     *
+     * @return a composed LongConsumer that performs in sequence this operation followed by the after operation.
      * @throws NullPointerException if after is {@code null}
      */
     default BooleanConsumer andThen(final BooleanConsumer after) {
@@ -60,5 +53,4 @@ public interface BooleanConsumer {
             after.accept(v);
         };
     }
-
 }

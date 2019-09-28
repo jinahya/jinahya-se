@@ -26,9 +26,9 @@ import java.io.InputStream;
  */
 public class FunnelInputStream extends FilterInputStream {
 
+    // -----------------------------------------------------------------------------------------------------------------
     /**
-     * Creates a funnel input stream built on top of the specified underlying
-     * input stream.
+     * Creates a funnel input stream built on top of the specified underlying input stream.
      *
      * @param in the underlying input stream
      */
@@ -36,9 +36,9 @@ public class FunnelInputStream extends FilterInputStream {
         super(in);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Override
-    public int read(final byte[] b, final int off, final int len)
-            throws IOException {
+    public int read(final byte[] b, final int off, final int len) throws IOException {
         if (b == null) {
             throw new NullPointerException();
         }

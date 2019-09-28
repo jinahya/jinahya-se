@@ -18,7 +18,6 @@ package com.github.jinahya.lang.reflect;
 import java.lang.reflect.Modifier;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class InterfaceModifierTest
@@ -28,5 +27,4 @@ public class InterfaceModifierTest
 
         super(InterfaceModifier.class, Modifier.interfaceModifiers());
     }
-
 }

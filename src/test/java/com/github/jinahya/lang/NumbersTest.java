@@ -15,14 +15,14 @@
  */
 package com.github.jinahya.lang;
 
-import java.util.concurrent.ThreadLocalRandom;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class NumbersTest {
@@ -282,5 +282,4 @@ public class NumbersTest {
             Assert.assertEquals(actual, expected);
         }
     }
-
 }

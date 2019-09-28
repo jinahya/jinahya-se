@@ -18,22 +18,19 @@ package com.github.jinahya.security;
 import java.net.URL;
 import java.security.CodeSource;
 import java.security.ProtectionDomain;
-import static java.util.Objects.requireNonNull;
 import java.util.Optional;
+
+import static java.util.Objects.requireNonNull;
 import static java.util.Optional.ofNullable;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class CodeSources {
 
     /**
-     *
      * @param domain
-     *
      * @return
-     *
      * @see ProtectionDomain#getCodeSource()
      * @see CodeSource#getLocation()
      */
@@ -44,11 +41,8 @@ public final class CodeSources {
     }
 
     /**
-     *
      * @param klass
-     *
      * @return
-     *
      * @see Class#getProtectionDomain()
      * @see #getLocation(java.security.ProtectionDomain)
      */
@@ -62,5 +56,4 @@ public final class CodeSources {
 
         super();
     }
-
 }

@@ -15,25 +15,15 @@
  */
 package com.github.jinahya.imageio;
 
-import java.io.IOException;
-import javax.xml.bind.JAXBException;
-import org.testng.annotations.Test;
-
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public class ImageMimeTypeTest extends ImageFeatureTest<ImageMimeType> {
+public class ImageMimeTypeTest extends ImageFeatureTest<ImageIoMimeType> {
 
     /**
      * Creates a new instance.
      */
     public ImageMimeTypeTest() {
-        super(ImageMimeType.class);
-    }
-
-    @Test
-    public void printXml() throws JAXBException, IOException {
-        JaxbTest.printXml(type, ImageMimeType.availableImageMimeTypes());
+        super(ImageIoMimeType.class);
     }
 }

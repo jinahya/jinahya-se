@@ -24,15 +24,12 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class FileVisitors {
 
     /**
-     *
      * @return
-     *
      * @see <a href="http://goo.gl/TtuKwD">JAVA 7+: DELETING RECURSIVELY A
      * DIRECTORY</a>
      */
@@ -59,7 +56,6 @@ public final class FileVisitors {
 
                 return FileVisitResult.CONTINUE;
             }
-
         };
     }
 
@@ -67,5 +63,4 @@ public final class FileVisitors {
 
         super();
     }
-
 }

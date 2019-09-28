@@ -16,7 +16,6 @@
 package com.github.jinahya.util;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class JinahyaCharacter {
@@ -29,11 +28,10 @@ public final class JinahyaCharacter {
      * <code>char</code>s. Unpaired surrogates within the subarray count as one
      * code point each.
      *
-     * @param a the <code>char</code> array
+     * @param a      the <code>char</code> array
      * @param offset the index of first <code>char</code> in the given
-     * <code>char</code> array
-     * @param count the length of the subarray in <code>chars</code>
-     *
+     *               <code>char</code> array
+     * @param count  the length of the subarray in <code>chars</code>
      * @return the array of Unicode code points in the specified subarray
      */
     public static int[] codePoints(final char[] a, final int offset,
@@ -51,18 +49,16 @@ public final class JinahyaCharacter {
     }
 
     /**
-     * Returns the array of Unicode code points in the text range of the
-     * specified char sequence. The text range begins at the specified
+     * Returns the array of Unicode code points in the text range of the specified char sequence. The text range begins
+     * at the specified
      * <code>beginIndex</code> and extends to the <code>char</code> at index
      * <code>endIndex</code> - 1. Thus the length (in <code>char</code>s) of the
-     * text range is <code>endIndex-beginIndex</code>. Unpaired surrogates
-     * within the text range count as one code point each.
+     * text range is <code>endIndex-beginIndex</code>. Unpaired surrogates within the text range count as one code point
+     * each.
      *
-     * @param seq the char sequence
+     * @param seq        the char sequence
      * @param beginIndex the index to the first char of the text range
-     * @param endIndex the index after the last <code>char</code> of the text
-     * range
-     *
+     * @param endIndex   the index after the last <code>char</code> of the text range
      * @return the array of Unicode code points in the specified text range
      */
     public static int[] codePoints(final CharSequence seq, final int beginIndex,
@@ -80,9 +76,7 @@ public final class JinahyaCharacter {
     }
 
     /**
-     *
      * @param codePoints
-     *
      * @return
      */
     public static boolean isJavaIdentifier(final int[] codePoints) {
@@ -109,9 +103,7 @@ public final class JinahyaCharacter {
     }
 
     /**
-     *
      * @param seq
-     *
      * @return
      */
     public static boolean isJavaIdentifier(final CharSequence seq) {
@@ -128,9 +120,7 @@ public final class JinahyaCharacter {
     }
 
     /**
-     *
      * @param a
-     *
      * @return
      */
     public static boolean isJavaIdentifier(final char[] a) {
@@ -152,5 +142,4 @@ public final class JinahyaCharacter {
     private JinahyaCharacter() {
         super();
     }
-
 }

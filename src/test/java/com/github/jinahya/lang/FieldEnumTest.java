@@ -15,19 +15,19 @@
  */
 package com.github.jinahya.lang;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
 /**
- *
- * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <E> enum type parameter
  * @param <F> field type parameter
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public abstract class FieldEnumTest<E extends Enum<E> & FieldEnum<E, F>, F> {
 
@@ -69,5 +69,4 @@ public abstract class FieldEnumTest<E extends Enum<E> & FieldEnum<E, F>, F> {
      * field type.
      */
     protected final Class<F> fieldType;
-
 }

@@ -18,9 +18,8 @@ package com.github.jinahya.lang.reflect;
 import com.github.jinahya.lang.IntFieldEnum;
 
 /**
- *
- * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <E> enum type parameter
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public interface ModifierFieldEnum<E extends Enum<E>> extends IntFieldEnum<E> {
 
@@ -32,7 +31,6 @@ public interface ModifierFieldEnum<E extends Enum<E>> extends IntFieldEnum<E> {
      * Adds this constant's field value to specified value.
      *
      * @param modifiers the value this constant's modifier going to be added.
-     *
      * @return new modifiers this constant's modifier added
      */
     default int add(final int modifiers) {
@@ -43,7 +41,6 @@ public interface ModifierFieldEnum<E extends Enum<E>> extends IntFieldEnum<E> {
      * Removes this constant's field value from the specified value.
      *
      * @param modifiers the value this constant's modifier going to be removed.
-     *
      * @return new modifiers this constant's modifier removed.
      */
     default int remove(int modifiers) {

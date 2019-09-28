@@ -18,7 +18,6 @@ package com.github.jinahya.awt;
 import com.github.jinahya.lang.FloatFieldEnumTest;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class ComponentAlignmentYTest
@@ -28,5 +27,4 @@ public class ComponentAlignmentYTest
 
         super(ComponentAlignmentY.class);
     }
-
 }

@@ -16,23 +16,21 @@
 package com.github.jinahya.sql;
 
 import com.github.jinahya.lang.IntFieldEnum;
+
 import java.sql.ResultSet;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum ResultSetConcurrency implements IntFieldEnum<ResultSetConcurrency> {
 
     /**
-     * Constant for
-     * {@link ResultSet#CONCUR_READ_ONLY}({@value ResultSet#CONCUR_READ_ONLY}).
+     * Constant for {@link ResultSet#CONCUR_READ_ONLY}({@value ResultSet#CONCUR_READ_ONLY}).
      */
     CONCUR_READ_ONLY(ResultSet.CONCUR_READ_ONLY), // 1007
 
     /**
-     * Constant for
-     * {@link ResultSet#CONCUR_UPDATABLE}({@value ResultSet#CONCUR_UPDATABLE}).
+     * Constant for {@link ResultSet#CONCUR_UPDATABLE}({@value ResultSet#CONCUR_UPDATABLE}).
      */
     CONCUR_UPDATABLE(ResultSet.CONCUR_UPDATABLE) // 1008
     ;

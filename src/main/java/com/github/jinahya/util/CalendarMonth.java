@@ -49,6 +49,7 @@ public enum CalendarMonth implements CalendarIntFieldEnum<CalendarMonth> {
     DECEMBER(Calendar.DECEMBER); // 11
 
     //UNDECIMBER(Calendar.UNDECIMBER); // 12
+
     /**
      * The target field of {@link Calendar} which this enum type is for.
      *
@@ -85,5 +86,4 @@ public enum CalendarMonth implements CalendarIntFieldEnum<CalendarMonth> {
     }
 
     private final int fieldValue;
-
 }

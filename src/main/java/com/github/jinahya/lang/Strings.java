@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class Strings {
@@ -82,12 +81,9 @@ public final class Strings {
     /**
      * Test if give string ends with any of specified suffixes.
      *
-     * @param string the string to test
+     * @param string   the string to test
      * @param suffixes suffixes
-     *
-     * @return {@code true} if given string ends with any of specified suffixes;
-     * {@code false} otherwise.
-     *
+     * @return {@code true} if given string ends with any of specified suffixes; {@code false} otherwise.
      * @see String#endsWith(java.lang.String)
      */
     public static boolean endsWith(final String string,
@@ -111,14 +107,11 @@ public final class Strings {
     }
 
     /**
-     *
      * @param string
      * @param ch
      * @param fromIndex
      * @param ordinal
-     *
      * @return
-     *
      * @see String#indexOf(int, int)
      */
     public static int indexOf(final String string, final int ch, int fromIndex,
@@ -167,14 +160,11 @@ public final class Strings {
     }
 
     /**
-     *
      * @param string
      * @param str
      * @param fromIndex
      * @param ordinal
-     *
      * @return
-     *
      * @see String#indexOf(java.lang.String, int)
      */
     public static int indexOf(final String string, final String str,

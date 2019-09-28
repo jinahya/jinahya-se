@@ -18,8 +18,8 @@ package com.github.jinahya.lang;
 /**
  * An interface for defining an enum for double constant fields.
  *
- * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <E> enum type parameter
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public interface DoubleFieldEnum<E extends Enum<E>> {
 
@@ -50,5 +50,4 @@ public interface DoubleFieldEnum<E extends Enum<E>> {
      * @return the field value as a {@code double}.
      */
     double fieldValueAsDouble();
-
 }

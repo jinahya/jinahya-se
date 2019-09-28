@@ -16,7 +16,6 @@
 package com.github.jinahya.util;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class Masks {
@@ -26,7 +25,6 @@ public class Masks {
      *
      * @param face current face.
      * @param mask mask to put on.
-     *
      * @return a new face with given {@code mask} on.
      */
     public static int putOn(final int face, final int mask) {
@@ -37,9 +35,8 @@ public class Masks {
     /**
      * Puts all specified {@code masks} on to given {@code face}.
      *
-     * @param face current face
+     * @param face  current face
      * @param masks masks to put on
-     *
      * @return a new face with all given {@code masks} on.
      */
     public static int putOn(int face, final int... masks) {
@@ -61,7 +58,6 @@ public class Masks {
      *
      * @param face current face
      * @param mask the mask to take off
-     *
      * @return a new face with given {@code mask} off.
      */
     public static int takeOff(final int face, final int mask) {
@@ -72,9 +68,8 @@ public class Masks {
     /**
      * Takes all specified {@code masks} off from given {@code face}.
      *
-     * @param face current face
+     * @param face  current face
      * @param masks masks to take off
-     *
      * @return a new face with all given {@code masks} off.
      */
     public static int takeOff(int face, final int... masks) {
@@ -98,5 +93,4 @@ public class Masks {
 
         super();
     }
-
 }

@@ -16,9 +16,8 @@
 package com.github.jinahya.util;
 
 /**
- *
- * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <T>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class NumberComparator<T extends Number & Comparable<? super T>>
         extends ComparableComparator<T> {

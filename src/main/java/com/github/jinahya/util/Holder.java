@@ -16,9 +16,8 @@
 package com.github.jinahya.util;
 
 /**
- *
- * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <T>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class Holder<T> {
 
@@ -31,7 +30,6 @@ public class Holder<T> {
 
                 throw new UnsupportedOperationException("immutable");
             }
-
         };
     }
 
@@ -53,5 +51,4 @@ public class Holder<T> {
     }
 
     private T value;
-
 }

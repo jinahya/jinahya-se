@@ -19,9 +19,8 @@ import java.io.IOException;
 import java.nio.channels.Channel;
 
 /**
- *
- * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <T> channel type parameter
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class FilterChannel<T extends Channel> implements Channel {
 

@@ -26,8 +26,8 @@ import java.io.OutputStream;
 public class BlackOutputStream extends OutputStream {
 
     /**
-     * Writes the specified byte to this output stream. The {@code write(int)}
-     * method of {@code BlackOutputStream} class does nothing.
+     * Writes the specified byte to this output stream. The {@code write(int)} method of {@code BlackOutputStream} class
+     * does nothing.
      *
      * @param b the byte.
      * @throws IOException if an I/O error occurs.

@@ -19,25 +19,19 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class Methods {
 
     /**
-     * Invokes specified method, on the specified object with the specified
-     * parameters while wrapping any checked exceptions to instances of
-     * {@link RuntimeException}.
+     * Invokes specified method, on the specified object with the specified parameters while wrapping any checked
+     * exceptions to instances of {@link RuntimeException}.
      *
      * @param method the method to invoke
-     * @param obj the object the underlying method is invoked from
-     * @param args the arguments used for the method call
-     *
-     * @return the result of dispatching the {@code method} on {@code obj} with
-     * parameters {@code args}.
-     *
+     * @param obj    the object the underlying method is invoked from
+     * @param args   the arguments used for the method call
+     * @return the result of dispatching the {@code method} on {@code obj} with parameters {@code args}.
      * @throws NullPointerException if {@code method} is {@code null}
-     *
      * @see Method#invoke(java.lang.Object, java.lang.Object...)
      */
     public static Object invokeUnchecked(final Method method, final Object obj,
@@ -64,5 +58,4 @@ public final class Methods {
 
         super();
     }
-
 }

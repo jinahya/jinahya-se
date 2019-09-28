@@ -21,7 +21,6 @@ import java.nio.channels.WritableByteChannel;
 import java.security.MessageDigest;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class WritableDigestChannel extends WritableFilterChannel {
@@ -30,7 +29,7 @@ public class WritableDigestChannel extends WritableFilterChannel {
      * Creates a new instance.
      *
      * @param channel the output channel
-     * @param digest the message digest to associate with this channel
+     * @param digest  the message digest to associate with this channel
      */
     public WritableDigestChannel(final WritableByteChannel channel,
                                  final MessageDigest digest) {
@@ -67,5 +66,4 @@ public class WritableDigestChannel extends WritableFilterChannel {
     }
 
     protected MessageDigest digest;
-
 }

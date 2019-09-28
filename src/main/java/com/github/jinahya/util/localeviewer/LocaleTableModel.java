@@ -15,14 +15,13 @@
  */
 package com.github.jinahya.util.localeviewer;
 
+import javax.swing.table.AbstractTableModel;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.MissingResourceException;
-import javax.swing.table.AbstractTableModel;
 
 /**
- *
  * @author Jin Kwon
  */
 public class LocaleTableModel extends AbstractTableModel {
@@ -30,34 +29,27 @@ public class LocaleTableModel extends AbstractTableModel {
     private static enum Column {
 
         NAME() {
-
             @Override
             public Object getValueAt(final Locale locale) {
 
                 return locale.toString();
             }
-
         },
         LANGUAGE() {
-
             @Override
             public Object getValueAt(final Locale locale) {
 
                 return locale.getDisplayLanguage(locale);
             }
-
         },
         COUNTRY {
-
             @Override
             public Object getValueAt(final Locale locale) {
 
                 return locale.getDisplayCountry(locale);
             }
-
         },
         LAN() {
-
             @Override
             public Object getValueAt(final Locale locale) {
 
@@ -67,10 +59,8 @@ public class LocaleTableModel extends AbstractTableModel {
                     return "N/A";
                 }
             }
-
         },
         CON() {
-
             @Override
             public Object getValueAt(final Locale locale) {
 
@@ -80,29 +70,23 @@ public class LocaleTableModel extends AbstractTableModel {
                     return "N/A";
                 }
             }
-
         },
         LN() {
-
             @Override
             public Object getValueAt(final Locale locale) {
 
                 return locale.getLanguage();
             }
-
         },
         CO() {
-
             @Override
             public Object getValueAt(final Locale locale) {
 
                 return locale.getCountry();
             }
-
         };
 
         abstract Object getValueAt(Locale locale);
-
     }
 
     public LocaleTableModel() {
@@ -141,5 +125,4 @@ public class LocaleTableModel extends AbstractTableModel {
     private List<Locale> rows;
 
     private List<Column> columns;
-
 }

@@ -16,7 +16,6 @@
 package com.github.jinahya.util;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class LongComparator extends NumberComparator<Long> {

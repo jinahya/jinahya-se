@@ -19,7 +19,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class ClassesTest {
@@ -121,5 +120,4 @@ public class ClassesTest {
             // expected;
         }
     }
-
 }

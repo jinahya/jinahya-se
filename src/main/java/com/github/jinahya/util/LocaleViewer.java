@@ -15,19 +15,15 @@
  */
 package com.github.jinahya.util;
 
-import java.awt.Container;
+import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
+import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.util.Locale;
 import java.util.MissingResourceException;
-import javax.swing.JFrame;
-import javax.swing.JRootPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
 
 /**
- *
  * @author Jin Kwon
  */
 public class LocaleViewer {
@@ -35,34 +31,27 @@ public class LocaleViewer {
     private enum Column {
 
         NAME() {
-
             @Override
             public Object getValueAt(final Locale locale) {
 
                 return locale.toString();
             }
-
         },
         LANGUAGE() {
-
             @Override
             public Object getValueAt(final Locale locale) {
 
                 return locale.getDisplayLanguage(locale);
             }
-
         },
         COUNTRY {
-
             @Override
             public Object getValueAt(final Locale locale) {
 
                 return locale.getDisplayCountry(locale);
             }
-
         },
         LAN() {
-
             @Override
             public Object getValueAt(final Locale locale) {
 
@@ -72,10 +61,8 @@ public class LocaleViewer {
                     return "N/A";
                 }
             }
-
         },
         CON() {
-
             @Override
             public Object getValueAt(final Locale locale) {
 
@@ -85,29 +72,23 @@ public class LocaleViewer {
                     return "N/A";
                 }
             }
-
         },
         LN() {
-
             @Override
             public Object getValueAt(final Locale locale) {
 
                 return locale.getLanguage();
             }
-
         },
         CO() {
-
             @Override
             public Object getValueAt(final Locale locale) {
 
                 return locale.getCountry();
             }
-
         };
 
         abstract Object getValueAt(Locale locale);
-
     }
 
     public static void main(final String[] args) {
@@ -158,13 +139,10 @@ public class LocaleViewer {
                                         return columns[columnIndex]
                                                 .getValueAt(rows[rowIndex]);
                                     }
-
                                 };
                             }
-
                         });
                     }
-
                 };
             }
 
@@ -183,8 +161,6 @@ public class LocaleViewer {
                 super.frameInit();
                 pack();
             }
-
         }.setVisible(true);
     }
-
 }

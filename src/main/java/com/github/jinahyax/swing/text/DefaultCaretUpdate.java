@@ -16,10 +16,10 @@
 package com.github.jinahyax.swing.text;
 
 import com.github.jinahya.lang.IntFieldEnum;
+
 import javax.swing.text.DefaultCaret;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum DefaultCaretUpdate implements IntFieldEnum<DefaultCaretUpdate> {

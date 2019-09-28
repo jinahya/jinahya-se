@@ -15,6 +15,17 @@
  */
 package com.github.jinahya.crypto;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.IvParameterSpec;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -32,19 +43,8 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.KeyGenerator;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.spec.IvParameterSpec;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.testng.Assert;
-import org.testng.annotations.Test;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class CiphersTest {
@@ -57,7 +57,7 @@ public class CiphersTest {
             throws NoSuchAlgorithmException, NoSuchPaddingException {
 
         for (final String transformation
-             : JinahyaCiphers.SUPPORTED_TRANSFORMATIONS.keySet()) {
+                : JinahyaCiphers.SUPPORTED_TRANSFORMATIONS.keySet()) {
             final Cipher cipher = Cipher.getInstance(transformation);
         }
     }
@@ -188,7 +188,7 @@ public class CiphersTest {
     public void test() throws Exception {
 
         for (Entry<String, List<Integer>> entry
-             : JinahyaCiphers.SUPPORTED_TRANSFORMATIONS.entrySet()) {
+                : JinahyaCiphers.SUPPORTED_TRANSFORMATIONS.entrySet()) {
 
             final String transformation = entry.getKey();
             final String[] split = transformation.split("/");
@@ -215,5 +215,4 @@ public class CiphersTest {
             }
         }
     }
-
 }

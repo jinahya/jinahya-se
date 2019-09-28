@@ -16,9 +16,8 @@
 package com.github.jinahya.lang;
 
 /**
- *
- * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <E>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public abstract class FloatFieldEnumTest<E extends Enum<E> & FloatFieldEnum<E>> {
 
@@ -30,5 +29,4 @@ public abstract class FloatFieldEnumTest<E extends Enum<E> & FloatFieldEnum<E>> 
     }
 
     protected final Class<E> enumType;
-
 }

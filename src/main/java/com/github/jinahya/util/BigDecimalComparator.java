@@ -18,7 +18,6 @@ package com.github.jinahya.util;
 import java.math.BigDecimal;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class BigDecimalComparator extends NumberComparator<BigDecimal> {

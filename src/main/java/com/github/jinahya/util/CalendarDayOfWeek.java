@@ -60,7 +60,7 @@ public enum CalendarDayOfWeek implements CalendarIntFieldEnum<CalendarDayOfWeek>
      */
     public static final int CALENDAR_FIELD = Calendar.DAY_OF_WEEK;
 
-//    /**
+    //    /**
 //     * Returns the enum constant of this type with the specified field value.
 //     *
 //     * @param fieldValue field value
@@ -119,5 +119,4 @@ public enum CalendarDayOfWeek implements CalendarIntFieldEnum<CalendarDayOfWeek>
     }
 
     private final int fieldValue;
-
 }

@@ -16,6 +16,7 @@
 package com.github.jinahya.util.zip;
 
 import com.github.jinahya.io.JinahyaByteStreams;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
@@ -161,10 +162,9 @@ public class Zips {
     /**
      * Unzips entries from {@code stream} into {@code directory}.
      *
-     * @param stream source zip stream
+     * @param stream    source zip stream
      * @param directory target directory to which entries going to be unzipped.
-     * @param buffer the buffer to use
-     *
+     * @param buffer    the buffer to use
      * @throws IOException if an I/O error occurs.
      */
     public static void unzip(final ZipInputStream stream, final File directory,
@@ -205,10 +205,9 @@ public class Zips {
     /**
      * Unzips entries from {@code zipfile} into {@code directory}.
      *
-     * @param zipfile source zip file
+     * @param zipfile   source zip file
      * @param directory target directory to which entries going to be unzipped
      * @param buffer
-     *
      * @throws IOException if an I/O error occurs.
      */
     public static void unzip(final ZipFile zipfile, final File directory,
@@ -259,5 +258,4 @@ public class Zips {
 
         super();
     }
-
 }

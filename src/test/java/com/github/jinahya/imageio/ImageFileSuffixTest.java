@@ -15,25 +15,15 @@
  */
 package com.github.jinahya.imageio;
 
-import java.io.IOException;
-import javax.xml.bind.JAXBException;
-import org.testng.annotations.Test;
-
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public class ImageFileSuffixTest extends ImageFeatureTest<ImageFileSuffix> {
+public class ImageFileSuffixTest extends ImageFeatureTest<ImageIoFileSuffix> {
 
     /**
      * Creates a new instance.
      */
     public ImageFileSuffixTest() {
-        super(ImageFileSuffix.class);
-    }
-
-    @Test
-    public void printXml() throws JAXBException, IOException {
-        JaxbTest.printXml(type, ImageFileSuffix.availableImageFileSuffixes());
+        super(ImageIoFileSuffix.class);
     }
 }

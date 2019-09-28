@@ -15,21 +15,22 @@
  */
 package com.github.jinahya.crypto;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.ShortBufferException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
-import static java.util.Arrays.asList;
-import static java.util.Collections.unmodifiableMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.ShortBufferException;
+
+import static java.util.Arrays.asList;
+import static java.util.Collections.unmodifiableMap;
 
 /**
  * A utility class for {@link Cipher}s.
@@ -39,8 +40,8 @@ import javax.crypto.ShortBufferException;
 public final class JinahyaCiphers {
 
     /**
-     * An immutable map of transformations and lists of available key sizes that
-     * every implementation of the Java platform is required to support.
+     * An immutable map of transformations and lists of available key sizes that every implementation of the Java
+     * platform is required to support.
      *
      * @see Cipher
      */
@@ -67,31 +68,24 @@ public final class JinahyaCiphers {
     }
 
     /**
-     * Updates and optionally finishes a multi-part encryption or description
-     * operation.
+     * Updates and optionally finishes a multi-part encryption or description operation.
      *
-     * @param cipher the cipher
-     * @param input the input
-     * @param output the output
-     * @param length buffer size
-     * @param limit the maximum number of bytes to process; {@code -1L} for all
-     * available bytes in {@code input}.
+     * @param cipher   the cipher
+     * @param input    the input
+     * @param output   the output
+     * @param length   buffer size
+     * @param limit    the maximum number of bytes to process; {@code -1L} for all available bytes in {@code input}.
      * @param finalize
-     *
      * @return the actual number of bytes processed
-     *
-     * @throws IOException if an I/O error occurs.
-     * @throws IllegalBlockSizeException if this cipher is a block cipher, no
-     * padding has been requested (only in encryption mode), and the total input
-     * length of the data processed by this cipher is not a multiple of block
-     * size; or if this encryption algorithm is unable to process the input data
-     * provided. <i>Description copied from
-     * {@link Cipher#doFinal(byte[], int)}.</i>
-     * @throws BadPaddingException if this cipher is in decryption mode, and
-     * (un)padding has been requested, but the decrypted data is not bounded by
-     * the appropriate padding bytes. <i>Description copied from
-     * {@link Cipher#doFinal(byte[], int)}.</i>
-     *
+     * @throws IOException               if an I/O error occurs.
+     * @throws IllegalBlockSizeException if this cipher is a block cipher, no padding has been requested (only in
+     *                                   encryption mode), and the total input length of the data processed by this
+     *                                   cipher is not a multiple of block size; or if this encryption algorithm is
+     *                                   unable to process the input data provided. <i>Description copied from {@link
+     *                                   Cipher#doFinal(byte[], int)}.</i>
+     * @throws BadPaddingException       if this cipher is in decryption mode, and (un)padding has been requested, but
+     *                                   the decrypted data is not bounded by the appropriate padding bytes.
+     *                                   <i>Description copied from {@link Cipher#doFinal(byte[], int)}.</i>
      * @see Cipher#update(byte[], int, int, byte[], int)
      */
     public static long update(final Cipher cipher, final InputStream input,
@@ -223,7 +217,7 @@ public final class JinahyaCiphers {
                 break;
             }
             inbuf.flip(); // limit -> position, position -> 0
-            for (final int previous = inbuf.limit(); true;) {
+            for (final int previous = inbuf.limit(); true; ) {
 //                System.out.println("inbuf.remaining: " + inbuf.remaining());
 //                System.out.println("outbuf.remaining: " + outbuf.remaining());
                 try {
@@ -246,7 +240,7 @@ public final class JinahyaCiphers {
 
         // update all remaining input
         inbuf.flip();
-        for (final int previous = inbuf.limit(); inbuf.hasRemaining();) {
+        for (final int previous = inbuf.limit(); inbuf.hasRemaining(); ) {
             try {
                 cipher.update(inbuf, outbuf);
                 inbuf.limit(previous);

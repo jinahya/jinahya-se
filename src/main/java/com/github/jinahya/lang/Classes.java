@@ -16,26 +16,19 @@
 package com.github.jinahya.lang;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class Classes {
 
     /**
-     * Checks that the specified object reference is an instance of specified
-     * class.
+     * Checks that the specified object reference is an instance of specified class.
      *
      * @param <T> the class type parameter
-     * @param is the object reference to check castability
-     * @param of the class for which the object reference is checked
-     *
+     * @param is  the object reference to check castability
+     * @param of  the class for which the object reference is checked
      * @return casted {@code is} if castable and not {@code null}
-     *
-     * @throws NullPointerException if either {@code is} or {@code of} is
-     * {@code null}
-     * @throws IllegalArgumentException if {@code is} is not an instance of
-     * {@code of}.
-     *
+     * @throws NullPointerException     if either {@code is} or {@code of} is {@code null}
+     * @throws IllegalArgumentException if {@code is} is not an instance of {@code of}.
      * @see Class#isInstance(java.lang.Object)
      * @see Class#cast(java.lang.Object)
      */
@@ -60,18 +53,12 @@ public final class Classes {
     /**
      * Checks that the source class is assignable to the target class.
      *
-     * @param is the source class to check for assignability to the target
-     * class.
-     * @param to the target class to check for assignability from the source
-     * class.
-     *
+     * @param is the source class to check for assignability to the target class.
+     * @param to the target class to check for assignability from the source class.
      * @return {@code is} if it's assignable to {@code to}
-     *
-     * @throws NullPointerException if {@code is} is {@code null}.
-     * @throws NullPointerException if {@code to} is {@code null}.
-     * @throws IllegalArgumentException if {@code is} is not assignable to
-     * {@code to}.
-     *
+     * @throws NullPointerException     if {@code is} is {@code null}.
+     * @throws NullPointerException     if {@code to} is {@code null}.
+     * @throws IllegalArgumentException if {@code is} is not assignable to {@code to}.
      * @see Class#isAssignableFrom(java.lang.Class)
      * @see Class#asSubclass(java.lang.Class)
      */
@@ -95,16 +82,12 @@ public final class Classes {
     }
 
     /**
-     *
      * @param is
      * @param from
-     *
      * @return {@code is} if it's assignable from {@code from}.
-     *
-     * @throws NullPointerException if {@code is} is {@code null}.
-     * @throws NullPointerException if {@code from} is {@code null}.
-     * @throws IllegalArgumentException if {@code is} is not assignable from
-     * {@code from}.
+     * @throws NullPointerException     if {@code is} is {@code null}.
+     * @throws NullPointerException     if {@code from} is {@code null}.
+     * @throws IllegalArgumentException if {@code is} is not assignable from {@code from}.
      */
     public static Class<?> requireAssignableFrom(final Class<?> is,
                                                  final Class<?> from) {
@@ -132,5 +115,4 @@ public final class Classes {
 
         super();
     }
-
 }

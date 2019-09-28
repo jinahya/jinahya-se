@@ -16,6 +16,9 @@
 package com.github.jinahya.nio.channels;
 
 import com.github.jinahya.security.MessageDigests;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -24,11 +27,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
-import org.testng.Assert;
-import org.testng.annotations.Test;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class DigestReadableByteChannelTest {
@@ -55,7 +55,7 @@ public class DigestReadableByteChannelTest {
             final MessageDigest digest2 = MessageDigest.getInstance(algorithm);
             final ReadableDigestChannel channel
                     = new ReadableDigestChannel(
-                            Channels.newChannel(new ByteArrayInputStream(data)), digest2);
+                    Channels.newChannel(new ByteArrayInputStream(data)), digest2);
             final ByteBuffer buffer = ByteBuffer.allocate(1024);
             for (; channel.read(buffer) != -1; buffer.clear()) {
                 buffer.flip();
@@ -70,5 +70,4 @@ public class DigestReadableByteChannelTest {
             Assert.assertEquals(actual, expected);
         }
     }
-
 }

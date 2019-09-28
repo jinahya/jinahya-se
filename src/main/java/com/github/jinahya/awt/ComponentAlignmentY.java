@@ -16,10 +16,10 @@
 package com.github.jinahya.awt;
 
 import com.github.jinahya.lang.FloatFieldEnum;
-import java.awt.Component;
+
+import java.awt.*;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum ComponentAlignmentY implements FloatFieldEnum<ComponentAlignmentY> {
@@ -49,5 +49,4 @@ public enum ComponentAlignmentY implements FloatFieldEnum<ComponentAlignmentY> {
     }
 
     private final float fieldValue;
-
 }

@@ -16,9 +16,8 @@
 package com.github.jinahya.lang;
 
 /**
- *
- * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <E>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public abstract class StringFieldEnumTest<E extends Enum<E> & StringFieldEnum<E>>
         extends ComparableFieldEnumTest<E, String> {
@@ -27,5 +26,4 @@ public abstract class StringFieldEnumTest<E extends Enum<E> & StringFieldEnum<E>
 
         super(enumType, String.class);
     }
-
 }

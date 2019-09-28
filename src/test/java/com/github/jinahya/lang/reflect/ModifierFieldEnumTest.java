@@ -17,15 +17,15 @@ package com.github.jinahya.lang.reflect;
 
 import com.github.jinahya.lang.IntFieldEnum;
 import com.github.jinahya.lang.IntFieldEnumTest;
+import org.testng.annotations.Test;
+
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
-import org.testng.annotations.Test;
 
 /**
- *
- * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <E> enum type parameter
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 abstract class ModifierFieldEnumTest<E extends Enum<E> & ModifierFieldEnum<E>>
         extends IntFieldEnumTest<E> {
@@ -77,5 +77,4 @@ abstract class ModifierFieldEnumTest<E extends Enum<E> & ModifierFieldEnum<E>>
     }
 
     protected final int all;
-
 }

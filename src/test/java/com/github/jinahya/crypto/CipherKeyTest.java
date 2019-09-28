@@ -18,7 +18,6 @@ package com.github.jinahya.crypto;
 import com.github.jinahya.lang.IntFieldEnumTest;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class CipherKeyTest extends IntFieldEnumTest<CipherKey> {
@@ -27,5 +26,4 @@ public class CipherKeyTest extends IntFieldEnumTest<CipherKey> {
 
         super(CipherKey.class);
     }
-
 }

@@ -18,7 +18,6 @@ package com.github.jinahya.util.function;
 import java.util.function.Consumer;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class Consumers {
@@ -41,5 +40,4 @@ public final class Consumers {
 
         super();
     }
-
 }

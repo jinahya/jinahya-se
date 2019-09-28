@@ -18,7 +18,6 @@ package com.github.jinahya.lang.reflect;
 import com.github.jinahya.lang.IntFieldEnum;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum Modifier implements IntFieldEnum<Modifier> {

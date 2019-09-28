@@ -35,24 +35,19 @@ import java.util.List;
 public final class MessageDigests {
 
     /**
-     * Algorithms that every implementation of the Java platform is required to
-     * support.
+     * Algorithms that every implementation of the Java platform is required to support.
      */
     public static final List<String> SUPPORTED_ALGORITHMS
             = Arrays.asList("MD5", "SHA-1", "SHA-256");
 
     /**
-     * Digests on given {@code digest} with bytes read from given input stream
-     * using specified {@code buffer}.
+     * Digests on given {@code digest} with bytes read from given input stream using specified {@code buffer}.
      *
      * @param digest the digest
-     * @param input the input stream
+     * @param input  the input stream
      * @param buffer the buffer.
-     * @param length the maximum number of bytes to digest; any negative value
-     * for all available bytes.
-     *
+     * @param length the maximum number of bytes to digest; any negative value for all available bytes.
      * @return digest result
-     *
      * @throws IOException if an I/O error occurs
      */
     public static byte[] digest(final MessageDigest digest,
@@ -79,7 +74,7 @@ public final class MessageDigests {
         long count = 0L;
         for (int read; length < 0L || count < length; count += read) {
             final int l = length < 0L ? buffer.length
-                          : (int) Math.min(buffer.length, length - count);
+                                      : (int) Math.min(buffer.length, length - count);
             read = input.read(buffer, 0, l);
             if (read == -1) {
                 break;
@@ -91,19 +86,14 @@ public final class MessageDigests {
     }
 
     /**
-     * Digests on given {@code digest} with bytes read from given input file
-     * using specified {@code buffer}.
+     * Digests on given {@code digest} with bytes read from given input file using specified {@code buffer}.
      *
      * @param digest the digest
-     * @param input the input file
+     * @param input  the input file
      * @param buffer the buffer.
-     * @param length the maximum number of byte to digest; any negative for all
-     * available bytes.
-     *
+     * @param length the maximum number of byte to digest; any negative for all available bytes.
      * @return digest result
-     *
      * @throws IOException if an I/O error occurs
-     *
      * @see #digest(MessageDigest, InputStream, byte[], long)
      */
     public static byte[] digest(final MessageDigest digest, final File input,
@@ -123,17 +113,13 @@ public final class MessageDigests {
     }
 
     /**
-     * Digests on give {@code digest} with bytes read from given input channel
-     * using specified {@code buffer}.
+     * Digests on give {@code digest} with bytes read from given input channel using specified {@code buffer}.
      *
      * @param digest the digest
-     * @param input the input channel
+     * @param input  the input channel
      * @param buffer the buffer.
-     * @param length the maximum number of byte to digest; any negative for all
-     * available bytes.
-     *
+     * @param length the maximum number of byte to digest; any negative for all available bytes.
      * @return digest result
-     *
      * @throws IOException if an I/O error occurs
      */
     public static byte[] digest(final MessageDigest digest,
@@ -178,17 +164,13 @@ public final class MessageDigests {
     }
 
     /**
-     * Digests on given {@code digest} with bytes read from given input file
-     * using specified {@code buffer}.
+     * Digests on given {@code digest} with bytes read from given input file using specified {@code buffer}.
      *
      * @param digest the digest
-     * @param input the input file
+     * @param input  the input file
      * @param buffer the buffer.
-     * @param length the maximum number of byte to digest; any negative for all
-     * available bytes.
-     *
+     * @param length the maximum number of byte to digest; any negative for all available bytes.
      * @return digest result
-     *
      * @throws IOException if an I/O error occurs
      */
     public static byte[] digest(final MessageDigest digest, final File input,
@@ -209,18 +191,14 @@ public final class MessageDigests {
     }
 
     /**
-     * Digests on given digest with bytes read from given input stream and
-     * writes the result to given output stream.
+     * Digests on given digest with bytes read from given input stream and writes the result to given output stream.
      *
      * @param digest the digest
-     * @param input the input stream
+     * @param input  the input stream
      * @param output the output stream
      * @param buffer the buffer.
-     * @param length the maximum number of bytes to digest; any negative value
-     * for all available bytes.
-     *
+     * @param length the maximum number of bytes to digest; any negative value for all available bytes.
      * @return the actual number of bytes digested
-     *
      * @throws IOException if an I/O error occurs
      */
     public static long digest(final MessageDigest digest,
@@ -253,7 +231,7 @@ public final class MessageDigests {
 
         for (int read; length < 0L || count < length; count += read) {
             final int l = length < 0L ? buffer.length
-                          : (int) Math.min(buffer.length, length - count);
+                                      : (int) Math.min(buffer.length, length - count);
             read = input.read(buffer, 0, l);
             if (read == -1) {
                 break;
@@ -267,18 +245,14 @@ public final class MessageDigests {
     }
 
     /**
-     * Digests on give digest with bytes read from given input channel and
-     * writes the result to given output channel.
+     * Digests on give digest with bytes read from given input channel and writes the result to given output channel.
      *
      * @param digest the digest
-     * @param input the input channel
+     * @param input  the input channel
      * @param output the output channel
      * @param buffer the buffer.
-     * @param length the maximum number of byte to digest; any negative for all
-     * available bytes.
-     *
+     * @param length the maximum number of byte to digest; any negative for all available bytes.
      * @return the actual number of bytes digested
-     *
      * @throws IOException if an I/O error occurs
      */
     public static long digest(final MessageDigest digest,
@@ -340,5 +314,4 @@ public final class MessageDigests {
 
         super();
     }
-
 }

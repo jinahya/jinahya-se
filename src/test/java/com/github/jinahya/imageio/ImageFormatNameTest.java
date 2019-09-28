@@ -15,25 +15,15 @@
  */
 package com.github.jinahya.imageio;
 
-import java.io.IOException;
-import javax.xml.bind.JAXBException;
-import org.testng.annotations.Test;
-
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public class ImageFormatNameTest extends ImageFeatureTest<ImageFormatName> {
+public class ImageFormatNameTest extends ImageFeatureTest<ImageIoFormatName> {
 
     /**
      * Creates a new instance.
      */
     public ImageFormatNameTest() {
-        super(ImageFormatName.class);
-    }
-
-    @Test
-    public void printXml() throws JAXBException, IOException {
-        JaxbTest.printXml(type, ImageFormatName.availableImageFormatNames());
+        super(ImageIoFormatName.class);
     }
 }

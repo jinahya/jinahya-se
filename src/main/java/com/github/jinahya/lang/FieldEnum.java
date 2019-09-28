@@ -18,9 +18,9 @@ package com.github.jinahya.lang;
 /**
  * An interface for implementing an {@code Enum} for old school constant fields.
  *
- * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <E> enum type parameter
  * @param <V> field type parameter
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public interface FieldEnum<E extends Enum<E>, V> {
 

@@ -15,13 +15,13 @@
  */
 package com.github.jinahya.lang;
 
-import static java.lang.invoke.MethodHandles.lookup;
 import org.slf4j.Logger;
-import static org.slf4j.LoggerFactory.getLogger;
 import org.testng.annotations.Test;
 
+import static java.lang.invoke.MethodHandles.lookup;
+import static org.slf4j.LoggerFactory.getLogger;
+
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class AutoCloseablesTest {
@@ -34,7 +34,6 @@ public class AutoCloseablesTest {
 
             logger.debug("I'm not the close()");
         }
-
     }
 
     @Test
@@ -47,5 +46,4 @@ public class AutoCloseablesTest {
         try (AutoCloseable resource = autoCloseable) {
         }
     }
-
 }

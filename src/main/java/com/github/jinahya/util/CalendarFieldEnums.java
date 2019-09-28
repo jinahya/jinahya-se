@@ -16,21 +16,19 @@
 package com.github.jinahya.util;
 
 import com.github.jinahya.lang.FieldEnums;
+
 import java.util.Calendar;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class CalendarFieldEnums {
 
     /**
-     *
-     * @param <E> enum type parameter
+     * @param <E>      enum type parameter
      * @param enumType enum type
      * @param calendar calendar
-     * @param field field
-     *
+     * @param field    field
      * @return
      */
     public static <E extends Enum<E> & CalendarFieldEnum<E, Integer>> E get(
@@ -48,11 +46,10 @@ public final class CalendarFieldEnums {
     }
 
     /**
-     *
-     * @param <E> enum type parameter
+     * @param <E>      enum type parameter
      * @param calendar calendar
-     * @param field field
-     * @param value value
+     * @param field    field
+     * @param value    value
      */
     public static <E extends Enum<E> & CalendarFieldEnum<E, Integer>> void set(
             final Calendar calendar, final int field, final E value) {
@@ -79,5 +76,4 @@ public final class CalendarFieldEnums {
 
         super();
     }
-
 }

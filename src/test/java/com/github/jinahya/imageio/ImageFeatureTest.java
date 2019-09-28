@@ -25,23 +25,24 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationIntrospector;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
 import com.fasterxml.jackson.module.jsonSchema.factories.SchemaFactoryWrapper;
-import java.io.IOException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testng.annotations.Test;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.SchemaOutputResolver;
 import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamResult;
-import org.slf4j.LoggerFactory;
-import org.testng.annotations.Test;
+import java.io.IOException;
+
 import static java.util.Objects.requireNonNull;
-import org.slf4j.Logger;
 
 /**
- *
- * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <T> image feature type parameter
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-abstract class ImageFeatureTest<T extends ImageFeature<T>> {
+public abstract class ImageFeatureTest<T extends ImageIoFeature> {
 
     /**
      * Creates a new instance.

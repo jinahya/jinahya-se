@@ -18,7 +18,6 @@ package com.github.jinahya.lang.reflect;
 import java.lang.reflect.Method;
 
 /**
- *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
 public class Methods {

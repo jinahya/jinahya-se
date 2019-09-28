@@ -16,23 +16,21 @@
 package com.github.jinahya.sql;
 
 import com.github.jinahya.lang.IntFieldEnum;
+
 import java.sql.ResultSet;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum ResultSetHoldability implements IntFieldEnum<ResultSetHoldability> {
 
     /**
-     * Constant for
-     * {@link ResultSet#HOLD_CURSORS_OVER_COMMIT}({@value ResultSet#HOLD_CURSORS_OVER_COMMIT}).
+     * Constant for {@link ResultSet#HOLD_CURSORS_OVER_COMMIT}({@value ResultSet#HOLD_CURSORS_OVER_COMMIT}).
      */
     HOLD_CURSORS_OVER_COMMIT(ResultSet.HOLD_CURSORS_OVER_COMMIT), // 1
 
     /**
-     * Constant for
-     * {@link ResultSet#CLOSE_CURSORS_AT_COMMIT}({@value ResultSet#CLOSE_CURSORS_AT_COMMIT}).
+     * Constant for {@link ResultSet#CLOSE_CURSORS_AT_COMMIT}({@value ResultSet#CLOSE_CURSORS_AT_COMMIT}).
      */
     CLOSE_CURSORS_AT_COMMIT(ResultSet.CLOSE_CURSORS_AT_COMMIT); // 2
 
@@ -46,5 +44,4 @@ public enum ResultSetHoldability implements IntFieldEnum<ResultSetHoldability> {
     }
 
     private final int fieldValue;
-
 }

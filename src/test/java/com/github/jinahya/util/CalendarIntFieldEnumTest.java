@@ -16,13 +16,13 @@
 package com.github.jinahya.util;
 
 import com.github.jinahya.lang.IntFieldEnumTest;
-import java.util.Calendar;
 import org.testng.annotations.Test;
 
+import java.util.Calendar;
+
 /**
- *
- * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @param <E>
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public abstract class CalendarIntFieldEnumTest<E extends Enum<E> & CalendarIntFieldEnum<E>>
         extends IntFieldEnumTest<E> {
@@ -46,5 +46,4 @@ public abstract class CalendarIntFieldEnumTest<E extends Enum<E> & CalendarIntFi
     }
 
     protected final int calendarField;
-
 }

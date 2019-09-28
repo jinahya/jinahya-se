@@ -26,14 +26,13 @@ import java.util.Collection;
 public final class FieldEnums {
 
     /**
-     * Returns an array containing the field values of specified enum type, in
-     * the order those enum constants returned from {@code E.values()}
+     * Returns an array containing the field values of specified enum type, in the order those enum constants returned
+     * from {@code E.values()}
      *
-     * @param <E> enum type parameter
-     * @param <V> field value type parameter
-     * @param enumType enum type
+     * @param <E>       enum type parameter
+     * @param <V>       field value type parameter
+     * @param enumType  enum type
      * @param fieldType field type
-     *
      * @return an array containing the field values of this enum type
      */
     public static <E extends Enum<E> & FieldEnum<E, V>, V> V[] fieldValues(
@@ -57,10 +56,10 @@ public final class FieldEnums {
     /**
      * Adds all field values of given enum type to specified collection.
      *
-     * @param <E> enum type parameter
-     * @param <V> field value type parameter
-     * @param <T> collection type parameter
-     * @param enumType enum type
+     * @param <E>         enum type parameter
+     * @param <V>         field value type parameter
+     * @param <T>         collection type parameter
+     * @param enumType    enum type
      * @param fieldValues the collection to which field values are added.
      * @return given collection
      */
@@ -79,20 +78,16 @@ public final class FieldEnums {
     }
 
     /**
-     * Returns the enum constant of specified enum type with specified field
-     * value.
+     * Returns the enum constant of specified enum type with specified field value.
      *
-     * @param <E> enum type parameter
-     * @param <V> field value type parameter
-     * @param enumType enum type
+     * @param <E>        enum type parameter
+     * @param <V>        field value type parameter
+     * @param enumType   enum type
      * @param fieldValue field value
-     *
-     * @throws NullPointerException if {@code enumType} is {@code null}.
-     * @throws IllegalArgumentException if the specified enum type has no
-     * constant with the specified field value, or the specified class object
-     * does not represent an enum type
-     *
      * @return the mapped enum constant.
+     * @throws NullPointerException     if {@code enumType} is {@code null}.
+     * @throws IllegalArgumentException if the specified enum type has no constant with the specified field value, or
+     *                                  the specified class object does not represent an enum type
      */
     public static <E extends Enum<E> & FieldEnum<E, V>, V> E fromFieldValue(
             final Class<E> enumType, final V fieldValue) {

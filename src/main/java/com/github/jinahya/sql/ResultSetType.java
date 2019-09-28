@@ -16,27 +16,24 @@
 package com.github.jinahya.sql;
 
 import com.github.jinahya.lang.IntFieldEnum;
+
 import java.sql.ResultSet;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum ResultSetType implements IntFieldEnum<ResultSetType> {
 
     /**
-     * Constant for
-     * {@link ResultSet#TYPE_FORWARD_ONLY}({@value ResultSet#TYPE_FORWARD_ONLY}).
+     * Constant for {@link ResultSet#TYPE_FORWARD_ONLY}({@value ResultSet#TYPE_FORWARD_ONLY}).
      */
     TYPE_FORWARD_ONLY(ResultSet.TYPE_FORWARD_ONLY), // 1003
     /**
-     * Constant for
-     * {@link ResultSet#TYPE_SCROLL_INSENSITIVE}({@value ResultSet#TYPE_SCROLL_INSENSITIVE}).
+     * Constant for {@link ResultSet#TYPE_SCROLL_INSENSITIVE}({@value ResultSet#TYPE_SCROLL_INSENSITIVE}).
      */
     TYPE_SCROLL_INSENSITIVE(ResultSet.TYPE_SCROLL_INSENSITIVE), // 1004
     /**
-     * Constant for
-     * {@link ResultSet#TYPE_SCROLL_SENSITIVE}({@value ResultSet#TYPE_SCROLL_SENSITIVE}).
+     * Constant for {@link ResultSet#TYPE_SCROLL_SENSITIVE}({@value ResultSet#TYPE_SCROLL_SENSITIVE}).
      */
     TYPE_SCROLL_SENSITIVE(ResultSet.TYPE_SCROLL_SENSITIVE); // 1005
 
@@ -50,5 +47,4 @@ public enum ResultSetType implements IntFieldEnum<ResultSetType> {
     }
 
     private final int fieldValue;
-
 }

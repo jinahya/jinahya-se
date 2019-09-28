@@ -18,7 +18,6 @@ package com.github.jinahya.lang.reflect;
 import java.lang.reflect.Modifier;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class FieldModifierTest extends ModifierFieldEnumTest<FieldModifier> {
@@ -27,5 +26,4 @@ public class FieldModifierTest extends ModifierFieldEnumTest<FieldModifier> {
 
         super(FieldModifier.class, Modifier.fieldModifiers());
     }
-
 }

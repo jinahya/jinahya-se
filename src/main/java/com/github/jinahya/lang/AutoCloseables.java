@@ -39,23 +39,20 @@ public final class AutoCloseables {
     /**
      * Creates a proxy of {@code AutoCloseable} for given object reference.
      *
-     * @param <T> the type of the instance.
-     * @param loader the classloader.
+     * @param <T>      the type of the instance.
+     * @param loader   the classloader.
      * @param instance the instance.
-     * @param closer the consumer for {@link AutoCloseable#close()}.
-     *
+     * @param closer   the consumer for {@link AutoCloseable#close()}.
      * @return a proxy of {@code AutoCloseable}.
-     *
      * @see AutoCloseable
-     * @see Proxy#newProxyInstance(java.lang.ClassLoader, java.lang.Class<?>[],
-     * java.lang.reflect.InvocationHandler)
+     * @see Proxy#newProxyInstance(java.lang.ClassLoader, java.lang.Class<?>[], java.lang.reflect.InvocationHandler)
      */
     public static <T> AutoCloseable of(final ClassLoader loader,
                                        final T instance,
                                        final Consumer<T> closer) {
         return (AutoCloseable) Proxy.newProxyInstance(
                 loader,
-                new Class<?>[]{AutoCloseable.class},
+                new Class<?>[] {AutoCloseable.class},
                 (proxy, method, args) -> {
                     if (CLOSE.equals(method)) {
                         closer.accept(instance);
@@ -68,13 +65,11 @@ public final class AutoCloseables {
     /**
      * Creates a new proxy of {@link AutoCloseable} for given object reference.
      *
-     * @param <T> instance type parameter
+     * @param <T>      instance type parameter
      * @param instance the instance
-     * @param closer the consumer for {@link AutoCloseable#close()}.
+     * @param closer   the consumer for {@link AutoCloseable#close()}.
      * @return a new proxy instance.
-     *
-     * @see #of(java.lang.ClassLoader, java.lang.Object,
-     * java.util.function.Consumer)
+     * @see #of(java.lang.ClassLoader, java.lang.Object, java.util.function.Consumer)
      */
     public static <T> AutoCloseable of(final T instance,
                                        final Consumer<T> closer) {

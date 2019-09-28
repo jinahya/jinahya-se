@@ -18,7 +18,6 @@ package com.github.jinahya.util;
 import java.math.BigInteger;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class BigIntegerComparator extends NumberComparator<BigInteger> {

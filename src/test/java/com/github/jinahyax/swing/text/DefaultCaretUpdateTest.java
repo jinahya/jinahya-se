@@ -18,7 +18,6 @@ package com.github.jinahyax.swing.text;
 import com.github.jinahya.lang.IntFieldEnumTest;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class DefaultCaretUpdateTest
@@ -28,5 +27,4 @@ public class DefaultCaretUpdateTest
 
         super(DefaultCaretUpdate.class);
     }
-
 }

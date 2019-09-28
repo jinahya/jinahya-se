@@ -16,34 +16,31 @@
 package com.github.jinahya.sql;
 
 import com.github.jinahya.lang.IntFieldEnum;
+
 import java.sql.ResultSet;
 
 /**
- *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum ResultSetFetchDirection
         implements IntFieldEnum<ResultSetFetchDirection> {
 
     /**
-     * Constant for
-     * {@link ResultSet#FETCH_FORWARD}({@value ResultSet#FETCH_FORWARD}).
+     * Constant for {@link ResultSet#FETCH_FORWARD}({@value ResultSet#FETCH_FORWARD}).
      *
      * @see ResultSet#FETCH_REVERSE
      */
     FETCH_FORWARD(ResultSet.FETCH_FORWARD), // 1000
 
     /**
-     * Constant for
-     * {@link ResultSet#FETCH_REVERSE}({@value ResultSet#FETCH_REVERSE}).
+     * Constant for {@link ResultSet#FETCH_REVERSE}({@value ResultSet#FETCH_REVERSE}).
      *
      * @see ResultSet#FETCH_REVERSE
      */
     FETCH_REVERSE(ResultSet.FETCH_REVERSE), // 1001
 
     /**
-     * Constant for
-     * {@link ResultSet#FETCH_UNKNOWN}({@value ResultSet#FETCH_UNKNOWN}).
+     * Constant for {@link ResultSet#FETCH_UNKNOWN}({@value ResultSet#FETCH_UNKNOWN}).
      *
      * @see ResultSet#FETCH_UNKNOWN
      */
