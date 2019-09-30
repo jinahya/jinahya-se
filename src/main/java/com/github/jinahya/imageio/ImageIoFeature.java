@@ -42,6 +42,12 @@ public abstract class ImageIoFeature {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Returns a string representation of the object.
+     *
+     * @return a string representation of the object.
+     */
     @Override
     public String toString() {
         return super.toString()
@@ -67,6 +73,12 @@ public abstract class ImageIoFeature {
         return true;
     }
 
+    /**
+     * Indicates whether some other object is "equals to " this one.
+     *
+     * @param obj the reference object with which to compare.
+     * @return {@code true} if this object is same as the obj argument; {@code false} otherwise.
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj) {
@@ -89,6 +101,11 @@ public abstract class ImageIoFeature {
         return result;
     }
 
+    /**
+     * Returns a hash code value for the object.
+     *
+     * @return a hash code value for the object.
+     */
     @Override
     public int hashCode() {
         return hashCode2();
