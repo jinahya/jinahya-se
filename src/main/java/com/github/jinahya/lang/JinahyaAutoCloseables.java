@@ -15,6 +15,7 @@
  */
 package com.github.jinahya.lang;
 
+import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.function.Consumer;
@@ -24,17 +25,43 @@ import java.util.function.Consumer;
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public final class AutoCloseables {
+public final class JinahyaAutoCloseables {
 
-    private static final Method CLOSE;
+    // -----------------------------------------------------------------------------------------------------------------
+    private static final Method METHOD_CLOSE;
 
     static {
         try {
-            CLOSE = AutoCloseable.class.getMethod("close");
+            METHOD_CLOSE = AutoCloseable.class.getMethod("close");
         } catch (final NoSuchMethodException nsme) {
             throw new InstantiationError(nsme.getMessage());
         }
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    public static <T extends AutoCloseable> T uncloseable(final ClassLoader loader, final T closeable) {
+        if (closeable == null) {
+            throw new NullPointerException("closeable is null");
+        }
+        return (T) Proxy.newProxyInstance(
+                loader,
+                new Class<?>[] {AutoCloseable.class},
+                (proxy, method, args) -> {
+                    if (METHOD_CLOSE.equals(method)) {
+                        throw new UnsupportedOperationException("close is not supported");
+                    }
+                    return method.invoke(closeable, args);
+                });
+    }
+
+    public static <T extends AutoCloseable> T uncloseable(final T closeable) {
+        if (closeable == null) {
+            throw new NullPointerException("closeable is null");
+        }
+        return uncloseable(closeable.getClass().getClassLoader(), closeable);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * Creates a proxy of {@code AutoCloseable} for given object reference.
@@ -45,16 +72,14 @@ public final class AutoCloseables {
      * @param closer   the consumer for {@link AutoCloseable#close()}.
      * @return a proxy of {@code AutoCloseable}.
      * @see AutoCloseable
-     * @see Proxy#newProxyInstance(java.lang.ClassLoader, java.lang.Class<?>[], java.lang.reflect.InvocationHandler)
+     * @see Proxy#newProxyInstance(ClassLoader, Class[], InvocationHandler)
      */
-    public static <T> AutoCloseable of(final ClassLoader loader,
-                                       final T instance,
-                                       final Consumer<T> closer) {
+    public static <T> AutoCloseable of(final ClassLoader loader, final T instance, final Consumer<T> closer) {
         return (AutoCloseable) Proxy.newProxyInstance(
                 loader,
                 new Class<?>[] {AutoCloseable.class},
                 (proxy, method, args) -> {
-                    if (CLOSE.equals(method)) {
+                    if (METHOD_CLOSE.equals(method)) {
                         closer.accept(instance);
                         return null;
                     }
@@ -71,12 +96,12 @@ public final class AutoCloseables {
      * @return a new proxy instance.
      * @see #of(java.lang.ClassLoader, java.lang.Object, java.util.function.Consumer)
      */
-    public static <T> AutoCloseable of(final T instance,
-                                       final Consumer<T> closer) {
+    public static <T> AutoCloseable of(final T instance, final Consumer<T> closer) {
         return of(instance.getClass().getClassLoader(), instance, closer);
     }
 
-    private AutoCloseables() {
+    // -----------------------------------------------------------------------------------------------------------------
+    private JinahyaAutoCloseables() {
         super();
     }
 }

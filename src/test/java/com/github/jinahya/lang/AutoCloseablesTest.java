@@ -39,7 +39,7 @@ public class AutoCloseablesTest {
     @Test
     public static void of() throws Exception {
 
-        final AutoCloseable autoCloseable = AutoCloseables.of(
+        final AutoCloseable autoCloseable = JinahyaAutoCloseables.of(
                 AutoCloseablesTest.class.getClassLoader(), new NotAutoCloseable(),
                 o -> o.notClose());
 
