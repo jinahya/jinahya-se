@@ -27,6 +27,7 @@ import java.io.InputStream;
 public class FunnelInputStream extends FilterInputStream {
 
     // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * Creates a funnel input stream built on top of the specified underlying input stream.
      *

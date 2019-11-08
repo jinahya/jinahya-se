@@ -29,17 +29,20 @@ import java.io.OutputStream;
  */
 public final class JinahyaByteStreams {
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     /**
-     * Copies bytes from given input stream to given output stream.
+     * Copies specified number of bytes from specified input stream to specified output stream using specified array of
+     * bytes as a buffer.
      *
-     * @param input  the input stream
-     * @param output the output stream
-     * @param buffer a buffer to use
-     * @param length the maximum number of bytes to copy; {@code -1L} for all available bytes in {@code input}.
+     * @param input  the input stream from which bytes are read.
+     * @param output the output stream to which bytes are written.
+     * @param buffer the array of bytes to be used as a buffer whose {@code length} must be positive.
+     * @param length the number of bytes to copy.
      * @return the actual number of bytes copied.
      * @throws IOException if an I/O error occurs
      */
-    public static long copy(final InputStream input, final OutputStream output, final byte[] buffer, final long length)
+    public static long copy(final InputStream input, final OutputStream output, final byte[] buffer, long length)
             throws IOException {
         if (input == null) {
             throw new NullPointerException("input is null");
@@ -53,46 +56,43 @@ public final class JinahyaByteStreams {
         if (buffer.length == 0) {
             throw new IllegalArgumentException("buffer.length(" + buffer.length + ") == 0");
         }
-        if (length < -1L) {
-            throw new IllegalArgumentException("length(" + length + ") < -1L");
+        if (length < 0L) {
+            throw new IllegalArgumentException("length(" + length + ") < 0L");
         }
         long count = 0L;
-        long remained = length - count;
-        for (int read; length == -1L || remained > 0; count += read) {
-            int limit = buffer.length;
-            if (length != -1L && remained < buffer.length) {
-                limit = (int) remained;
+        int limit = buffer.length;
+        for (int read; length > 0; count += read) {
+            if (length < limit) {
+                limit = (int) length;
             }
             read = input.read(buffer, 0, limit);
             if (read == -1) {
                 break;
             }
             output.write(buffer, 0, read);
-            remained -= read;
+            length -= read;
         }
         return count;
     }
 
     /**
-     * Copies bytes from given input file to given output stream.
+     * Copies specified number of bytes from specified file to specified output stream using specified array of bytes as
+     * a buffer.
      *
-     * @param input  the input file
-     * @param output the output stream
-     * @param buffer a buffer
-     * @param length the maximum number of bytes to copy; {@code -1L} for all available bytes in {@code input}.
+     * @param file   the input file from which bytes are read.
+     * @param output the output stream to which bytes are written.
+     * @param buffer the array of bytes to used as a buffer.
+     * @param length the maximum number of bytes to copy.
      * @return the actual number of bytes copied.
      * @throws IOException if an I/O error occurs
      */
-    public static long copy(final File input, final OutputStream output, final byte[] buffer, final long length)
+    public static long copy(final File file, final OutputStream output, final byte[] buffer, final long length)
             throws IOException {
-        if (input == null) {
-            throw new NullPointerException("input == null");
+        if (file == null) {
+            throw new NullPointerException("file is null");
         }
-        final InputStream finput = new FileInputStream(input);
-        try {
-            return copy(finput, output, buffer, length);
-        } finally {
-            finput.close();
+        try (InputStream input = new FileInputStream(file)) {
+            return copy(input, output, buffer, length);
         }
     }
 
@@ -100,60 +100,53 @@ public final class JinahyaByteStreams {
      * Copies bytes from given input stream to given output file.
      *
      * @param input  the input stream
-     * @param output the output file
+     * @param file   the output file
      * @param buffer a buffer to use
      * @param length the maximum number of bytes to copy; {@code -1L} for all available bytes in {@code input}.
      * @return the actual number of bytes copied.
      * @throws IOException if an I/O error occurs
      */
-    public static long copy(final InputStream input, final File output, final byte[] buffer, final long length)
+    public static long copy(final InputStream input, final File file, final byte[] buffer, final long length)
             throws IOException {
-        if (output == null) {
-            throw new NullPointerException("output");
+        if (file == null) {
+            throw new NullPointerException("file is null");
         }
-        final OutputStream foutput = new FileOutputStream(output);
-        try {
-            try {
-                return copy(input, foutput, buffer, length);
-            } finally {
-                foutput.flush();
-            }
-        } finally {
-            foutput.close();
+        final long copied;
+        try (OutputStream output = new FileOutputStream(file)) {
+            copied = copy(input, output, buffer, length);
+            output.flush();
         }
+        return copied;
     }
 
     /**
      * Copies bytes from given input file to given output file.
      *
-     * @param input  the input file
-     * @param output the output file
-     * @param buffer a buffer
-     * @param length the maximum number of bytes to copy; {@code -1L} for all available bytes in {@code input}.
+     * @param source      the input file
+     * @param destination the output file
+     * @param buffer      a buffer
+     * @param length      the maximum number of bytes to copy; {@code -1L} for all available bytes in {@code input}.
      * @return the actual number of bytes copied.
      * @throws IOException if an I/O error occurs
      */
-    public static long copy(final File input, final File output, final byte[] buffer, final long length)
+    public static long copy(final File source, final File destination, final byte[] buffer, final long length)
             throws IOException {
-        if (output == null) {
-            throw new NullPointerException("output");
+        if (source == null) {
+            throw new NullPointerException("source is null");
         }
-        final InputStream finput = new FileInputStream(input);
-        try {
-            final OutputStream foutput = new FileOutputStream(output);
-            try {
-                try {
-                    return copy(finput, foutput, buffer, length);
-                } finally {
-                    foutput.flush();
-                }
-            } finally {
-                foutput.close();
-            }
-        } finally {
-            finput.close();
+        if (destination == null) {
+            throw new NullPointerException("destination is null");
         }
+        final long copied;
+        try (InputStream input = new FileInputStream(source);
+             OutputStream output = new FileOutputStream(destination)) {
+            copied = copy(input, output, buffer, length);
+            output.flush();
+        }
+        return copied;
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * Creates a new instance.

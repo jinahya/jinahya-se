@@ -26,6 +26,7 @@ import javax.crypto.Cipher;
  */
 public enum CipherMode implements IntFieldEnum<CipherMode> {
 
+    // -----------------------------------------------------------------------------------------------------------------
     /**
      * A constant for {@link Cipher#ENCRYPT_MODE}.
      */
@@ -46,14 +47,17 @@ public enum CipherMode implements IntFieldEnum<CipherMode> {
      */
     UNWRAP_MODE(Cipher.UNWRAP_MODE);
 
-    private CipherMode(final int fieldValue) {
+    // -----------------------------------------------------------------------------------------------------------------
+    CipherMode(final int fieldValue) {
         this.fieldValue = fieldValue;
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Override
     public int fieldValueAsInt() {
         return fieldValue;
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     private final int fieldValue;
 }

@@ -24,7 +24,7 @@ import java.io.InputStream;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @see BlackOutputStream
  */
-public class WhiteInputStream extends InputStream {
+public final class WhiteInputStream extends InputStream {
 
     // -----------------------------------------------------------------------------------------------------------------
 

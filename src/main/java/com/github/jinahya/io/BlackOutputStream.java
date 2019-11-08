@@ -23,7 +23,9 @@ import java.io.OutputStream;
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public class BlackOutputStream extends OutputStream {
+public final class BlackOutputStream extends OutputStream {
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * Writes the specified byte to this output stream. The {@code write(int)} method of {@code BlackOutputStream} class
