@@ -6,42 +6,41 @@ import java.io.IOException;
 public interface JinahyaDataInput extends DataInput {
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Reads {@value java.lang.Short#BYTES} bytes and decodes them as a {@code short} value in reversed byte order.
+     *
+     * @return a {@code short} value.
+     * @throws IOException if an I/O error occurs.
+     * @see JinahyaDataOutput#writeShortLe(int)
+     */
     default short readShortLe() throws IOException {
-        int value = 0;
-        for (int i = 0; i < Short.SIZE; i += Byte.SIZE) {
-            value |= (readByte() & 0xFF) << i;
-        }
-        return (short) value;
+        return (short) (readByte() & 0xFF | readByte() << Byte.SIZE);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Reads four input bytes written in little endian byte order and returns an {@code int} value. Let {@code a-d} be
-     * the first through fourth bytes read. The value returned is:
-     * <blockquote><pre>{@code
-     * (((d & 0xff) << 24) |
-     * ((c & 0xff) << 16) |
-     * ((b & 0xff) << 8) |
-     * (a & 0xff))
-     * }</pre></blockquote>
-     * This method is suitable for reading bytes written by the {@link JinahyaDataOutput#writeIntLe(int) writeIntLe}
-     * method of interface {@link JinahyaDataOutput}.
+     * Reads {@value java.lang.Integer#BYTES} input bytes and decodes them as a {@code int} value in reversed byte
+     * order.
      *
      * @return the {@code int value} read.
      * @throws IOException if an I/O error occurs.
-     * @see #readInt()
      * @see JinahyaDataOutput#writeIntLe(int)
      */
     default int readIntLe() throws IOException {
-        int value = 0;
-        for (int i = 0; i < Integer.SIZE; i += Byte.SIZE) {
-            value |= (readByte() & 0xFF) << i;
-        }
-        return value;
+        return readShortLe() & 0xFFFF | readShortLe() << Short.SIZE;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Reads {@value java.lang.Long#BYTES} bytes and decodes them as a {@code long} value in reversed byte order.
+     *
+     * @return a {@code long} value.
+     * @throws IOException if an I/O error occurs.
+     * @see JinahyaDataOutput#writeLongLe(long)
+     */
     default long readLongLe() throws IOException {
         return readIntLe() & 0xFFFFFFFFL | (long) readIntLe() << Integer.SIZE;
     }

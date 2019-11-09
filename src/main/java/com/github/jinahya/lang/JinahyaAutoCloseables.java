@@ -39,6 +39,7 @@ public final class JinahyaAutoCloseables {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    @SuppressWarnings({"unchecked"})
     public static <T extends AutoCloseable> T uncloseable(final ClassLoader loader, final T closeable) {
         if (closeable == null) {
             throw new NullPointerException("closeable is null");

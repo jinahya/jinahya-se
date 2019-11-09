@@ -31,10 +31,8 @@ public interface JinahyaDataOutput extends DataOutput {
      * @see JinahyaDataInput#readIntLe()
      */
     default void writeIntLe(final int v) throws IOException {
-        write((byte) (v & 0xFF));
-        write((byte) (v >> 8 & 0xFF));
-        write((byte) (v >> 16 & 0xFF));
-        write((byte) (v >> 24 & 0xFF));
+        writeShortLe(v);
+        writeShortLe(v >> Short.SIZE);
     }
 
     default void writeLongLe(final long v) throws IOException {
