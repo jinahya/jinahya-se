@@ -67,7 +67,7 @@ public enum ClassModifier implements ModifierFieldEnum<ClassModifier> {
     }
 
     @Override
-    public int fieldValueAsInt() {
+    public int getFieldValue() {
         return fieldValue;
     }
 

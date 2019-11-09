@@ -42,7 +42,7 @@ public enum ResultSetType implements IntFieldEnum<ResultSetType> {
     }
 
     @Override
-    public int fieldValueAsInt() {
+    public int getFieldValue() {
         return fieldValue;
     }
 

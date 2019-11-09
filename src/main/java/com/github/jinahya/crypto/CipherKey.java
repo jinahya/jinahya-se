@@ -26,6 +26,7 @@ import javax.crypto.Cipher;
  */
 public enum CipherKey implements IntFieldEnum<CipherKey> {
 
+    // -----------------------------------------------------------------------------------------------------------------
     /**
      * A constant for {@link Cipher#PUBLIC_KEY}.
      */
@@ -41,14 +42,17 @@ public enum CipherKey implements IntFieldEnum<CipherKey> {
      */
     SECRET_KEY(Cipher.SECRET_KEY); // 3
 
-    private CipherKey(final int fieldValue) {
+    // -----------------------------------------------------------------------------------------------------------------
+    CipherKey(final int fieldValue) {
         this.fieldValue = fieldValue;
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Override
-    public int fieldValueAsInt() {
+    public int getFieldValue() {
         return fieldValue;
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     private final int fieldValue;
 }

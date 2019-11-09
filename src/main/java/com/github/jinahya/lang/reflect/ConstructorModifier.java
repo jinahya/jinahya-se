@@ -48,7 +48,7 @@ public enum ConstructorModifier
     }
 
     @Override
-    public int fieldValueAsInt() {
+    public int getFieldValue() {
         return fieldValue;
     }
 

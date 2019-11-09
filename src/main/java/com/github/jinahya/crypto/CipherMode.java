@@ -45,7 +45,16 @@ public enum CipherMode implements IntFieldEnum<CipherMode> {
     /**
      * A constant for {@link Cipher#UNWRAP_MODE}.
      */
-    UNWRAP_MODE(Cipher.UNWRAP_MODE);
+    UNWRAP_MODE(Cipher.UNWRAP_MODE); // 4
+
+    // -----------------------------------------------------------------------------------------------------------------
+    public static int[] fieldValues() {
+        return IntFieldEnum.fieldValues(CipherMode.class);
+    }
+
+    public static CipherMode valueOfFieldValue(final int fieldValue) {
+        return IntFieldEnum.valueOfFieldValue(CipherMode.class, fieldValue);
+    }
 
     // -----------------------------------------------------------------------------------------------------------------
     CipherMode(final int fieldValue) {
@@ -54,7 +63,7 @@ public enum CipherMode implements IntFieldEnum<CipherMode> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Override
-    public int fieldValueAsInt() {
+    public int getFieldValue() {
         return fieldValue;
     }
 

@@ -57,7 +57,7 @@ public enum InterfaceModifier implements ModifierFieldEnum<InterfaceModifier> {
     }
 
     @Override
-    public int fieldValueAsInt() {
+    public int getFieldValue() {
         return fieldValue;
     }
 

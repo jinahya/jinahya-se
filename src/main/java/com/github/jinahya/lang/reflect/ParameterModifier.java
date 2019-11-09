@@ -29,7 +29,7 @@ public enum ParameterModifier implements ModifierFieldEnum<ParameterModifier> {
     }
 
     @Override
-    public int fieldValueAsInt() {
+    public int getFieldValue() {
         return fieldValue;
     }
 

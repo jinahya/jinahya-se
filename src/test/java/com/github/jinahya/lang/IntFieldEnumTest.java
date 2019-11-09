@@ -37,7 +37,7 @@ public abstract class IntFieldEnumTest<E extends Enum<E> & IntFieldEnum<E>> {
     @Test
     public void assertUniqueFieldValues() {
 
-        final int[] fieldValues = IntFieldEnum.intFieldValues(enumType);
+        final int[] fieldValues = IntFieldEnum.fieldValues(enumType);
         for (int i = 0; i < fieldValues.length; i++) {
             for (int j = 0; j < i; j++) {
                 if (fieldValues[j] == fieldValues[i]) {

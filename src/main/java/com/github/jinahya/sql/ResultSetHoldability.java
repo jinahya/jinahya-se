@@ -39,7 +39,7 @@ public enum ResultSetHoldability implements IntFieldEnum<ResultSetHoldability> {
     }
 
     @Override
-    public int fieldValueAsInt() {
+    public int getFieldValue() {
         return fieldValue;
     }
 

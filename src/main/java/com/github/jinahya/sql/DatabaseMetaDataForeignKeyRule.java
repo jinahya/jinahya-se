@@ -55,7 +55,7 @@ public enum DatabaseMetaDataForeignKeyRule
     }
 
     @Override
-    public int fieldValueAsInt() {
+    public int getFieldValue() {
         return fieldValue;
     }
 

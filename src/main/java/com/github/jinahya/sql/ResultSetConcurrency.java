@@ -40,7 +40,7 @@ public enum ResultSetConcurrency implements IntFieldEnum<ResultSetConcurrency> {
     }
 
     @Override
-    public int fieldValueAsInt() {
+    public int getFieldValue() {
         return fieldValue;
     }
 

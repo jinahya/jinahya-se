@@ -38,7 +38,7 @@ public enum BigDecimalRound implements IntFieldEnum<BigDecimalRound> {
     }
 
     @Override
-    public int fieldValueAsInt() {
+    public int getFieldValue() {
         return fieldValue;
     }
 

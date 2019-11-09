@@ -37,7 +37,7 @@ public enum MethodModifier implements ModifierFieldEnum<MethodModifier> {
     }
 
     @Override
-    public int fieldValueAsInt() {
+    public int getFieldValue() {
         return fieldValue;
     }
 

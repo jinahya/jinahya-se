@@ -50,7 +50,7 @@ public enum DatabaseMetaDataProcedureType
     }
 
     @Override
-    public int fieldValueAsInt() {
+    public int getFieldValue() {
         return fieldValue;
     }
 

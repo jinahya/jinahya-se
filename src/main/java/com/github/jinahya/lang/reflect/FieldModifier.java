@@ -60,7 +60,7 @@ public enum FieldModifier implements ModifierFieldEnum<FieldModifier> {
     }
 
     @Override
-    public int fieldValueAsInt() {
+    public int getFieldValue() {
         return fieldValue;
     }
 

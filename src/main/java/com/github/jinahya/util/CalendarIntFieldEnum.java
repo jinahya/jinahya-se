@@ -39,13 +39,13 @@ public interface CalendarIntFieldEnum<E extends Enum<E>>
 
         final int fieldValue = calendar.get(field);
 
-        return IntFieldEnum.fromIntFieldValue(enumType, fieldValue);
+        return IntFieldEnum.valueOfFieldValue(enumType, fieldValue);
     }
 
     static void set(final Calendar calendar, final int field,
                     final CalendarIntFieldEnum<?> constant) {
 
-        calendar.set(field, constant.fieldValueAsInt());
+        calendar.set(field, constant.getFieldValue());
     }
 
     void set(final Calendar calendar);

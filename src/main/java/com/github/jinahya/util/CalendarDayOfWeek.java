@@ -103,7 +103,7 @@ public enum CalendarDayOfWeek implements CalendarIntFieldEnum<CalendarDayOfWeek>
     }
 
     @Override
-    public int fieldValueAsInt() {
+    public int getFieldValue() {
 
         return fieldValue;
     }

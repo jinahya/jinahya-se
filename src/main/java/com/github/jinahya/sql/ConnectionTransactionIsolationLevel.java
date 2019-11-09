@@ -55,7 +55,7 @@ public enum ConnectionTransactionIsolationLevel
     }
 
     @Override
-    public int fieldValueAsInt() {
+    public int getFieldValue() {
         return fieldValue;
     }
 

@@ -33,7 +33,7 @@ public enum DefaultCaretUpdate implements IntFieldEnum<DefaultCaretUpdate> {
     }
 
     @Override
-    public int fieldValueAsInt() {
+    public int getFieldValue() {
         return fieldValue;
     }
 

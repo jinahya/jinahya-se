@@ -24,7 +24,7 @@ import com.github.jinahya.lang.IntFieldEnum;
 public interface ModifierFieldEnum<E extends Enum<E>> extends IntFieldEnum<E> {
 
     default boolean is(final int modifiers) {
-        return (modifiers & fieldValueAsInt()) == fieldValueAsInt();
+        return (modifiers & getFieldValue()) == getFieldValue();
     }
 
     /**
@@ -34,7 +34,7 @@ public interface ModifierFieldEnum<E extends Enum<E>> extends IntFieldEnum<E> {
      * @return new modifiers this constant's modifier added
      */
     default int add(final int modifiers) {
-        return modifiers | fieldValueAsInt();
+        return modifiers | getFieldValue();
     }
 
     /**
@@ -44,6 +44,6 @@ public interface ModifierFieldEnum<E extends Enum<E>> extends IntFieldEnum<E> {
      * @return new modifiers this constant's modifier removed.
      */
     default int remove(int modifiers) {
-        return modifiers ^ fieldValueAsInt();
+        return modifiers ^ getFieldValue();
     }
 }

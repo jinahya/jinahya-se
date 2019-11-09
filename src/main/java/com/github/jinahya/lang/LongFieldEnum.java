@@ -15,39 +15,32 @@
  */
 package com.github.jinahya.lang;
 
+import static java.util.Arrays.stream;
+
 /**
  * @param <E> enum type parameter
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public interface LongFieldEnum<E extends Enum<E>> {
 
-    static <E extends Enum<E> & LongFieldEnum<E>> long[] longFieldValues(
-            final Class<E> enumType) {
-        final E[] enumConstants = enumType.getEnumConstants();
-        final long[] fieldValues = new long[enumConstants.length];
-        for (int i = 0; i < fieldValues.length; i++) {
-            fieldValues[i] = enumConstants[i].fieldValueAsLong();
-        }
-        return fieldValues;
+    // -----------------------------------------------------------------------------------------------------------------
+    static <E extends Enum<E> & LongFieldEnum<E>> long[] fieldValues(final Class<E> enumType) {
+        return stream(enumType.getEnumConstants()).mapToLong(LongFieldEnum::getFieldValue).toArray();
     }
 
-    static <E extends Enum<E> & LongFieldEnum<E>> E fromLongFieldValue(
-            final Class<E> enumType, final long fieldValue) {
-        for (final E enumConstant : enumType.getEnumConstants()) {
-            final long constantFieldValue = enumConstant.fieldValueAsLong();
-            if (constantFieldValue == fieldValue) {
-                return enumConstant;
-            }
-        }
-        throw new IllegalArgumentException(
-                "unknown fieldValue(" + fieldValue
-                + ") for enumType(" + enumType + ")");
+    static <E extends Enum<E> & LongFieldEnum<E>> E valueOfFieldValue(final Class<E> enumType, final long fieldValue) {
+        return stream(enumType.getEnumConstants())
+                .filter(v -> v.getFieldValue() == fieldValue)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("no value for field value: " + fieldValue));
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * Returns the defined field value as a {@code long}.
      *
      * @return the defined field value as a {@code long}
      */
-    long fieldValueAsLong();
+    long getFieldValue();
 }

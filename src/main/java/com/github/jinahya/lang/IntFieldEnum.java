@@ -21,31 +21,32 @@ package com.github.jinahya.lang;
  */
 public interface IntFieldEnum<E extends Enum<E>> {
 
-    static <E extends Enum<E> & IntFieldEnum<E>> int[] intFieldValues(
-            final Class<E> enumType) {
+    // -----------------------------------------------------------------------------------------------------------------
+    static <E extends Enum<E> & IntFieldEnum<E>> int[] fieldValues(final Class<E> enumType) {
         final E[] enumConstants = enumType.getEnumConstants();
         final int[] fieldValues = new int[enumConstants.length];
         for (int i = 0; i < fieldValues.length; i++) {
-            fieldValues[i] = enumConstants[i].fieldValueAsInt();
+            fieldValues[i] = enumConstants[i].getFieldValue();
         }
         return fieldValues;
     }
 
-    static <E extends Enum<E> & IntFieldEnum<E>> E fromIntFieldValue(
-            final Class<E> enumType, final int fieldValue) {
+    // -----------------------------------------------------------------------------------------------------------------
+    static <E extends Enum<E> & IntFieldEnum<E>> E valueOfFieldValue(final Class<E> enumType, final int fieldValue) {
         for (final E enumConstant : enumType.getEnumConstants()) {
-            final int constantFieldValue = enumConstant.fieldValueAsInt();
-            if (constantFieldValue == fieldValue) {
+            if (enumConstant.getFieldValue() == fieldValue) {
                 return enumConstant;
             }
         }
-        throw new IllegalArgumentException("unknown fieldValue: " + fieldValue);
+        throw new IllegalArgumentException("no value for field value: " + fieldValue);
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * Returns the defined field value as an {@code int}.
      *
      * @return the defined field value as an {@code int}.
      */
-    int fieldValueAsInt();
+    int getFieldValue();
 }
