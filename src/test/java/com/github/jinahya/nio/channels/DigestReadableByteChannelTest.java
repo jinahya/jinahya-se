@@ -15,7 +15,7 @@
  */
 package com.github.jinahya.nio.channels;
 
-import com.github.jinahya.security.MessageDigests;
+import com.github.jinahya.security.JinahyaMessageDigests;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -42,7 +42,7 @@ public class DigestReadableByteChannelTest {
         final byte[] data = new byte[random.nextInt(65536)];
         random.nextBytes(data);
 
-        for (String algorithm : MessageDigests.SUPPORTED_ALGORITHMS) {
+        for (String algorithm : JinahyaMessageDigests.ALGORITHMS_REQUIRED_TO_BE_SUPPORTED) {
             System.out.println("algorithm: " + algorithm);
 
             final MessageDigest digest1 = MessageDigest.getInstance(algorithm);

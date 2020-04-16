@@ -24,64 +24,57 @@ import java.nio.ByteBuffer;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.security.MessageDigest;
-import java.util.Arrays;
 import java.util.List;
+
+import static java.lang.Math.min;
+import static java.util.Arrays.asList;
 
 /**
  * A utility class for {@link MessageDigest}s.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public final class MessageDigests {
+public final class JinahyaMessageDigests {
 
     /**
      * Algorithms that every implementation of the Java platform is required to support.
      */
-    public static final List<String> SUPPORTED_ALGORITHMS
-            = Arrays.asList("MD5", "SHA-1", "SHA-256");
+    public static final List<String> ALGORITHMS_REQUIRED_TO_BE_SUPPORTED = asList("MD5", "SHA-1", "SHA-256");
 
     /**
-     * Digests on given {@code digest} with bytes read from given input stream using specified {@code buffer}.
+     * Digests specified number of bytes from specified input stream using specified digest.
      *
      * @param digest the digest
      * @param input  the input stream
-     * @param buffer the buffer.
+     * @param buffer a buffer.
      * @param length the maximum number of bytes to digest; any negative value for all available bytes.
      * @return digest result
      * @throws IOException if an I/O error occurs
      */
-    public static byte[] digest(final MessageDigest digest,
-                                final InputStream input, final byte[] buffer,
+    public static byte[] digest(final MessageDigest digest, final InputStream input, final byte[] buffer,
                                 final long length)
             throws IOException {
-
         if (digest == null) {
-            throw new NullPointerException("digest");
+            throw new NullPointerException("digestis null");
         }
-
         if (input == null) {
-            throw new NullPointerException("input");
+            throw new NullPointerException("input is null");
         }
-
         if (buffer == null) {
-            throw new NullPointerException("buffer");
+            throw new NullPointerException("buffer is null");
         }
-
         if (buffer.length == 0) {
             throw new IllegalArgumentException("buffer.length == 0");
         }
-
         long count = 0L;
-        for (int read; length < 0L || count < length; count += read) {
-            final int l = length < 0L ? buffer.length
-                                      : (int) Math.min(buffer.length, length - count);
+        for (int read = 0; length < 0L || count < length; count += read) {
+            final int l = length < 0L ? buffer.length : (int) min(buffer.length, length - count);
             read = input.read(buffer, 0, l);
             if (read == -1) {
                 break;
             }
             digest.update(buffer, 0, read);
         }
-
         return digest.digest();
     }
 
@@ -231,7 +224,7 @@ public final class MessageDigests {
 
         for (int read; length < 0L || count < length; count += read) {
             final int l = length < 0L ? buffer.length
-                                      : (int) Math.min(buffer.length, length - count);
+                                      : (int) min(buffer.length, length - count);
             read = input.read(buffer, 0, l);
             if (read == -1) {
                 break;
@@ -310,8 +303,7 @@ public final class MessageDigests {
     /**
      * Creates a new instance.
      */
-    private MessageDigests() {
-
+    private JinahyaMessageDigests() {
         super();
     }
 }
