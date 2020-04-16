@@ -39,9 +39,9 @@ public class FunnelInputStream extends FilterInputStream {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Override
-    public int read(final byte[] b, final int off, final int len) throws IOException {
+    public int read(final byte[] b, int off, final int len) throws IOException {
         if (b == null) {
-            throw new NullPointerException();
+            throw new NullPointerException("b is null");
         }
         if (off < 0 || len < 0 || len > b.length - off) {
             throw new IndexOutOfBoundsException();
@@ -55,7 +55,7 @@ public class FunnelInputStream extends FilterInputStream {
                 }
                 break;
             }
-            b[off + count] = (byte) read;
+            b[off++] = (byte) read;
         }
         return count;
     }

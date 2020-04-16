@@ -34,24 +34,18 @@ import java.util.zip.ZipOutputStream;
  */
 public class Zips {
 
-    protected static File file(final File root, final ZipEntry entry)
-            throws IOException {
-
+    protected static File file(final File root, final ZipEntry entry) throws IOException {
         if (root == null) {
             throw new NullPointerException("root");
         }
-
         if (!root.isDirectory()) {
             throw new IllegalArgumentException(
                     "root is not an existing directory");
         }
-
         if (entry == null) {
             throw new NullPointerException("entry");
         }
-
         final File file = new File(root, entry.getName());
-
         File parent = file;
         if (!entry.isDirectory()) {
             final String name = entry.getName();
@@ -64,7 +58,6 @@ public class Zips {
             throw new IOException(
                     "failed to create a directory: " + parent.getPath());
         }
-
         return file;
     }
 
@@ -167,31 +160,23 @@ public class Zips {
      * @param buffer    the buffer to use
      * @throws IOException if an I/O error occurs.
      */
-    public static void unzip(final ZipInputStream stream, final File directory,
-                             final byte[] buffer)
+    public static void unzip(final ZipInputStream stream, final File directory, final byte[] buffer)
             throws IOException {
-
         if (stream == null) {
             throw new NullPointerException("stream");
         }
-
         if (directory == null) {
             throw new NullPointerException("directory");
         }
-
         if (!directory.isDirectory()) {
             throw new IllegalArgumentException("directory doesn't exist");
         }
-
         if (buffer == null) {
             throw new NullPointerException("buffer");
         }
-
         if (buffer.length == 0) {
-            throw new IllegalArgumentException(
-                    "buffer.length(" + buffer.length + ") == 0");
+            throw new IllegalArgumentException("buffer.length == 0");
         }
-
         ZipEntry entry;
         while ((entry = stream.getNextEntry()) != null) {
             final File file = file(directory, entry);
@@ -205,44 +190,35 @@ public class Zips {
     /**
      * Unzips entries from {@code zipfile} into {@code directory}.
      *
-     * @param zipfile   source zip file
+     * @param zipFile   source zip file
      * @param directory target directory to which entries going to be unzipped
-     * @param buffer
+     * @param buffer    byte buffer to use.
      * @throws IOException if an I/O error occurs.
      */
-    public static void unzip(final ZipFile zipfile, final File directory,
-                             final byte[] buffer)
-            throws IOException {
-
-        if (zipfile == null) {
-            throw new NullPointerException("zipfile");
+    public static void unzip(final ZipFile zipFile, final File directory, final byte[] buffer) throws IOException {
+        if (zipFile == null) {
+            throw new NullPointerException("zipFile");
         }
-
         if (directory == null) {
             throw new NullPointerException("directory");
         }
-
         if (!directory.isDirectory()) {
             throw new IllegalArgumentException("directory doesn't exist");
         }
-
         if (buffer == null) {
             throw new NullPointerException("buffer");
         }
-
         if (buffer.length == 0) {
-            throw new IllegalArgumentException(
-                    "buffer.length(" + buffer.length + ") == 0");
+            throw new IllegalArgumentException("buffer.length == 0");
         }
-
-        final Enumeration<? extends ZipEntry> entries = zipfile.entries();
+        final Enumeration<? extends ZipEntry> entries = zipFile.entries();
         while (entries.hasMoreElements()) {
             final ZipEntry entry = entries.nextElement();
             final File file = file(directory, entry);
             if (entry.isDirectory()) {
                 continue;
             }
-            final InputStream input = zipfile.getInputStream(entry);
+            final InputStream input = zipFile.getInputStream(entry);
             try {
                 JinahyaByteStreams.copy(input, file, buffer, -1L);
             } finally {
@@ -255,7 +231,6 @@ public class Zips {
      * Creates a new instance.
      */
     protected Zips() {
-
         super();
     }
 }

@@ -55,7 +55,7 @@ public final class JinahyaMessageDigests {
                                 final long length)
             throws IOException {
         if (digest == null) {
-            throw new NullPointerException("digestis null");
+            throw new NullPointerException("digest is null");
         }
         if (input == null) {
             throw new NullPointerException("input is null");
