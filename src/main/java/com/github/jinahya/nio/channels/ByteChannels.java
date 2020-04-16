@@ -36,16 +36,9 @@ import static java.util.concurrent.ThreadLocalRandom.current;
  */
 public final class ByteChannels {
 
-    /**
-     * @param input
-     * @param output
-     * @param length
-     * @return the actual number of bytes copied.
-     * @throws IOException if an I/O error occurs.
-     * @see FileChannel#transferTo(long, long, WritableByteChannel)
-     */
     public static long copy(final FileChannel input,
                             final WritableByteChannel output,
+
                             final long length)
             throws IOException {
 
@@ -86,14 +79,6 @@ public final class ByteChannels {
         return count;
     }
 
-    /**
-     * @param input
-     * @param output
-     * @param length
-     * @return the actual number of bytes copied.
-     * @throws IOException if an I/O error occurs.
-     * @see FileChannel#transferFrom(ReadableByteChannel, long, long)
-     */
     public static long copy(final ReadableByteChannel input,
                             final FileChannel output, final long length)
             throws IOException {

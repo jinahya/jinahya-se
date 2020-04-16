@@ -25,14 +25,6 @@ import java.lang.reflect.Modifier;
  */
 public final class JinahyaFields {
 
-    /**
-     * @param field
-     * @param delta
-     * @return
-     * @throws NoSuchFieldException
-     * @throws IllegalAccessException
-     * @deprecated
-     */
     @Deprecated
     public static Field removeModifiers(final Field field, final int delta)
             throws NoSuchFieldException, IllegalAccessException {

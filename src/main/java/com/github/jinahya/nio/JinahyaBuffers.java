@@ -133,13 +133,6 @@ public final class JinahyaBuffers {
         return (T) buffer.rewind();
     }
 
-    /**
-     * The limit is set to current position and then the position to the previously-marked position.
-     *
-     * @param <T>    buffer type parameter.
-     * @param buffer the buffer.
-     * @return
-     */
     public static <T extends Buffer> T flipToMark(final T buffer) {
 
         if (buffer == null) {

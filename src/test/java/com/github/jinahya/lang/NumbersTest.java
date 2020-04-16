@@ -15,12 +15,13 @@
  */
 package com.github.jinahya.lang;
 
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
-import org.testng.annotations.Test;
 
 import java.util.concurrent.ThreadLocalRandom;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
@@ -86,7 +87,7 @@ public class NumbersTest {
         System.arraycopy(src, srcPos, dest, destPos, length);
     }
 
-    @Test(invocationCount = 1)
+    @Test
     public static void toBytes_short_() {
 
         final short value = newShort();
@@ -94,7 +95,7 @@ public class NumbersTest {
 
         final String actual = hex(bytes);
         final String expected = String.format("%1$04x", value);
-        Assert.assertEquals(actual, expected);
+        assertEquals(actual, expected);
     }
 
     @Test
@@ -108,7 +109,7 @@ public class NumbersTest {
             final byte[] actual = Numbers.toBytes(value);
             final byte[] expected = new byte[Numbers.SHORT_BYTES];
             copyBegins(bytes, index, expected);
-            Assert.assertEquals(actual, expected);
+            assertEquals(actual, expected);
         }
     }
 
@@ -123,11 +124,11 @@ public class NumbersTest {
             final byte[] actual = Numbers.toBytes(value);
             final byte[] expected = new byte[Numbers.SHORT_BYTES];
             copyEnds(bytes, index, expected);
-            Assert.assertEquals(actual, expected);
+            assertEquals(actual, expected);
         }
     }
 
-    @Test(invocationCount = 1)
+    @Test
     public static void toBytes_int_() {
 
         final int value = newInt();
@@ -135,7 +136,7 @@ public class NumbersTest {
 
         final String actual = hex(bytes);
         final String expected = String.format("%1$08x", value);
-        Assert.assertEquals(actual, expected);
+        assertEquals(actual, expected);
     }
 
     @Test
@@ -149,7 +150,7 @@ public class NumbersTest {
             final byte[] actual = Numbers.toBytes(value);
             final byte[] expected = new byte[Numbers.INTEGER_BYTES];
             copyBegins(bytes, index, expected);
-            Assert.assertEquals(actual, expected);
+            assertEquals(actual, expected);
         }
     }
 
@@ -164,11 +165,11 @@ public class NumbersTest {
             final byte[] actual = Numbers.toBytes(value);
             final byte[] expected = new byte[Numbers.INTEGER_BYTES];
             copyEnds(bytes, index, expected);
-            Assert.assertEquals(actual, expected);
+            assertEquals(actual, expected);
         }
     }
 
-    @Test(enabled = true, invocationCount = 1)
+    @Test
     public static void toBytes_float_() {
 
         final float value = newFloat();
@@ -177,10 +178,10 @@ public class NumbersTest {
         final String actual = hex(bytes);
         final String expected
                 = String.format("%1$08x", Float.floatToRawIntBits(value));
-        Assert.assertEquals(actual, expected);
+        assertEquals(actual, expected);
     }
 
-    @Test(enabled = true)
+    @Test
     public static void toFloat_() {
 
         final byte[] bytes = new byte[128];
@@ -194,20 +195,20 @@ public class NumbersTest {
             final int destPos = Math.max(expected.length - index - 1, 0);
             final int length = Math.min(expected.length, index + 1);
             System.arraycopy(bytes, srcPos, expected, destPos, length);
-            Assert.assertEquals(actual, expected);
+            assertEquals(actual, expected);
         }
     }
 
-    @Test(invocationCount = 1)
+    @Test
     public static void toBytes_long_() {
 
         final long value = newLong();
         final byte[] bytes = Numbers.toBytes(value);
-        Assert.assertEquals(bytes.length, Numbers.LONG_BYTES);
+        assertEquals(bytes.length, Numbers.LONG_BYTES);
 
         final String actual = hex(bytes);
         final String expected = String.format("%1$016x", value);
-        Assert.assertEquals(actual, expected);
+        assertEquals(actual, expected);
     }
 
     @Test
@@ -221,7 +222,7 @@ public class NumbersTest {
             final byte[] actual = Numbers.toBytes(value);
             final byte[] expected = new byte[Numbers.LONG_BYTES];
             copyBegins(bytes, index, expected);
-            Assert.assertEquals(actual, expected);
+            assertEquals(actual, expected);
         }
     }
 
@@ -236,21 +237,21 @@ public class NumbersTest {
             final byte[] actual = Numbers.toBytes(value);
             final byte[] expected = new byte[Numbers.LONG_BYTES];
             copyEnds(bytes, index, expected);
-            Assert.assertEquals(actual, expected);
+            assertEquals(actual, expected);
         }
     }
 
-    @Test(invocationCount = 1)
+    @Test
     public static void toBytes_double_() {
 
         final double value = newDouble();
         final byte[] bytes = Numbers.toBytes(value);
-        Assert.assertEquals(bytes.length, Numbers.DOUBLE_BYTES);
+        assertEquals(bytes.length, Numbers.DOUBLE_BYTES);
 
         final String actual = hex(bytes);
         final String expected
                 = String.format("%1$016x", Double.doubleToRawLongBits(value));
-        Assert.assertEquals(actual, expected);
+        assertEquals(actual, expected);
     }
 
     @Test
@@ -264,7 +265,7 @@ public class NumbersTest {
             final byte[] actual = Numbers.toBytes(value);
             final byte[] expected = new byte[Numbers.DOUBLE_BYTES];
             copyBegins(bytes, index, expected);
-            Assert.assertEquals(actual, expected);
+            assertEquals(actual, expected);
         }
     }
 
@@ -279,7 +280,7 @@ public class NumbersTest {
             final byte[] actual = Numbers.toBytes(value);
             final byte[] expected = new byte[Numbers.DOUBLE_BYTES];
             copyEnds(bytes, index, expected);
-            Assert.assertEquals(actual, expected);
+            assertEquals(actual, expected);
         }
     }
 }

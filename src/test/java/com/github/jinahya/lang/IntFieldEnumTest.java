@@ -15,11 +15,11 @@
  */
 package com.github.jinahya.lang;
 
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Objects;
 
-import static org.testng.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * @param <E> enum type parameter

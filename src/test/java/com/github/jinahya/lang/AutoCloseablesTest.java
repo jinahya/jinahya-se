@@ -15,8 +15,8 @@
  */
 package com.github.jinahya.lang;
 
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
-import org.testng.annotations.Test;
 
 import static java.lang.invoke.MethodHandles.lookup;
 import static org.slf4j.LoggerFactory.getLogger;

@@ -18,26 +18,41 @@ package com.github.jinahya.util.function;
 import java.util.function.Consumer;
 
 /**
+ * A utility class for {@link Consumer}.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public final class Consumers {
+public final class JinahyaConsumers {
 
-    public static final Consumer<?> EMPTY = o -> {
+    /**
+     * A consumer discards accepted value.
+     */
+    public static final Consumer EMPTY = o -> {
     };
 
-    public static <T> Consumer<T> of(final Consumer<T> consumer) {
-
-        return consumer;
-    }
-
-    public static <T> Consumer<T> empty() {
-
+    /**
+     * Returns a consumer discards the value accepted.
+     *
+     * @param <T> value type parameter
+     * @return a consumer discards the value accepted.
+     */
+    public static <T> Consumer<T> discarding() {
         return t -> {
         };
     }
 
-    private Consumers() {
+    /**
+     * Returns specified consumer.
+     *
+     * @param consumer the consumer.
+     * @param <T>      input type parameter
+     * @return specified consumer.
+     */
+    public static <T> Consumer<T> of(final Consumer<T> consumer) {
+        return consumer;
+    }
 
+    private JinahyaConsumers() {
         super();
     }
 }

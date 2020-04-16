@@ -65,12 +65,6 @@ public class JinahyaThreadLocalRandoms {
                 .map(i -> (byte) i);
     }
 
-    /**
-     * @param randomNumberOrigin
-     * @param randomNumberBound
-     * @return
-     * @see ThreadLocalRandom#ints(int, int)
-     */
     public static IntStream bytes(final byte randomNumberOrigin,
                                   final byte randomNumberBound) {
 

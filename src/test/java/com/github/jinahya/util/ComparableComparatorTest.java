@@ -16,12 +16,13 @@
 package com.github.jinahya.util;
 
 import com.github.jinahya.util.ComparableComparator.Nulls;
-import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @param <T>
@@ -42,7 +43,7 @@ public class ComparableComparatorTest<T extends ComparableComparator<U>, U exten
             Collections.sort(list1, comparator);
             final List<U> list2 = new ArrayList<>(list);
             list2.sort((u1, u2) -> u1.compareTo(u2));
-            Assert.assertEquals(list1, list2);
+            assertEquals(list1, list2);
         }
 
         for (final Nulls nulls : Nulls.values()) {

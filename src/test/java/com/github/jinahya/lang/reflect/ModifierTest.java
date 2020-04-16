@@ -16,13 +16,13 @@
 package com.github.jinahya.lang.reflect;
 
 import com.github.jinahya.lang.IntFieldEnum;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.testng.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;

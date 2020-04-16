@@ -15,10 +15,11 @@
  */
 package com.github.jinahya.lang;
 
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @param <E> enum type parameter
@@ -49,7 +50,7 @@ public abstract class ComparableFieldEnumTest<E extends Enum<E> & ComparableFiel
 
         final F[] fieldValues = FieldEnums.fieldValues(enumType, fieldType);
         for (int i = 1; i < fieldValues.length; i++) {
-            Assert.assertTrue(fieldValues[i - 1].compareTo(fieldValues[i]) < 0);
+            assertTrue(fieldValues[i - 1].compareTo(fieldValues[i]) < 0);
         }
     }
 }

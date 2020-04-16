@@ -15,8 +15,7 @@
  */
 package com.github.jinahya.security;
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -26,6 +25,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
@@ -41,7 +42,7 @@ public class MessageDigestsTest {
                                 MessageDigests.SUPPORTED_ALGORITHMS.size())));
     }
 
-    @Test(enabled = false, invocationCount = 1)
+    @Test
     public void test() throws NoSuchAlgorithmException, IOException {
 
         final Random random = ThreadLocalRandom.current();
@@ -60,7 +61,7 @@ public class MessageDigestsTest {
                     digest, Channels.newChannel(new ByteArrayInputStream(data)),
                     ByteBuffer.allocate(31), -1L);
 
-            Assert.assertEquals(hash1, hash2);
+            assertEquals(hash1, hash2);
         }
     }
 }

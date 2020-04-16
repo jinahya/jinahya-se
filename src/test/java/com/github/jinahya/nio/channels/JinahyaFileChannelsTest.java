@@ -15,8 +15,8 @@
  */
 package com.github.jinahya.nio.channels;
 
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
-import org.testng.annotations.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

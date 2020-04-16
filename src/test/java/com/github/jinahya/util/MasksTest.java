@@ -15,41 +15,39 @@
  */
 package com.github.jinahya.util;
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.ThreadLocalRandom;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class MasksTest {
 
-    @Test(invocationCount = 1)
+    @Test
     public static void testPutOnWithSingleMask() {
 
         final int mask = ThreadLocalRandom.current().nextInt();
 
-        Assert.assertEquals(Masks.putOn(0x00, mask), mask);
+        assertEquals(Masks.putOn(0x00, mask), mask);
     }
 
-    @Test(expectedExceptions = {NullPointerException.class})
+    @Test
     public static void testPutOnWithNullMasks() {
 
         Masks.putOn(0, (int[]) null);
     }
 
-    @Test(invocationCount = 1)
+    @Test
     public void testTakeOffWithSingleMask() {
-
         final int mask = ThreadLocalRandom.current().nextInt();
-
-        Assert.assertEquals(Masks.takeOff(mask, mask), 0x00);
+        assertEquals(Masks.takeOff(mask, mask), 0x00);
     }
 
-    @Test(expectedExceptions = {NullPointerException.class})
+    @Test
     public static void testTakeOffWithNullMasks() {
-
         Masks.takeOff(0, (int[]) null);
     }
 }

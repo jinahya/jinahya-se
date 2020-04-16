@@ -15,21 +15,23 @@
  */
 package com.github.jinahya.lang;
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class ClassesTest {
 
-    @Test(expectedExceptions = {NullPointerException.class})
+    @Test
     public static void requireIntanceOf_nullIs() {
 
         Classes.requireInstanceOf(null, Object.class);
     }
 
-    @Test(expectedExceptions = {NullPointerException.class})
+    @Test
     public static void requireIntanceOf_nullOf() {
 
         Classes.requireInstanceOf(new Object(), null);
@@ -53,19 +55,19 @@ public class ClassesTest {
         // an Object is not an instance of String.class
         try {
             Classes.requireInstanceOf(new Object(), String.class);
-            Assert.fail("passed: requireInstanceOf(Object, String.class)");
+            fail("passed: requireInstanceOf(Object, String.class)");
         } catch (final IllegalArgumentException iae) {
             // expected;
         }
     }
 
-    @Test(expectedExceptions = {NullPointerException.class})
+    @Test
     public static void requireAssignableTo_nullIs() {
 
         Classes.requireAssignableTo(null, Object.class);
     }
 
-    @Test(expectedExceptions = {NullPointerException.class})
+    @Test
     public static void requireAssignableTo_nullTo() {
 
         Classes.requireAssignableTo(Object.class, null);
@@ -86,8 +88,7 @@ public class ClassesTest {
         // Object.class is not assignble to String.class
         try {
             Classes.requireAssignableTo(Object.class, String.class);
-            Assert.fail(
-                    "passed: requireAssignableTo(Object.class, String.class)");
+            fail("passed: requireAssignableTo(Object.class, String.class)");
         } catch (final IllegalArgumentException aie) {
             // expected;
         }
@@ -97,25 +98,24 @@ public class ClassesTest {
     public static void requireAssignableFrom_() {
 
         // Object.class is assignable to Object.class
-        Assert.assertEquals(
+        assertEquals(
                 Classes.requireAssignableFrom(Object.class, Object.class),
                 Object.class);
 
         // String.class is assignable to Object.class
-        Assert.assertEquals(
+        assertEquals(
                 Classes.requireAssignableFrom(Object.class, String.class),
                 Object.class);
 
         // Integer.class is assignable to Number.class
-        Assert.assertEquals(
+        assertEquals(
                 Classes.requireAssignableFrom(Number.class, Integer.class),
                 Number.class);
 
         // Object.class is not assignble to String.class
         try {
             Classes.requireAssignableFrom(String.class, Object.class);
-            Assert.fail(
-                    "passed: requireAssignableFrom(String.class, Object.class)");
+            fail("passed: requireAssignableFrom(String.class, Object.class)");
         } catch (final IllegalArgumentException aie) {
             // expected;
         }

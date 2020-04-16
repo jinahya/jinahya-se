@@ -28,24 +28,12 @@ import static java.util.Optional.ofNullable;
  */
 public final class CodeSources {
 
-    /**
-     * @param domain
-     * @return
-     * @see ProtectionDomain#getCodeSource()
-     * @see CodeSource#getLocation()
-     */
     public static Optional<URL> getLocation(final ProtectionDomain domain) {
 
         return ofNullable(requireNonNull(domain, "null domain").getCodeSource())
                 .map(CodeSource::getLocation);
     }
 
-    /**
-     * @param klass
-     * @return
-     * @see Class#getProtectionDomain()
-     * @see #getLocation(java.security.ProtectionDomain)
-     */
     public static Optional<URL> getLocation(final Class<?> klass) {
 
         return getLocation(

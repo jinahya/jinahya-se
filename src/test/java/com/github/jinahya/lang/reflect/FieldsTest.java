@@ -15,11 +15,12 @@
  */
 package com.github.jinahya.lang.reflect;
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
@@ -34,13 +35,13 @@ public class FieldsTest {
 
         final Field field = FieldsTest.class.getDeclaredField("F");
         int modifiers = field.getModifiers();
-        Assert.assertTrue(Modifier.isPrivate(modifiers));
-        Assert.assertTrue(Modifier.isFinal(modifiers));
+        assertTrue(Modifier.isPrivate(modifiers));
+        assertTrue(Modifier.isFinal(modifiers));
 
         JinahyaFields.unprivate(field);
         modifiers = field.getModifiers();
-        Assert.assertTrue(!Modifier.isPrivate(modifiers));
-        Assert.assertTrue(Modifier.isFinal(modifiers));
+        assertTrue(!Modifier.isPrivate(modifiers));
+        assertTrue(Modifier.isFinal(modifiers));
     }
 
     @Test
@@ -49,12 +50,12 @@ public class FieldsTest {
 
         final Field field = FieldsTest.class.getDeclaredField("F");
         int modifiers = field.getModifiers();
-        Assert.assertTrue(Modifier.isPrivate(modifiers));
-        Assert.assertTrue(Modifier.isFinal(modifiers));
+        assertTrue(Modifier.isPrivate(modifiers));
+        assertTrue(Modifier.isFinal(modifiers));
 
         JinahyaFields.unfinal(field);
         modifiers = field.getModifiers();
-        Assert.assertTrue(Modifier.isPrivate(modifiers));
-        Assert.assertTrue(!Modifier.isFinal(modifiers));
+        assertTrue(Modifier.isPrivate(modifiers));
+        assertTrue(!Modifier.isFinal(modifiers));
     }
 }

@@ -156,10 +156,6 @@ public final class Numbers {
         return value;
     }
 
-    /**
-     * @param bytes
-     * @return
-     */
     public static short toShortEnds(final byte[] bytes) {
 
         return toShortEnds(bytes, bytes.length - 1);
@@ -230,11 +226,6 @@ public final class Numbers {
         return toIntBegins(bytes, 0);
     }
 
-    /**
-     * @param bytes
-     * @param index
-     * @return
-     */
     public static int toIntEnds(final byte[] bytes, final int index) {
 
         if (bytes == null) {

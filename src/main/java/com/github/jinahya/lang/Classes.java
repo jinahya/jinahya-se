@@ -81,14 +81,6 @@ public final class Classes {
         return is;
     }
 
-    /**
-     * @param is
-     * @param from
-     * @return {@code is} if it's assignable from {@code from}.
-     * @throws NullPointerException     if {@code is} is {@code null}.
-     * @throws NullPointerException     if {@code from} is {@code null}.
-     * @throws IllegalArgumentException if {@code is} is not assignable from {@code from}.
-     */
     public static Class<?> requireAssignableFrom(final Class<?> is,
                                                  final Class<?> from) {
 

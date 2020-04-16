@@ -106,14 +106,6 @@ public final class Strings {
         return false;
     }
 
-    /**
-     * @param string
-     * @param ch
-     * @param fromIndex
-     * @param ordinal
-     * @return
-     * @see String#indexOf(int, int)
-     */
     public static int indexOf(final String string, final int ch, int fromIndex,
                               int ordinal) {
 
@@ -159,14 +151,6 @@ public final class Strings {
         return indices;
     }
 
-    /**
-     * @param string
-     * @param str
-     * @param fromIndex
-     * @param ordinal
-     * @return
-     * @see String#indexOf(java.lang.String, int)
-     */
     public static int indexOf(final String string, final String str,
                               int fromIndex, int ordinal) {
 

@@ -18,7 +18,7 @@ package com.github.jinahya.util.function;
 /**
  * Represents a predicate (boolean-valued function) of one boolean-valued argument. This is the boolean-consuming
  * primitive type specialization of {@link java.util.function.Predicate}.
- * <p/>
+ * <p>
  * This is a
  * <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html">functional
  * interface</a> whose functional method is {@link #test(boolean)}.
@@ -49,7 +49,7 @@ public interface BooleanPredicate {
      * Returns a composed predicate that represents a short-circuiting logical AND of this predicate and another. When
      * evaluating the composed predicate, if this predicate is {@code false}, then the {@code other} predicate is not
      * evaluated.
-     * <p/>
+     * <p>
      * Any exceptions thrown during evaluation of either predicate are relayed to the caller; if evaluation of this
      * predicate throws an exception, the {@code other} predicate will not be evaluated.
      *
@@ -67,7 +67,7 @@ public interface BooleanPredicate {
      * Returns a composed predicate that represents a short-circuiting logical OR of this predicate and another. When
      * evaluating the composed predicate, if this predicate is {@code true}, then the {@code other} predicate is not
      * evaluated.
-     * <p/>
+     * <p>
      * Any exceptions thrown during evaluation of either predicate are relayed to the caller; if evaluation of this
      * predicate throws an exception, the {@code other} predicate will not be evaluated.
      *

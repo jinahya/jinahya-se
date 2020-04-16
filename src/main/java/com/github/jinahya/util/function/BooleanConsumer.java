@@ -19,11 +19,11 @@ package com.github.jinahya.util.function;
  * Represents an operation that accepts a single {@code boolean}-valued argument and returns no results. This is the
  * primitive type specialization of {@link java.util.function.Consumer} for {@code boolean}. Unlike most other
  * functional interfaces, {@code BooleanConsumer} is expected to operate via side-effects.
- * <p/>
+ * <p>
  * This is a
  * <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html">functional
  * interface</a> whose functional method is {@link #accept(boolean)}.
- * <p/>
+ * <p>
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */

@@ -16,7 +16,7 @@
 package com.github.jinahya.util;
 
 import com.github.jinahya.lang.IntFieldEnumTest;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;
 

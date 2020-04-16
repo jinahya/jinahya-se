@@ -22,11 +22,6 @@ import java.lang.reflect.Modifier;
  */
 public final class JinahyaModifiers {
 
-    /**
-     * @param modifiers
-     * @return
-     * @see Modifier#classModifiers()
-     */
     public static boolean isAllClassModifiers(final int modifiers) {
 
         return (Modifier.classModifiers() & modifiers) == modifiers;
@@ -42,11 +37,6 @@ public final class JinahyaModifiers {
         return modifiers;
     }
 
-    /**
-     * @param modifiers
-     * @return
-     * @see Modifier#fieldModifiers()
-     */
     public static boolean isAllFieldModifiers(final int modifiers) {
 
         return (Modifier.fieldModifiers() & modifiers) == modifiers;
@@ -62,11 +52,6 @@ public final class JinahyaModifiers {
         return modifiers;
     }
 
-    /**
-     * @param modifiers
-     * @return
-     * @see Modifier#interfaceModifiers()
-     */
     public static boolean isAllInterfaceModifiers(final int modifiers) {
 
         return (Modifier.fieldModifiers() & modifiers) == modifiers;

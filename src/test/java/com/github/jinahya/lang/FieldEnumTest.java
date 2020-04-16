@@ -15,14 +15,15 @@
  */
 package com.github.jinahya.lang;
 
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
-import org.testng.annotations.Test;
 
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * @param <E> enum type parameter
@@ -55,7 +56,7 @@ public abstract class FieldEnumTest<E extends Enum<E> & FieldEnum<E, F>, F> {
         for (final E enumConstant : enumType.getEnumConstants()) {
             final F fieldValue = enumConstant.fieldValue();
             if (!fieldValues.add(fieldValue)) {
-                Assert.fail("duplicate field value: " + fieldValue);
+                fail("duplicate field value: " + fieldValue);
             }
         }
     }

@@ -16,8 +16,7 @@
 package com.github.jinahya.nio.channels;
 
 import com.github.jinahya.security.MessageDigests;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -28,12 +27,14 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class DigestReadableByteChannelTest {
 
-    @Test(enabled = false, invocationCount = 1)
+    @Test
     public void test() throws NoSuchAlgorithmException, IOException {
 
         final Random random = ThreadLocalRandom.current();
@@ -67,7 +68,7 @@ public class DigestReadableByteChannelTest {
             }
             System.out.println();
 
-            Assert.assertEquals(actual, expected);
+            assertEquals(actual, expected);
         }
     }
 }

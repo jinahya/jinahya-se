@@ -15,15 +15,17 @@
  */
 package com.github.jinahya.util;
 
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
-import org.testng.annotations.Test;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
@@ -60,8 +62,8 @@ public class JinahyaRandomTest {
 
         final byte[] bytes = random.nextBytes(minimumLength, maximumLength);
 
-        Assert.assertTrue(bytes.length >= minimumLength);
-        Assert.assertTrue(bytes.length < maximumLength);
+        assertTrue(bytes.length >= minimumLength);
+        assertTrue(bytes.length < maximumLength);
     }
 
     @Test
@@ -69,7 +71,7 @@ public class JinahyaRandomTest {
 
         try {
             new JinahyaRandom(null);
-            Assert.fail("passed: JinahyaRandom(null)");
+            fail("passed: JinahyaRandom(null)");
         } catch (NullPointerException npe) {
             // expected
         }
@@ -117,7 +119,7 @@ public class JinahyaRandomTest {
 
         try {
             random.nextInt(0, -1);
-            Assert.fail("passed: nextInt(0, -1)");
+            fail("passed: nextInt(0, -1)");
         } catch (IllegalArgumentException iae) {
         }
 
@@ -145,27 +147,27 @@ public class JinahyaRandomTest {
 
         try {
             random.nextUnsignedInt(0, 1);
-            Assert.fail("passed: nextUnsignedInt(0, 0)");
+            fail("passed: nextUnsignedInt(0, 0)");
         } catch (IllegalArgumentException iae) {
             // expected
         }
 
         try {
             random.nextUnsignedInt(1, 0);
-            Assert.fail("passed: nextUnsignedInt(1, 0)");
+            fail("passed: nextUnsignedInt(1, 0)");
         } catch (IllegalArgumentException iae) {
             // expected
         }
 
         try {
             random.nextUnsignedInt(1, Integer.SIZE);
-            Assert.fail("passed: nextUnsignedInt(1, Integer.SIZE");
+            fail("passed: nextUnsignedInt(1, Integer.SIZE");
         } catch (IllegalArgumentException iae) {
             // expected
         }
     }
 
-    @Test(invocationCount = 1)
+    @Test
     public void testNextUnsignedInt() {
 
         final JinahyaRandom random
@@ -177,19 +179,19 @@ public class JinahyaRandomTest {
 
         final int minimumBitLength
                 = ThreadLocalRandom.current().nextInt(31) + 1;
-        Assert.assertTrue(minimumBitLength > 0);
-        Assert.assertTrue(minimumBitLength < Integer.SIZE);
+        assertTrue(minimumBitLength > 0);
+        assertTrue(minimumBitLength < Integer.SIZE);
 
         final int maximumBitLength
                 = ThreadLocalRandom.current().nextInt(
                 Integer.SIZE - minimumBitLength) + minimumBitLength;
-        Assert.assertTrue(maximumBitLength >= minimumBitLength);
-        Assert.assertTrue(maximumBitLength < Integer.SIZE);
+        assertTrue(maximumBitLength >= minimumBitLength);
+        assertTrue(maximumBitLength < Integer.SIZE);
 
         final int nextUnsignedInt
                 = random.nextUnsignedInt(minimumBitLength, maximumBitLength);
-        Assert.assertTrue(nextUnsignedInt >= 0);
-        Assert.assertTrue(nextUnsignedInt >> maximumBitLength == 0);
+        assertTrue(nextUnsignedInt >= 0);
+        assertTrue(nextUnsignedInt >> maximumBitLength == 0);
     }
 
     @Test
@@ -200,27 +202,27 @@ public class JinahyaRandomTest {
 
         try {
             random.nextSignedInt(1, 1);
-            Assert.fail("passed: nextSignedInt(1, 1)");
+            fail("passed: nextSignedInt(1, 1)");
         } catch (IllegalArgumentException iae) {
             // expected
         }
 
         try {
             random.nextSignedInt(2, 1);
-            Assert.fail("passed: nextSignedInt(2, 1)");
+            fail("passed: nextSignedInt(2, 1)");
         } catch (IllegalArgumentException iae) {
             // expected
         }
 
         try {
             random.nextSignedInt(2, Integer.SIZE + 1);
-            Assert.fail("passed: nextSignedInt(2, Integer.SIZE + 1)");
+            fail("passed: nextSignedInt(2, Integer.SIZE + 1)");
         } catch (IllegalArgumentException iae) {
             // expected
         }
     }
 
-    @Test(invocationCount = 1)
+    @Test
     public void testNextSignedInt() {
 
         final JinahyaRandom random
@@ -232,22 +234,22 @@ public class JinahyaRandomTest {
 
         final int minimumBitLength
                 = ThreadLocalRandom.current().nextInt(Integer.SIZE - 1) + 2;
-        Assert.assertTrue(minimumBitLength > 1);
-        Assert.assertTrue(minimumBitLength <= Integer.SIZE);
+        assertTrue(minimumBitLength > 1);
+        assertTrue(minimumBitLength <= Integer.SIZE);
 
         final int maximumBitLength
                 = ThreadLocalRandom.current().nextInt(
                 Integer.SIZE + 1 - minimumBitLength) + minimumBitLength;
-        Assert.assertTrue(maximumBitLength >= minimumBitLength);
-        Assert.assertTrue(maximumBitLength <= Integer.SIZE);
+        assertTrue(maximumBitLength >= minimumBitLength);
+        assertTrue(maximumBitLength <= Integer.SIZE);
 
         final int signedInt
                 = random.nextSignedInt(minimumBitLength, maximumBitLength);
         if (maximumBitLength < Integer.SIZE) {
             if (signedInt >= 0) {
-                Assert.assertTrue(signedInt >> maximumBitLength == 0);
+                assertTrue(signedInt >> maximumBitLength == 0);
             } else {
-                Assert.assertTrue(signedInt >> maximumBitLength == -1);
+                assertTrue(signedInt >> maximumBitLength == -1);
             }
         }
     }
@@ -260,26 +262,26 @@ public class JinahyaRandomTest {
 
         try {
             random.nextSignedLong(1, 1);
-            Assert.fail("passed: nextSignedLong(1, 1)");
+            fail("passed: nextSignedLong(1, 1)");
         } catch (IllegalArgumentException iae) {
         }
 
         try {
             random.nextSignedLong(2, 1);
-            Assert.fail("passed: nextSignedLong(2, 1)");
+            fail("passed: nextSignedLong(2, 1)");
         } catch (IllegalArgumentException iae) {
             // expected
         }
 
         try {
             random.nextSignedLong(2, Long.SIZE + 1);
-            Assert.fail("passed: nextSignedLong(2, Long.SIZE + 1)");
+            fail("passed: nextSignedLong(2, Long.SIZE + 1)");
         } catch (IllegalArgumentException iae) {
             // expected
         }
     }
 
-    @Test(invocationCount = 1)
+    @Test
     public void testNextSignedLong() {
 
         final JinahyaRandom random
@@ -291,22 +293,22 @@ public class JinahyaRandomTest {
 
         final int minimumBitLength
                 = ThreadLocalRandom.current().nextInt(Long.SIZE - 1) + 2;
-        Assert.assertTrue(minimumBitLength > 1);
-        Assert.assertTrue(minimumBitLength <= Long.SIZE);
+        assertTrue(minimumBitLength > 1);
+        assertTrue(minimumBitLength <= Long.SIZE);
 
         final int maximumBitLength
                 = ThreadLocalRandom.current().nextInt(
                 Long.SIZE + 1 - minimumBitLength) + minimumBitLength;
-        Assert.assertTrue(maximumBitLength >= minimumBitLength);
-        Assert.assertTrue(maximumBitLength <= Long.SIZE);
+        assertTrue(maximumBitLength >= minimumBitLength);
+        assertTrue(maximumBitLength <= Long.SIZE);
 
         final long signedLong
                 = random.nextSignedLong(minimumBitLength, maximumBitLength);
         if (maximumBitLength < Long.SIZE) {
             if (signedLong >= 0L) {
-                Assert.assertTrue(signedLong >> maximumBitLength == 0L);
+                assertTrue(signedLong >> maximumBitLength == 0L);
             } else {
-                Assert.assertTrue(signedLong >> maximumBitLength == -1L);
+                assertTrue(signedLong >> maximumBitLength == -1L);
             }
         }
     }
@@ -319,27 +321,27 @@ public class JinahyaRandomTest {
 
         try {
             random.nextUnsignedLong(0, 0);
-            Assert.fail("passed: nextUnsignedLong(0, 0)");
+            fail("passed: nextUnsignedLong(0, 0)");
         } catch (IllegalArgumentException iae) {
             // expected
         }
 
         try {
             random.nextUnsignedLong(1, 0);
-            Assert.fail("passed: nextUnsignedLong(1, 0)");
+            fail("passed: nextUnsignedLong(1, 0)");
         } catch (IllegalArgumentException iae) {
             // expected
         }
 
         try {
             random.nextUnsignedLong(1, Long.SIZE);
-            Assert.fail("passed: nextUnsignedLong(0, Long.SIZE");
+            fail("passed: nextUnsignedLong(0, Long.SIZE");
         } catch (IllegalArgumentException iae) {
             // expected
         }
     }
 
-    @Test(invocationCount = 1)
+    @Test
     public void testNextUnsignedLong() {
 
         final JinahyaRandom random
@@ -351,19 +353,19 @@ public class JinahyaRandomTest {
 
         final int minimumBitLength
                 = ThreadLocalRandom.current().nextInt(Long.SIZE - 1) + 1;
-        Assert.assertTrue(minimumBitLength >= 1);
-        Assert.assertTrue(minimumBitLength < Long.SIZE);
+        assertTrue(minimumBitLength >= 1);
+        assertTrue(minimumBitLength < Long.SIZE);
 
         final int maximumBitLength
                 = ThreadLocalRandom.current().nextInt(Long.SIZE - minimumBitLength)
                   + minimumBitLength;
-        Assert.assertTrue(maximumBitLength >= minimumBitLength);
-        Assert.assertTrue(maximumBitLength < Long.SIZE);
+        assertTrue(maximumBitLength >= minimumBitLength);
+        assertTrue(maximumBitLength < Long.SIZE);
 
         final long unsignedLong
                 = random.nextUnsignedLong(minimumBitLength, maximumBitLength);
 
-        Assert.assertTrue(unsignedLong >= 0L);
-        Assert.assertTrue(unsignedLong >> maximumBitLength == 0L);
+        assertTrue(unsignedLong >= 0L);
+        assertTrue(unsignedLong >> maximumBitLength == 0L);
     }
 }

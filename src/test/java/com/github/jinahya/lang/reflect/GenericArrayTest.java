@@ -15,7 +15,7 @@
  */
 package com.github.jinahya.lang.reflect;
 
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
