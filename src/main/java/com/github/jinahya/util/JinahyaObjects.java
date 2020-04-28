@@ -11,7 +11,7 @@ public final class JinahyaObjects {
      * Checks that the specified object reference is not {@code null} and applies it to the specified function.
      *
      * @param obj      the object reference to check for nullability.
-     * @param function the function to be applied with {@code obj}.
+     * @param function the function to be applied with the {@code obj}.
      * @param <T>      the type of the reference
      * @param <R>      the type of the result of the {@code function}
      * @return the result of the function.
