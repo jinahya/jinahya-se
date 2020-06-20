@@ -22,9 +22,13 @@ import java.util.function.Supplier;
 /**
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public final class Suppliers {
+public final class JinahyaSuppliers {
 
     private static final Supplier<?> SUPPLYING_NULL = () -> null;
+
+    private static final Supplier<Boolean> SUPPLYING_TRUE = () -> Boolean.TRUE;
+
+    private static final Supplier<Boolean> SUPPLYING_FALSE = () -> Boolean.FALSE;
 
     public static <T> Supplier<T> cacheable(final Supplier<T> wrappee) {
 
@@ -61,7 +65,15 @@ public final class Suppliers {
         return (Supplier<T>) SUPPLYING_NULL;
     }
 
-    private Suppliers() {
+    public static Supplier<Boolean> supplyingTrue() {
+        return SUPPLYING_TRUE;
+    }
+
+    public static Supplier<Boolean> supplyingFalse() {
+        return SUPPLYING_FALSE;
+    }
+
+    private JinahyaSuppliers() {
         throw new AssertionError("instantiation is not allowed");
     }
 }
