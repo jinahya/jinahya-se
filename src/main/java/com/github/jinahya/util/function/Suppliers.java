@@ -24,7 +24,7 @@ import java.util.function.Supplier;
  */
 public final class Suppliers {
 
-    private static final Supplier<?> NULL = () -> null;
+    private static final Supplier<?> SUPPLYING_NULL = () -> null;
 
     public static <T> Supplier<T> cacheable(final Supplier<T> wrappee) {
 
@@ -58,10 +58,10 @@ public final class Suppliers {
 
     @SuppressWarnings({"unchecked"})
     public static <T> Supplier<T> supplyingNull() {
-        return (Supplier<T>) NULL;
+        return (Supplier<T>) SUPPLYING_NULL;
     }
 
     private Suppliers() {
-        super();
+        throw new AssertionError("instantiation is not allowed");
     }
 }
