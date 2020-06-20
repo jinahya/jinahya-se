@@ -24,6 +24,8 @@ import java.util.function.Supplier;
  */
 public final class Suppliers {
 
+    private static final Supplier<?> NULL = () -> null;
+
     public static <T> Supplier<T> cacheable(final Supplier<T> wrappee) {
 
         final List<T> holder = new ArrayList<>(1);
@@ -50,18 +52,16 @@ public final class Suppliers {
         return supplier;
     }
 
-    public static <T> Supplier<T> supplying(final T supplied) {
-
-        return of(() -> supplied);
+    public static <T> Supplier<T> supplying(final T value) {
+        return () -> value;
     }
 
+    @SuppressWarnings({"unchecked"})
     public static <T> Supplier<T> supplyingNull() {
-
-        return supplying(null);
+        return (Supplier<T>) NULL;
     }
 
     private Suppliers() {
-
         super();
     }
 }
