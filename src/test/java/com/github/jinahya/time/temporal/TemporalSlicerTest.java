@@ -19,6 +19,28 @@ class TemporalSlicerTest {
     class LocalDateTest {
 
         @Test
+        void _Day_1Day() {
+            final LocalDate startInclusive = LocalDate.now();
+            final LocalDate endExclusive = startInclusive.plusDays(1L);
+            log.debug("startInclusive: {}", startInclusive);
+            log.debug("endInclusive: {}", endExclusive);
+            TemporalSlicer.slice(
+                    startInclusive,
+                    endExclusive,
+                    UnaryOperator.identity(),
+                    d -> d.plusDays(1L),
+                    UnaryOperator.identity(),
+                    s -> {
+                        log.debug("slice: {}", s);
+                        assertThat(s.getStartInclusive()).isAfterOrEqualTo(startInclusive);
+                        assertThat(s.getEndExclusive()).isBeforeOrEqualTo(endExclusive);
+                    }
+            );
+            log.debug("startInclusive: {}", startInclusive);
+            log.debug("endInclusive: {}", endExclusive);
+        }
+
+        @Test
         void _Day_30Days() {
             final LocalDate startInclusive = LocalDate.now();
             final LocalDate endExclusive = startInclusive.plusDays(30L);
