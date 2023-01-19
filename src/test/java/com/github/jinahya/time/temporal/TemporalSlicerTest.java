@@ -5,8 +5,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -31,7 +34,11 @@ class TemporalSlicerTest {
                     d -> d.plusDays(1L),
                     UnaryOperator.identity(),
                     s -> {
-                        log.debug("slice: {}", s);
+                        log.debug("slice: {}, period: {}", s, s.toPeriod(Function.identity()));
+                        try {
+                            log.debug("duration: {}", s.toDuration());
+                        } catch (final DateTimeException dte) {
+                        }
                         assertThat(s.getStartInclusive()).isAfterOrEqualTo(startInclusive);
                         assertThat(s.getEndExclusive()).isBeforeOrEqualTo(endExclusive);
                     }
@@ -53,7 +60,11 @@ class TemporalSlicerTest {
                     d -> d.plusDays(1L),
                     UnaryOperator.identity(),
                     s -> {
-                        log.debug("slice: {}", s);
+                        log.debug("slice: {}, period: {}", s, s.toPeriod(Function.identity()));
+                        try {
+                            log.debug("duration: {}", s.toDuration());
+                        } catch (final DateTimeException dte) {
+                        }
                         assertThat(s.getStartInclusive()).isAfterOrEqualTo(startInclusive);
                         assertThat(s.getEndExclusive()).isBeforeOrEqualTo(endExclusive);
                     }
@@ -80,6 +91,36 @@ class TemporalSlicerTest {
                     UnaryOperator.identity(),
                     s -> {
                         log.debug("slice: {}", s);
+                        try {
+                            log.debug("duration: {}", s.toDuration());
+                        } catch (final DateTimeException dte) {
+                        }
+                        assertThat(s.getStartInclusive()).isAfterOrEqualTo(startInclusive);
+                        assertThat(s.getEndExclusive()).isBeforeOrEqualTo(endExclusive);
+                    }
+            );
+            log.debug("startInclusive: {}", startInclusive);
+            log.debug("endInclusive: {}", endExclusive);
+        }
+
+        @Test
+        void _Hour_30Days_() {
+            final LocalDateTime startInclusive = LocalDateTime.now().withNano(0);
+            final LocalDateTime endExclusive = startInclusive.plusDays(30L).plusMinutes(1L);
+            log.debug("startInclusive: {}", startInclusive);
+            log.debug("endInclusive: {}", endExclusive);
+            TemporalSlicer.slice(
+                    startInclusive,
+                    endExclusive,
+                    si -> si.truncatedTo(ChronoUnit.DAYS),
+                    d -> d.plusHours(1L),
+                    UnaryOperator.identity(),
+                    s -> {
+                        log.debug("slice: {}", s);
+                        try {
+                            log.debug("duration: {}", s.toDuration());
+                        } catch (final DateTimeException dte) {
+                        }
                         assertThat(s.getStartInclusive()).isAfterOrEqualTo(startInclusive);
                         assertThat(s.getEndExclusive()).isBeforeOrEqualTo(endExclusive);
                     }

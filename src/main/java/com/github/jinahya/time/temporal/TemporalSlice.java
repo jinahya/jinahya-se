@@ -1,7 +1,11 @@
 package com.github.jinahya.time.temporal;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.Period;
 import java.time.temporal.Temporal;
 import java.util.Objects;
+import java.util.function.Function;
 
 public final class TemporalSlice<T extends Temporal & Comparable<? super T>> {
 
@@ -46,6 +50,15 @@ public final class TemporalSlice<T extends Temporal & Comparable<? super T>> {
                + "startInclusive=" + startInclusive
                + ", endExclusive=" + endExclusive
                + '}';
+    }
+
+    public Period toPeriod(final Function<? super T, LocalDate> mapper) {
+        Objects.requireNonNull(mapper, "mapper is null");
+        return Period.between(mapper.apply(startInclusive), mapper.apply(endExclusive));
+    }
+
+    public Duration toDuration() {
+        return Duration.between(startInclusive, endExclusive);
     }
 
     public T getStartInclusive() {
