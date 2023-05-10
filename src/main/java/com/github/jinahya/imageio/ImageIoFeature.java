@@ -1,10 +1,11 @@
 package com.github.jinahya.imageio;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.lang.reflect.Constructor;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * An abstract class for image features.
@@ -13,136 +14,94 @@ import java.util.Objects;
  */
 public abstract class ImageIoFeature {
 
-    // -----------------------------------------------------------------------------------------------------------------
-    static <T extends ImageIoFeature> List<T> list(final Class<T> featureClass, final String[] readerValues,
-                                                   final String[] writerValues) {
-        final Map<String, T> m = new HashMap<>();
-        for (final String value : readerValues) {
-            try {
-                final T instance = featureClass.getConstructor().newInstance();
-                instance.setReadable(true);
-                instance.setValue(value);
-                m.put(value, instance);
-            } catch (final ReflectiveOperationException roe) {
-                throw new RuntimeException(roe);
-            }
+    static <T extends ImageIoFeature> List<T> list(final Class<T> featureClass, final Set<String> readerValues,
+                                                   final Set<String> writerValues) {
+        Objects.requireNonNull(featureClass, "featureClass is null");
+        Objects.requireNonNull(readerValues, "readerValues is null");
+        Objects.requireNonNull(writerValues, "writerValues is null");
+        final Constructor<T> constructor;
+        try {
+            constructor = featureClass.getDeclaredConstructor(String.class, boolean.class, boolean.class);
+        } catch (final NoSuchMethodException nsme) {
+            throw new RuntimeException("failed to find constructor for " + String.class + ", " + boolean.class + ", "
+                                       + boolean.class + " from " + featureClass, nsme);
         }
-        for (final String value : writerValues) {
-            m.computeIfAbsent(value, k -> {
-                try {
-                    final T instance = featureClass.getConstructor().newInstance();
-                    instance.setValue(k);
-                    return instance;
-                } catch (final ReflectiveOperationException roe) {
-                    throw new RuntimeException(roe);
-                }
-            }).setWritable(true);
+        if (!constructor.isAccessible()) {
+            constructor.setAccessible(true);
         }
-        return new ArrayList<>(m.values());
+        return Stream.concat(readerValues.stream(), writerValues.stream())
+                .distinct()
+                .map(v -> {
+                    final boolean readable = readerValues.contains(v);
+                    final boolean writable = writerValues.contains(v);
+                    try {
+                        return constructor.newInstance(v, readable, writable);
+                    } catch (final ReflectiveOperationException roe) {
+                        throw new RuntimeException("failed to instantiate via " + constructor, roe);
+                    }
+                })
+                .collect(Collectors.toList());
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * Returns a string representation of the object.
-     *
-     * @return a string representation of the object.
-     */
-    @Override
-    public String toString() {
-        return super.toString()
-               + "{"
-               + "readable=" + readable
-               + ",writable=" + writable
-               + ",value=" + value
-               + "}";
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    boolean fieldsEqual(final Object obj) {
-        final ImageIoFeature that = (ImageIoFeature) obj;
-        if (!Objects.equals(this.value, that.value)) {
-            return false;
-        }
-        if (this.readable != that.readable) {
-            return false;
-        }
-        if (this.writable != that.writable) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Indicates whether some other object is "equals to " this one.
-     *
-     * @param obj the reference object with which to compare.
-     * @return {@code true} if this object is same as the obj argument; {@code false} otherwise.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof ImageIoFeature)) {
-            return false;
-        }
-        return fieldsEqual(obj);
-    }
-
-    private int hashCode1() {
-        return Objects.hash(readable, writable, value);
-    }
-
-    private int hashCode2() {
-        int result = Boolean.hashCode(readable);
-        result = 31 * result + Boolean.hashCode(writable);
-        result = 31 * result + (value == null ? 0 : value.hashCode());
-        return result;
-    }
-
-    /**
-     * Returns a hash code value for the object.
-     *
-     * @return a hash code value for the object.
-     */
-    @Override
-    public int hashCode() {
-        return hashCode2();
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    public boolean isReadable() {
-        return readable;
-    }
-
-    public void setReadable(final boolean readable) {
+    ImageIoFeature(final String value, final boolean readable, final boolean writable) {
+        super();
+        this.value = Objects.requireNonNull(value, "value is null");
         this.readable = readable;
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    public boolean isWritable() {
-        return writable;
-    }
-
-    public void setWritable(final boolean writable) {
         this.writable = writable;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    public String getValue() {
+    @Override
+    public String toString() {
+        return super.toString() + '{' +
+               "value=" + value +
+               ",readable=" + readable +
+               ",writable=" + writable +
+               '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof ImageIoFeature)) return false;
+        final ImageIoFeature that = (ImageIoFeature) obj;
+        return Objects.equals(value, that.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
+    }
+
+    /**
+     * Returns the value of this feature.
+     *
+     * @return the value of this feature.
+     */
+    public final String getValue() {
         return value;
     }
 
-    public void setValue(final String value) {
-        this.value = value;
+    /**
+     * Returns the flag of read capability of this feature.
+     *
+     * @return {@code true} if readable; {@code false} otherwise.
+     */
+    public final boolean isReadable() {
+        return readable;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    private boolean readable;
+    /**
+     * Returns the flag of write capability of this feature.
+     *
+     * @return {@code true} if writable; {@code false} otherwise.
+     */
+    public final boolean isWritable() {
+        return writable;
+    }
 
-    private boolean writable;
+    private final String value;
 
-    private String value;
+    private final boolean readable;
+
+    private final boolean writable;
 }

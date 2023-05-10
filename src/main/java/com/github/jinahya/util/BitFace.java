@@ -128,7 +128,8 @@ final class BitFace {
         @Override
         public boolean equals(final Object obj) {
             if (this == obj) return true;
-            if (!(obj instanceof OfLong that)) return false;
+            if (!(obj instanceof OfLong)) return false;
+            final OfLong that = (OfLong) obj;
             return value == that.value;
         }
 
@@ -298,8 +299,9 @@ final class BitFace {
     @Override
     public boolean equals(final Object obj) {
         if (this == obj) return true;
-        if (!(obj instanceof BitFace bitFace)) return false;
-        return value == bitFace.value;
+        if (!(obj instanceof BitFace )) return false;
+        final BitFace that = (BitFace) obj;
+        return value == that.value;
     }
 
     @Override

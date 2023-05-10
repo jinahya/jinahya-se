@@ -102,7 +102,8 @@ final class BitMask {
         @Override
         public boolean equals(final Object obj) {
             if (this == obj) return true;
-            if (!(obj instanceof OfLong that)) return false;
+            if (!(obj instanceof OfLong)) return false;
+            final OfLong that = (OfLong) obj;
             return value == that.value;
         }
 
@@ -214,7 +215,8 @@ final class BitMask {
     @Override
     public boolean equals(final Object obj) {
         if (this == obj) return true;
-        if (!(obj instanceof BitMask that)) return false;
+        if (!(obj instanceof BitMask)) return false;
+        final BitMask that = (BitMask) obj;
         return value == that.value;
     }
 
