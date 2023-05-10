@@ -24,10 +24,10 @@ import java.nio.ByteBuffer;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.security.MessageDigest;
+import java.util.Arrays;
 import java.util.List;
 
 import static java.lang.Math.min;
-import static java.util.Arrays.asList;
 
 /**
  * A utility class for {@link MessageDigest}s.
@@ -39,7 +39,7 @@ public final class JinahyaMessageDigests {
     /**
      * Algorithms that every implementation of the Java platform is required to support.
      */
-    public static final List<String> ALGORITHMS_REQUIRED_TO_BE_SUPPORTED = asList("MD5", "SHA-1", "SHA-256");
+    public static final List<String> ALGORITHMS_REQUIRED_TO_BE_SUPPORTED = Arrays.asList("MD5", "SHA-1", "SHA-256");
 
     /**
      * Digests specified number of bytes from specified input stream using specified digest.

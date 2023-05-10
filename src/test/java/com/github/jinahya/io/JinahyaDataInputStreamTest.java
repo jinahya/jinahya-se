@@ -12,7 +12,7 @@ public class JinahyaDataInputStreamTest {
 
     // -----------------------------------------------------------------------------------------------------------------
     private static Stream<Arguments> sourceJinahyaDataInputStream() {
-        return Stream.of(Arguments.of(new JinahyaDataInputStream(new DataInputStream(new WhiteInputStream()))));
+        return Stream.of(Arguments.of(new JinahyaDataInputStream(new DataInputStream(WhiteInputStream.getInstance()))));
     }
 
     // -----------------------------------------------------------------------------------------------------------------

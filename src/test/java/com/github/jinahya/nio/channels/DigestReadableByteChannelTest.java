@@ -57,8 +57,8 @@ public class DigestReadableByteChannelTest {
 
             final MessageDigest digest2 = MessageDigest.getInstance(algorithm);
             final ReadableDigestChannel channel
-                    = new ReadableDigestChannel(
-                    Channels.newChannel(new ByteArrayInputStream(data)), digest2);
+                    = new ReadableDigestChannel(Channels.newChannel(new ByteArrayInputStream(data)));
+            channel.setDigest(digest2);
             final ByteBuffer buffer = ByteBuffer.allocate(1024);
             for (; channel.read(buffer) != -1; buffer.clear()) {
                 buffer.flip();

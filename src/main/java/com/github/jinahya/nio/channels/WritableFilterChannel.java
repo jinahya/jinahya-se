@@ -18,6 +18,7 @@ package com.github.jinahya.nio.channels;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.WritableByteChannel;
+import java.util.Objects;
 
 /**
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
@@ -32,6 +33,7 @@ public class WritableFilterChannel
 
     @Override
     public int write(final ByteBuffer src) throws IOException {
+        Objects.requireNonNull(src, "src is null");
         return channel.write(src);
     }
 }

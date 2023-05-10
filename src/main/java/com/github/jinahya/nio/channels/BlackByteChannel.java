@@ -18,33 +18,57 @@ package com.github.jinahya.nio.channels;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.WritableByteChannel;
+import java.util.Objects;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * A byte channel which consumes all remaining bytes.
+ * A byte channel which discards all remaining bytes of given buffer.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class BlackByteChannel implements WritableByteChannel {
 
+    private static final class InstanceHolder {
+
+        private static final WritableByteChannel INSTANCE = new BlackByteChannel();
+
+        private InstanceHolder() {
+            throw new AssertionError("instantiation is not allowed");
+        }
+    }
+
     /**
-     * Writes a sequence of bytes to this channel from the given buffer. The {@code #write(java.nio.ByteBuffer)} method
-     * of {@code BlackByteChannel} class just set given buffer's {@code position} as its {@code limit} and returns
-     * previous value of {@code remaining}.
+     * Returns the instance. The {@code BlackByteChannel} class is singleton.
      *
-     * @param src {@inheritDoc}
-     * @return the value of {@code remainging} of specified byte buffer.
+     * @return the instance.
+     */
+    public static WritableByteChannel getInstance() {
+        return InstanceHolder.INSTANCE;
+    }
+
+    private BlackByteChannel() {
+        super();
+    }
+
+    /**
+     * Discards some number of byte from specified buffer.
+     *
+     * @param src the buffer.
+     * @return the number of bytes discarded.
      * @throws IOException if an I/O error occurs.
      */
     @Override
     public int write(final ByteBuffer src) throws IOException {
-        final int remainging = src.remaining();
-        src.position(src.limit());
-        return remainging;
+        Objects.requireNonNull(src, "src is null");
+        int bytes = 0;
+        for (; src.hasRemaining() && ThreadLocalRandom.current().nextBoolean(); bytes++) {
+            src.get();
+        }
+        return bytes;
     }
 
     /**
-     * Tells whether or not this channel is open. The {@code isOpen} method of {@code BlackByteChannel} class always
-     * returns {@code true}.
+     * Returns {@code true}.
      *
      * @return {@code true}
      */
@@ -54,7 +78,7 @@ public final class BlackByteChannel implements WritableByteChannel {
     }
 
     /**
-     * Closes this channel. The {@code close} method of {@code BlackByteChannel} class does nothing.
+     * Does nothing.
      *
      * @throws IOException if an I/O error occurs.
      */

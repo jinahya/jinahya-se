@@ -29,39 +29,27 @@ public class ReadableDigestChannel extends ReadableFilterChannel {
      * Creates a new instance.
      *
      * @param channel the input channel
-     * @param digest  the message digest to associate with this channel
      */
-    public ReadableDigestChannel(final ReadableByteChannel channel,
-                                 final MessageDigest digest) {
-
+    public ReadableDigestChannel(final ReadableByteChannel channel) {
         super(channel);
-
-        this.digest = digest;
     }
 
     @Override
     public int read(final ByteBuffer dst) throws IOException {
-
-        final int position = dst.position();
-        final int limit = dst.limit();
-        try {
-            final int read = super.read(dst);
-            dst.limit(dst.position());
-            dst.position(position);
-            digest.update(dst);
-            return read;
-        } finally {
-            dst.limit(limit);
+        final int bytes = super.read(dst);
+        if (digest != null) {
+            for (int i = dst.position() - bytes; i < dst.position(); i++) {
+                digest.update(dst.get(i));
+            }
         }
+        return bytes;
     }
 
     public MessageDigest getDigest() {
-
         return digest;
     }
 
     public void setDigest(final MessageDigest digest) {
-
         this.digest = digest;
     }
 

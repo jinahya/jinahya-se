@@ -17,6 +17,7 @@ package com.github.jinahya.nio.channels;
 
 import java.io.IOException;
 import java.nio.channels.Channel;
+import java.util.Objects;
 
 /**
  * @param <T> channel type parameter
@@ -26,7 +27,7 @@ public class FilterChannel<T extends Channel> implements Channel {
 
     public FilterChannel(final T channel) {
         super();
-        this.channel = channel;
+        this.channel = Objects.requireNonNull(channel, "channel is null");
     }
 
     @Override

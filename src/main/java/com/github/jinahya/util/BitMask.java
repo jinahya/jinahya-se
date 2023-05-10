@@ -9,8 +9,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * Represents a mask for {@link BitFace face}s
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ * @see BitFace
  */
-final class BitMask {
+public final class BitMask {
 
     /**
      * Represents a mask for {@link BitFace.OfLong face}s
@@ -19,8 +20,14 @@ final class BitMask {
      */
     public static final class OfLong {
 
+        /**
+         * The minimum value for an exponent of a mask. The value is {@value}.
+         */
         public static final int MIN_EXPONENT = 0;
 
+        /**
+         * The maximum value for an exponent of a mask. The value is {@value}.
+         */
         public static final int MAX_EXPONENT = Long.SIZE - 2;
 
         static final long MIN_VALUE = 0x00_00_00_00_00_00_00_01L;
@@ -52,7 +59,7 @@ final class BitMask {
          * @return given {@code value} when it's between {@value #MIN_VALUE} and {@value #MAX_VALUE}, both inclusive.
          * @throws IllegalArgumentException when {@code value} does not reside in the valid range.
          */
-        static long requireValidValue(final long value) {
+        private static long requireValidValue(final long value) {
             if (value < MIN_VALUE) {
                 throw new IllegalArgumentException("value(" + value + ") < " + MIN_VALUE);
             }
@@ -64,25 +71,13 @@ final class BitMask {
 
         private static final Map<Long, OfLong> CACHE = new ConcurrentHashMap<>(new WeakHashMap<>());
 
-        static OfLong of(final long value) {
+        private static OfLong of(final long value) {
             return CACHE.computeIfAbsent(requireValidValue(value), OfLong::new);
         }
 
         public static OfLong ofExponent(final int exponent) {
             return of(0x01L << requireValidExponent(exponent));
         }
-
-//        public static long valueOfAll(final Stream<OfLong> stream) {
-//            Objects.requireNonNull(stream, "stream is null");
-//            return stream
-//                    .mapToLong(m -> m.value)
-//                    .reduce(BitFace.OfLong.MIN_VALUE, (v1, v2) -> v1 | v2);
-//        }
-//
-//        public static long valueOfAll(final Iterable<OfLong> iterable) {
-//            Objects.requireNonNull(iterable, "iterable is null");
-//            return valueOfAll(StreamSupport.stream(iterable.spliterator(), false));
-//        }
 
         /**
          * Creates a new instance.
@@ -113,7 +108,7 @@ final class BitMask {
         }
 
         /**
-         * Puts this mask on to specified face.
+         * Puts this mask onto specified face.
          *
          * @param face the face to which this mask is put on.
          * @return new face with this mask on.
@@ -144,8 +139,14 @@ final class BitMask {
         private final long value;
     }
 
+    /**
+     * The minimum value for an exponent of a mask. The value is {@value}.
+     */
     public static final int MIN_EXPONENT = 0;
 
+    /**
+     * The maximum value for an exponent of a mask. The value is {@value}.
+     */
     public static final int MAX_EXPONENT = Integer.SIZE - 2;
 
     static final int MIN_VALUE = 0x00_00_00_01;
@@ -177,7 +178,7 @@ final class BitMask {
      * @return given {@code value} when it's between {@value #MIN_VALUE} and {@value #MAX_VALUE}, both inclusive.
      * @throws IllegalArgumentException when {@code value} does not reside in the valid range.
      */
-    static int requireValidValue(final int value) {
+    private static int requireValidValue(final int value) {
         if (value < MIN_VALUE) {
             throw new IllegalArgumentException("value(" + value + ") < " + MIN_VALUE);
         }
@@ -189,7 +190,7 @@ final class BitMask {
 
     private static final Map<Integer, BitMask> CACHE = new ConcurrentHashMap<>(new WeakHashMap<>());
 
-    static BitMask of(final int value) {
+    private static BitMask of(final int value) {
         return CACHE.computeIfAbsent(requireValidValue(value), BitMask::new);
     }
 
@@ -226,7 +227,7 @@ final class BitMask {
     }
 
     /**
-     * Puts this mask on to specified face.
+     * Puts this mask onto specified face.
      *
      * @param face the face to which this mask is put on.
      * @return new face with this mask on.

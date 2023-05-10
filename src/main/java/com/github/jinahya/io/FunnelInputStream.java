@@ -20,13 +20,12 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * An input stream reads bytes only through {@link #read()}.
+ * An input stream reads bytes only through {@link #read()} method.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
+ * @see FunnelOutputStream
  */
 public class FunnelInputStream extends FilterInputStream {
-
-    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * Creates a funnel input stream built on top of the specified underlying input stream.
@@ -37,9 +36,13 @@ public class FunnelInputStream extends FilterInputStream {
         super(in);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
     @Override
-    public int read(final byte[] b, int off, final int len) throws IOException {
+    public final int read(final byte[] b) throws IOException {
+        return super.read(b);
+    }
+
+    @Override
+    public final int read(final byte[] b, int off, final int len) throws IOException {
         if (b == null) {
             throw new NullPointerException("b is null");
         }
@@ -58,5 +61,10 @@ public class FunnelInputStream extends FilterInputStream {
             b[off++] = (byte) read;
         }
         return count;
+    }
+
+    @Override
+    public final long skip(final long n) throws IOException {
+        return super.skip(n);
     }
 }

@@ -29,41 +29,29 @@ public class WritableDigestChannel extends WritableFilterChannel {
      * Creates a new instance.
      *
      * @param channel the output channel
-     * @param digest  the message digest to associate with this channel
      */
-    public WritableDigestChannel(final WritableByteChannel channel,
-                                 final MessageDigest digest) {
-
+    public WritableDigestChannel(final WritableByteChannel channel) {
         super(channel);
-
-        this.digest = digest;
     }
 
     @Override
     public int write(final ByteBuffer src) throws IOException {
-
-        final int position = src.position();
-        final int limit = src.limit();
-        try {
-            final int written = super.write(src);
-            src.limit(src.position());
-            src.position(position);
-            digest.update(src);
-            return written;
-        } finally {
-            src.limit(limit);
+        final int bytes = super.write(src);
+        if (digest != null) {
+            for (int i = src.position() - bytes; i < src.position(); i++) {
+                digest.update(src.get(i));
+            }
         }
+        return bytes;
     }
 
     public MessageDigest getDigest() {
-
         return digest;
     }
 
     public void setDigest(final MessageDigest digest) {
-
         this.digest = digest;
     }
 
-    protected MessageDigest digest;
+    private MessageDigest digest;
 }

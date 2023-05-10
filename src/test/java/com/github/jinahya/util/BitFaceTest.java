@@ -5,6 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static com.github.jinahya.util.BitFaceTestUtils.OfLong.randomBitFaceOfLong;
 import static com.github.jinahya.util.BitFaceTestUtils.randomBitFace;
 import static com.github.jinahya.util.BitMaskTestUtils.OfLong.bitMaskOfLongArrayOfAllExponents;
@@ -30,7 +32,7 @@ class BitFaceTest {
         @DisplayName("of(Iterable)")
         @Test
         void of__Array() {
-            assertThat(BitFace.OfLong.of(bitMaskOfLongArrayOfAllExponents()))
+            assertThat(BitFace.OfLong.of(Arrays.asList(bitMaskOfLongArrayOfAllExponents())))
                     .isEqualTo(BitFace.OfLong.ofAll());
         }
 
@@ -47,7 +49,7 @@ class BitFaceTest {
 
         @Test
         void isWearing__() {
-            var face = BitFace.OfLong.of();
+            var face = BitFace.OfLong.ofNone();
             final var mask = randomBitMaskOfLong();
             assertThat(face.isWearing(mask)).isFalse();
             face = face.putOn(mask);
@@ -57,7 +59,7 @@ class BitFaceTest {
         @Test
         void putOn__() {
             final var face = bitMaskOfLongStreamOfAllExponents().reduce(
-                    BitFace.OfLong.of(),
+                    BitFace.OfLong.ofNone(),
                     BitFace.OfLong::putOn,
                     BitFace.OfLong::merge
             );
@@ -105,7 +107,7 @@ class BitFaceTest {
     @DisplayName("of([])")
     @Test
     void of__Array() {
-        assertThat(BitFace.of(bitMaskArrayOfAllExponents()))
+        assertThat(BitFace.of(Arrays.asList(bitMaskArrayOfAllExponents())))
                 .isEqualTo(BitFace.ofAll());
     }
 
@@ -122,7 +124,7 @@ class BitFaceTest {
 
     @Test
     void isWearing__() {
-        var face = BitFace.of();
+        var face = BitFace.ofNone();
         final var mask = randomBitMask();
         assertThat(face.isWearing(mask)).isFalse();
         face = face.putOn(mask);
@@ -132,7 +134,7 @@ class BitFaceTest {
     @Test
     void putOn__() {
         final var face = bitMaskStreamOfAllExponents().reduce(
-                BitFace.of(),
+                BitFace.ofNone(),
                 BitFace::putOn,
                 BitFace::merge
         );

@@ -19,19 +19,40 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * An output stream which shallows written bytes.
+ * An output stream which discards written bytes.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
+ * @see WhiteInputStream
  */
+@SuppressWarnings({"java:S4349"})
 public final class BlackOutputStream extends OutputStream {
 
-    // -----------------------------------------------------------------------------------------------------------------
+    private static final class InstanceHolder {
+
+        private static final OutputStream INSTANCE = new BlackOutputStream();
+
+        private InstanceHolder() {
+            throw new AssertionError("instantiation is not allowed");
+        }
+    }
 
     /**
-     * Writes the specified byte to this output stream. The {@code write(int)} method of {@code BlackOutputStream} class
-     * does nothing.
+     * Returns the instance. {@code BlackOutputStream} class is singleton.
      *
-     * @param b the byte.
+     * @return the instance.
+     */
+    public static OutputStream getInstance() {
+        return InstanceHolder.INSTANCE;
+    }
+
+    private BlackOutputStream() {
+        super();
+    }
+
+    /**
+     * Does nothing.
+     *
+     * @param b a byte.
      * @throws IOException if an I/O error occurs.
      */
     @Override

@@ -17,26 +17,47 @@ package com.github.jinahya.io;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * An input stream always reads zeros.
+ * An input stream reads random bytes.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @see BlackOutputStream
  */
+@SuppressWarnings({"java:S4929"})
 public final class WhiteInputStream extends InputStream {
 
-    // -----------------------------------------------------------------------------------------------------------------
+    private static final class InstanceHolder {
+
+        private static final InputStream INSTANCE = new WhiteInputStream();
+
+        private InstanceHolder() {
+            throw new AssertionError("instantiation is not allowed");
+        }
+    }
 
     /**
-     * Reads the next byte of data from the input stream. The {@code read()} method of {@code WhiteInputStream} class
-     * always returns {@code 0}.
+     * Returns the instance. {@code WhiteInputStream} class is singleton.
      *
-     * @return {@code 0}
+     * @return the instance.
+     */
+    public static InputStream getInstance() {
+        return InstanceHolder.INSTANCE;
+    }
+
+    private WhiteInputStream() {
+        super();
+    }
+
+    /**
+     * Returns a random value.
+     *
+     * @return a random value between {@code 0} and {@code 255}, both inclusive.
      * @throws IOException if an I/O error occurs.
      */
     @Override
     public int read() throws IOException {
-        return 0;
+        return ThreadLocalRandom.current().nextInt(256);
     }
 }

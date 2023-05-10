@@ -15,6 +15,7 @@ import java.util.stream.StreamSupport;
  * Represents a value with zero or more {@link BitMask mask}s on it.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ * @see BitMask
  */
 final class BitFace {
 
@@ -28,19 +29,16 @@ final class BitFace {
         /**
          * The minimum value of a face with no mask on it. The value is {@value}.
          */
-        static final long MIN_VALUE = 0L;
+        private static final long MIN_VALUE = 0L;
 
         /**
          * The maximum value of a face with all possible masks on it. The value is {@value}.
          */
-        static final long MAX_VALUE = Long.MAX_VALUE;
+        private static final long MAX_VALUE = Long.MAX_VALUE;
 
         static long requireValidValue(final long value) {
             if (value < MIN_VALUE) {
                 throw new IllegalArgumentException("value(" + value + " < " + MIN_VALUE);
-            }
-            if (false && value > MAX_VALUE) { // TODO: remove!
-                throw new IllegalArgumentException("value(" + value + " > " + MAX_VALUE);
             }
             return value;
         }
@@ -80,14 +78,42 @@ final class BitFace {
         }
 
         /**
-         * Returns an instance wearing specified masks
+         * Returns an instance wearing specified mask.
          *
-         * @param masks the masks to wear.
+         * @param mask the mask to wear.
          * @return an instance wearing {@code masks}.
          */
-        public static OfLong of(final BitMask.OfLong... masks) {
-            Objects.requireNonNull(masks, "masks is null");
-            return of(Arrays.stream(masks));
+        public static OfLong of(final BitMask.OfLong mask) {
+            Objects.requireNonNull(mask, "mask is null");
+            return of(mask.getValue());
+        }
+
+        /**
+         * Returns an instance wearing specified masks.
+         *
+         * @param mask1 the first mask to wear.
+         * @param mask2 the second mask to wear.
+         * @return an instance wearing specified masks.
+         */
+        public static OfLong of(final BitMask.OfLong mask1, final BitMask.OfLong mask2) {
+            Objects.requireNonNull(mask1, "mask1 is null");
+            Objects.requireNonNull(mask2, "mask2 is null");
+            return of(mask1.getValue() | mask2.getValue());
+        }
+
+        /**
+         * Returns an instance wearing specified masks.
+         *
+         * @param mask1      a mask to wear.
+         * @param mask2      another mask to wear.
+         * @param otherMasks other masks to wear.
+         * @return an instance wearing {@code otherMasks}.
+         */
+        public static OfLong of(final BitMask.OfLong mask1, final BitMask.OfLong mask2, final BitMask.OfLong... otherMasks) {
+            Objects.requireNonNull(mask1, "mask1 is null");
+            Objects.requireNonNull(mask2, "mask2 is null");
+            Objects.requireNonNull(otherMasks, "otherMasks is null");
+            return of(Arrays.stream(otherMasks)).putOn(mask2).putOn(mask1);
         }
 
         /**
@@ -199,19 +225,16 @@ final class BitFace {
     /**
      * The minimum value of a face with no mask on it. The value is {@value}.
      */
-    static final int MIN_VALUE = 0;
+    private static final int MIN_VALUE = 0;
 
     /**
      * The maximum value of a face with all possible masks on it. The value is {@value}.
      */
-    static final int MAX_VALUE = Integer.MAX_VALUE;
+    private static final int MAX_VALUE = Integer.MAX_VALUE;
 
     static int requireValidValue(final int value) {
         if (value < MIN_VALUE) {
             throw new IllegalArgumentException("value(" + value + ") < " + MIN_VALUE);
-        }
-        if (false && value > MAX_VALUE) { // TODO: remove!
-            throw new IllegalArgumentException("value(" + value + ") > " + MAX_VALUE);
         }
         return value;
     }
@@ -251,14 +274,42 @@ final class BitFace {
     }
 
     /**
+     * Returns an instance wearing specified mask.
+     *
+     * @param mask the mask to wear.
+     * @return an instance wearing {@code mask}.
+     */
+    public static BitFace of(final BitMask mask) {
+        Objects.requireNonNull(mask, "mask is null");
+        return of(mask.getValue());
+    }
+
+    /**
+     * Returns an instance wearing specified masks.
+     *
+     * @param mask1 the first mask to wear.
+     * @param mask2 the second mask to wear.
+     * @return an instance wearing specified masks.
+     */
+    public static BitFace of(final BitMask mask1, final BitMask mask2) {
+        Objects.requireNonNull(mask1, "mask1 is null");
+        Objects.requireNonNull(mask2, "mask2 is null");
+        return of(mask1.getValue() | mask2.getValue());
+    }
+
+    /**
      * Returns an instance wearing specified masks
      *
-     * @param masks the masks to wear.
+     * @param mask1      a mask to wear.
+     * @param mask2      another mask to wear.
+     * @param otherMasks other masks to wear.
      * @return an instance wearing {@code masks}.
      */
-    public static BitFace of(final BitMask... masks) {
-        Objects.requireNonNull(masks, "masks is null");
-        return of(Arrays.stream(masks));
+    public static BitFace of(final BitMask mask1, final BitMask mask2, final BitMask... otherMasks) {
+        Objects.requireNonNull(mask1, "mask1 is null");
+        Objects.requireNonNull(mask2, "mask2 is null");
+        Objects.requireNonNull(otherMasks, "masks is null");
+        return of(Arrays.stream(otherMasks)).putOn(mask2).putOn(mask1);
     }
 
     /**
@@ -299,7 +350,7 @@ final class BitFace {
     @Override
     public boolean equals(final Object obj) {
         if (this == obj) return true;
-        if (!(obj instanceof BitFace )) return false;
+        if (!(obj instanceof BitFace)) return false;
         final BitFace that = (BitFace) obj;
         return value == that.value;
     }

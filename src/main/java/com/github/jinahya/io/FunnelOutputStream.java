@@ -16,12 +16,14 @@
 package com.github.jinahya.io;
 
 import java.io.FilterOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * An output stream writes bytes only through {@link OutputStream#write(int) }.
+ * An output stream writes bytes only through {@link OutputStream#write(int)} method.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
+ * @see FunnelInputStream
  */
 public class FunnelOutputStream extends FilterOutputStream {
 
@@ -32,5 +34,15 @@ public class FunnelOutputStream extends FilterOutputStream {
      */
     public FunnelOutputStream(final OutputStream out) {
         super(out);
+    }
+
+    @Override
+    public final void write(byte[] b) throws IOException {
+        super.write(b);
+    }
+
+    @Override
+    public final void write(byte[] b, int off, int len) throws IOException {
+        super.write(b, off, len);
     }
 }

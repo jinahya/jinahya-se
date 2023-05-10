@@ -18,6 +18,7 @@ package com.github.jinahya.nio.channels;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.ReadableByteChannel;
+import java.util.Objects;
 
 /**
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
@@ -32,6 +33,7 @@ public class ReadableFilterChannel
 
     @Override
     public int read(final ByteBuffer dst) throws IOException {
+        Objects.requireNonNull(dst, "dst is null");
         return channel.read(dst);
     }
 }

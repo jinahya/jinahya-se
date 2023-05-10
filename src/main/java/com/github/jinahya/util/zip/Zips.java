@@ -22,6 +22,7 @@ import java.io.FileFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Enumeration;
+import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
@@ -35,16 +36,10 @@ import java.util.zip.ZipOutputStream;
 public class Zips {
 
     protected static File file(final File root, final ZipEntry entry) throws IOException {
-        if (root == null) {
-            throw new NullPointerException("root");
+        if (!Objects.requireNonNull(root, "root is null").isDirectory()) {
+            throw new IllegalArgumentException("root is not an existing directory");
         }
-        if (!root.isDirectory()) {
-            throw new IllegalArgumentException(
-                    "root is not an existing directory");
-        }
-        if (entry == null) {
-            throw new NullPointerException("entry");
-        }
+        Objects.requireNonNull(entry, "entry is null");
         final File file = new File(root, entry.getName());
         File parent = file;
         if (!entry.isDirectory()) {
@@ -55,46 +50,25 @@ public class Zips {
             }
         }
         if (parent != null && !parent.isDirectory() && !parent.mkdirs()) {
-            throw new IOException(
-                    "failed to create a directory: " + parent.getPath());
+            throw new IOException("failed to create a directory: " + parent.getPath());
         }
         return file;
     }
 
-    protected static void zip(final StringBuilder path, final File file,
-                              final FileFilter filter,
+    protected static void zip(final StringBuilder path, final File file, final FileFilter filter,
                               final ZipOutputStream stream, final byte[] buffer)
             throws IOException {
-
-        if (path == null) {
-            throw new NullPointerException("path");
-        }
-
-        if (file == null) {
-            throw new NullPointerException("file");
-        }
-
-        if (!file.exists()) {
+        Objects.requireNonNull(path, "path is null");
+        if (!Objects.requireNonNull(file, "file is null").exists()) {
             throw new IllegalArgumentException("file does not exist");
         }
-
         if (filter == null) {
             //throw new NullPointerException("filter");
         }
-
-        if (stream == null) {
-            throw new NullPointerException("stream");
+        Objects.requireNonNull(stream, "stream is null");
+        if (Objects.requireNonNull(buffer, "buffer is null").length == 0) {
+            throw new IllegalArgumentException("buffer.length(" + buffer.length + ") == 0");
         }
-
-        if (buffer == null) {
-            throw new NullPointerException("buffer");
-        }
-
-        if (buffer.length == 0) {
-            throw new IllegalArgumentException(
-                    "buffer.length(" + buffer.length + ") == 0");
-        }
-
         if (file.isDirectory()) {
             stream.putNextEntry(new ZipEntry(path + file.getName() + "/"));
             stream.closeEntry();
@@ -114,35 +88,19 @@ public class Zips {
         }
     }
 
-    public static void zip(final File directory, final FileFilter filter,
-                           final ZipOutputStream stream, final byte[] buffer)
+    public static void zip(final File directory, final FileFilter filter, final ZipOutputStream stream,
+                           final byte[] buffer)
             throws IOException {
-
-        if (directory == null) {
-            throw new NullPointerException("directory");
-        }
-
-        if (!directory.isDirectory()) {
+        if (!Objects.requireNonNull(directory, "directory is null").isDirectory()) {
             throw new IllegalArgumentException("directory doesn't exist");
         }
-
         if (filter == null) {
             //throw new NullPointerException("filter");
         }
-
-        if (stream == null) {
-            throw new NullPointerException("stream");
+        Objects.requireNonNull(stream, "stream is null");
+        if (Objects.requireNonNull(buffer, "buffer is null").length == 0) {
+            throw new IllegalArgumentException("buffer.length(" + buffer.length + ") == 0");
         }
-
-        if (buffer == null) {
-            throw new NullPointerException("buffer");
-        }
-
-        if (buffer.length == 0) {
-            throw new IllegalArgumentException(
-                    "buffer.length(" + buffer.length + ") == 0");
-        }
-
         final StringBuilder path = new StringBuilder();
         for (File file : directory.listFiles()) {
             if (filter != null && !filter.accept(file)) {
@@ -162,28 +120,16 @@ public class Zips {
      */
     public static void unzip(final ZipInputStream stream, final File directory, final byte[] buffer)
             throws IOException {
-        if (stream == null) {
-            throw new NullPointerException("stream");
-        }
-        if (directory == null) {
-            throw new NullPointerException("directory");
-        }
-        if (!directory.isDirectory()) {
-            throw new IllegalArgumentException("directory doesn't exist");
-        }
-        if (buffer == null) {
-            throw new NullPointerException("buffer");
-        }
-        if (buffer.length == 0) {
+        Objects.requireNonNull(stream, "stream is null");
+        Objects.requireNonNull(directory, "directory is null");
+        if (Objects.requireNonNull(buffer, "buffer is null").length == 0) {
             throw new IllegalArgumentException("buffer.length == 0");
         }
-        ZipEntry entry;
-        while ((entry = stream.getNextEntry()) != null) {
+        for (ZipEntry entry; (entry = stream.getNextEntry()) != null; stream.closeEntry()) {
             final File file = file(directory, entry);
             if (!entry.isDirectory()) {
                 JinahyaByteStreams.copy(stream, file, buffer, -1L);
             }
-            stream.closeEntry();
         }
     }
 

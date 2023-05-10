@@ -14,7 +14,7 @@ public class JinahyaDataOutputStreamTest {
 
     // -----------------------------------------------------------------------------------------------------------------
     private static Stream<Arguments> sourceJinahyaDataOutputStream() {
-        return Stream.of(Arguments.of(new JinahyaDataOutputStream(new DataOutputStream(new BlackOutputStream()))));
+        return Stream.of(Arguments.of(new JinahyaDataOutputStream(new DataOutputStream(BlackOutputStream.getInstance()))));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
