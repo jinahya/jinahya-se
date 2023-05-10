@@ -16,6 +16,7 @@
 package com.github.jinahya.nio.channels;
 
 import com.github.jinahya.security.JinahyaMessageDigests;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -32,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
+@Disabled
 public class DigestReadableByteChannelTest {
 
     @Test

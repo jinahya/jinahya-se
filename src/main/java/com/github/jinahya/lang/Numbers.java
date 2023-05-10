@@ -121,8 +121,8 @@ public final class Numbers {
      * @return
      * @throws NullPointerException     if {@code bytes} is {@code null}.
      * @throws IllegalArgumentException if {@code bytes.length} is zero.
-     * @throws IllegalArgumentException {@code limit} is less than zero, or greater than or equals to {@code
-     *                                  bytes.length}.
+     * @throws IllegalArgumentException {@code limit} is less than zero, or greater than or equals to
+     *                                  {@code bytes.length}.
      */
     public static short toShortEnds(final byte[] bytes, final int index) {
 
@@ -185,8 +185,8 @@ public final class Numbers {
      * @return
      * @throws NullPointerException     if {@code bytes} is {@code null}.
      * @throws IllegalArgumentException if {@code bytes.length} is zero.
-     * @throws IllegalArgumentException if {@code position} is less than zero, or greater than or equals to {@code
-     *                                  bytes.length}.
+     * @throws IllegalArgumentException if {@code position} is less than zero, or greater than or equals to
+     *                                  {@code bytes.length}.
      */
     public static int toIntBegins(final byte[] bytes, final int index) {
 

@@ -29,14 +29,14 @@ public class JinahyaRandom implements Serializable {
     private static final long serialVersionUID = 4093243768555129124L;
 
     /**
-     * Returns a pseudorandom, uniformly distributed {@code int} value between {@code minimum} (inclusive) and {@code
-     * maximum} (exclusive), drawn from the given random number generator's sequence. An instance of {@code
-     * IllegalArgumentException} will thrown if the range is greater than {@value Integer#MAX_VALUE}.
+     * Returns a pseudorandom, uniformly distributed {@code int} value between {@code minimum} (inclusive) and
+     * {@code maximum} (exclusive), drawn from the given random number generator's sequence. An instance of
+     * {@code IllegalArgumentException} will thrown if the range is greater than {@value Integer#MAX_VALUE}.
      *
      * @param random  random
      * @param minimum the lower bound on the random number to returned
-     * @param maximum the upper bound on the random number to returned; must be greater than or equal to {@code
-     *                minimum}.
+     * @param maximum the upper bound on the random number to returned; must be greater than or equal to
+     *                {@code minimum}.
      * @return the next pseudorandom, uniformly distributed {@code int} value between {@code minimum} (inclusive) and
      * {@code maximum} (exclusive) from the wrapped random number generator's sequence.
      */
@@ -119,13 +119,13 @@ public class JinahyaRandom implements Serializable {
     }
 
     /**
-     * Returns a pseudorandom, uniformly distributed {@code int} value between {@code minimum} (inclusive) and {@code
-     * maximum} (exclusive), drawn from the wrapped random number generator's sequence. An instance of {@code
-     * IllegalArgumentException} will thrown if the range is greater than {@value Integer#MAX_VALUE}.
+     * Returns a pseudorandom, uniformly distributed {@code int} value between {@code minimum} (inclusive) and
+     * {@code maximum} (exclusive), drawn from the wrapped random number generator's sequence. An instance of
+     * {@code IllegalArgumentException} will thrown if the range is greater than {@value Integer#MAX_VALUE}.
      *
      * @param minimum the lower bound on the random number to returned
-     * @param maximum the upper bound on the random number to returned; must be greater than or equal to {@code
-     *                minimum}.
+     * @param maximum the upper bound on the random number to returned; must be greater than or equal to
+     *                {@code minimum}.
      * @return the next pseudorandom, uniformly distributed {@code int} value between {@code minimum} (inclusive) and
      * {@code maximum} (exclusive) from the wrapped random number generator's sequence.
      */
@@ -178,8 +178,8 @@ public class JinahyaRandom implements Serializable {
     }
 
     /**
-     * Generates an unsigned integer in arbitrary bit length. {@code 1 &lt;= minimumBitLength &lt;= maximumBitLength
-     * &lt;= 32}.
+     * Generates an unsigned integer in arbitrary bit length.
+     * {@code 1 &lt;= minimumBitLength &lt;= maximumBitLength &lt;= 32}.
      *
      * @param minimumBitLength the minimum number of bits; must be greater than or equal to 1.
      * @param maximumBitLength the maximum number of bits; must be between {@code minimumBitLength} (inclusive) and
@@ -220,8 +220,8 @@ public class JinahyaRandom implements Serializable {
     }
 
     /**
-     * Generates a signed integer in arbitrary bit length. {@code 1 &lt;= minimumBitLength &lt;= maximumBitLength &lt;
-     * 32}.
+     * Generates a signed integer in arbitrary bit length.
+     * {@code 1 &lt;= minimumBitLength &lt;= maximumBitLength &lt; 32}.
      *
      * @param minimumBitLength the minimum number of bits; must be greater than 1.
      * @param maximumBitLength the maximum number of bits; must be between {@code minimumBitLength} (inclusive) and
@@ -301,8 +301,8 @@ public class JinahyaRandom implements Serializable {
     }
 
     /**
-     * Generates a signed long in arbitrary bit length. {@code 1 &lt; minimumBitLength &lt;= maximumBitLength &lt;=
-     * 64}.
+     * Generates a signed long in arbitrary bit length.
+     * {@code 1 &lt; minimumBitLength &lt;= maximumBitLength &lt;= 64}.
      *
      * @param minimumBitLength the minimum number of bits; must be greater than 1.
      * @param maximumBitLength the maximum number of bits; must be between {@code minimumBitLength} (inclusive) and

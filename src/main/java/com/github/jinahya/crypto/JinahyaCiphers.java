@@ -85,8 +85,8 @@ public final class JinahyaCiphers {
      * @throws IllegalBlockSizeException if this cipher is a block cipher, no padding has been requested (only in
      *                                   encryption mode), and the total input length of the data processed by this
      *                                   cipher is not a multiple of block size; or if this encryption algorithm is
-     *                                   unable to process the input data provided. <i>Description copied from {@link
-     *                                   Cipher#doFinal(byte[], int)}.</i>
+     *                                   unable to process the input data provided. <i>Description copied from
+     *                                   {@link Cipher#doFinal(byte[], int)}.</i>
      * @throws BadPaddingException       if this cipher is in decryption mode, and (un)padding has been requested, but
      *                                   the decrypted data is not bounded by the appropriate padding bytes.
      *                                   <i>Description copied from {@link Cipher#doFinal(byte[], int)}.</i>

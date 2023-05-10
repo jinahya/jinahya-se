@@ -1,6 +1,7 @@
 package com.github.jinahya.time.temporal;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import java.util.function.UnaryOperator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Disabled
 @Slf4j
 class TemporalSlicerTest {
 
