@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * An output stream which discards written bytes.
+ * An output stream discards written bytes.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @see WhiteInputStream

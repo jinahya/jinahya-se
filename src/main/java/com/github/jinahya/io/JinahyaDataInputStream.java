@@ -5,8 +5,6 @@ import java.io.InputStream;
 
 public class JinahyaDataInputStream extends DataInputStream implements JinahyaDataInput {
 
-    // -----------------------------------------------------------------------------------------------------------------
-
     /**
      * Creates a new {@code JinahyaDataInputStream} that uses the specified underlying {@code DataInputStream}.
      *

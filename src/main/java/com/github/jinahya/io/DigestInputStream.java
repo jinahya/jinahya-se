@@ -11,12 +11,12 @@ public class DigestInputStream extends FunnelInputStream {
     }
 
     @Override
-    public synchronized final void mark(int readlimit) {
+    public final synchronized void mark(int readlimit) {
 //        super.mark(readlimit);
     }
 
     @Override
-    public synchronized final void reset() throws IOException {
+    public final synchronized void reset() throws IOException {
 //        super.reset();
     }
 
