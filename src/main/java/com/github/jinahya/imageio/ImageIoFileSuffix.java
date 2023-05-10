@@ -33,4 +33,16 @@ public final class ImageIoFileSuffix extends ImageIoFeature {
     private ImageIoFileSuffix(final String value, final boolean readable, final boolean writable) {
         super(value, readable, writable);
     }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof ImageIoFileSuffix)) return false;
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }
