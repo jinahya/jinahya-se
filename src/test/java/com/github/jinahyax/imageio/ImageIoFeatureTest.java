@@ -1,4 +1,4 @@
-package com.github.jinahya.imageio;
+package com.github.jinahyax.imageio;
 
 import java.util.Objects;
 

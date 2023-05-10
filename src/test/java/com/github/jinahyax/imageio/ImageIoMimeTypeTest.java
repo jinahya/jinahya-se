@@ -1,4 +1,4 @@
-package com.github.jinahya.imageio;
+package com.github.jinahyax.imageio;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;

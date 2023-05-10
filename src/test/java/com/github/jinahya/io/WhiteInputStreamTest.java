@@ -6,9 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 class WhiteInputStreamTest {
 
@@ -23,7 +21,7 @@ class WhiteInputStreamTest {
     @Test
     void __ReadWithArray() throws IOException {
         final var spy = spy(WhiteInputStream.getInstance());
-        spy.read(new byte[1]);
+        final var bytes = spy.read(new byte[1]);
         verify(spy, atLeast(1)).read();
     }
 
@@ -31,7 +29,7 @@ class WhiteInputStreamTest {
     @Test
     void __ReadWithArrayOffAndLen() throws IOException {
         final var spy = spy(WhiteInputStream.getInstance());
-        spy.read(new byte[1], 0, 1);
+        final var bytes = spy.read(new byte[1], 0, 1);
         verify(spy, atLeast(1)).read();
     }
 }

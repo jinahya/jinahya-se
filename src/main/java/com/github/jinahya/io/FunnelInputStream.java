@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * An input stream reads bytes only through {@link #read()} method.
+ * A filter input stream reads bytes only through {@link #read()} method.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @see FunnelOutputStream

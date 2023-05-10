@@ -1,4 +1,4 @@
-package com.github.jinahya.imageio;
+package com.github.jinahyax.imageio;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -7,15 +7,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
 @Slf4j
-class ImageIoFileSuffixTest extends ImageIoFeatureTest<ImageIoFileSuffix> {
+class ImageIoFormatNameTest extends ImageIoFeatureTest<ImageIoFormatName> {
 
-    ImageIoFileSuffixTest() {
-        super(ImageIoFileSuffix.class);
+    ImageIoFormatNameTest() {
+        super(ImageIoFormatName.class);
     }
 
     @Test
     void __() {
-        final var list = ImageIoFileSuffix.availableImageIoFileSuffixes();
+        final var list = ImageIoFormatName.availableImageIoFormatNames();
         assertThat(list).isNotEmpty().doesNotHaveDuplicates().allSatisfy(e -> {
             assertThat(e.getValue()).isNotBlank();
             assertThatCode(e::isReadable).doesNotThrowAnyException();
