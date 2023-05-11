@@ -15,37 +15,39 @@
  */
 package com.github.jinahya.awt;
 
-import com.github.jinahya.lang.IntFieldEnum;
+import com.github.jinahya.lang.FieldEnum;
+
+import java.awt.*;
 
 /**
- * Constants defined in {@link AdjustableOrientation}.
+ * Constants defined in {@link Adjustable}.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum AdjustableOrientation
-        implements IntFieldEnum<AdjustableOrientation> {
+        implements FieldEnum.OfInt<AdjustableOrientation> {
 
     /**
-     * A constant for {@link AdjustableOrientation#HORIZONTAL}.
+     * A constant for {@link Adjustable#HORIZONTAL}.
      */
-    HORIZONTAL(java.awt.Adjustable.HORIZONTAL), // 0
+    HORIZONTAL(Adjustable.HORIZONTAL), // 0
 
     /**
-     * A constant for {@link AdjustableOrientation#VERTICAL}.
+     * A constant for {@link Adjustable#VERTICAL}.
      */
-    VERTICAL(java.awt.Adjustable.VERTICAL), // 1
+    VERTICAL(Adjustable.VERTICAL), // 1
 
     /**
-     * A constant for {@link AdjustableOrientation#NO_OPERATIONAL}.
+     * A constant for {@link Adjustable#NO_ORIENTATION}.
      */
-    NO_OPERATIONAL(java.awt.Adjustable.NO_ORIENTATION); // 2
+    NO_ORIENTATION(Adjustable.NO_ORIENTATION); // 2
 
-    private AdjustableOrientation(final int fieldValue) {
+    AdjustableOrientation(final int fieldValue) {
         this.fieldValue = fieldValue;
     }
 
     @Override
-    public int getFieldValue() {
+    public int fieldValueAsInt() {
         return fieldValue;
     }
 

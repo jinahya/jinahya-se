@@ -15,6 +15,7 @@
  */
 package com.github.jinahya.crypto;
 
+import com.github.jinahya.lang.FieldEnum;
 import com.github.jinahya.lang.IntFieldEnum;
 
 import javax.crypto.Cipher;
@@ -24,9 +25,8 @@ import javax.crypto.Cipher;
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public enum CipherMode implements IntFieldEnum<CipherMode> {
+public enum CipherMode implements FieldEnum.OfInt<CipherMode> {
 
-    // -----------------------------------------------------------------------------------------------------------------
     /**
      * A constant for {@link Cipher#ENCRYPT_MODE}.
      */
@@ -47,26 +47,22 @@ public enum CipherMode implements IntFieldEnum<CipherMode> {
      */
     UNWRAP_MODE(Cipher.UNWRAP_MODE); // 4
 
-    // -----------------------------------------------------------------------------------------------------------------
-    public static int[] fieldValues() {
-        return IntFieldEnum.fieldValues(CipherMode.class);
-    }
+//    public static int[] fieldValues() {
+//        return IntFieldEnum.fieldValues(CipherMode.class);
+//    }
+//
+//    public static CipherMode valueOfFieldValue(final int fieldValue) {
+//        return IntFieldEnum.valueOfFieldValue(CipherMode.class, fieldValue);
+//    }
 
-    public static CipherMode valueOfFieldValue(final int fieldValue) {
-        return IntFieldEnum.valueOfFieldValue(CipherMode.class, fieldValue);
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
     CipherMode(final int fieldValue) {
         this.fieldValue = fieldValue;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
     @Override
-    public int getFieldValue() {
+    public int fieldValueAsInt() {
         return fieldValue;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
     private final int fieldValue;
 }

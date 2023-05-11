@@ -32,12 +32,12 @@ public enum ComponentAlignmentX implements FloatFieldEnum<ComponentAlignmentX> {
     /**
      * Constant for {@link Component#CENTER_ALIGNMENT}.
      */
-    CENTER_ALIGHMENT(Component.CENTER_ALIGNMENT), // 0.5f
+    CENTER_ALIGNMENT(Component.CENTER_ALIGNMENT), // 0.5f
 
     /**
      * Constant for {@link Component#RIGHT_ALIGNMENT}.
      */
-    RIGHT_ALIGHNMENT(Component.RIGHT_ALIGNMENT); // 1.0f
+    RIGHT_ALIGNMENT(Component.RIGHT_ALIGNMENT); // 1.0f
 
     private ComponentAlignmentX(final float fieldValue) {
         this.fieldValue = fieldValue;

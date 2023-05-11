@@ -36,13 +36,13 @@ public class ReadableDigestChannel extends ReadableFilterChannel {
 
     @Override
     public int read(final ByteBuffer dst) throws IOException {
-        final int bytes = super.read(dst);
-        if (digest != null) {
-            for (int i = dst.position() - bytes; i < dst.position(); i++) {
+        final int read = super.read(dst);
+        if (read > 0 && digest != null) {
+            for (int i = dst.position() - read; i < dst.position(); i++) {
                 digest.update(dst.get(i));
             }
         }
-        return bytes;
+        return read;
     }
 
     public MessageDigest getDigest() {

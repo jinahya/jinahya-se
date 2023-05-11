@@ -21,12 +21,20 @@ import java.nio.channels.ReadableByteChannel;
 import java.util.Objects;
 
 /**
+ * A readable byte channel filtering another channel.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
+ * @see WritableFilterChannel
  */
 public class ReadableFilterChannel
         extends FilterChannel<ReadableByteChannel>
         implements ReadableByteChannel {
 
+    /**
+     * Creates a new instance on top of specified channel.
+     *
+     * @param channel the channel to filter.
+     */
     public ReadableFilterChannel(final ReadableByteChannel channel) {
         super(channel);
     }

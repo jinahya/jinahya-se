@@ -20,12 +20,19 @@ import java.nio.channels.Channel;
 import java.util.Objects;
 
 /**
+ * An abstract channel for filtering another channel.
+ *
  * @param <T> channel type parameter
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public class FilterChannel<T extends Channel> implements Channel {
+public abstract class FilterChannel<T extends Channel> implements Channel {
 
-    public FilterChannel(final T channel) {
+    /**
+     * Creates a new instance on top of specified channel.
+     *
+     * @param channel the channel to filter.
+     */
+    protected FilterChannel(final T channel) {
         super();
         this.channel = Objects.requireNonNull(channel, "channel is null");
     }
@@ -37,10 +44,11 @@ public class FilterChannel<T extends Channel> implements Channel {
 
     @Override
     public void close() throws IOException {
-        if (channel != null) {
-            channel.close();
-        }
+        channel.close();
     }
 
-    protected T channel;
+    /**
+     * The channel filtered by this channel.
+     */
+    protected final T channel;
 }
