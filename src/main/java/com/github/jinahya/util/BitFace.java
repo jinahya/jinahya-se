@@ -20,7 +20,7 @@ import java.util.stream.StreamSupport;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see BitMask
  */
-final class BitFace {
+public final class BitFace {
 
     /**
      * Represents a value with zero or more {@link BitMask.OfLong mask}s on it.
