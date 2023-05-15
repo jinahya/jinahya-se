@@ -25,61 +25,25 @@ import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static java.nio.ByteBuffer.allocate;
-import static java.util.Arrays.asList;
-import static java.util.Collections.singletonList;
-import static java.util.Collections.unmodifiableMap;
+import java.util.Objects;
 
 /**
- * A utility class for {@link Cipher}s.
+ * Utilities for {@link Cipher}s.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public final class JinahyaCiphers {
-
-    // -----------------------------------------------------------------------------------------------------------------
+public final class CipherUtils {
 
     /**
-     * An unmodifiable map of transformations and lists of available key sizes that every implementation of the Java
-     * platform is required to support.
+     * Updates and optionally finishes a multipart encryption or description operation.
      *
-     * @see Cipher
-     */
-    public static final Map<String, List<Integer>> SUPPORTED_TRANSFORMATIONS;
-
-    static {
-        final Map<String, List<Integer>> m = new HashMap<>();
-        m.put("AES/CBC/NoPadding", singletonList(128));
-        m.put("AES/CBC/PKCS5Padding", singletonList(128));
-        m.put("AES/ECB/NoPadding", singletonList(128));
-        m.put("AES/ECB/PKCS5Padding", singletonList(128));
-        m.put("DES/CBC/NoPadding", singletonList(56));
-        m.put("DES/CBC/PKCS5Padding", singletonList(56));
-        m.put("DES/ECB/NoPadding", singletonList(56));
-        m.put("DES/ECB/PKCS5Padding", singletonList(56));
-        m.put("DESede/CBC/NoPadding", singletonList(168));
-        m.put("DESede/CBC/PKCS5Padding", singletonList(168));
-        m.put("DESede/ECB/NoPadding", singletonList(168));
-        m.put("DESede/ECB/PKCS5Padding", singletonList(168));
-        m.put("RSA/ECB/PKCS1Padding", asList(1024, 2048));
-        m.put("RSA/ECB/OAEPWithSHA-1AndMGF1Padding", asList(1024, 2048));
-        m.put("RSA/ECB/OAEPWithSHA-256AndMGF1Padding", asList(1024, 2048));
-        SUPPORTED_TRANSFORMATIONS = unmodifiableMap(m);
-    }
-
-    /**
-     * Updates and optionally finishes a multi-part encryption or description operation.
-     *
-     * @param cipher   the cipher
-     * @param input    the input
-     * @param output   the output
-     * @param inbuf    buffer size
-     * @param limit    the maximum number of bytes to process; {@code -1L} for all available bytes in {@code input}.
-     * @param finalize a flag for calling {@link Cipher#doFinal()}.
+     * @param cipher the cipher
+     * @param input  the input
+     * @param output the output
+     * @param inbuf  an input buffer.
+     * @param outbuf an output buffer.
+     * @param limit  the maximum number of bytes to process; {@code -1L} for all available bytes in {@code input}.
+     * @param finish a flag for calling {@link Cipher#doFinal()}.
      * @return the actual number of bytes processed
      * @throws IOException               if an I/O error occurs.
      * @throws IllegalBlockSizeException if this cipher is a block cipher, no padding has been requested (only in
@@ -93,8 +57,20 @@ public final class JinahyaCiphers {
      * @see Cipher#update(byte[], int, int, byte[], int)
      */
     public static long update(final Cipher cipher, final InputStream input, final OutputStream output,
-                              final byte[] inbuf, final byte[] outbuf, long limit, final boolean finalize)
+                              final byte[] inbuf, final byte[] outbuf, long limit, final boolean finish)
             throws IOException, IllegalBlockSizeException, BadPaddingException, ShortBufferException {
+        Objects.requireNonNull(cipher, "cipher is null");
+        Objects.requireNonNull(input, "input is null");
+        Objects.requireNonNull(output, "output is null");
+        if (Objects.requireNonNull(inbuf, "inbuf is null").length == 0) {
+            throw new IllegalArgumentException("inbuf.length == 0");
+        }
+        if (Objects.requireNonNull(outbuf, "outbuf is null").length == 0) {
+            throw new IllegalArgumentException("outbuf.length == 0");
+        }
+        if (limit <= 0L) {
+            throw new IllegalArgumentException("limit(" + limit + ") is not positive");
+        }
         long count = 0L;
         int inlen = inbuf.length;
         int outlen;
@@ -109,7 +85,7 @@ public final class JinahyaCiphers {
             output.write(outbuf, 0, outlen);
             limit -= r;
         }
-        if (finalize) {
+        if (finish) {
             outlen = cipher.doFinal(outbuf, 0);
             output.write(outbuf, 0, outlen);
         }
@@ -117,21 +93,38 @@ public final class JinahyaCiphers {
     }
 
     public static long update(final Cipher cipher, final InputStream input, final OutputStream output,
-                              final byte[] inbuf, long limit, final boolean finalize)
+                              final byte[] inbuf, final long limit, final boolean finish)
             throws IOException, IllegalBlockSizeException, BadPaddingException {
+        if (Objects.requireNonNull(inbuf, "inbuf is null").length == 0) {
+            throw new IllegalArgumentException("inbuf.length == 0");
+        }
         final byte[] outbuf = new byte[cipher.getOutputSize(inbuf.length) + cipher.getBlockSize()];
         try {
-            return update(cipher, input, output, inbuf, outbuf, limit, finalize);
+            return update(cipher, input, output, inbuf, outbuf, limit, finish);
         } catch (final ShortBufferException sbe) {
             throw new RuntimeException(sbe);
         }
     }
 
     public static long update(final Cipher cipher, final ReadableByteChannel readable,
-                              final WritableByteChannel writable, final ByteBuffer inbuf,
-                              final ByteBuffer outbuf, long limit, final boolean finalize)
+                              final WritableByteChannel writable, final ByteBuffer inbuf, final ByteBuffer outbuf,
+                              long limit, final boolean finish)
             throws IOException, IllegalBlockSizeException, BadPaddingException, ShortBufferException {
+        Objects.requireNonNull(cipher, "cipher is null");
+        Objects.requireNonNull(readable, "readable is null");
+        Objects.requireNonNull(writable, "writable is null");
+        if (Objects.requireNonNull(inbuf, "inbuf is null").capacity() == 0) {
+            throw new IllegalArgumentException("inbuf.capacity is zero");
+        }
+        if (Objects.requireNonNull(outbuf, "outbuf is null").capacity() == 0) {
+            throw new IllegalArgumentException("outbuf.capacity is zero");
+        }
+        if (limit <= 0L) {
+            throw new IllegalArgumentException("limit(" + limit + ") is not positive");
+        }
         long count = 0L;
+        inbuf.clear();
+        outbuf.clear();
         for (int r; limit > 0L; count += r) {
             if (limit < inbuf.remaining()) {
                 inbuf.limit(inbuf.position() + (int) limit);
@@ -141,37 +134,47 @@ public final class JinahyaCiphers {
             }
             inbuf.flip(); // limit -> position, position -> zero
             final int updated = cipher.update(inbuf, outbuf);
-            inbuf.clear(); // position -> zero, limit -> capacity
-            for (outbuf.flip(); outbuf.hasRemaining(); ) {
-                final int written = writable.write(outbuf);
+            if (updated > 0) {
+                for (outbuf.flip(); outbuf.hasRemaining(); ) {
+                    writable.write(outbuf);
+                }
             }
+            inbuf.clear(); // position -> zero, limit -> capacity
             outbuf.clear(); // position -> zero, limit -> capacity
             limit -= r;
         }
-        if (finalize) {
-            inbuf.flip();
+        if (finish) {
+            assert inbuf.position() == 0;
+            assert inbuf.limit() == inbuf.capacity();
+            assert outbuf.position() == 0;
+            assert outbuf.limit() == outbuf.capacity();
+            inbuf.position(inbuf.limit());
             final int finalized = cipher.doFinal(inbuf, outbuf);
-            for (outbuf.flip(); outbuf.hasRemaining(); ) {
-                final int written = writable.write(outbuf);
+            if (finalized > 0) {
+                for (outbuf.flip(); outbuf.hasRemaining(); ) {
+                    writable.write(outbuf);
+                }
             }
         }
         return count;
     }
 
     public static long update(final Cipher cipher, final ReadableByteChannel readable,
-                              final WritableByteChannel writable, final ByteBuffer inbuf,
-                              long limit, final boolean finalize)
+                              final WritableByteChannel writable, final ByteBuffer inbuf, long limit,
+                              final boolean finish)
             throws IOException, IllegalBlockSizeException, BadPaddingException {
-        final ByteBuffer outbuf = allocate(cipher.getOutputSize(inbuf.capacity()) + cipher.getBlockSize());
+        if (Objects.requireNonNull(inbuf, "inbuf is null").capacity() == 0) {
+            throw new IllegalArgumentException("inbuf.capacity is zero");
+        }
+        final ByteBuffer outbuf = ByteBuffer.allocate(cipher.getOutputSize(inbuf.capacity()) + cipher.getBlockSize());
         try {
-            return update(cipher, readable, writable, inbuf, outbuf, limit, finalize);
+            return update(cipher, readable, writable, inbuf, outbuf, limit, finish);
         } catch (final ShortBufferException sbe) {
             throw new RuntimeException(sbe);
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    private JinahyaCiphers() {
-        super();
+    private CipherUtils() {
+        throw new AssertionError("instantiation is not allowed");
     }
 }

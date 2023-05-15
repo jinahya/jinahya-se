@@ -15,59 +15,95 @@
  */
 package com.github.jinahya.lang;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @param <E> enum type parameter
  * @param <F> field type parameter
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public abstract class FieldEnumTest<E extends Enum<E> & FieldEnum<E, F>, F> {
+@Slf4j
+public abstract class FieldEnumTest<E extends Enum<E> & FieldEnum<E, F>, F> extends EnumTest<E> {
 
-    /**
-     * logger.
-     */
-    private static final Logger logger
-            = LoggerFactory.getLogger(FieldEnumTest.class);
+    public abstract static class OfInt<E extends Enum<E> & FieldEnum.OfInt<E>> extends EnumTest<E> {
 
-    public FieldEnumTest(final Class<E> enumType, final Class<F> fieldType) {
+        protected OfInt(final Class<E> enumClass) {
+            super(enumClass);
+        }
 
-        super();
-
-        Objects.requireNonNull(enumType, "null enumType");
-        Objects.requireNonNull(fieldType, "null fieldType");
-
-        this.enumType = enumType;
-        this.fieldType = fieldType;
-    }
-
-    @Test
-    public void assertUniqueFieldValues() {
-
-        final Set<F> fieldValues = new HashSet<>();
-        for (final E enumConstant : enumType.getEnumConstants()) {
-            final F fieldValue = enumConstant.fieldValue();
-            if (!fieldValues.add(fieldValue)) {
-                fail("duplicate field value: " + fieldValue);
+        @Test
+        protected void fieldValueAsInt_NonNullUnique_() {
+            final var fieldValues = new HashSet<Integer>();
+            for (final var enumConstant : enumClass.getEnumConstants()) {
+                final var fieldValue = enumConstant.fieldValueAsInt();
+                assertThat(fieldValue)
+                        .as("field value of %1$s", enumConstant)
+                        .isNotIn(fieldValues);
             }
         }
     }
 
-    /**
-     * enum type.
-     */
-    protected final Class<E> enumType;
+    public abstract static class OfLong<E extends Enum<E> & FieldEnum.OfLong<E>> extends EnumTest<E> {
+
+        protected OfLong(final Class<E> enumClass) {
+            super(enumClass);
+        }
+
+        @Test
+        protected void fieldValueAsInt_NonNullUnique_() {
+            final var fieldValues = new HashSet<Long>();
+            for (final var enumConstant : enumClass.getEnumConstants()) {
+                final var fieldValue = enumConstant.fieldValueAsLong();
+                assertThat(fieldValue)
+                        .as("field value of %1$s", enumConstant)
+                        .isNotIn(fieldValues);
+            }
+        }
+    }
+
+    public abstract static class OfFloat<E extends Enum<E> & FieldEnum.OfFloat<E>> extends EnumTest<E> {
+
+        protected OfFloat(final Class<E> enumClass) {
+            super(enumClass);
+        }
+
+        @Test
+        protected void fieldValueAsInt_NonNullUnique_() {
+            final var fieldValues = new HashSet<Float>();
+            for (final var enumConstant : enumClass.getEnumConstants()) {
+                final var fieldValue = enumConstant.fieldValueAsFloat();
+                assertThat(fieldValue)
+                        .as("field value of %1$s", enumConstant)
+                        .isNotIn(fieldValues);
+            }
+        }
+    }
+
+    protected FieldEnumTest(final Class<E> enumClass, final Class<F> fieldClass) {
+        super(enumClass);
+        this.fieldClass = Objects.requireNonNull(fieldClass, "fieldClass is null");
+    }
+
+    @Test
+    protected void fieldValue_NonNullUnique_() {
+        final var fieldValues = new HashSet<F>();
+        for (final var enumConstant : enumClass.getEnumConstants()) {
+            final var fieldValue = enumConstant.fieldValue();
+            assertThat(fieldValue)
+                    .as("field value of %1$s", enumConstant)
+                    .isNotNull()
+                    .isNotIn(fieldValues);
+        }
+    }
 
     /**
      * field type.
      */
-    protected final Class<F> fieldType;
+    protected final Class<F> fieldClass;
 }

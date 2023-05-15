@@ -21,12 +21,20 @@ import java.nio.channels.WritableByteChannel;
 import java.util.Objects;
 
 /**
+ * A writable byte channel filtering another channel.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
+ * @see ReadableFilterChannel
  */
 public class WritableFilterChannel
         extends FilterChannel<WritableByteChannel>
         implements WritableByteChannel {
 
+    /**
+     * Creates a new instance on top of specified channel.
+     *
+     * @param channel the channel to filter.
+     */
     public WritableFilterChannel(final WritableByteChannel channel) {
         super(channel);
     }

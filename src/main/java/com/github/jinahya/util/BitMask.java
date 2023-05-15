@@ -9,7 +9,7 @@ import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Represents a mask for {@link BitFace face}s
+ * Represents a bit mask for {@link BitFace face}s
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see BitFace
@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public final class BitMask {
 
     /**
-     * Represents a mask for {@link BitFace.OfLong face}s
+     * Represents a bit mask for {@link BitFace.OfLong face}s
      *
      * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
      */
@@ -33,9 +33,9 @@ public final class BitMask {
          */
         public static final int MAX_EXPONENT = Long.SIZE - 2;
 
-        static final long MIN_VALUE = 0x00_00_00_00_00_00_00_01L;
+        private static final long MIN_VALUE = 0x00_00_00_00_00_00_00_01L;
 
-        static final long MAX_VALUE = 0x40_00_00_00_00_00_00_00L; // 0b0100_0000_...
+        private static final long MAX_VALUE = 0x40_00_00_00_00_00_00_00L; // 0b0100_0000_...
 
         /**
          * Checks whether specified exponent value is valid.
@@ -78,6 +78,12 @@ public final class BitMask {
             return CACHE.computeIfAbsent(requireValidValue(value), OfLong::new);
         }
 
+        /**
+         * Creates a new instance for specified exponent.
+         *
+         * @param exponent the exponent between {@value #MIN_EXPONENT} and {@value #MAX_EXPONENT}, both inclusive.
+         * @return a new instance.
+         */
         public static OfLong ofExponent(final int exponent) {
             return of(0x01L << requireValidExponent(exponent));
         }
@@ -111,7 +117,7 @@ public final class BitMask {
         }
 
         /**
-         * Puts this mask onto specified face.
+         * Puts this mask on to specified face.
          *
          * @param face the face to which this mask is put on.
          * @return new face with this mask on.
@@ -161,9 +167,9 @@ public final class BitMask {
      */
     public static final int MAX_EXPONENT = Integer.SIZE - 2;
 
-    static final int MIN_VALUE = 0x00_00_00_01;
+    private static final int MIN_VALUE = 0x00_00_00_01;
 
-    static final int MAX_VALUE = 0x40_00_00_00; // 0b0100_0000_...
+    private static final int MAX_VALUE = 0x40_00_00_00; // 0b0100_0000_...
 
     /**
      * Checks whether specified exponent value is valid.
@@ -206,6 +212,12 @@ public final class BitMask {
         return CACHE.computeIfAbsent(requireValidValue(value), BitMask::new);
     }
 
+    /**
+     * Creates a new instance for specified exponent.
+     *
+     * @param exponent the exponent between {@value #MIN_EXPONENT} and {@value #MAX_EXPONENT}, both inclusive.
+     * @return a new instance.
+     */
     public static BitMask ofExponent(final int exponent) {
         return of(0x01 << requireValidExponent(exponent));
     }
@@ -239,7 +251,7 @@ public final class BitMask {
     }
 
     /**
-     * Puts this mask onto specified face.
+     * Puts this mask on to specified face.
      *
      * @param face the face to which this mask is put on.
      * @return new face with this mask on.

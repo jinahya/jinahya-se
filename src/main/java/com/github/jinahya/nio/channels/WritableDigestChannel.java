@@ -36,13 +36,13 @@ public class WritableDigestChannel extends WritableFilterChannel {
 
     @Override
     public int write(final ByteBuffer src) throws IOException {
-        final int bytes = super.write(src);
-        if (digest != null) {
-            for (int i = src.position() - bytes; i < src.position(); i++) {
+        final int written = super.write(src);
+        if (written > 0 && digest != null) {
+            for (int i = src.position() - written; i < src.position(); i++) {
                 digest.update(src.get(i));
             }
         }
-        return bytes;
+        return written;
     }
 
     public MessageDigest getDigest() {

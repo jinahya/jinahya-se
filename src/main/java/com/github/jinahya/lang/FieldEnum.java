@@ -24,6 +24,21 @@ package com.github.jinahya.lang;
  */
 public interface FieldEnum<E extends Enum<E>, V> {
 
+    interface OfInt<E extends Enum<E> & OfInt<E>> {
+
+        int fieldValueAsInt();
+    }
+
+    interface OfLong<E extends Enum<E> & OfLong<E>> {
+
+        long fieldValueAsLong();
+    }
+
+    interface OfFloat<E extends Enum<E> & OfFloat<E>> {
+
+        float fieldValueAsFloat();
+    }
+
     /**
      * Returns field value.
      *

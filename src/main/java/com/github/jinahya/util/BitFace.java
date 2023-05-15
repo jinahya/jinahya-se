@@ -26,6 +26,7 @@ final class BitFace {
      * Represents a value with zero or more {@link BitMask.OfLong mask}s on it.
      *
      * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+     * @see BitMask.OfLong
      */
     public static final class OfLong {
 
@@ -39,7 +40,7 @@ final class BitFace {
          */
         private static final long MAX_VALUE = Long.MAX_VALUE;
 
-        static long requireValidValue(final long value) {
+        private static long requireValidValue(final long value) {
             if (value < MIN_VALUE) {
                 throw new IllegalArgumentException("value(" + value + " < " + MIN_VALUE);
             }
@@ -84,7 +85,7 @@ final class BitFace {
          * Returns an instance wearing specified mask.
          *
          * @param mask the mask to wear.
-         * @return an instance wearing {@code masks}.
+         * @return an instance wearing {@code mask}.
          */
         public static OfLong of(final BitMask.OfLong mask) {
             Objects.requireNonNull(mask, "mask is null");
@@ -94,8 +95,8 @@ final class BitFace {
         /**
          * Returns an instance wearing specified masks.
          *
-         * @param mask1 the first mask to wear.
-         * @param mask2 the second mask to wear.
+         * @param mask1 a mask to wear.
+         * @param mask2 another mask to wear.
          * @return an instance wearing specified masks.
          */
         public static OfLong of(final BitMask.OfLong mask1, final BitMask.OfLong mask2) {
@@ -112,7 +113,8 @@ final class BitFace {
          * @param otherMasks other masks to wear.
          * @return an instance wearing {@code otherMasks}.
          */
-        public static OfLong of(final BitMask.OfLong mask1, final BitMask.OfLong mask2, final BitMask.OfLong... otherMasks) {
+        public static OfLong of(final BitMask.OfLong mask1, final BitMask.OfLong mask2,
+                                final BitMask.OfLong... otherMasks) {
             Objects.requireNonNull(mask1, "mask1 is null");
             Objects.requireNonNull(mask2, "mask2 is null");
             Objects.requireNonNull(otherMasks, "otherMasks is null");
@@ -120,9 +122,9 @@ final class BitFace {
         }
 
         /**
-         * Returns an instance with no masks.
+         * Returns an instance with no mask.
          *
-         * @return an instance with no masks.
+         * @return an instance with no mask.
          */
         public static OfLong ofNone() {
             return of(MIN_VALUE);
@@ -278,7 +280,7 @@ final class BitFace {
      * Returns an instance wearing specified masks
      *
      * @param masks the masks to wear.
-     * @return an instance wearing {@code masks}.
+     * @return an instance wearing {@code mask}.
      */
     public static BitFace of(final Iterable<BitMask> masks) {
         Objects.requireNonNull(masks, "masks is null");
@@ -299,8 +301,8 @@ final class BitFace {
     /**
      * Returns an instance wearing specified masks.
      *
-     * @param mask1 the first mask to wear.
-     * @param mask2 the second mask to wear.
+     * @param mask1 a mask to wear.
+     * @param mask2 another mask to wear.
      * @return an instance wearing specified masks.
      */
     public static BitFace of(final BitMask mask1, final BitMask mask2) {
@@ -325,9 +327,9 @@ final class BitFace {
     }
 
     /**
-     * Returns an instance with no masks.
+     * Returns an instance with no mask.
      *
-     * @return an instance with no masks.
+     * @return an instance with no mask.
      */
     public static BitFace ofNone() {
         return of(MIN_VALUE);

@@ -20,7 +20,6 @@ import org.junit.jupiter.api.Test;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
-import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -33,31 +32,16 @@ import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.AlgorithmParameterSpec;
 import java.util.List;
-import java.util.Map.Entry;
 
-import static com.github.jinahya.crypto.JinahyaCiphers.SUPPORTED_TRANSFORMATIONS;
-import static com.github.jinahya.crypto.JinahyaCiphers.update;
-import static java.nio.ByteBuffer.allocate;
+import static com.github.jinahya.crypto.CipherUtils.update;
 import static java.nio.channels.Channels.newChannel;
 import static java.util.concurrent.ThreadLocalRandom.current;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
- */
 @Slf4j
-public class CiphersTest {
+class CipherUtilsTest {
 
-    // -----------------------------------------------------------------------------------------------------------------
-    @Test
-    public static void SUPPORTED_TRANSFORMATIONS() throws NoSuchAlgorithmException, NoSuchPaddingException {
-        for (final String transformation : SUPPORTED_TRANSFORMATIONS.keySet()) {
-            final Cipher cipher = Cipher.getInstance(transformation);
-        }
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
     private static Key newKey(final String algorithm, final int keySize) throws NoSuchAlgorithmException {
         final KeyGenerator keygen = KeyGenerator.getInstance(algorithm);
         keygen.init(keySize);
@@ -101,7 +85,7 @@ public class CiphersTest {
                 cipher.init(Cipher.ENCRYPT_MODE, key, iv);
                 final ByteArrayInputStream input = new ByteArrayInputStream(plain);
                 final ByteArrayOutputStream output = new ByteArrayOutputStream();
-                final byte[] inbuf = new byte[current().nextInt(1, 16)];
+                final byte[] inbuf = new byte[16];
                 outputSize = cipher.getOutputSize(inbuf.length);
                 final long count = update(cipher, input, output, inbuf, Long.MAX_VALUE, true);
                 assertEquals(plain.length, count);
@@ -111,7 +95,7 @@ public class CiphersTest {
                 cipher.init(Cipher.DECRYPT_MODE, key, iv);
                 final ByteArrayInputStream input = new ByteArrayInputStream(encrypted);
                 final ByteArrayOutputStream output = new ByteArrayOutputStream();
-                final byte[] outbuf = new byte[outputSize];
+                final byte[] outbuf = new byte[outputSize + cipher.getBlockSize()];
                 final long count = update(cipher, input, output, outbuf, Long.MAX_VALUE, true);
                 assertEquals(encrypted.length, count);
                 decrypted = output.toByteArray();
@@ -127,7 +111,7 @@ public class CiphersTest {
                 final ReadableByteChannel readable = newChannel(new ByteArrayInputStream(plain));
                 final ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 final WritableByteChannel writable = newChannel(baos);
-                final ByteBuffer inbuf = allocate(current().nextInt(1, 16));
+                final ByteBuffer inbuf = ByteBuffer.allocate(16);
                 outputSize = cipher.getOutputSize(inbuf.capacity());
                 final long count = update(cipher, readable, writable, inbuf, Long.MAX_VALUE, true);
                 assertEquals(plain.length, count);
@@ -139,7 +123,7 @@ public class CiphersTest {
                 final ReadableByteChannel readable = newChannel(new ByteArrayInputStream(encrypted));
                 final ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 final WritableByteChannel writable = newChannel(baos);
-                final ByteBuffer inbuf = allocate(outputSize);
+                final ByteBuffer inbuf = ByteBuffer.allocate(outputSize + cipher.getBlockSize());
                 final long count = update(cipher, readable, writable, inbuf, Long.MAX_VALUE, true);
                 assertEquals(encrypted.length, count);
                 decrypted = baos.toByteArray();
@@ -149,9 +133,10 @@ public class CiphersTest {
     }
 
     @Test
-    public void symmetric() throws Exception {
-        for (final Entry<String, List<Integer>> entry : SUPPORTED_TRANSFORMATIONS.entrySet()) {
+    void symmetric() throws Exception {
+        for (final var entry : CipherConstants.TRANSFORMATIONS_REQUIRED_TO_BE_SUPPORTED.entrySet()) {
             final String transformation = entry.getKey();
+            log.debug("transformation: {}", transformation);
             final String[] split = transformation.split("/");
             final String algorithm = split[0];
             final String mode = split[1];

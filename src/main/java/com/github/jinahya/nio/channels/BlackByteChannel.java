@@ -25,6 +25,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * A byte channel which discards all remaining bytes of given buffer.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
+ * @see WhiteByteChannel
  */
 public final class BlackByteChannel implements WritableByteChannel {
 
@@ -60,11 +61,11 @@ public final class BlackByteChannel implements WritableByteChannel {
     @Override
     public int write(final ByteBuffer src) throws IOException {
         Objects.requireNonNull(src, "src is null");
-        int bytes = 0;
-        for (; src.hasRemaining() && ThreadLocalRandom.current().nextBoolean(); bytes++) {
+        int read = 0;
+        for (; src.hasRemaining() && ThreadLocalRandom.current().nextBoolean(); read++) {
             src.get();
         }
-        return bytes;
+        return read;
     }
 
     /**

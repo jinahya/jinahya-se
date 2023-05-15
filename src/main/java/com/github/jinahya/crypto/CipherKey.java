@@ -15,7 +15,7 @@
  */
 package com.github.jinahya.crypto;
 
-import com.github.jinahya.lang.IntFieldEnum;
+import com.github.jinahya.lang.FieldEnum;
 
 import javax.crypto.Cipher;
 
@@ -24,9 +24,8 @@ import javax.crypto.Cipher;
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public enum CipherKey implements IntFieldEnum<CipherKey> {
+public enum CipherKey implements FieldEnum.OfInt<CipherKey> {
 
-    // -----------------------------------------------------------------------------------------------------------------
     /**
      * A constant for {@link Cipher#PUBLIC_KEY}.
      */
@@ -42,17 +41,14 @@ public enum CipherKey implements IntFieldEnum<CipherKey> {
      */
     SECRET_KEY(Cipher.SECRET_KEY); // 3
 
-    // -----------------------------------------------------------------------------------------------------------------
     CipherKey(final int fieldValue) {
         this.fieldValue = fieldValue;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
     @Override
-    public int getFieldValue() {
+    public int fieldValueAsInt() {
         return fieldValue;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
     private final int fieldValue;
 }
