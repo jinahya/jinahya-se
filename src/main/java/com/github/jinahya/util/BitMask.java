@@ -1,5 +1,8 @@
 package com.github.jinahya.util;
 
+import java.io.IOException;
+import java.io.InvalidObjectException;
+import java.io.ObjectInputStream;
 import java.util.Map;
 import java.util.Objects;
 import java.util.WeakHashMap;
@@ -137,6 +140,15 @@ public final class BitMask {
         }
 
         private final long value;
+
+        private void readObject(final ObjectInputStream s) throws IOException, ClassNotFoundException {
+            s.defaultReadObject();
+            try {
+                requireValidValue(value);
+            } catch (final IllegalArgumentException iae) {
+                throw new InvalidObjectException(iae.getMessage());
+            }
+        }
     }
 
     /**
@@ -256,4 +268,13 @@ public final class BitMask {
     }
 
     private final int value;
+
+    private void readObject(final ObjectInputStream s) throws IOException, ClassNotFoundException {
+        s.defaultReadObject();
+        try {
+            requireValidValue(value);
+        } catch (final IllegalArgumentException iae) {
+            throw new InvalidObjectException(iae.getMessage());
+        }
+    }
 }
