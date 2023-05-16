@@ -31,11 +31,7 @@ public final class BitMask {
         /**
          * The maximum value for an exponent of a mask. The value is {@value}.
          */
-        public static final int MAX_EXPONENT = Long.SIZE - 2;
-
-        private static final long MIN_VALUE = 0x00_00_00_00_00_00_00_01L;
-
-        private static final long MAX_VALUE = 0x40_00_00_00_00_00_00_00L; // 0b0100_0000_...
+        public static final int MAX_EXPONENT = Long.SIZE - 1;
 
         /**
          * Checks whether specified exponent value is valid.
@@ -55,19 +51,9 @@ public final class BitMask {
             return exponent;
         }
 
-        /**
-         * Checks whether specified value is valid.
-         *
-         * @param value the value to test.
-         * @return given {@code value} when it's between {@value #MIN_VALUE} and {@value #MAX_VALUE}, both inclusive.
-         * @throws IllegalArgumentException when {@code value} does not reside in the valid range.
-         */
         private static long requireValidValue(final long value) {
-            if (value < MIN_VALUE) {
-                throw new IllegalArgumentException("value(" + value + ") < " + MIN_VALUE);
-            }
-            if (value > MAX_VALUE) {
-                throw new IllegalArgumentException("value(" + value + ") > " + MAX_VALUE);
+            if (Long.bitCount(value) != 1) {
+                throw new IllegalArgumentException("invalid value: " + value);
             }
             return value;
         }
@@ -165,11 +151,7 @@ public final class BitMask {
     /**
      * The maximum value for an exponent of a mask. The value is {@value}.
      */
-    public static final int MAX_EXPONENT = Integer.SIZE - 2;
-
-    private static final int MIN_VALUE = 0x00_00_00_01;
-
-    private static final int MAX_VALUE = 0x40_00_00_00; // 0b0100_0000_...
+    public static final int MAX_EXPONENT = Integer.SIZE - 1;
 
     /**
      * Checks whether specified exponent value is valid.
@@ -189,19 +171,9 @@ public final class BitMask {
         return exponent;
     }
 
-    /**
-     * Checks whether specified value is valid.
-     *
-     * @param value the value to test.
-     * @return given {@code value} when it's between {@value #MIN_VALUE} and {@value #MAX_VALUE}, both inclusive.
-     * @throws IllegalArgumentException when {@code value} does not reside in the valid range.
-     */
     private static int requireValidValue(final int value) {
-        if (value < MIN_VALUE) {
-            throw new IllegalArgumentException("value(" + value + ") < " + MIN_VALUE);
-        }
-        if (value > MAX_VALUE) {
-            throw new IllegalArgumentException("value(" + value + ") > " + MAX_VALUE);
+        if (Integer.bitCount(value) != 1) {
+            throw new IllegalArgumentException("invalid value: " + value);
         }
         return value;
     }

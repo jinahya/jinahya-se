@@ -1,8 +1,5 @@
 package com.github.jinahya.util;
 
-import java.io.IOException;
-import java.io.InvalidObjectException;
-import java.io.ObjectInputStream;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
@@ -30,23 +27,6 @@ public final class BitFace {
      */
     public static final class OfLong {
 
-        /**
-         * The minimum value of a face with no mask on it. The value is {@value}.
-         */
-        private static final long MIN_VALUE = 0L;
-
-        /**
-         * The maximum value of a face with all possible masks on it. The value is {@value}.
-         */
-        private static final long MAX_VALUE = Long.MAX_VALUE;
-
-        private static long requireValidValue(final long value) {
-            if (value < MIN_VALUE) {
-                throw new IllegalArgumentException("value(" + value + " < " + MIN_VALUE);
-            }
-            return value;
-        }
-
         private static final Map<Long, OfLong> CACHE = new ConcurrentHashMap<>(new WeakHashMap<>());
 
         /**
@@ -56,7 +36,7 @@ public final class BitFace {
          * @return an instance with {@code value}.
          */
         static OfLong of(final long value) {
-            return CACHE.computeIfAbsent(requireValidValue(value), OfLong::new);
+            return CACHE.computeIfAbsent(value, OfLong::new);
         }
 
         static OfLong merge(final OfLong f1, final OfLong f2) {
@@ -127,7 +107,7 @@ public final class BitFace {
          * @return an instance with no mask.
          */
         public static OfLong ofNone() {
-            return of(MIN_VALUE);
+            return of(0L);
         }
 
         /**
@@ -136,7 +116,7 @@ public final class BitFace {
          * @return an instance wearing all possible masks.
          */
         public static OfLong ofAll() {
-            return of(MAX_VALUE);
+            return of(-1L);
         }
 
         /**
@@ -146,7 +126,7 @@ public final class BitFace {
          */
         private OfLong(final long value) {
             super();
-            this.value = requireValidValue(value);
+            this.value = value;
         }
 
         @Override
@@ -225,32 +205,6 @@ public final class BitFace {
         }
 
         private final long value;
-
-        private void readObject(final ObjectInputStream s) throws IOException, ClassNotFoundException {
-            s.defaultReadObject();
-            try {
-                requireValidValue(value);
-            } catch (final IllegalArgumentException iae) {
-                throw new InvalidObjectException(iae.getMessage());
-            }
-        }
-    }
-
-    /**
-     * The minimum value of a face with no mask on it. The value is {@value}.
-     */
-    private static final int MIN_VALUE = 0;
-
-    /**
-     * The maximum value of a face with all possible masks on it. The value is {@value}.
-     */
-    private static final int MAX_VALUE = Integer.MAX_VALUE;
-
-    static int requireValidValue(final int value) {
-        if (value < MIN_VALUE) {
-            throw new IllegalArgumentException("value(" + value + ") < " + MIN_VALUE);
-        }
-        return value;
     }
 
     private static final Map<Integer, BitFace> CACHE = new ConcurrentHashMap<>(new WeakHashMap<>());
@@ -262,7 +216,7 @@ public final class BitFace {
      * @return an instance.
      */
     static BitFace of(final int value) {
-        return CACHE.computeIfAbsent(requireValidValue(value), BitFace::new);
+        return CACHE.computeIfAbsent(value, BitFace::new);
     }
 
     static BitFace merge(final BitFace f1, final BitFace f2) {
@@ -332,7 +286,7 @@ public final class BitFace {
      * @return an instance with no mask.
      */
     public static BitFace ofNone() {
-        return of(MIN_VALUE);
+        return of(0);
     }
 
     /**
@@ -341,7 +295,7 @@ public final class BitFace {
      * @return an instance wearing all possible masks.
      */
     public static BitFace ofAll() {
-        return of(MAX_VALUE);
+        return of(-1);
     }
 
     /**
@@ -351,7 +305,7 @@ public final class BitFace {
      */
     private BitFace(final int value) {
         super();
-        this.value = requireValidValue(value);
+        this.value = value;
     }
 
     @Override
@@ -430,13 +384,4 @@ public final class BitFace {
     }
 
     private final int value;
-
-    private void readObject(final ObjectInputStream s) throws IOException, ClassNotFoundException {
-        s.defaultReadObject();
-        try {
-            requireValidValue(value);
-        } catch (final IllegalArgumentException iae) {
-            throw new InvalidObjectException(iae.getMessage());
-        }
-    }
 }

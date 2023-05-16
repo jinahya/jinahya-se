@@ -16,7 +16,6 @@
 package com.github.jinahya.crypto;
 
 import com.github.jinahya.lang.FieldEnum;
-import com.github.jinahya.lang.IntFieldEnum;
 
 import javax.crypto.Cipher;
 
