@@ -3,6 +3,7 @@ package com.github.jinahya.util;
 import java.io.IOException;
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
 import java.util.WeakHashMap;
@@ -53,12 +54,12 @@ public final class BitMask {
 
         private static long requireValidValue(final long value) {
             if (Long.bitCount(value) != 1) {
-                throw new IllegalArgumentException("invalid value: " + value);
+                throw new IllegalArgumentException("invalid value: " + Long.toBinaryString(value));
             }
             return value;
         }
 
-        private static final Map<Long, OfLong> CACHE = new ConcurrentHashMap<>(new WeakHashMap<>());
+        private static final Map<Long, OfLong> CACHE = Collections.synchronizedMap(new WeakHashMap<>());
 
         private static OfLong of(final long value) {
             return CACHE.computeIfAbsent(requireValidValue(value), OfLong::new);
@@ -173,12 +174,12 @@ public final class BitMask {
 
     private static int requireValidValue(final int value) {
         if (Integer.bitCount(value) != 1) {
-            throw new IllegalArgumentException("invalid value: " + value);
+            throw new IllegalArgumentException("invalid value: " + Integer.toBinaryString(value));
         }
         return value;
     }
 
-    private static final Map<Integer, BitMask> CACHE = new ConcurrentHashMap<>(new WeakHashMap<>());
+    private static final Map<Integer, BitMask> CACHE = Collections.synchronizedMap(new WeakHashMap<>());
 
     private static BitMask of(final int value) {
         return CACHE.computeIfAbsent(requireValidValue(value), BitMask::new);

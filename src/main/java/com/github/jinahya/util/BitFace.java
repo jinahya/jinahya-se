@@ -1,11 +1,11 @@
 package com.github.jinahya.util;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.WeakHashMap;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -27,7 +27,7 @@ public final class BitFace {
      */
     public static final class OfLong {
 
-        private static final Map<Long, OfLong> CACHE = new ConcurrentHashMap<>(new WeakHashMap<>());
+        private static final Map<Long, OfLong> CACHE = Collections.synchronizedMap(new WeakHashMap<>());
 
         /**
          * Returns an instance with specified value.
@@ -207,7 +207,7 @@ public final class BitFace {
         private final long value;
     }
 
-    private static final Map<Integer, BitFace> CACHE = new ConcurrentHashMap<>(new WeakHashMap<>());
+    private static final Map<Integer, BitFace> CACHE = Collections.synchronizedMap(new WeakHashMap<>());
 
     /**
      * Returns an instance with specified value.

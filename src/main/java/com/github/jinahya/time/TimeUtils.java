@@ -8,9 +8,6 @@ import java.time.temporal.Temporal;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-import static java.time.temporal.TemporalAdjusters.firstDayOfMonth;
-import static java.time.temporal.TemporalAdjusters.firstDayOfYear;
-import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
 import static java.time.temporal.TemporalAdjusters.lastDayOfYear;
 import static java.util.Objects.requireNonNull;
 
@@ -18,14 +15,14 @@ public final class TimeUtils {
 
     private static <T1 extends Temporal, T2 extends Temporal, R> R applyStartEndOf(
             final T1 baseTemporal, final Function<? super T1, ? extends T2> startMapper,
-            final Function<? super T1, ? extends T2> endMapper,
+            final BiFunction<? super T1, ? super T2, ? extends T2> endMapper,
             final BiFunction<? super T2, ? super T2, ? extends R> resultMapper) {
         requireNonNull(baseTemporal, "baseTemporal is null");
         requireNonNull(startMapper, "startMapper is null");
         requireNonNull(endMapper, "endMapper is null");
         requireNonNull(resultMapper, "resultMapper is null");
         final T2 startInclusive = startMapper.apply(baseTemporal);
-        final T2 endInclusive = endMapper.apply(baseTemporal);
+        final T2 endInclusive = endMapper.apply(baseTemporal, startInclusive);
         return resultMapper.apply(startInclusive, endInclusive);
     }
 
@@ -41,8 +38,8 @@ public final class TimeUtils {
             final Year year, final BiFunction<? super LocalDate, ? super LocalDate, ? extends R> function) {
         return applyStartEndOf(
                 year,
-                y -> LocalDate.from(year.atDay(1).with(firstDayOfYear())),
-                y -> LocalDate.from(year.atDay(1).with(lastDayOfYear())),
+                y -> y.atDay(1),
+                (y, s) -> s.with(lastDayOfYear()),
                 function
         );
     }
@@ -59,8 +56,8 @@ public final class TimeUtils {
             final YearMonth month, final BiFunction<? super LocalDate, ? super LocalDate, ? extends R> function) {
         return applyStartEndOf(
                 month,
-                m -> LocalDate.from(m.atDay(1).with(firstDayOfMonth())),
-                m -> LocalDate.from(m.atDay(1).with(lastDayOfMonth())),
+                m -> m.atDay(1),
+                (m, s) -> m.atEndOfMonth(),
                 function
         );
     }
@@ -78,7 +75,7 @@ public final class TimeUtils {
             final Year year, final BiFunction<? super LocalDateTime, ? super LocalDateTime, ? extends R> function) {
         return applyStartEndDateOf(
                 year,
-                (s, e) -> function.apply(s.atStartOfDay(), e.atStartOfDay().plusDays(1L))
+                (s, e) -> function.apply(s.atStartOfDay(), e.plusDays(1L).atStartOfDay())
         );
     }
 
@@ -96,7 +93,7 @@ public final class TimeUtils {
             final BiFunction<? super LocalDateTime, ? super LocalDateTime, ? extends R> function) {
         return applyStartEndDateOf(
                 month,
-                (s, e) -> function.apply(s.atStartOfDay(), e.atStartOfDay().plusDays(1L))
+                (s, e) -> function.apply(s.atStartOfDay(), e.plusDays(1L).atStartOfDay())
         );
     }
 
@@ -115,7 +112,7 @@ public final class TimeUtils {
         return applyStartEndOf(
                 date,
                 LocalDate::atStartOfDay,
-                d -> d.atStartOfDay().plusDays(1L),
+                (d, s) -> s.plusDays(1L),
                 function
         );
     }
