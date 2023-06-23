@@ -20,12 +20,12 @@ class LocaleUtilsTest {
         return Stream.of(Locale.getAvailableLocales());
     }
 
-    public static Stream<Locale> getLocaleWithNonBlankDisplayCountryStream() {
+    private static Stream<Locale> getLocaleWithNonBlankDisplayCountryStream() {
         return getLocaleStream()
                 .filter(l -> !l.getDisplayCountry(Locale.ENGLISH).isBlank());
     }
 
-    public static Stream<Locale> getLocaleWithNonBlankDisplayLanguageStream() {
+    private static Stream<Locale> getLocaleWithNonBlankDisplayLanguageStream() {
         return getLocaleStream()
                 .filter(l -> !l.getDisplayLanguage(Locale.ENGLISH).isBlank());
     }

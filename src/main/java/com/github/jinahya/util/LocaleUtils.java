@@ -15,6 +15,7 @@ import static java.util.Collections.synchronizedMap;
 import static java.util.Collections.unmodifiableList;
 import static java.util.Locale.getAvailableLocales;
 import static java.util.Objects.requireNonNull;
+import static java.util.stream.Collectors.toList;
 
 /**
  * Utilities related to {@link Locale}.
@@ -36,7 +37,7 @@ public final class LocaleUtils {
                                 displayCountry,
                                 k -> stream(getAvailableLocales())
                                         .filter(l -> Objects.equals(l.getDisplayCountry(inLocale), k))
-                                        .collect(Collectors.toList())
+                                        .collect(toList())
                         )
         );
     }
@@ -54,7 +55,7 @@ public final class LocaleUtils {
     }
 
     private static final Map<Locale, Map<String, List<Locale>>> DISPLAY_LANGUAGES_AND_LOCALES
-            = Collections.synchronizedMap(new WeakHashMap<>());
+            = synchronizedMap(new WeakHashMap<>());
 
     static List<Locale> valuesOfDisplayLanguage(final String displayLanguage, final Locale inLocale) {
         requireNonNull(displayLanguage, "displayLanguage is null");
@@ -72,7 +73,7 @@ public final class LocaleUtils {
                                             }
                                             return Objects.equals(v, k);
                                         })
-                                        .collect(Collectors.toList())
+                                        .collect(toList())
                         )
         );
     }

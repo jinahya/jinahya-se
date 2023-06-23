@@ -20,8 +20,11 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.WindowEvent;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Locale;
 import java.util.MissingResourceException;
+import java.util.Optional;
 
 /**
  * @author Jin Kwon
@@ -39,13 +42,20 @@ class LocaleViewer {
         LANGUAGE() {
             @Override
             public Object getValueAt(final Locale locale) {
-                return locale.getDisplayLanguage(locale);
+                return locale.getDisplayLanguage(locale) + " (" + locale.getDisplayLanguage(Locale.ENGLISH) + ')';
             }
         },
         COUNTRY {
             @Override
             public Object getValueAt(final Locale locale) {
-                return locale.getDisplayCountry(locale);
+                return Optional.of(locale.getDisplayCountry(locale))
+                        .filter(v -> !v.isEmpty())
+                        .map(v -> v + Optional.of(locale.getDisplayCountry(Locale.ENGLISH))
+                                .filter(v2 -> !v2.isEmpty())
+                                .map(v2 -> v + " (" + v2 + ')')
+                                .orElse("")
+                        )
+                        .orElse("");
             }
         },
         LAN() {
@@ -97,7 +107,10 @@ class LocaleViewer {
 
                             @Override
                             protected TableModel createDefaultDataModel() {
-                                final Locale[] rows = Locale.getAvailableLocales();
+                                final Locale[] rows = Arrays.stream(Locale.getAvailableLocales())
+                                        .skip(1L)
+                                        .sorted(Comparator.comparing(Locale::toString))
+                                        .toArray(Locale[]::new);
                                 final Column[] columns = Column.values();
                                 return new AbstractTableModel() {
                                     @Override
