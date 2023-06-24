@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
 import java.util.WeakHashMap;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Represents a bit mask for {@link BitFace face}s
@@ -35,7 +34,8 @@ public final class BitMask {
         public static final int MAX_EXPONENT = Long.SIZE - 1;
 
         /**
-         * Checks whether specified exponent value is valid.
+         * Checks whether specified exponent value is between {@value #MIN_EXPONENT} and {@value #MAX_EXPONENT}, both
+         * inclusive.
          *
          * @param exponent the exponent value to test.
          * @return given {@code exponent} when it's between {@value #MIN_EXPONENT} and {@value #MAX_EXPONENT}, both
@@ -155,7 +155,8 @@ public final class BitMask {
     public static final int MAX_EXPONENT = Integer.SIZE - 1;
 
     /**
-     * Checks whether specified exponent value is valid.
+     * Checks whether specified exponent value is between {@value #MIN_EXPONENT} and {@value #MAX_EXPONENT}, both
+     * inclusive.
      *
      * @param exponent the exponent value to test.
      * @return given {@code exponent} when it's between {@value #MIN_EXPONENT} and {@value #MAX_EXPONENT}, both

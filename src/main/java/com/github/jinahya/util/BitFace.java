@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 /**
- * Represents a value with zero or more {@link BitMask mask}s on it.
+ * Represents a face with zero or more {@link BitMask mask}s on it.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see BitMask
@@ -20,7 +20,7 @@ import java.util.stream.StreamSupport;
 public final class BitFace {
 
     /**
-     * Represents a value with zero or more {@link BitMask.OfLong mask}s on it.
+     * Represents a face with zero or more {@link BitMask.OfLong mask}s on it.
      *
      * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
      * @see BitMask.OfLong
