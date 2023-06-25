@@ -128,6 +128,9 @@ public final class BitMask implements Serializable {
         }
 
         private Object readResolve() {
+            if (true) {
+                return ofExponent(MAX_EXPONENT - Long.numberOfLeadingZeros(value));
+            }
             if (value == Long.MIN_VALUE) {
                 return ofExponent((int) (Math.log(value - 1L) / Math.log(2)) + 1);
             }
@@ -263,6 +266,9 @@ public final class BitMask implements Serializable {
     }
 
     private Object readResolve() {
+        if (true) {
+            return ofExponent(MAX_EXPONENT - Integer.numberOfLeadingZeros(value));
+        }
         if (value == Integer.MIN_VALUE) {
             return ofExponent((int) (Math.log(value - 1) / Math.log(2)) + 1);
         }
