@@ -1,6 +1,5 @@
 package com.github.jinahya.util;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -8,7 +7,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 import static java.util.Arrays.stream;
 import static java.util.Collections.synchronizedMap;

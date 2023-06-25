@@ -3,10 +3,14 @@ package com.github.jinahya.util;
 import java.io.IOException;
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Represents a bit mask for {@link BitFace face}s
@@ -14,14 +18,18 @@ import java.util.WeakHashMap;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see BitFace
  */
-public final class BitMask {
+public final class BitMask implements Serializable {
+
+    private static final long serialVersionUID = 7457185557296234958L;
 
     /**
      * Represents a bit mask for {@link BitFace.OfLong face}s
      *
      * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
      */
-    public static final class OfLong {
+    public static final class OfLong implements Serializable {
+
+        private static final long serialVersionUID = 937865657727258530L;
 
         /**
          * The minimum value for an exponent of a mask. The value is {@value}.
@@ -52,18 +60,7 @@ public final class BitMask {
             return exponent;
         }
 
-        private static long requireValidValue(final long value) {
-            if (Long.bitCount(value) != 1) {
-                throw new IllegalArgumentException("invalid value: " + Long.toBinaryString(value));
-            }
-            return value;
-        }
-
-        private static final Map<Long, OfLong> CACHE = Collections.synchronizedMap(new WeakHashMap<>());
-
-        private static OfLong of(final long value) {
-            return CACHE.computeIfAbsent(requireValidValue(value), OfLong::new);
-        }
+        private static final Map<Long, OfLong> CACHE = Collections.synchronizedMap(new HashMap<>());
 
         /**
          * Creates a new instance for specified exponent.
@@ -72,7 +69,24 @@ public final class BitMask {
          * @return a new instance.
          */
         public static OfLong ofExponent(final int exponent) {
-            return of(0x01L << requireValidExponent(exponent));
+            return CACHE.computeIfAbsent(0x01L << requireValidExponent(exponent), OfLong::new);
+        }
+
+        static final List<OfLong> all;
+
+        static {
+            all = Collections.unmodifiableList(
+                    IntStream.rangeClosed(MIN_EXPONENT, MAX_EXPONENT)
+                            .mapToObj(OfLong::ofExponent)
+                            .collect(Collectors.toList())
+            );
+        }
+
+        private static long requireValidValue(final long value) {
+            if (Long.bitCount(value) != 1) {
+                throw new IllegalArgumentException("invalid value: " + Long.toBinaryString(value));
+            }
+            return value;
         }
 
         /**
@@ -101,6 +115,23 @@ public final class BitMask {
         @Override
         public int hashCode() {
             return Objects.hash(value);
+        }
+
+        private void readObject(final ObjectInputStream s) throws IOException, ClassNotFoundException {
+            Objects.requireNonNull(s, "s is null");
+            s.defaultReadObject();
+            try {
+                requireValidValue(value);
+            } catch (final IllegalArgumentException iae) {
+                throw new InvalidObjectException(iae.getMessage());
+            }
+        }
+
+        private Object readResolve() {
+            if (value == Long.MIN_VALUE) {
+                return ofExponent((int) (Math.log(value - 1L) / Math.log(2)) + 1);
+            }
+            return ofExponent((int) (Math.log(value) / Math.log(2)));
         }
 
         /**
@@ -133,15 +164,6 @@ public final class BitMask {
         }
 
         private final long value;
-
-        private void readObject(final ObjectInputStream s) throws IOException, ClassNotFoundException {
-            s.defaultReadObject();
-            try {
-                requireValidValue(value);
-            } catch (final IllegalArgumentException iae) {
-                throw new InvalidObjectException(iae.getMessage());
-            }
-        }
     }
 
     /**
@@ -173,18 +195,7 @@ public final class BitMask {
         return exponent;
     }
 
-    private static int requireValidValue(final int value) {
-        if (Integer.bitCount(value) != 1) {
-            throw new IllegalArgumentException("invalid value: " + Integer.toBinaryString(value));
-        }
-        return value;
-    }
-
-    private static final Map<Integer, BitMask> CACHE = Collections.synchronizedMap(new WeakHashMap<>());
-
-    private static BitMask of(final int value) {
-        return CACHE.computeIfAbsent(requireValidValue(value), BitMask::new);
-    }
+    private static final Map<Integer, BitMask> CACHE = Collections.synchronizedMap(new HashMap<>());
 
     /**
      * Creates a new instance for specified exponent.
@@ -193,7 +204,24 @@ public final class BitMask {
      * @return a new instance.
      */
     public static BitMask ofExponent(final int exponent) {
-        return of(0x01 << requireValidExponent(exponent));
+        return CACHE.computeIfAbsent(0x01 << requireValidExponent(exponent), BitMask::new);
+    }
+
+    static final List<BitMask> all;
+
+    static {
+        all = Collections.unmodifiableList(
+                IntStream.rangeClosed(MIN_EXPONENT, MAX_EXPONENT)
+                        .mapToObj(BitMask::ofExponent)
+                        .collect(Collectors.toList())
+        );
+    }
+
+    private static int requireValidValue(final int value) {
+        if (Integer.bitCount(value) != 1) {
+            throw new IllegalArgumentException("invalid value: " + Integer.toBinaryString(value));
+        }
+        return value;
     }
 
     /**
@@ -224,14 +252,33 @@ public final class BitMask {
         return Objects.hash(value);
     }
 
+    private void readObject(final ObjectInputStream s) throws IOException, ClassNotFoundException {
+        Objects.requireNonNull(s, "s is null");
+        s.defaultReadObject();
+        try {
+            requireValidValue(value);
+        } catch (final IllegalArgumentException iae) {
+            throw new InvalidObjectException(iae.getMessage());
+        }
+    }
+
+    private Object readResolve() {
+        if (value == Integer.MIN_VALUE) {
+            return ofExponent((int) (Math.log(value - 1) / Math.log(2)) + 1);
+        }
+        return ofExponent((int) (Math.log(value) / Math.log(2)));
+    }
+
     /**
      * Puts this mask on to specified face.
      *
      * @param face the face to which this mask is put on.
      * @return new face with this mask on.
+     * @see com.github.jinahya.util.BitFace#putOn(BitMask)
      */
     public BitFace putOnTo(final BitFace face) {
-        return Objects.requireNonNull(face, "face is null").putOn(this);
+        Objects.requireNonNull(face, "face is null");
+        return face.putOn(this);
     }
 
     /**
@@ -239,9 +286,11 @@ public final class BitMask {
      *
      * @param face the face from which this mask is take off.
      * @return new face with this mask off.
+     * @see com.github.jinahya.util.BitFace#takeOff(BitMask)
      */
     public BitFace takeOffFrom(final BitFace face) {
-        return Objects.requireNonNull(face, "face is null").takeOff(this);
+        Objects.requireNonNull(face, "face is null");
+        return face.takeOff(this);
     }
 
     /**
@@ -254,13 +303,4 @@ public final class BitMask {
     }
 
     private final int value;
-
-    private void readObject(final ObjectInputStream s) throws IOException, ClassNotFoundException {
-        s.defaultReadObject();
-        try {
-            requireValidValue(value);
-        } catch (final IllegalArgumentException iae) {
-            throw new InvalidObjectException(iae.getMessage());
-        }
-    }
 }

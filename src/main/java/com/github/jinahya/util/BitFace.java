@@ -1,13 +1,13 @@
 package com.github.jinahya.util;
 
+import java.io.Serializable;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.WeakHashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -17,7 +17,9 @@ import java.util.stream.StreamSupport;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see BitMask
  */
-public final class BitFace {
+public final class BitFace implements Serializable {
+
+    private static final long serialVersionUID = -8446641798336537758L;
 
     /**
      * Represents a face with zero or more {@link BitMask.OfLong mask}s on it.
@@ -25,9 +27,11 @@ public final class BitFace {
      * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
      * @see BitMask.OfLong
      */
-    public static final class OfLong {
+    public static final class OfLong implements Serializable {
 
-        private static final Map<Long, OfLong> CACHE = Collections.synchronizedMap(new WeakHashMap<>());
+        private static final long serialVersionUID = -5541074193547352154L;
+
+        private static final Map<Long, OfLong> CACHE = new ConcurrentHashMap<>(new WeakHashMap<>());
 
         /**
          * Returns an instance with specified value.
@@ -45,7 +49,7 @@ public final class BitFace {
             return of(f1.getValue() | f2.getValue());
         }
 
-        private static OfLong of(final Stream<BitMask.OfLong> masks) {
+        static OfLong of(final Stream<BitMask.OfLong> masks) {
             Objects.requireNonNull(masks, "masks is null");
             return of(masks.mapToLong(BitMask.OfLong::getValue).sum());
         }
@@ -66,9 +70,9 @@ public final class BitFace {
          *
          * @param mask the mask to wear.
          * @return an instance wearing {@code mask}.
+         * @see #ofNone()
          */
         public static OfLong of(final BitMask.OfLong mask) {
-            Objects.requireNonNull(mask, "mask is null");
             return of(mask.getValue());
         }
 
@@ -77,28 +81,52 @@ public final class BitFace {
          *
          * @param mask1 a mask to wear.
          * @param mask2 another mask to wear.
-         * @return an instance wearing specified masks.
+         * @return an instance wearing all specified masks.
          */
         public static OfLong of(final BitMask.OfLong mask1, final BitMask.OfLong mask2) {
-            Objects.requireNonNull(mask1, "mask1 is null");
-            Objects.requireNonNull(mask2, "mask2 is null");
-            return of(mask1.getValue() | mask2.getValue());
+            return of(mask1).putOn(mask2);
         }
 
         /**
          * Returns an instance wearing specified masks.
          *
-         * @param mask1      a mask to wear.
-         * @param mask2      another mask to wear.
+         * @param mask1 the 1st mask to wear.
+         * @param mask2 the 2nd mask to wear.
+         * @param mask3 the 3rd mask to wear.
+         * @return an instance wearing {@code otherMasks}.
+         */
+        public static OfLong of(final BitMask.OfLong mask1, final BitMask.OfLong mask2, final BitMask.OfLong mask3) {
+            return of(mask1, mask2).putOn(mask3);
+        }
+
+        /**
+         * Returns an instance wearing specified masks.
+         *
+         * @param mask1 the 1st mask to wear.
+         * @param mask2 the 2nd mask to wear.
+         * @param mask3 the 3rd mask to wear.
+         * @param mask4 the 4th mask to wear.
+         * @return an instance wearing {@code otherMasks}.
+         */
+        public static OfLong of(final BitMask.OfLong mask1, final BitMask.OfLong mask2, final BitMask.OfLong mask3,
+                                final BitMask.OfLong mask4) {
+            return of(mask1, mask2, mask3).putOn(mask4);
+        }
+
+        /**
+         * Returns an instance wearing specified masks.
+         *
+         * @param mask1      the 1st mask to wear.
+         * @param mask2      the 2nd mask to wear.
+         * @param mask3      the 3rd mask to wear.
+         * @param mask4      the 4th mask to wear.
          * @param otherMasks other masks to wear.
          * @return an instance wearing {@code otherMasks}.
          */
-        public static OfLong of(final BitMask.OfLong mask1, final BitMask.OfLong mask2,
-                                final BitMask.OfLong... otherMasks) {
-            Objects.requireNonNull(mask1, "mask1 is null");
-            Objects.requireNonNull(mask2, "mask2 is null");
+        public static OfLong of(final BitMask.OfLong mask1, final BitMask.OfLong mask2, final BitMask.OfLong mask3,
+                                final BitMask.OfLong mask4, final BitMask.OfLong... otherMasks) {
             Objects.requireNonNull(otherMasks, "otherMasks is null");
-            return of(Arrays.stream(otherMasks)).putOn(mask2).putOn(mask1);
+            return merge(of(mask1, mask2, mask3, mask4), of(Arrays.stream(otherMasks)));
         }
 
         /**
@@ -149,11 +177,15 @@ public final class BitFace {
             return Objects.hash(value);
         }
 
+        private Object readResolve() {
+            return of(value);
+        }
+
         /**
          * Checks whether this face is wearing specified mask.
          *
          * @param mask the mask to check.
-         * @return {@code true} if this face is wearing {@code mask}; {@code false} otherwise.
+         * @return {@code true} if this face is wearing the {@code mask}; {@code false} otherwise.
          */
         public boolean isWearing(final BitMask.OfLong mask) {
             Objects.requireNonNull(mask, "mask is null");
@@ -189,8 +221,7 @@ public final class BitFace {
          * @apiNote Modifying result set does not modify this face.
          */
         public Set<BitMask.OfLong> toMaskSet() {
-            return IntStream.rangeClosed(BitMask.OfLong.MIN_EXPONENT, BitMask.OfLong.MAX_EXPONENT)
-                    .mapToObj(BitMask.OfLong::ofExponent)
+            return BitMask.OfLong.all.stream()
                     .filter(this::isWearing)
                     .collect(Collectors.toSet());
         }
@@ -207,7 +238,7 @@ public final class BitFace {
         private final long value;
     }
 
-    private static final Map<Integer, BitFace> CACHE = Collections.synchronizedMap(new WeakHashMap<>());
+    private static final Map<Integer, BitFace> CACHE = new ConcurrentHashMap<>(new WeakHashMap<>());
 
     /**
      * Returns an instance with specified value.
@@ -225,7 +256,7 @@ public final class BitFace {
         return of(f1.getValue() | f2.getValue());
     }
 
-    private static BitFace of(final Stream<BitMask> masks) {
+    static BitFace of(final Stream<BitMask> masks) {
         Objects.requireNonNull(masks, "masks is null");
         return of(masks.mapToInt(BitMask::getValue).sum());
     }
@@ -245,7 +276,7 @@ public final class BitFace {
      * Returns an instance wearing specified mask.
      *
      * @param mask the mask to wear.
-     * @return an instance wearing {@code mask}.
+     * @return an instance wearing specified masks.
      */
     public static BitFace of(final BitMask mask) {
         Objects.requireNonNull(mask, "mask is null");
@@ -253,31 +284,54 @@ public final class BitFace {
     }
 
     /**
-     * Returns an instance wearing specified masks.
+     * Returns an instance wearing specified masks
      *
      * @param mask1 a mask to wear.
      * @param mask2 another mask to wear.
      * @return an instance wearing specified masks.
      */
     public static BitFace of(final BitMask mask1, final BitMask mask2) {
-        Objects.requireNonNull(mask1, "mask1 is null");
-        Objects.requireNonNull(mask2, "mask2 is null");
-        return of(mask1.getValue() | mask2.getValue());
+        return of(mask1).putOn(mask2);
     }
 
     /**
      * Returns an instance wearing specified masks
      *
-     * @param mask1      a mask to wear.
-     * @param mask2      another mask to wear.
-     * @param otherMasks other masks to wear.
-     * @return an instance wearing {@code masks}.
+     * @param mask1 the 1st mask to wear.
+     * @param mask2 the 2nd mask to wear.
+     * @param mask3 the 3rd mask to wear.
+     * @return an instance wearing specified masks.
      */
-    public static BitFace of(final BitMask mask1, final BitMask mask2, final BitMask... otherMasks) {
-        Objects.requireNonNull(mask1, "mask1 is null");
-        Objects.requireNonNull(mask2, "mask2 is null");
-        Objects.requireNonNull(otherMasks, "masks is null");
-        return of(Arrays.stream(otherMasks)).putOn(mask2).putOn(mask1);
+    public static BitFace of(final BitMask mask1, final BitMask mask2, final BitMask mask3) {
+        return of(mask1, mask2).putOn(mask3);
+    }
+
+    /**
+     * Returns an instance wearing specified masks
+     *
+     * @param mask1 the 1st mask to wear.
+     * @param mask2 the 2nd mask to wear.
+     * @param mask3 the 3rd mask to wear.
+     * @param mask4 the 4th mask to wear.
+     * @return an instance wearing specified masks.
+     */
+    public static BitFace of(final BitMask mask1, final BitMask mask2, final BitMask mask3, final BitMask mask4) {
+        return of(mask1, mask2, mask3).putOn(mask4);
+    }
+
+    /**
+     * Returns an instance wearing specified masks
+     *
+     * @param mask1      the 1st mask to wear.
+     * @param mask2      the 2nd mask to wear.
+     * @param mask3      the 3rd mask to wear.
+     * @param mask4      the 4th mask to wear.
+     * @param otherMasks other masks to wear.
+     * @return an instance wearing specified masks.
+     */
+    public static BitFace of(final BitMask mask1, final BitMask mask2, final BitMask mask3, final BitMask mask4,
+                             final BitMask... otherMasks) {
+        return merge(of(mask1, mask2, mask3, mask4), of(Arrays.stream(otherMasks)));
     }
 
     /**
@@ -328,6 +382,10 @@ public final class BitFace {
         return Objects.hash(value);
     }
 
+    private Object readResolve() {
+        return of(value);
+    }
+
     /**
      * Checks whether this face is wearing specified mask.
      *
@@ -368,8 +426,7 @@ public final class BitFace {
      * @apiNote Modifying result set does not modify this face.
      */
     public Set<BitMask> toMaskSet() {
-        return IntStream.rangeClosed(BitMask.MIN_EXPONENT, BitMask.MAX_EXPONENT)
-                .mapToObj(BitMask::ofExponent)
+        return BitMask.all.stream()
                 .filter(this::isWearing)
                 .collect(Collectors.toSet());
     }
