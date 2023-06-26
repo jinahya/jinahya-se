@@ -2,11 +2,11 @@ package com.github.jinahya.util;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.WeakHashMap;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -31,7 +31,7 @@ public final class BitFace implements Serializable {
 
         private static final long serialVersionUID = -5541074193547352154L;
 
-        private static final Map<Long, OfLong> CACHE = new ConcurrentHashMap<>(new WeakHashMap<>());
+        private static final Map<Long, OfLong> CACHE = Collections.synchronizedMap(new WeakHashMap<>());
 
         /**
          * Returns an instance with specified value.
@@ -238,7 +238,7 @@ public final class BitFace implements Serializable {
         private final long value;
     }
 
-    private static final Map<Integer, BitFace> CACHE = new ConcurrentHashMap<>(new WeakHashMap<>());
+    private static final Map<Integer, BitFace> CACHE = Collections.synchronizedMap(new WeakHashMap<>());
 
     /**
      * Returns an instance with specified value.

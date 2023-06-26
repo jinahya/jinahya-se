@@ -60,7 +60,7 @@ public final class BitMask implements Serializable {
             return exponent;
         }
 
-        private static final Map<Long, OfLong> CACHE = Collections.synchronizedMap(new HashMap<>());
+        private static final Map<Long, OfLong> INSTANCES = Collections.synchronizedMap(new HashMap<>());
 
         /**
          * Creates a new instance for specified exponent.
@@ -69,7 +69,7 @@ public final class BitMask implements Serializable {
          * @return a new instance.
          */
         public static OfLong ofExponent(final int exponent) {
-            return CACHE.computeIfAbsent(0x01L << requireValidExponent(exponent), OfLong::new);
+            return INSTANCES.computeIfAbsent(0x01L << requireValidExponent(exponent), OfLong::new);
         }
 
         static final List<OfLong> all;
@@ -94,6 +94,9 @@ public final class BitMask implements Serializable {
          */
         private OfLong(final long value) {
             super();
+            if (INSTANCES.containsKey(value)) {
+                throw new IllegalAccessError("");
+            }
             this.value = requireValidValue(value);
         }
 
@@ -198,7 +201,7 @@ public final class BitMask implements Serializable {
         return exponent;
     }
 
-    private static final Map<Integer, BitMask> CACHE = Collections.synchronizedMap(new HashMap<>());
+    private static final Map<Integer, BitMask> INSTANCES = Collections.synchronizedMap(new HashMap<>());
 
     /**
      * Creates a new instance for specified exponent.
@@ -207,7 +210,7 @@ public final class BitMask implements Serializable {
      * @return a new instance.
      */
     public static BitMask ofExponent(final int exponent) {
-        return CACHE.computeIfAbsent(0x01 << requireValidExponent(exponent), BitMask::new);
+        return INSTANCES.computeIfAbsent(0x01 << requireValidExponent(exponent), BitMask::new);
     }
 
     static final List<BitMask> all;
@@ -232,6 +235,9 @@ public final class BitMask implements Serializable {
      */
     private BitMask(final int value) {
         super();
+        if (INSTANCES.containsKey(value)) {
+            throw new IllegalAccessError("");
+        }
         this.value = requireValidValue(value);
     }
 
@@ -266,13 +272,7 @@ public final class BitMask implements Serializable {
     }
 
     private Object readResolve() {
-        if (true) {
-            return ofExponent(MAX_EXPONENT - Integer.numberOfLeadingZeros(value));
-        }
-        if (value == Integer.MIN_VALUE) {
-            return ofExponent((int) (Math.log(value - 1) / Math.log(2)) + 1);
-        }
-        return ofExponent((int) (Math.log(value) / Math.log(2)));
+        return ofExponent(MAX_EXPONENT - Integer.numberOfLeadingZeros(value));
     }
 
     /**
