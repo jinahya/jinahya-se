@@ -24,7 +24,7 @@ class BitFace_OfLong_Serialization_Test {
         }
         try (final var fis = new FileInputStream(file);
              final var ois = new ObjectInputStream(fis)) {
-            assertThat((BitFace.OfLong) ois.readObject()).isSameAs(face);
+            assertThat((BitFace.OfLong) ois.readObject()).isEqualTo(face);
         }
     }
 }

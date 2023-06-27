@@ -27,7 +27,6 @@ class BitMask_Serialization_Test {
             }
             try (final var fis = new FileInputStream(file);
                  final var ois = new ObjectInputStream(fis)) {
-                log.debug("e: {}", e);
                 assertThat((BitMask) ois.readObject()).isSameAs(mask);
             }
         }
