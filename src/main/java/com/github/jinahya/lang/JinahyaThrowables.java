@@ -1,11 +1,17 @@
 package com.github.jinahya.lang;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.UncheckedIOException;
+import java.io.Writer;
+import java.nio.charset.Charset;
 import java.util.Objects;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 public final class JinahyaThrowables {
 
@@ -41,12 +47,53 @@ public final class JinahyaThrowables {
         return appendable;
     }
 
-    public static String printStackTrace(final Throwable throwable) {
+    public static <S extends OutputStream, R> R printStackTraceToStream(final Throwable throwable,
+                                                                        final Supplier<? extends S> supplier,
+                                                                        final Charset charset,
+                                                                        final Function<? super S, ? extends R> mapper) {
+        Objects.requireNonNull(supplier, "supplier is null");
+        Objects.requireNonNull(charset, "charset is null");
+        Objects.requireNonNull(mapper, "mapper is null");
+        final var stream = Objects.requireNonNull(supplier.get(), "null supplied from " + supplier);
+        var printer = new PrintStream(stream, true, charset);
         try {
-            return printStackTrace(throwable, new StringWriter()).toString();
+            printStackTrace(throwable, printer);
         } catch (final IOException ioe) {
             throw new UncheckedIOException(ioe);
         }
+        return mapper.apply(stream);
+    }
+
+    public static byte[] printStackTraceAsBytes(final Throwable throwable, final Charset charset) {
+        return printStackTraceToStream(
+                throwable,
+                ByteArrayOutputStream::new,
+                charset,
+                ByteArrayOutputStream::toByteArray
+        );
+    }
+
+    public static <S extends Writer, R> R printStackTraceToWriter(final Throwable throwable,
+                                                                  final Supplier<? extends S> supplier,
+                                                                  final Function<? super S, ? extends R> mapper) {
+        Objects.requireNonNull(supplier, "supplier is null");
+        Objects.requireNonNull(mapper, "mapper is null");
+        final var writer = Objects.requireNonNull(supplier.get(), "null supplied from " + supplier);
+        var printer = new PrintWriter(writer, true);
+        try {
+            printStackTrace(throwable, printer);
+        } catch (final IOException ioe) {
+            throw new UncheckedIOException(ioe);
+        }
+        return mapper.apply(writer);
+    }
+
+    public static String printStackTraceAsString(final Throwable throwable) {
+        return printStackTraceToWriter(
+                throwable,
+                StringWriter::new,
+                StringWriter::toString
+        );
     }
 
     private JinahyaThrowables() {

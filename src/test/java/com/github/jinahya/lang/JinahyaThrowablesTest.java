@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,10 +24,20 @@ class JinahyaThrowablesTest {
     }
 
     @Test
-    void __() {
-        final var cause = new RuntimeException();
-        final var throwable = new RuntimeException(cause);
-        final var result = JinahyaThrowables.printStackTrace(throwable);
+    void printStackTraceAsBytes__() {
+        final var cause = new RuntimeException("cause");
+        final var throwable = new RuntimeException("thrown", cause);
+        final var result = JinahyaThrowables.printStackTraceAsBytes(throwable, StandardCharsets.UTF_8);
+        log.debug("result: {}", new String(result));
+        assertThat(result).isNotEmpty();
+    }
+
+    @Test
+    void printStackTraceAsString__() {
+        final var cause = new RuntimeException("cause");
+        final var throwable = new RuntimeException("thrown", cause);
+        final var result = JinahyaThrowables.printStackTraceAsString(throwable);
+        log.debug("result: {}", result);
         assertThat(result).isNotBlank();
     }
 }
