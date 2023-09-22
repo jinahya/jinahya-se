@@ -13,6 +13,11 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+/**
+ * A utilities for {@link Throwable} class.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
 public final class JinahyaThrowables {
 
     /**
@@ -38,11 +43,16 @@ public final class JinahyaThrowables {
         }
         appendable.append(thrown.toString());
         for (final var element : thrown.getStackTrace()) {
-            appendable.append(System.lineSeparator()).append('\t').append(element.toString());
+            appendable.append(System.lineSeparator())
+                    .append('\t')
+                    .append(element.toString());
         }
         final var cause = thrown.getCause();
         if (cause != null) {
-            printStackTrace(cause, appendable.append(System.lineSeparator()));
+            printStackTrace(
+                    cause,
+                    appendable.append(System.lineSeparator())
+            );
         }
         return appendable;
     }
