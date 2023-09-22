@@ -55,7 +55,7 @@ public final class JinahyaThrowables {
         Objects.requireNonNull(charset, "charset is null");
         Objects.requireNonNull(mapper, "mapper is null");
         final var stream = Objects.requireNonNull(supplier.get(), "null supplied from " + supplier);
-        var printer = new PrintStream(stream, true, charset);
+        final var printer = new PrintStream(stream, true, charset);
         try {
             printStackTrace(throwable, printer);
         } catch (final IOException ioe) {
@@ -64,7 +64,7 @@ public final class JinahyaThrowables {
         return mapper.apply(stream);
     }
 
-    public static byte[] printStackTraceAsBytes(final Throwable throwable, final Charset charset) {
+    public static byte[] getStackTraceBytes(final Throwable throwable, final Charset charset) {
         return printStackTraceToStream(
                 throwable,
                 ByteArrayOutputStream::new,
@@ -79,7 +79,7 @@ public final class JinahyaThrowables {
         Objects.requireNonNull(supplier, "supplier is null");
         Objects.requireNonNull(mapper, "mapper is null");
         final var writer = Objects.requireNonNull(supplier.get(), "null supplied from " + supplier);
-        var printer = new PrintWriter(writer, true);
+        final var printer = new PrintWriter(writer, true);
         try {
             printStackTrace(throwable, printer);
         } catch (final IOException ioe) {
@@ -88,7 +88,7 @@ public final class JinahyaThrowables {
         return mapper.apply(writer);
     }
 
-    public static String printStackTraceAsString(final Throwable throwable) {
+    public static String getStackTraceString(final Throwable throwable) {
         return printStackTraceToWriter(
                 throwable,
                 StringWriter::new,
