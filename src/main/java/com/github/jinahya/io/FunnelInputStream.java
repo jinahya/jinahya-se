@@ -25,7 +25,8 @@ import java.io.InputStream;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @see FunnelOutputStream
  */
-public class FunnelInputStream extends FilterInputStream {
+public class FunnelInputStream
+        extends FilterInputStream {
 
     /**
      * Creates a funnel input stream built on top of the specified underlying input stream.
@@ -37,8 +38,13 @@ public class FunnelInputStream extends FilterInputStream {
     }
 
     @Override
+    public final int read() throws IOException {
+        return in.read();
+    }
+
+    @Override
     public final int read(final byte[] b) throws IOException {
-        return super.read(b);
+        return super.read(b); // -> return read(b, 0, b.length)
     }
 
     @Override
@@ -49,22 +55,22 @@ public class FunnelInputStream extends FilterInputStream {
         if (off < 0 || len < 0 || len > b.length - off) {
             throw new IndexOutOfBoundsException();
         }
-        int count = 0;
-        for (; count < len; count++) {
-            final int read = read();
-            if (read == -1) {
-                if (count == 0) {
+        int c = 0;
+        for (; c < len; c++) {
+            final int r = read();
+            if (r == -1) {
+                if (c == 0) {
                     return -1;
                 }
                 break;
             }
-            b[off++] = (byte) read;
+            b[off++] = (byte) r;
         }
-        return count;
+        return c;
     }
 
     @Override
     public final long skip(final long n) throws IOException {
-        return super.skip(n);
+        return super.skip(n); // in.skip(n) -> read(b, off, len)
     }
 }

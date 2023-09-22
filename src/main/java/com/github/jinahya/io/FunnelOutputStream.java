@@ -37,12 +37,12 @@ public class FunnelOutputStream extends FilterOutputStream {
     }
 
     @Override
-    public final void write(byte[] b) throws IOException {
+    public final void write(final byte[] b) throws IOException {
         super.write(b);
     }
 
     @Override
-    public final void write(byte[] b, int off, int len) throws IOException {
+    public final void write(final byte[] b, final int off, final int len) throws IOException {
         super.write(b, off, len);
     }
 }
