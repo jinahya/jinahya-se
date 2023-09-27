@@ -15,6 +15,8 @@
  */
 package com.github.jinahya.lang;
 
+import java.util.Objects;
+
 /**
  * @param <E> enum type parameter
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
@@ -23,6 +25,7 @@ public interface IntFieldEnum<E extends Enum<E>> {
 
     // -----------------------------------------------------------------------------------------------------------------
     static <E extends Enum<E> & IntFieldEnum<E>> int[] fieldValues(final Class<E> enumType) {
+        Objects.requireNonNull(enumType, "enumType is null");
         final E[] enumConstants = enumType.getEnumConstants();
         final int[] fieldValues = new int[enumConstants.length];
         for (int i = 0; i < fieldValues.length; i++) {
