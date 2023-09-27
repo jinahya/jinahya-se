@@ -26,14 +26,14 @@ public class DigestInputStream extends FunnelInputStream {
         return false;
     }
 
-    @Override
-    public int read() throws IOException {
-        final int b = super.read();
-        if (digest != null && b != -1) {
-            digest.update((byte) b);
-        }
-        return b;
-    }
+//    @Override
+//    public int read() throws IOException {
+//        final int b = super.read();
+//        if (digest != null && b != -1) {
+//            digest.update((byte) b);
+//        }
+//        return b;
+//    }
 
     public MessageDigest getDigest() {
         return digest;
