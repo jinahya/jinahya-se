@@ -134,7 +134,7 @@ class CipherUtilsTest {
 
     @Test
     void symmetric() throws Exception {
-        for (final var entry : CipherConstants.TRANSFORMATIONS_REQUIRED_TO_BE_SUPPORTED.entrySet()) {
+        for (final var entry : JinahyaCiphers.TRANSFORMATIONS_AND_KEYSIZES_REQUIRED_TO_BE_SUPPORTED.entrySet()) {
             final String transformation = entry.getKey();
             log.debug("transformation: {}", transformation);
             final String[] split = transformation.split("/");
