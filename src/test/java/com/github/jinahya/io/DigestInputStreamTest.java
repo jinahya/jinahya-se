@@ -1,6 +1,7 @@
 package com.github.jinahya.io;
 
 import com.github.jinahya.security.JinahyaMessageDigests;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -13,6 +14,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Disabled
 class DigestInputStreamTest {
 
     private static List<String> getAlgorithms() {

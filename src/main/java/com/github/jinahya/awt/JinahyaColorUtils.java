@@ -20,15 +20,6 @@ import java.util.stream.Collectors;
 public final class JinahyaColorUtils {
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static final String COLUMN_NAME_RED = "red";
-
-    public static final String COLUMN_NAME_GREEN = "green";
-
-    public static final String COLUMN_NAME_BLUE = "blue";
-
-    public static final String COLUMN_NAME_ALPHA = "alpha";
-
-    // -----------------------------------------------------------------------------------------------------------------
     private static final String PATTERN_HEX_CHAR = "[0-9a-f]";
 
     private static final String REGEXP_CSS_HEXADECIMAL_NOTATION3 = PATTERN_HEX_CHAR + "{3}";
@@ -55,6 +46,64 @@ public final class JinahyaColorUtils {
             REGEXP_CSS_HEXADECIMAL_NOTATION8;
 
     static final Pattern PATTERN_CSS_HEXADECIMAL_NOTATION = Pattern.compile(REGEXP_CSS_HEXADECIMAL_NOTATION);
+
+    // -----------------------------------------------------------------------------------------------------------------
+    public static final int MIN_COLOR = 0;
+
+    public static final int MAX_COLOR = 255;
+
+    static final int MIN_COMPONENT_INT = 0b0_00000000_00000000000000000000000;
+
+    static final float MIN_COMPONENT = Float.intBitsToFloat(MIN_COMPONENT_INT); // +0.0f
+
+    static final int MAX_COMPONENT_INT = 0b0_01111111_00000000000000000000000;
+
+    static final float MAX_COMPONENT = Float.intBitsToFloat(MAX_COMPONENT_INT); // +1.0f
+
+    private static int requireValidInt(final int value) {
+        if (value < MIN_COLOR) {
+            throw new IllegalArgumentException("value(" + value + ") < " + MIN_COLOR);
+        }
+        if (value > MAX_COLOR) {
+            throw new IllegalArgumentException("value(" + value + ") > " + MAX_COLOR);
+        }
+        return value;
+    }
+
+    static float requireValidFloat(final float value) {
+        if (value < MIN_COMPONENT) {
+            throw new IllegalArgumentException("value(" + value + ") < " + MIN_COMPONENT);
+        }
+        if (value > MAX_COMPONENT) {
+            throw new IllegalArgumentException("value(" + value + ") > " + MAX_COMPONENT);
+        }
+        return value;
+    }
+
+    static float toFloat(final int color) {
+        return (color & MAX_COLOR) / ((float) MAX_COLOR);
+    }
+
+    static float[] toFloats(final int[] colors) {
+        Objects.requireNonNull(colors, "colors is null");
+        final var components = new float[colors.length];
+        for (int i = 0; i < components.length; i++) {
+            components[i] = toFloat(colors[i]);
+        }
+        return components;
+    }
+
+    static int toInt(final float component) {
+        return (int) (Float.intBitsToFloat(Float.floatToRawIntBits(component) & MAX_COMPONENT_INT) * MAX_COLOR);
+    }
+
+    static int[] toInts(final float[] components) {
+        final var colors = new int[components.length];
+        for (int i = 0; i < colors.length; i++) {
+            colors[i] = toInt(components[i]);
+        }
+        return colors;
+    }
 
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -90,55 +139,9 @@ public final class JinahyaColorUtils {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static final int MIN_COLOR = 0;
-
-    public static final int MAX_COLOR = 255;
-
-    static final float MIN_COMPONENT = Float.intBitsToFloat(MIN_COLOR);
-
-    static final float MAX_COMPONENT = Float.intBitsToFloat(0b0_01111111_00000000000000000000000);
-
-    private static int requireValidColor(final int color) {
-        if (color < MIN_COLOR) {
-            throw new IllegalArgumentException("color(" + color + ") < " + MIN_COLOR);
-        }
-        if (color > MAX_COLOR) {
-            throw new IllegalArgumentException("color(" + color + ") > " + MAX_COLOR);
-        }
-        return color;
-    }
-
-    static float requireValidComponent(final float component) {
-        return toComponent(requireValidColor(toColor(component)));
-    }
-
-    static float toComponent(final int color) {
-        return requireValidColor(color) / (float) MAX_COLOR;
-    }
-
-    static float[] toComponents(final int[] colors) {
-        Objects.requireNonNull(colors, "colors is null");
-        final var components = new float[colors.length];
-        for (int i = 0; i < components.length; i++) {
-            components[i] = toComponent(colors[i]);
-        }
-        return components;
-    }
-
-    private static int toColor(final float component) {
-        return (int) (requireValidComponent(component) * MAX_COLOR);
-    }
-
-    private static int[] toColors(final float[] components) {
-        final var colors = new int[components.length];
-        for (int i = 0; i < colors.length; i++) {
-            colors[i] = toColor(components[i]);
-        }
-        return colors;
-    }
 
     /**
-     * Returns a {@code 3}-long hexadecimal string representation of specified colors colors.
+     * Returns a {@code 3}-long hexadecimal string representation of specified colors.
      *
      * @param colors colors to be printed whose length should be greater than or equal to {@code 3}.
      * @return a string representation of {@code colors}.
@@ -151,10 +154,11 @@ public final class JinahyaColorUtils {
         if (colors.length < 3) {
             throw new IllegalArgumentException("colors.length(" + colors.length + ") < 3");
         }
-        return String.format("%1$x%2$x%3$x",
-                             (colors[0] >> 4) & 0xF,
-                             (colors[1] >> 4) & 0xF,
-                             (colors[2] >> 4) & 0xF
+        return String.format(
+                "%1$x%2$x%3$x",
+                (colors[0] >> 4) & 0xF,
+                (colors[1] >> 4) & 0xF,
+                (colors[2] >> 4) & 0xF
         );
     }
 
@@ -172,7 +176,7 @@ public final class JinahyaColorUtils {
         if (components.length < 3) {
             throw new IllegalArgumentException("components.length(" + components.length + ") < 3");
         }
-        return toCssRgbHexadecimalNotation3(toColors(components));
+        return toCssRgbHexadecimalNotation3(toInts(components));
     }
 
     /**
@@ -206,7 +210,7 @@ public final class JinahyaColorUtils {
         if (components.length < 4) {
             throw new IllegalArgumentException("components.length(" + components.length + ") < 4");
         }
-        return toCssRgbHexadecimalNotation4(toColors(components));
+        return toCssRgbHexadecimalNotation4(toInts(components));
     }
 
     /**
@@ -222,10 +226,11 @@ public final class JinahyaColorUtils {
         if (colors.length < 3) {
             throw new IllegalArgumentException("colors.length(" + colors.length + ") < 3");
         }
-        return String.format("%1$02x%2$02x%3$02x",
-                             colors[0] & 0xFF,
-                             colors[1] & 0xFF,
-                             colors[2] & 0xFF
+        return String.format(
+                "%1$02x%2$02x%3$02x",
+                colors[0] & 0xFF,
+                colors[1] & 0xFF,
+                colors[2] & 0xFF
         );
     }
 
@@ -242,7 +247,7 @@ public final class JinahyaColorUtils {
         if (components.length < 3) {
             throw new IllegalArgumentException("components.length(" + components.length + ") < 3");
         }
-        return toCssRgbHexadecimalNotation6(toColors(components));
+        return toCssRgbHexadecimalNotation6(toInts(components));
     }
 
     /**
@@ -274,9 +279,17 @@ public final class JinahyaColorUtils {
         if (components.length < 4) {
             throw new IllegalArgumentException("components.length(" + components.length + ") < 4");
         }
-        return toCssRgbHexadecimalNotation8(toColors(components));
+        return toCssRgbHexadecimalNotation8(toInts(components));
     }
 
+    /**
+     * Parses specified hexadecimal notation, applies parsed values to specified function, and returns the result.
+     *
+     * @param cssRgbHexadecimalNotation the hexadecimal notation to parse.
+     * @param function                  the function to be applied with parsed color values.
+     * @param <R>                       result type parameter
+     * @return the result of the {@code function}.
+     */
     public static <R> R parseCssRgbHexadecimalNotation(
             final CharSequence cssRgbHexadecimalNotation,
             final IntFunction<
@@ -296,24 +309,14 @@ public final class JinahyaColorUtils {
             final var r = nibbles.remove(0);
             final var g = nibbles.remove(0);
             final var b = nibbles.remove(0);
-            final int a;
-            if (nibbles.isEmpty()) {
-                a = 0;
-            } else {
-                a = nibbles.remove(0);
-            }
+            final var a = nibbles.isEmpty() ? 0 : nibbles.remove(0);
             return function.apply(r).apply(g).apply(b).apply(a);
         }
         assert nibbles.size() == 6 || nibbles.size() == 8;
         final var r = (nibbles.remove(0) << 4) | nibbles.remove(0);
         final var g = (nibbles.remove(0) << 4) | nibbles.remove(0);
         final var b = (nibbles.remove(0) << 4) | nibbles.remove(0);
-        final int a;
-        if (nibbles.isEmpty()) {
-            a = 0;
-        } else {
-            a = (nibbles.remove(0) << 4) | nibbles.remove(0);
-        }
+        final var a = nibbles.isEmpty() ? 0 : (nibbles.remove(0) << 4) | nibbles.remove(0);
         return function.apply(r).apply(g).apply(b).apply(a);
     }
 
