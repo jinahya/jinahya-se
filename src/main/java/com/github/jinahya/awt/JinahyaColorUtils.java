@@ -138,6 +138,48 @@ public final class JinahyaColorUtils {
         return cmykColorSpace.fromCIEXYZ(toCIEXYZ(rgbColorComponents, rgbColorSpace));
     }
 
+    /**
+     * Converts specified {@code CMYK} color components, using specified color space, to {@code CIEXYZ} color
+     * components.
+     *
+     * @param cmykColorComponents the {@code CMYK} color components to convert.
+     * @param cmykColorSpace      the {@code CMYK} color space.
+     * @return an array of converted color components.
+     */
+    public static float[] cmykToCiexyz(final float[] cmykColorComponents, final ColorSpace cmykColorSpace) {
+        Objects.requireNonNull(cmykColorComponents, "cmykColorComponents is null");
+        Objects.requireNonNull(cmykColorSpace, "cmykColorSpace is null");
+        if (cmykColorSpace.getType() != ColorSpace.TYPE_CMYK) {
+            throw new IllegalArgumentException(
+                    "cmykColorSpace.type(" + cmykColorSpace.getType()
+                    + ") != ColorSpace.TYPE.CMYK(" + ColorSpace.TYPE_CMYK + ")");
+        }
+        if (cmykColorComponents.length < cmykColorSpace.getNumComponents()) {
+            throw new IllegalArgumentException(
+                    "cmykColorComponents.length(" + cmykColorComponents.length
+                    + ") < cmykColorSpace.numComponents(" + cmykColorSpace.getNumComponents() + ")");
+        }
+        return cmykColorSpace.toCIEXYZ(cmykColorComponents);
+    }
+
+    /**
+     * Returns an array of {@code CMYK} color components converted from specified persistable color object.
+     *
+     * @param cmykColorComponents the persistable color object whose {@code RGBA} color components are converted.
+     * @param cmykColorSpace      a target {@code CMYK} color space.
+     * @param rgbColorSpace       an auxiliary {@code RGB} color space; may be {@code null}.
+     * @return an array of converted color components.
+     */
+    public static float[] cmykToRgb(final float[] cmykColorComponents, final ColorSpace cmykColorSpace,
+                                    final ColorSpace rgbColorSpace) {
+        Objects.requireNonNull(cmykColorComponents, "cmykColorComponents is null");
+        Objects.requireNonNull(cmykColorSpace, "cmykColorSpace is null");
+        if (rgbColorSpace == null) {
+            return cmykColorSpace.fromRGB(cmykColorComponents);
+        }
+        return cmykColorSpace.fromCIEXYZ(cmykToCiexyz(cmykColorComponents, rgbColorSpace));
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
 
     /**

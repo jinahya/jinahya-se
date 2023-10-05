@@ -1,21 +1,10 @@
 package com.github.jinahya.awt.color;
 
 import java.awt.color.ColorSpace;
-import java.awt.color.ICC_Profile;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.nio.file.FileVisitOption;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 public final class JinahyaColorSpaceUtils {
 
@@ -45,87 +34,103 @@ public final class JinahyaColorSpaceUtils {
         return nameOfColorSpaceType(colorSpace.getType());
     }
 
-    private static ICC_Profile getIccProfile(final Path path) throws IOException {
-        Objects.requireNonNull(path, "path is null");
-        if (!Files.isRegularFile(path)) {
-            throw new IllegalArgumentException("not a regular file: " + path);
+    /**
+     * Returns an array of {@code CIEXYZ} color components converted from specified {@code RGB} color components.
+     *
+     * @param colorSpace      an {@link ColorSpace#TYPE_RGB RGB} color space.
+     * @param colorComponents the {@code RGB} color components to convert.
+     * @return an array of converted color components.
+     */
+    public static float[] rgbToCiexyz(final ColorSpace colorSpace, final float[] colorComponents) {
+        Objects.requireNonNull(colorSpace, "colorSpace is null");
+        final int colorSpaceType = colorSpace.getType();
+        if (colorSpaceType != ColorSpace.TYPE_RGB) {
+            throw new IllegalArgumentException(
+                    "colorSpace.type(" + colorSpaceType + ")"
+                    + " != ColorSpace.TYPE_RGB(" + ColorSpace.TYPE_RGB + ")"
+            );
         }
-        try (var stream = new FileInputStream(path.toFile())) {
-            return ICC_Profile.getInstance(stream);
+        Objects.requireNonNull(colorComponents, "colorComponents is null");
+        final var numComponents = colorSpace.getNumComponents();
+        if (colorComponents.length < numComponents) {
+            throw new IllegalArgumentException(
+                    "colorComponents.length(" + colorComponents.length + ")"
+                    + " < colorSpace.numComponents(" + numComponents + ")"
+            );
         }
-    }
-
-    private static List<ICC_Profile> getIccProfiles(final Path... paths) {
-        Objects.requireNonNull(paths, "paths is null");
-        return Arrays.stream(paths)
-                .filter(Objects::nonNull)
-                .filter(Files::isDirectory)
-                .flatMap(p -> {
-                    try {
-                        return Files.walk(p, FileVisitOption.FOLLOW_LINKS);
-                    } catch (final IOException ioe) {
-                        throw new UncheckedIOException("failed to walk on " + p, ioe);
-                    }
-                })
-                .filter(Files::isRegularFile)
-                .filter(Files::isReadable)
-                .filter(p -> p.toFile().getName().endsWith(".icc"))
-                .map(p -> {
-                    try {
-                        return getIccProfile(p);
-                    } catch (final IOException ioe) {
-                        throw new UncheckedIOException("failed to get ICC_Profile from " + p, ioe);
-                    }
-                })
-                .toList();
-    }
-
-    private static List<ICC_Profile> getIccProfilesMac() {
-        return getIccProfiles(
-                Paths.get("/Library/ColorSync/Profiles"),
-                Optional.ofNullable(System.getProperty("user.home"))
-                        .map(v -> Paths.get(v).resolve(Paths.get("Library", "ColorSync", "Profiles")))
-                        .orElse(null)
-        );
-    }
-
-    private static List<ICC_Profile> getIccProfilesWindows() {
-        return getIccProfiles(
-                Optional.ofNullable(System.getenv("SYSTEMROOT"))
-                        .map(Paths::get)
-                        .orElseGet(() -> Paths.get("C:\\windows\\system32\\spool\\drivers\\color"))
-        );
-    }
-
-    private static List<ICC_Profile> getIccProfilesLinux() {
-        return getIccProfiles(
-                Paths.get("usr/share/color/icc")
-        );
+        return colorSpace.toCIEXYZ(Arrays.copyOf(colorComponents, numComponents));
     }
 
     /**
-     * .
+     * Returns an array of {@code CMYK} color components converted from specified {@code RGB} color components.
      *
-     * @see <a href="https://mrserge.lv/2023/how-to-install-icc-profiles-on-pc-and-mac-and-where-to-find-them/">How to
-     * install ICC profiles on PC and MAC and where to find them</a>
+     * @param cmykColorSpace     a {@code CMYK} color space.
+     * @param rgbColorComponents the {@code RGB} color components to convert.
+     * @param rgbColorSpace      an auxiliary {@code RGB} color space; may be {@code null}.
+     * @return an array of converted color components.
      */
-    public static List<ICC_Profile> getIccProfiles() {
-        final var osName = System.getProperty("os.name");
-        if (osName == null) {
-            return Collections.emptyList();
+    public static float[] rgbToCmyk(final ColorSpace cmykColorSpace, final float[] rgbColorComponents,
+                                    final ColorSpace rgbColorSpace) {
+        Objects.requireNonNull(cmykColorSpace, "cmykColorSpace is null");
+        final int cmykColorSpaceType = cmykColorSpace.getType();
+        if (cmykColorSpaceType != ColorSpace.TYPE_CMYK) {
+            throw new IllegalArgumentException(
+                    "cmykColorSpace.type(" + cmykColorSpaceType + ")"
+                    + " != ColorSpace.TYPE_CMYK(" + ColorSpace.TYPE_CMYK + ")"
+            );
         }
-        if (osName.toLowerCase().startsWith("linux")) {
-            return getIccProfilesLinux();
+        Objects.requireNonNull(rgbColorComponents, "rgbColorComponents is null");
+        if (rgbColorSpace == null) {
+            return cmykColorSpace.fromRGB(rgbColorComponents);
         }
-        if (osName.toLowerCase().startsWith("mac")) {
-            return getIccProfilesMac();
-        }
-        if (osName.toLowerCase().startsWith("windows")) {
-            return getIccProfilesWindows();
-        }
-        return Collections.emptyList();
+        return cmykColorSpace.fromCIEXYZ(rgbToCiexyz(rgbColorSpace, rgbColorComponents));
     }
 
+    /**
+     * Converts specified {@code CMYK} color components, using specified color space, to {@code CIEXYZ} color
+     * components.
+     *
+     * @param colorSpace      the {@code CMYK} color space.
+     * @param colorComponents the {@code CMYK} color components to convert.
+     * @return an array of converted color components.
+     */
+    public static float[] cmykToCiexyz(final ColorSpace colorSpace, final float[] colorComponents) {
+        Objects.requireNonNull(colorSpace, "colorSpace is null");
+        final var ColorSpaceType = colorSpace.getType();
+        if (ColorSpaceType != ColorSpace.TYPE_CMYK) {
+            throw new IllegalArgumentException(
+                    "colorSpace.type(" + ColorSpaceType + ")"
+                    + " != ColorSpace.TYPE.CMYK(" + ColorSpace.TYPE_CMYK + ")"
+            );
+        }
+        Objects.requireNonNull(colorComponents, "colorComponents is null");
+        final var colorSpaceNumComponents = colorSpace.getNumComponents();
+        if (colorComponents.length < colorSpaceNumComponents) {
+            throw new IllegalArgumentException(
+                    "colorComponents.length(" + colorComponents.length + ")"
+                    + " < colorSpace.numComponents(" + colorSpaceNumComponents + ")"
+            );
+        }
+        return colorSpace.toCIEXYZ(Arrays.copyOf(colorComponents, colorSpaceNumComponents));
+    }
+
+    /**
+     * Returns an array of {@code CMYK} color components converted from specified {@code RGB} color object.
+     *
+     * @param rgbColorSpace       an {@code RGB} color space.
+     * @param cmykColorComponents the {@code CMYK} color components to convert.
+     * @param cmykColorSpace      a {@code CMYK} color space.
+     * @return an array of converted color components.
+     */
+    public static float[] cmykToRgb(final ColorSpace rgbColorSpace, final float[] cmykColorComponents,
+                                    final ColorSpace cmykColorSpace) {
+        Objects.requireNonNull(rgbColorSpace, "rgbColorSpace is null");
+        Objects.requireNonNull(cmykColorComponents, "cmykColorComponents is null");
+        Objects.requireNonNull(cmykColorSpace, "cmykColorSpace is null");
+        return rgbColorSpace.fromCIEXYZ(cmykToCiexyz(cmykColorSpace, cmykColorComponents));
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
     private JinahyaColorSpaceUtils() {
         throw new AssertionError("instantiation is not allowed");
     }
