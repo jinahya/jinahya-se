@@ -4,9 +4,17 @@ import com.github.jinahya.lang.IntFieldEnum;
 
 import java.awt.color.ColorSpace;
 
+/**
+ * Constants for those fields which each name starts with {@code CS_} defined in {@link ColorSpace} class.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
 public enum ColorSpaceCs
         implements IntFieldEnum<ColorSpaceCs> {
 
+    /**
+     * Constants for {@link ColorSpace#CS_CIEXYZ}({@value ColorSpace#CS_CIEXYZ}).
+     */
     CS_CIEXYZ(ColorSpace.CS_CIEXYZ),
 
     CS_GRAY(ColorSpace.CS_GRAY),
@@ -19,6 +27,14 @@ public enum ColorSpaceCs
     ;
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Returns the value whose {@link #getFieldValue() fieldValue} equals to specified value.
+     *
+     * @param fieldValue the value of {@link #getFieldValue() fieldValue} to match.
+     * @return the value whose {@link #getFieldValue()} equals to {@code fieldValue}.
+     * @throws IllegalArgumentException when no value matched.
+     */
     public static ColorSpaceCs valueOfFieldValue(final int fieldValue) {
         return IntFieldEnum.valueOfFieldValue(ColorSpaceCs.class, fieldValue);
     }
