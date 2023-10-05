@@ -37,7 +37,7 @@ public final class JinahyaColorSpaceUtils {
     /**
      * Returns an array of {@code CIEXYZ} color components converted from specified {@code RGB} color components.
      *
-     * @param colorSpace      an {@link ColorSpace#TYPE_RGB RGB} color space.
+     * @param colorSpace      a {@link ColorSpace#TYPE_RGB RGB} color space.
      * @param colorComponents the {@code RGB} color components to convert.
      * @return an array of converted color components.
      */
@@ -117,16 +117,27 @@ public final class JinahyaColorSpaceUtils {
     /**
      * Returns an array of {@code CMYK} color components converted from specified {@code RGB} color object.
      *
-     * @param rgbColorSpace       an {@code RGB} color space.
-     * @param cmykColorComponents the {@code CMYK} color components to convert.
      * @param cmykColorSpace      a {@code CMYK} color space.
+     * @param cmykColorComponents the {@code CMYK} color components to convert.
+     * @param rgbColorSpace       a {@code RGB} color space; may be {@code null}.
      * @return an array of converted color components.
      */
-    public static float[] cmykToRgb(final ColorSpace rgbColorSpace, final float[] cmykColorComponents,
-                                    final ColorSpace cmykColorSpace) {
-        Objects.requireNonNull(rgbColorSpace, "rgbColorSpace is null");
+    public static float[] cmykToRgb(final ColorSpace cmykColorSpace, final float[] cmykColorComponents,
+                                    final ColorSpace rgbColorSpace) {
         Objects.requireNonNull(cmykColorComponents, "cmykColorComponents is null");
         Objects.requireNonNull(cmykColorSpace, "cmykColorSpace is null");
+        if (rgbColorSpace != null) {
+            final var rgbColorSpaceType = rgbColorSpace.getType();
+            if (rgbColorSpaceType != ColorSpace.TYPE_RGB) {
+                throw new IllegalArgumentException(
+                        "rgbColorSpace.type(" + rgbColorSpaceType + ")"
+                        + " != ColorSpace.TYPE_RGB(" + ColorSpace.TYPE_RGB + ")"
+                );
+            }
+        }
+        if (rgbColorSpace == null) {
+            return cmykColorSpace.toRGB(cmykColorComponents);
+        }
         return rgbColorSpace.fromCIEXYZ(cmykToCiexyz(cmykColorSpace, cmykColorComponents));
     }
 
