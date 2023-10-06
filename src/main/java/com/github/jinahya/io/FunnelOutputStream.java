@@ -38,11 +38,6 @@ public class FunnelOutputStream
     }
 
     @Override
-    public final void write(final int b) throws IOException {
-        super.write(b);
-    }
-
-    @Override
     public final void write(final byte[] b) throws IOException {
         super.write(b);
     }

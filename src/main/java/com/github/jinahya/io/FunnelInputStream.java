@@ -18,6 +18,7 @@ package com.github.jinahya.io;
 import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 
 /**
  * A filter input stream reads bytes only through {@link #read()} method.
@@ -38,15 +39,8 @@ public class FunnelInputStream
     }
 
     @Override
-    public final int read() throws IOException {
-        return in.read();
-    }
-
-    @Override
     public final int read(final byte[] b, int off, final int len) throws IOException {
-        if (b == null) {
-            throw new NullPointerException("b is null");
-        }
+        Objects.requireNonNull(b, "b is null");
         if (off < 0 || len < 0 || len > b.length - off) {
             throw new IndexOutOfBoundsException();
         }
