@@ -4,9 +4,17 @@ import com.github.jinahya.lang.IntFieldEnum;
 
 import java.awt.color.ColorSpace;
 
+/**
+ * Constants which each maps to one of fields of {@code TYPE_} defined in {@link ColorSpace}.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
 public enum ColorSpaceType
         implements IntFieldEnum<ColorSpaceType> {
 
+    /**
+     * Constant for {@link ColorSpace#TYPE_2CLR}({@value ColorSpace#TYPE_2CLR}).
+     */
     TYPE_2CLR(ColorSpace.TYPE_2CLR),
 
     TYPE_3CLR(ColorSpace.TYPE_3CLR),

@@ -16,6 +16,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+@SuppressWarnings({
+        "java:S101" // JinahyaICC_...
+})
 public final class JinahyaICC_ProfileUtils {
 
     public static String nameOfProfileClass(final int profileClass) {
@@ -44,6 +47,7 @@ public final class JinahyaICC_ProfileUtils {
         return nameOfProfileClass(iccProfile.getProfileClass());
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     private static ICC_Profile getIccProfile(final Path path) throws IOException {
         Objects.requireNonNull(path, "path is null");
         if (!Files.isRegularFile(path)) {
@@ -98,7 +102,7 @@ public final class JinahyaICC_ProfileUtils {
 
     private static List<ICC_Profile> getIccProfilesLinux() {
         return getIccProfiles(
-                Paths.get("usr/share/color/icc")
+                Paths.get("/usr/share/color/icc")
         );
     }
 
@@ -125,6 +129,7 @@ public final class JinahyaICC_ProfileUtils {
         return Collections.emptyList();
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     private JinahyaICC_ProfileUtils() {
         throw new AssertionError("instantiation is not allowed");
     }

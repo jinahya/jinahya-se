@@ -34,6 +34,8 @@ public final class JinahyaColorSpaceUtils {
         return nameOfColorSpaceType(colorSpace.getType());
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * Returns an array of {@code CIEXYZ} color components converted from specified {@code RGB} color components.
      *
