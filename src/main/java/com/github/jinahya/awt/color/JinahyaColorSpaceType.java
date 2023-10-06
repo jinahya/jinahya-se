@@ -5,12 +5,12 @@ import com.github.jinahya.lang.IntFieldEnum;
 import java.awt.color.ColorSpace;
 
 /**
- * Constants which each maps to one of fields of {@code TYPE_} defined in {@link ColorSpace}.
+ * Constants for fields names start with {@code TYPE_} defined in {@link ColorSpace} class.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-public enum ColorSpaceType
-        implements IntFieldEnum<ColorSpaceType> {
+public enum JinahyaColorSpaceType
+        implements IntFieldEnum<JinahyaColorSpaceType> {
 
     /**
      * Constant for {@link ColorSpace#TYPE_2CLR}({@value ColorSpace#TYPE_2CLR}).
@@ -66,12 +66,12 @@ public enum ColorSpaceType
     TYPE_Yxy(ColorSpace.TYPE_Yxy);
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static ColorSpaceType valueOfFieldValue(final int fieldValue) {
-        return IntFieldEnum.valueOfFieldValue(ColorSpaceType.class, fieldValue);
+    public static JinahyaColorSpaceType valueOfFieldValue(final int fieldValue) {
+        return IntFieldEnum.valueOfFieldValue(JinahyaColorSpaceType.class, fieldValue);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    ColorSpaceType(final int fieldValue) {
+    JinahyaColorSpaceType(final int fieldValue) {
         this.fieldValue = fieldValue;
     }
 

@@ -33,7 +33,7 @@ final class ICC_ProfileTestUtils {
         log.debug("profile: {}", profile);
         {
             final var colorSpaceType = profile.getColorSpaceType();
-            log.debug("\tcolorSpaceType: {}, {}", colorSpaceType, ColorSpaceType.valueOfFieldValue(colorSpaceType));
+            log.debug("\tcolorSpaceType: {}, {}", colorSpaceType, JinahyaColorSpaceType.valueOfFieldValue(colorSpaceType));
         }
         {
             final int majorVersion = profile.getMajorVersion();
@@ -53,7 +53,7 @@ final class ICC_ProfileTestUtils {
         }
         {
             final var profileClass = profile.getProfileClass();
-            log.debug("\tprofileClass: {}, {}", profileClass, ICC_ProfileClass.valueOfFieldValue(profileClass));
+            log.debug("\tprofileClass: {}, {}", profileClass, JinahyaICC_ProfileClass.valueOfFieldValue(profileClass));
         }
     }
 

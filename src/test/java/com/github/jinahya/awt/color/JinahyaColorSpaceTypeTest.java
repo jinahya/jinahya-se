@@ -10,11 +10,11 @@ import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ColorSpaceTypeTest
-        extends IntFieldEnumTest<ColorSpaceType> {
+class JinahyaColorSpaceTypeTest
+        extends IntFieldEnumTest<JinahyaColorSpaceType> {
 
-    ColorSpaceTypeTest() {
-        super(ColorSpaceType.class);
+    JinahyaColorSpaceTypeTest() {
+        super(JinahyaColorSpaceType.class);
     }
 
     @Test
@@ -34,7 +34,7 @@ class ColorSpaceTypeTest
                     }
                 })
                 .forEach(fv -> {
-                    assertThat(ColorSpaceType.valueOfFieldValue(fv))
+                    assertThat(JinahyaColorSpaceType.valueOfFieldValue(fv))
                             .isNotNull()
                             .extracting(IntFieldEnum::getFieldValue).isEqualTo(fv);
                 });

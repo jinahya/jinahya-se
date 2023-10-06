@@ -25,7 +25,8 @@ import java.io.OutputStream;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @see FunnelInputStream
  */
-public class FunnelOutputStream extends FilterOutputStream {
+public class FunnelOutputStream
+        extends FilterOutputStream {
 
     /**
      * Creates a funnel output stream built on top of the specified underlying output stream.
@@ -34,6 +35,11 @@ public class FunnelOutputStream extends FilterOutputStream {
      */
     public FunnelOutputStream(final OutputStream out) {
         super(out);
+    }
+
+    @Override
+    public final void write(final int b) throws IOException {
+        super.write(b);
     }
 
     @Override

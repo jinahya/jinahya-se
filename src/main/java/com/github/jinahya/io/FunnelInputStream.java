@@ -43,11 +43,6 @@ public class FunnelInputStream
     }
 
     @Override
-    public final int read(final byte[] b) throws IOException {
-        return super.read(b); // -> return read(b, 0, b.length)
-    }
-
-    @Override
     public final int read(final byte[] b, int off, final int len) throws IOException {
         if (b == null) {
             throw new NullPointerException("b is null");
@@ -67,6 +62,11 @@ public class FunnelInputStream
             b[off++] = (byte) r;
         }
         return c;
+    }
+
+    @Override
+    public final int read(final byte[] b) throws IOException {
+        return super.read(b); // -> return read(b, 0, b.length)
     }
 
     @Override

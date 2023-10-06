@@ -4,8 +4,8 @@ import com.github.jinahya.lang.IntFieldEnum;
 
 import java.awt.color.ICC_Profile;
 
-public enum ICC_ProfileClass
-        implements IntFieldEnum<ICC_ProfileClass> {
+public enum JinahyaICC_ProfileClass
+        implements IntFieldEnum<JinahyaICC_ProfileClass> {
 
     /**
      * Constants for {@link ICC_Profile#CLASS_ABSTRACT}.
@@ -28,12 +28,12 @@ public enum ICC_ProfileClass
     CLASS_OUTPUT(ICC_Profile.CLASS_OUTPUT);
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static ICC_ProfileClass valueOfFieldValue(final int fieldValue) {
-        return IntFieldEnum.valueOfFieldValue(ICC_ProfileClass.class, fieldValue);
+    public static JinahyaICC_ProfileClass valueOfFieldValue(final int fieldValue) {
+        return IntFieldEnum.valueOfFieldValue(JinahyaICC_ProfileClass.class, fieldValue);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    ICC_ProfileClass(final int fieldValue) {
+    JinahyaICC_ProfileClass(final int fieldValue) {
         this.fieldValue = fieldValue;
     }
 

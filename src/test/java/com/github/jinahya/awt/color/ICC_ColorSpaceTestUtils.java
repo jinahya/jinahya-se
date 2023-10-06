@@ -34,7 +34,7 @@ final class ICC_ColorSpaceTestUtils {
         log.debug("colorSpace: {}", colorSpace);
         {
             final var type = colorSpace.getType();
-            log.debug("\ttype: {}, {}", type, ColorSpaceType.valueOfFieldValue(type));
+            log.debug("\ttype: {}, {}", type, JinahyaColorSpaceType.valueOfFieldValue(type));
         }
         final var numComponents = colorSpace.getNumComponents();
         log.debug("\tnumComponents: {}", numComponents);

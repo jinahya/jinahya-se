@@ -5,12 +5,12 @@ import com.github.jinahya.lang.IntFieldEnum;
 import java.awt.color.ColorSpace;
 
 /**
- * Constants for those fields which each name starts with {@code CS_} defined in {@link ColorSpace} class.
+ * Constants for fields whose names start with {@code CS_} defined in {@link ColorSpace} class.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-public enum ColorSpaceCs
-        implements IntFieldEnum<ColorSpaceCs> {
+public enum JinahyaColorSpaceCs
+        implements IntFieldEnum<JinahyaColorSpaceCs> {
 
     /**
      * Constants for {@link ColorSpace#CS_CIEXYZ}({@value ColorSpace#CS_CIEXYZ}).
@@ -35,12 +35,12 @@ public enum ColorSpaceCs
      * @return the value whose {@link #getFieldValue()} equals to {@code fieldValue}.
      * @throws IllegalArgumentException when no value matched.
      */
-    public static ColorSpaceCs valueOfFieldValue(final int fieldValue) {
-        return IntFieldEnum.valueOfFieldValue(ColorSpaceCs.class, fieldValue);
+    public static JinahyaColorSpaceCs valueOfFieldValue(final int fieldValue) {
+        return IntFieldEnum.valueOfFieldValue(JinahyaColorSpaceCs.class, fieldValue);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    ColorSpaceCs(final int fieldValue) {
+    JinahyaColorSpaceCs(final int fieldValue) {
         this.fieldValue = fieldValue;
     }
 
