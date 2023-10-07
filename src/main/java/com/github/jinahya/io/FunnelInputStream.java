@@ -21,7 +21,7 @@ import java.io.InputStream;
 import java.util.Objects;
 
 /**
- * A filter input stream reads bytes only through {@link #read()} method.
+ * A decorated filter input stream reads bytes only through {@link #read()} method.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @see FunnelOutputStream
@@ -36,6 +36,17 @@ public class FunnelInputStream
      */
     public FunnelInputStream(final InputStream in) {
         super(in);
+    }
+
+    protected void read(final int b) {
+        // does nothing
+    }
+
+    @Override
+    public final int read() throws IOException {
+        final int b = super.read(); // return in.read()
+        read(b);
+        return b;
     }
 
     @Override
@@ -65,6 +76,6 @@ public class FunnelInputStream
 
     @Override
     public final long skip(final long n) throws IOException {
-        return super.skip(n); // in.skip(n) -> read(b, off, len)
+        return super.skip(n); // in.skip(n) -> (in.)read(b, off, len)
     }
 }

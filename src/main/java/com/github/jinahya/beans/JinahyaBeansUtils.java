@@ -25,10 +25,12 @@ import com.github.jinahya.lang.JinahyaLangUtils;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -243,6 +245,71 @@ public class JinahyaBeansUtils {
             throws IntrospectionException, ReflectiveOperationException {
         Objects.requireNonNull(bean, "bean is null");
         acceptEachPropertyHelper(parent, bean.getClass(), bean, function);
+    }
+
+    private static <T, A> void acceptEachProperty(final Class<? super T> clazz, final T bean, final A attachment,
+                                                  final Function<? super T,
+                                                          ? extends Function<? super A,
+                                                                  ? extends Function<? super PropertyDescriptor,
+                                                                          ? extends Consumer<Object>>>> function)
+            throws IntrospectionException {
+        Objects.requireNonNull(clazz, "clazz is null");
+        Objects.requireNonNull(bean, "bean is null");
+        Objects.requireNonNull(function, "function is null");
+        JinahyaBeanInfoUtils.acceptEachPropertyDescriptor(clazz, d -> {
+            final var reader = d.getReadMethod();
+            if (reader == null || reader.getDeclaringClass() != clazz) {
+                return;
+            }
+            Object value;
+            try {
+                value = reader.invoke(bean);
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                throw new RuntimeException("failed to invoke reader(" + reader + ") on " + bean, e);
+            }
+            if (value instanceof Enumeration<?> e) {
+                value = Collections.list(e);
+            }
+            if (value instanceof Stream<?> s) {
+                value = s.toList();
+            }
+            function.apply(bean)
+                    .apply(attachment)
+                    .apply(d)
+                    .accept(value);
+        });
+    }
+
+    private static <T, A> void acceptEachPropertyHelper(final Class<T> clazz, final Object bean, final A attachment,
+                                                        final Function<? super T,
+                                                                ? extends Function<? super A,
+                                                                        ? extends Function<? super PropertyDescriptor,
+                                                                                ? extends Consumer<Object>>>> function)
+            throws IntrospectionException {
+        acceptEachProperty(
+                clazz,
+                clazz.cast(bean),
+                attachment,
+                function
+        );
+    }
+
+    @SuppressWarnings({
+            "unchecked"
+    })
+    public static <T, A> void acceptEachProperty(final T bean, final A attachment,
+                                                 final Function<? super T,
+                                                         ? extends Function<? super A,
+                                                                 ? extends Function<? super PropertyDescriptor,
+                                                                         ? extends Consumer<Object>>>> function)
+            throws IntrospectionException {
+        Objects.requireNonNull(bean, "bean is null");
+        acceptEachPropertyHelper(
+                (Class<T>) bean.getClass(),
+                bean,
+                attachment,
+                function
+        );
     }
 
     private JinahyaBeansUtils() {

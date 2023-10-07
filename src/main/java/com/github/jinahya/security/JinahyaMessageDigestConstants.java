@@ -15,25 +15,27 @@
  */
 package com.github.jinahya.security;
 
-import org.junit.jupiter.api.Test;
-
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-import static com.github.jinahya.security.JinahyaMessageDigests.ALGORITHMS_REQUIRED_TO_BE_SUPPORTED;
-import static java.security.MessageDigest.getInstance;
+import java.util.Arrays;
+import java.util.List;
 
 /**
- * A class for testing {@link JinahyaMessageDigests} class.
+ * Constants related to {@link MessageDigest} class.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
+ * @see JinahyaMessageDigestUtils
  */
-public class JinahyaMessageDigestsTest {
+public final class JinahyaMessageDigestConstants {
 
-    @Test
-    void testAlgorithmsRequiredToBeSupported() throws NoSuchAlgorithmException {
-        for (String algorithmRequiredToBeSupported : ALGORITHMS_REQUIRED_TO_BE_SUPPORTED) {
-            final MessageDigest digest = getInstance(algorithmRequiredToBeSupported);
-        }
+    /**
+     * Algorithms that every implementation of the Java platform is required to support.
+     */
+    public static final List<String> ALGORITHMS_REQUIRED_TO_BE_SUPPORTED = Arrays.asList("MD5", "SHA-1", "SHA-256");
+
+    /**
+     * Creates a new instance.
+     */
+    private JinahyaMessageDigestConstants() {
+        super();
     }
 }

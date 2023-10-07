@@ -8,6 +8,14 @@ import java.util.function.Consumer;
 
 public final class JinahyaBeanInfoUtils {
 
+    /**
+     * Accepts all property descriptors, of specified class, to specified consumer, one by one.
+     *
+     * @param clazz    the class whose property descriptors are accepted.
+     * @param consumer the consumer accepts each property descriptor.
+     * @throws IntrospectionException if failed to introspect.
+     * @see Introspector#getBeanInfo(Class)
+     */
     public static void acceptEachPropertyDescriptor(final Class<?> clazz,
                                                     final Consumer<? super PropertyDescriptor> consumer)
             throws IntrospectionException {

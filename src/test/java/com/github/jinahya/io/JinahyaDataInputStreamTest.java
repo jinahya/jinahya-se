@@ -1,38 +1,41 @@
 package com.github.jinahya.io;
 
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
-import java.io.DataInputStream;
 import java.io.IOException;
-import java.util.stream.Stream;
 
-public class JinahyaDataInputStreamTest {
+import static org.assertj.core.api.Assertions.assertThatCode;
 
-    // -----------------------------------------------------------------------------------------------------------------
-    private static Stream<Arguments> sourceJinahyaDataInputStream() {
-        return Stream.of(Arguments.of(new JinahyaDataInputStream(new DataInputStream(WhiteInputStream.getInstance()))));
+class JinahyaDataInputStreamTest {
+
+    @DisplayName("readIntLe()S")
+    @Test
+    void readShortLe_DoesNotThrow_() throws IOException {
+        try (var input = new JinahyaDataInputStream(WhiteInputStream.getInstance())) {
+            assertThatCode(() -> {
+                final short value = input.readShortLe();
+            }).doesNotThrowAnyException();
+        }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    @MethodSource({"sourceJinahyaDataInputStream"})
-    @ParameterizedTest
-    public void testReadShortLe(final JinahyaDataInputStream input) throws IOException {
-        final short v = input.readShortLe();
+    @DisplayName("readIntLe()I")
+    @Test
+    void readIntLe_DoesNotThrow_() throws IOException {
+        try (var input = new JinahyaDataInputStream(WhiteInputStream.getInstance())) {
+            assertThatCode(() -> {
+                final int value = input.readIntLe();
+            }).doesNotThrowAnyException();
+        }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    @MethodSource({"sourceJinahyaDataInputStream"})
-    @ParameterizedTest
-    public void testReadIntLe(final JinahyaDataInputStream input) throws IOException {
-        final int v = input.readIntLe();
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @MethodSource({"sourceJinahyaDataInputStream"})
-    @ParameterizedTest
-    public void testReadLongLe(final JinahyaDataInputStream input) throws IOException {
-        final long v = input.readLongLe();
+    @DisplayName("readLongLe()J")
+    @Test
+    void readLongLe_DoesNotThrow_() throws IOException {
+        try (var input = new JinahyaDataInputStream(WhiteInputStream.getInstance())) {
+            assertThatCode(() -> {
+                final long value = input.readLongLe();
+            }).doesNotThrowAnyException();
+        }
     }
 }

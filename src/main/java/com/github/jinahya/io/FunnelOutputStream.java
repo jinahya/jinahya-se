@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * A filer output stream writes bytes only through {@link #write(int)} method.
+ * A decorated filer output stream writes bytes only through {@link #write(int)} method.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @see FunnelInputStream
@@ -37,13 +37,23 @@ public class FunnelOutputStream
         super(out);
     }
 
+    protected void written(final int b) {
+        // does nothing
+    }
+
     @Override
-    public final void write(final byte[] b) throws IOException {
+    public final void write(final int b) throws IOException {
         super.write(b);
+        written(b);
     }
 
     @Override
     public final void write(final byte[] b, final int off, final int len) throws IOException {
-        super.write(b, off, len);
+        super.write(b, off, len); // -> write(b)+
+    }
+
+    @Override
+    public final void write(final byte[] b) throws IOException {
+        super.write(b); // -> write(b, 0, b.length)
     }
 }

@@ -1,40 +1,42 @@
 package com.github.jinahya.io;
 
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.stream.Stream;
 
 import static java.util.concurrent.ThreadLocalRandom.current;
+import static org.assertj.core.api.Assertions.assertThatCode;
 
-public class JinahyaDataOutputStreamTest {
+class JinahyaDataOutputStreamTest {
 
-    // -----------------------------------------------------------------------------------------------------------------
-    private static Stream<Arguments> sourceJinahyaDataOutputStream() {
-        return Stream.of(Arguments.of(new JinahyaDataOutputStream(new DataOutputStream(BlackOutputStream.getInstance()))));
+    @DisplayName("writeShortLe(S)V")
+    @Test
+    void writeShortLe_DoesNotThrow_() throws IOException {
+        try (var output = new JinahyaDataOutputStream(BlackOutputStream.getInstance())) {
+            assertThatCode(() -> {
+                output.writeShortLe(current().nextInt());
+            }).doesNotThrowAnyException();
+        }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    @MethodSource({"sourceJinahyaDataOutputStream"})
-    @ParameterizedTest
-    public void testWriteShortLe(final JinahyaDataOutputStream output) throws IOException {
-        output.writeShortLe(current().nextInt());
+    @DisplayName("writeIntLe(I)V")
+    @Test
+    void writeIntLe_DoesNotThrow_() throws IOException {
+        try (var output = new JinahyaDataOutputStream(BlackOutputStream.getInstance())) {
+            assertThatCode(() -> {
+                output.writeIntLe(current().nextInt());
+            }).doesNotThrowAnyException();
+        }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    @MethodSource({"sourceJinahyaDataOutputStream"})
-    @ParameterizedTest
-    public void testReadIntLe(final JinahyaDataOutputStream output) throws IOException {
-        output.writeIntLe(current().nextInt());
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @MethodSource({"sourceJinahyaDataOutputStream"})
-    @ParameterizedTest
-    public void testWriteLongLe(final JinahyaDataOutputStream output) throws IOException {
-        output.writeLongLe(current().nextLong());
+    @DisplayName("writeLongLe(L)V")
+    @Test
+    void writeLongLe_DoesNotThrow_() throws IOException {
+        try (var output = new JinahyaDataOutputStream(BlackOutputStream.getInstance())) {
+            assertThatCode(() -> {
+                output.writeLongLe(current().nextLong());
+            }).doesNotThrowAnyException();
+        }
     }
 }
