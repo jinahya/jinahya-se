@@ -21,9 +21,9 @@ package com.github.jinahya.beans;
  */
 
 import java.beans.IntrospectionException;
-import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Objects;
@@ -38,25 +38,82 @@ import java.util.stream.Stream;
  */
 public class JinahyaBeansUtils2 {
 
-    private static <T, A> void acceptEachProperty(final Class<? super T> clazz, final T bean, final A attachment,
-                                                  final Function<? super T,
-                                                          ? extends Function<? super A,
-                                                                  ? extends Function<? super PropertyDescriptor,
-                                                                          ? extends Consumer<Object>>>> function)
+    // -----------------------------------------------------------------------------------------------------------------
+    private static <T, A> void acceptEachPropertyDescriptor(
+            final Class<? super T> clazz, final T bean, final A attachment,
+            final Function<? super T,
+                    ? extends Function<? super A,
+                            ? extends Consumer<? super PropertyDescriptor>>> function)
             throws IntrospectionException {
         Objects.requireNonNull(clazz, "clazz is null");
         Objects.requireNonNull(bean, "bean is null");
         Objects.requireNonNull(function, "function is null");
         JinahyaBeanInfoUtils.acceptEachPropertyDescriptor(clazz, d -> {
+            function.apply(bean)
+                    .apply(attachment)
+                    .accept(d);
+        });
+    }
+
+    private static <T, A> void acceptEachPropertyDescriptorHelper(
+            final Class<T> clazz, final Object bean, final A attachment,
+            final Function<? super T,
+                    ? extends Function<? super A,
+                            ? extends Consumer<? super PropertyDescriptor>>> function)
+            throws IntrospectionException {
+        acceptEachPropertyDescriptor(
+                clazz,
+                clazz.cast(bean),
+                attachment,
+                function
+        );
+    }
+
+    @SuppressWarnings({
+            "unchecked"
+    })
+    public static <T, A> void acceptEachPropertyDescriptor(
+            final T bean, final A attachment,
+            final Function<? super T,
+                    ? extends Function<? super A,
+                            ? extends Consumer<? super PropertyDescriptor>>> function)
+            throws IntrospectionException {
+        Objects.requireNonNull(bean, "bean is null");
+        acceptEachPropertyDescriptorHelper(
+                (Class<T>) bean.getClass(),
+                bean,
+                attachment,
+                function
+        );
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @SuppressWarnings({
+            "java:S3011" // reader.setAccessible(true)
+    })
+    private static <T, A> void acceptEachPropertyValue(final Class<? super T> clazz, final T bean, final A attachment,
+                                                       final Function<? super T,
+                                                               ? extends Function<? super A,
+                                                                       ? extends Function<? super PropertyDescriptor,
+                                                                               ? extends Consumer<Object>>>> function)
+            throws IntrospectionException {
+        acceptEachPropertyDescriptor(clazz, bean, attachment, b -> a -> d -> {
             final var reader = d.getReadMethod();
             if (reader == null || reader.getDeclaringClass() != clazz) {
                 return;
+            }
+            if (!reader.canAccess(bean)) {
+                reader.setAccessible(true);
             }
             Object value;
             try {
                 value = reader.invoke(bean);
             } catch (IllegalAccessException | InvocationTargetException e) {
                 throw new RuntimeException("failed to invoke reader(" + reader + ") on " + bean, e);
+            }
+            final var type = d.getPropertyType(); // may be null
+            if (type != null && type.isArray() && !type.getComponentType().isPrimitive()) {
+                value = Arrays.asList((Object[]) value);
             }
             if (value instanceof Enumeration<?> e) {
                 value = Collections.list(e);
@@ -71,13 +128,14 @@ public class JinahyaBeansUtils2 {
         });
     }
 
-    private static <T, A> void acceptEachPropertyHelper(final Class<T> clazz, final Object bean, final A attachment,
-                                                        final Function<? super T,
-                                                                ? extends Function<? super A,
-                                                                        ? extends Function<? super PropertyDescriptor,
-                                                                                ? extends Consumer<Object>>>> function)
+    private static <T, A> void acceptEachPropertyValueHelper(
+            final Class<T> clazz, final Object bean, final A attachment,
+            final Function<? super T,
+                    ? extends Function<? super A,
+                            ? extends Function<? super PropertyDescriptor,
+                                    ? extends Consumer<Object>>>> function)
             throws IntrospectionException {
-        acceptEachProperty(
+        acceptEachPropertyValue(
                 clazz,
                 clazz.cast(bean),
                 attachment,
@@ -88,14 +146,14 @@ public class JinahyaBeansUtils2 {
     @SuppressWarnings({
             "unchecked"
     })
-    public static <T, A> void acceptEachProperty(final T bean, final A attachment,
-                                                 final Function<? super T,
-                                                         ? extends Function<? super A,
-                                                                 ? extends Function<? super PropertyDescriptor,
-                                                                         ? extends Consumer<Object>>>> function)
+    public static <T, A> void acceptEachPropertyValue(final T bean, final A attachment,
+                                                      final Function<? super T,
+                                                              ? extends Function<? super A,
+                                                                      ? extends Function<? super PropertyDescriptor,
+                                                                              ? extends Consumer<Object>>>> function)
             throws IntrospectionException {
         Objects.requireNonNull(bean, "bean is null");
-        acceptEachPropertyHelper(
+        acceptEachPropertyValueHelper(
                 (Class<T>) bean.getClass(),
                 bean,
                 attachment,
