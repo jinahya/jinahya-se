@@ -4,7 +4,7 @@ import java.io.DataOutput;
 import java.io.IOException;
 
 /**
- * An extended data output defines methods for writing values in little endian byte order.
+ * An extended data output.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see JinahyaDataInput

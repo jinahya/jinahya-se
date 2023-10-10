@@ -4,7 +4,7 @@ import java.io.DataInput;
 import java.io.IOException;
 
 /**
- * An extended data input for reading values in little endian byte order.
+ * An extended data input.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see JinahyaDataInput
