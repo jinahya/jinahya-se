@@ -20,15 +20,15 @@ import org.junit.jupiter.api.Test;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import static com.github.jinahya.security.JinahyaMessageDigests.ALGORITHMS_REQUIRED_TO_BE_SUPPORTED;
+import static com.github.jinahya.security.JinahyaMessageDigestConstants.ALGORITHMS_REQUIRED_TO_BE_SUPPORTED;
 import static java.security.MessageDigest.getInstance;
 
 /**
- * A class for testing {@link JinahyaMessageDigests} class.
+ * A class for testing {@link JinahyaMessageDigestUtils} class.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public class JinahyaMessageDigestsTest {
+public class JinahyaMessageDigestUtilsTest {
 
     @Test
     void testAlgorithmsRequiredToBeSupported() throws NoSuchAlgorithmException {

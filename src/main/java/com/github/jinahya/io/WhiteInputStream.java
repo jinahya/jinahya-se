@@ -15,18 +15,23 @@
  */
 package com.github.jinahya.io;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * An input stream reads random bytes.
+ * An input stream reads random bytes. The {@link Closeable#close() close()} method has no effects.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
+ * @see InputStream#nullInputStream()
  * @see BlackOutputStream
  */
-@SuppressWarnings({"java:S4929"})
-public final class WhiteInputStream extends InputStream {
+@SuppressWarnings({
+        "java:S4929" // override read([BII)I
+})
+public final class WhiteInputStream
+        extends InputStream {
 
     private static final class InstanceHolder {
 
@@ -46,6 +51,9 @@ public final class WhiteInputStream extends InputStream {
         return InstanceHolder.INSTANCE;
     }
 
+    /**
+     * Creates a new instance.
+     */
     private WhiteInputStream() {
         super();
     }

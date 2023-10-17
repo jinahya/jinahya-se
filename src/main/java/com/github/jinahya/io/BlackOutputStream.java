@@ -15,17 +15,22 @@
  */
 package com.github.jinahya.io;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * An output stream discards written bytes.
+ * An output stream discards written bytes. The {@link Closeable#close() close()} method has no effects.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
+ * @see OutputStream#nullOutputStream()
  * @see WhiteInputStream
  */
-@SuppressWarnings({"java:S4349"})
-public final class BlackOutputStream extends OutputStream {
+@SuppressWarnings({
+        "java:S4349" // override write([BII)V
+})
+public final class BlackOutputStream
+        extends OutputStream {
 
     private static final class InstanceHolder {
 
@@ -45,6 +50,9 @@ public final class BlackOutputStream extends OutputStream {
         return InstanceHolder.INSTANCE;
     }
 
+    /**
+     * Creates a new instance.
+     */
     private BlackOutputStream() {
         super();
     }

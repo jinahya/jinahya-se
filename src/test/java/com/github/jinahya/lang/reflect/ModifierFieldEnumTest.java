@@ -41,7 +41,7 @@ abstract class ModifierFieldEnumTest<E extends Enum<E> & ModifierFieldEnum<E>>
     public void all() {
 
         int actual = 0;
-        for (final int fieldValues : IntFieldEnum.fieldValues(enumType)) {
+        for (final int fieldValues : IntFieldEnum.fieldValues(enumClass)) {
             actual |= fieldValues;
         }
 
@@ -51,7 +51,7 @@ abstract class ModifierFieldEnumTest<E extends Enum<E> & ModifierFieldEnum<E>>
     @Test
     public void is() {
 
-        for (final E enumConstant : enumType.getEnumConstants()) {
+        for (final E enumConstant : enumClass.getEnumConstants()) {
             assertTrue(enumConstant.is(all));
         }
     }
@@ -59,7 +59,7 @@ abstract class ModifierFieldEnumTest<E extends Enum<E> & ModifierFieldEnum<E>>
     @Test
     public void add() {
 
-        for (final E enumConstant : enumType.getEnumConstants()) {
+        for (final E enumConstant : enumClass.getEnumConstants()) {
             final int added = enumConstant.add(0);
             assertEquals(added, enumConstant.getFieldValue());
             assertEquals(enumConstant.remove(added), 0);
@@ -69,7 +69,7 @@ abstract class ModifierFieldEnumTest<E extends Enum<E> & ModifierFieldEnum<E>>
     @Test
     public void remove() {
 
-        for (final E enumConstant : enumType.getEnumConstants()) {
+        for (final E enumConstant : enumClass.getEnumConstants()) {
             final int removed = enumConstant.remove(all);
             assertFalse(enumConstant.is(removed));
             assertEquals(enumConstant.add(removed), all);

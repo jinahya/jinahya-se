@@ -18,9 +18,10 @@ package com.github.jinahya.io;
 import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 
 /**
- * A filter input stream reads bytes only through {@link #read()} method.
+ * A decorated filter input stream reads bytes only through {@link #read()} method.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @see FunnelOutputStream
@@ -37,21 +38,20 @@ public class FunnelInputStream
         super(in);
     }
 
-    @Override
-    public final int read() throws IOException {
-        return in.read();
+    protected void read(final int b) {
+        // does nothing
     }
 
     @Override
-    public final int read(final byte[] b) throws IOException {
-        return super.read(b); // -> return read(b, 0, b.length)
+    public final int read() throws IOException {
+        final int b = super.read(); // return in.read()
+        read(b);
+        return b;
     }
 
     @Override
     public final int read(final byte[] b, int off, final int len) throws IOException {
-        if (b == null) {
-            throw new NullPointerException("b is null");
-        }
+        Objects.requireNonNull(b, "b is null");
         if (off < 0 || len < 0 || len > b.length - off) {
             throw new IndexOutOfBoundsException();
         }
@@ -70,7 +70,12 @@ public class FunnelInputStream
     }
 
     @Override
+    public final int read(final byte[] b) throws IOException {
+        return super.read(b); // -> return read(b, 0, b.length)
+    }
+
+    @Override
     public final long skip(final long n) throws IOException {
-        return super.skip(n); // in.skip(n) -> read(b, off, len)
+        return super.skip(n); // in.skip(n) -> (in.)read(b, off, len)
     }
 }

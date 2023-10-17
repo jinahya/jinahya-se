@@ -21,6 +21,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Objects;
 
 /**
  * Utilities for InputStreams and OutputStreams.
@@ -29,7 +30,32 @@ import java.io.OutputStream;
  */
 public final class JinahyaByteStreams {
 
-    // -----------------------------------------------------------------------------------------------------------------
+    /**
+     * Copies all bytes from specified input stream to specified output stream using specified array of bytes as a
+     * buffer.
+     *
+     * @param input  the input stream from which bytes are read.
+     * @param output the output stream to which bytes are written.
+     * @param buffer the array of bytes to be used as a buffer whose {@code length} must be positive.
+     * @return the actual number of bytes copied.
+     * @throws IOException if an I/O error occurs
+     */
+    public static long copy(final InputStream input, final OutputStream output, final byte[] buffer)
+            throws IOException {
+        Objects.requireNonNull(input, "input is null");
+        Objects.requireNonNull(output, "output is null");
+        if (Objects.requireNonNull(buffer, "buffer is null").length == 0) {
+            throw new IllegalArgumentException("buffer.length(" + buffer.length + ") == 0");
+        }
+        long copied = 0L;
+        for (int r; true; copied += r) {
+            if ((r = input.read(buffer)) == -1) {
+                break;
+            }
+            output.write(buffer, 0, r);
+        }
+        return copied;
+    }
 
     /**
      * Copies specified number of bytes from specified input stream to specified output stream using specified array of
@@ -38,41 +64,33 @@ public final class JinahyaByteStreams {
      * @param input  the input stream from which bytes are read.
      * @param output the output stream to which bytes are written.
      * @param buffer the array of bytes to be used as a buffer whose {@code length} must be positive.
-     * @param length the number of bytes to copy.
+     * @param count  the number of bytes to copy; {@code -1} for coping all available bytes.
      * @return the actual number of bytes copied.
      * @throws IOException if an I/O error occurs
      */
-    public static long copy(final InputStream input, final OutputStream output, final byte[] buffer, long length)
+    public static long copy(final InputStream input, final OutputStream output, final byte[] buffer, long count)
             throws IOException {
-        if (input == null) {
-            throw new NullPointerException("input is null");
+        Objects.requireNonNull(input, "input is null");
+        Objects.requireNonNull(output, "output is null");
+        if (Objects.requireNonNull(buffer, "buffer is null").length == 0) {
+            throw new IllegalArgumentException("buffer.count(" + buffer.length + ") == 0");
         }
-        if (output == null) {
-            throw new NullPointerException("output is null");
+        if (count < 0) {
+            return copy(input, output, buffer);
         }
-        if (buffer == null) {
-            throw new NullPointerException("buffer is null");
-        }
-        if (buffer.length == 0) {
-            throw new IllegalArgumentException("buffer.length(" + buffer.length + ") == 0");
-        }
-        if (length < 0L) {
-            throw new IllegalArgumentException("length(" + length + ") < 0L");
-        }
-        long count = 0L;
+        long copied = 0L;
         int limit = buffer.length;
-        for (int read; length > 0; count += read) {
-            if (length < limit) {
-                limit = (int) length;
+        for (int r; count > 0; copied += r) {
+            if (count < limit) {
+                limit = (int) count;
             }
-            read = input.read(buffer, 0, limit);
-            if (read == -1) {
+            if ((r = input.read(buffer, 0, limit)) == -1) {
                 break;
             }
-            output.write(buffer, 0, read);
-            length -= read;
+            output.write(buffer, 0, r);
+            count -= r;
         }
-        return count;
+        return copied;
     }
 
     /**
@@ -82,17 +100,15 @@ public final class JinahyaByteStreams {
      * @param file   the input file from which bytes are read.
      * @param output the output stream to which bytes are written.
      * @param buffer the array of bytes to used as a buffer.
-     * @param length the maximum number of bytes to copy.
+     * @param count  the number of bytes to copy.
      * @return the actual number of bytes copied.
      * @throws IOException if an I/O error occurs
      */
-    public static long copy(final File file, final OutputStream output, final byte[] buffer, final long length)
+    public static long copy(final File file, final OutputStream output, final byte[] buffer, final long count)
             throws IOException {
-        if (file == null) {
-            throw new NullPointerException("file is null");
-        }
-        try (InputStream input = new FileInputStream(file)) {
-            return copy(input, output, buffer, length);
+        Objects.requireNonNull(file, "file is null");
+        try (var input = new FileInputStream(file)) {
+            return copy(input, output, buffer, count);
         }
     }
 
@@ -102,18 +118,16 @@ public final class JinahyaByteStreams {
      * @param input  the input stream
      * @param file   the output file
      * @param buffer a buffer to use
-     * @param length the maximum number of bytes to copy; {@code -1L} for all available bytes in {@code input}.
+     * @param count  the maximum number of bytes to copy; {@code -1L} for all available bytes in {@code input}.
      * @return the actual number of bytes copied.
      * @throws IOException if an I/O error occurs
      */
-    public static long copy(final InputStream input, final File file, final byte[] buffer, final long length)
+    public static long copy(final InputStream input, final File file, final byte[] buffer, final long count)
             throws IOException {
-        if (file == null) {
-            throw new NullPointerException("file is null");
-        }
+        Objects.requireNonNull(file, "file is null");
         final long copied;
-        try (OutputStream output = new FileOutputStream(file)) {
-            copied = copy(input, output, buffer, length);
+        try (var output = new FileOutputStream(file)) {
+            copied = copy(input, output, buffer, count);
             output.flush();
         }
         return copied;
@@ -125,28 +139,22 @@ public final class JinahyaByteStreams {
      * @param source      the input file
      * @param destination the output file
      * @param buffer      a buffer
-     * @param length      the maximum number of bytes to copy; {@code -1L} for all available bytes in {@code input}.
+     * @param count       the maximum number of bytes to copy; {@code -1L} for all available bytes in {@code input}.
      * @return the actual number of bytes copied.
      * @throws IOException if an I/O error occurs
      */
-    public static long copy(final File source, final File destination, final byte[] buffer, final long length)
+    public static long copy(final File source, final File destination, final byte[] buffer, final long count)
             throws IOException {
-        if (source == null) {
-            throw new NullPointerException("source is null");
-        }
-        if (destination == null) {
-            throw new NullPointerException("destination is null");
-        }
+        Objects.requireNonNull(source, "source is null");
+        Objects.requireNonNull(destination, "destination is null");
         final long copied;
         try (InputStream input = new FileInputStream(source);
              OutputStream output = new FileOutputStream(destination)) {
-            copied = copy(input, output, buffer, length);
+            copied = copy(input, output, buffer, count);
             output.flush();
         }
         return copied;
     }
-
-    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * Creates a new instance.

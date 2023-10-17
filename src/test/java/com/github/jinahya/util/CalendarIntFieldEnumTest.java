@@ -40,7 +40,7 @@ public abstract class CalendarIntFieldEnumTest<E extends Enum<E> & CalendarIntFi
 
         final Calendar calendar = Calendar.getInstance();
 
-        for (final E enumConstant : enumType.getEnumConstants()) {
+        for (final E enumConstant : enumClass.getEnumConstants()) {
             enumConstant.set(calendar);
         }
     }

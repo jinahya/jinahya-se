@@ -17,8 +17,11 @@ package com.github.jinahya.lang;
 
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Objects;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
@@ -27,24 +30,39 @@ import static org.junit.jupiter.api.Assertions.fail;
  */
 public abstract class IntFieldEnumTest<E extends Enum<E> & IntFieldEnum<E>> {
 
-    public IntFieldEnumTest(final Class<E> enumType) {
+    public IntFieldEnumTest(final Class<E> enumClass) {
 
         super();
 
-        this.enumType = Objects.requireNonNull(enumType, "null enumType");
+        this.enumClass = Objects.requireNonNull(enumClass, "null enumClass");
+    }
+
+    @Test
+    void valueOfFieldValue__() throws InvocationTargetException, IllegalAccessException {
+        final Method valueOfFieldValue;
+        try {
+            valueOfFieldValue = enumClass.getMethod("valueOfFieldValue");
+        } catch (final ReflectiveOperationException roe) {
+            return;
+        }
+        for (final var enumConstant : enumClass.getEnumConstants()) {
+            final var value = valueOfFieldValue.invoke(null, new Object[]{enumConstant.getFieldValue()});
+            assertThat(value)
+                    .isEqualTo(enumConstant);
+        }
     }
 
     @Test
     public void assertUniqueFieldValues() {
-        final int[] fieldValues = IntFieldEnum.fieldValues(enumType);
+        final int[] fieldValues = IntFieldEnum.fieldValues(enumClass);
         for (int i = 0; i < fieldValues.length; i++) {
             for (int j = 0; j < i; j++) {
                 if (fieldValues[j] == fieldValues[i]) {
-                    fail("value[" + j + "] == value[" + i + "] in " + enumType);
+                    fail("value[" + j + "] == value[" + i + "] in " + enumClass);
                 }
             }
         }
     }
 
-    protected final Class<E> enumType;
+    protected final Class<E> enumClass;
 }
