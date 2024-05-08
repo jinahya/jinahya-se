@@ -14,12 +14,13 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static com.github.jinahya.awt.JinahyaColorUtils.parseCssRgbHexadecimalNotation;
-import static com.github.jinahya.awt.JinahyaColorUtils.toInt;
+import static com.github.jinahya.awt.JinahyaColorUtils.toColor;
 import static com.github.jinahya.awt.JinahyaColorUtils.toCssRgbHexadecimalNotation3;
 import static com.github.jinahya.awt.JinahyaColorUtils.toCssRgbHexadecimalNotation4;
 import static com.github.jinahya.awt.JinahyaColorUtils.toCssRgbHexadecimalNotation6;
 import static com.github.jinahya.awt.JinahyaColorUtils.toCssRgbHexadecimalNotation8;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 @Slf4j
@@ -29,20 +30,20 @@ class JinahyaColorUtilsTest {
         return ThreadLocalRandom.current().nextInt(JinahyaColorUtils.MIN_COLOR, JinahyaColorUtils.MAX_COLOR + 1);
     }
 
-    static float randomComponent() {
-        return JinahyaColorUtils.toFloat(randomColor());
-    }
-
-    static int[] randomColors() {
-        final var colors = new int[4];
+    static int[] randomColors(final int origin) {
+        final var colors = new int[ThreadLocalRandom.current().nextInt(origin, 5)];
         for (int i = 0; i < colors.length; i++) {
             colors[i] = randomColor();
         }
         return colors;
     }
 
-    static float[] randomComponents() {
-        final var components = new float[4];
+    static float randomComponent() {
+        return JinahyaColorUtils.toComponent(randomColor());
+    }
+
+    static float[] randomComponents(final int origin) {
+        final var components = new float[ThreadLocalRandom.current().nextInt(origin, 5)];
         for (int i = 0; i < components.length; i++) {
             components[i] = randomComponent();
         }
@@ -51,48 +52,98 @@ class JinahyaColorUtilsTest {
 
     private static Stream<Arguments> randomCssRgbHexadecimalNotation3() {
         return IntStream.range(0, 128).mapToObj(i -> {
-            final var components = randomComponents();
+            final var components = randomComponents(3);
             return arguments(components, toCssRgbHexadecimalNotation3(components));
         });
     }
 
     private static Stream<Arguments> randomCssRgbHexadecimalNotation4() {
         return IntStream.range(0, 128).mapToObj(i -> {
-            final var components = randomComponents();
+            final var components = randomComponents(4);
             return arguments(components, toCssRgbHexadecimalNotation4(components));
         });
     }
 
     private static Stream<Arguments> randomCssRgbHexadecimalNotation6() {
         return IntStream.range(0, 128).mapToObj(i -> {
-            final var components = randomComponents();
+            final var components = randomComponents(3);
             return arguments(components, toCssRgbHexadecimalNotation6(components));
         });
     }
 
     private static Stream<Arguments> randomCssRgbHexadecimalNotation8() {
         return IntStream.range(0, 128).mapToObj(i -> {
-            final var components = randomComponents();
+            final var components = randomComponents(4);
             return arguments(components, toCssRgbHexadecimalNotation8(components));
         });
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
+    @DisplayName("toColor(F)I")
     @RepeatedTest(128)
-    void toInt__() {
-        final var component = ThreadLocalRandom.current().nextFloat();
-        final var color = JinahyaColorUtils.toInt(component);
-        assertThat(color).isBetween(JinahyaColorUtils.MIN_COLOR, JinahyaColorUtils.MAX_COLOR);
+    void toColor__() {
+        final var component = randomComponent();
+        assert component >= JinahyaColorUtils.MIN_COMPONENT;
+        assert component <= JinahyaColorUtils.MAX_COMPONENT;
+        final var color = JinahyaColorUtils.toColor(component);
+        assertThat(color)
+                .isBetween(JinahyaColorUtils.MIN_COLOR, JinahyaColorUtils.MAX_COLOR)
+                .satisfies(v -> {
+                    assertThat(JinahyaColorUtils.requireValidColor(v)).isEqualTo(v);
+                });
     }
 
-    @RepeatedTest(128)
-    void toFloat__() {
-        final var color = ThreadLocalRandom.current().nextInt();
-        final var component = JinahyaColorUtils.toFloat(color);
-        assertThat(component).isBetween(JinahyaColorUtils.MIN_COMPONENT, JinahyaColorUtils.MAX_COMPONENT);
+    @DisplayName("toColors([F)[I")
+    @Nested
+    class ToColorsTest {
+
+        @DisplayName("(null)NullPointerException")
+        @RepeatedTest(128)
+        void _NullPointerException_Null() {
+            assertThatThrownBy(() -> JinahyaColorUtils.toColors(null))
+                    .isInstanceOf(NullPointerException.class);
+        }
+
+        @RepeatedTest(128)
+        void __() {
+            final var components = randomComponents(3);
+            final var colors = JinahyaColorUtils.toColors(components);
+            assertThat(colors)
+                    .isNotNull()
+                    .hasSameSizeAs(components);
+        }
     }
 
+    @DisplayName("toComponent(I)F")
+    @Nested
+    class ToComponentTest {
+
+        @RepeatedTest(128)
+        void __() {
+            final var color = randomColor();
+            final var component = JinahyaColorUtils.toComponent(color);
+            assertThat(component)
+                    .isBetween(JinahyaColorUtils.MIN_COMPONENT, JinahyaColorUtils.MAX_COMPONENT)
+                    .satisfies(v -> {
+                        assertThat(JinahyaColorUtils.requireValidComponent(v)).isEqualTo(v);
+                    });
+        }
+    }
+
+    @DisplayName("toComponent([I)[F")
+    @Nested
+    class ToComponentsTest {
+
+        @RepeatedTest(128)
+        void __() {
+            final var colors = randomColors(3);
+            final var components = JinahyaColorUtils.toComponents(colors);
+            assertThat(components).isNotNull().hasSameSizeAs(colors);
+        }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
     @DisplayName("toCssRgbHexadecimalNotation3")
     @Nested
     class ToCssRgbHexadecimalNotation3Test {
@@ -100,7 +151,7 @@ class JinahyaColorUtilsTest {
         @DisplayName("(components)")
         @Test
         void __() {
-            final var components = randomComponents();
+            final var components = randomComponents(3);
             final var result = toCssRgbHexadecimalNotation3(components);
             assertThat(result)
                     .hasSize(3)
@@ -115,7 +166,7 @@ class JinahyaColorUtilsTest {
         @DisplayName("(components)")
         @Test
         void __() {
-            final var components = randomComponents();
+            final var components = randomComponents(4);
             final var result = toCssRgbHexadecimalNotation4(components);
             assertThat(result)
                     .hasSize(4)
@@ -130,7 +181,7 @@ class JinahyaColorUtilsTest {
         @DisplayName("(components)")
         @Test
         void __() {
-            final var components = randomComponents();
+            final var components = randomComponents(3);
             final var result = toCssRgbHexadecimalNotation6(components);
             assertThat(result)
                     .hasSize(6)
@@ -145,7 +196,7 @@ class JinahyaColorUtilsTest {
         @DisplayName("(components)")
         @Test
         void __() {
-            final var components = randomComponents();
+            final var components = randomComponents(4);
             final var result = toCssRgbHexadecimalNotation8(components);
             assertThat(result)
                     .hasSize(8)
@@ -154,7 +205,7 @@ class JinahyaColorUtilsTest {
     }
 
     @Nested
-    class ParseCssTEst {
+    class ParseCssTest {
 
         private static Stream<Arguments> randomCssRgbHexadecimalNotation3_() {
             return randomCssRgbHexadecimalNotation3();
@@ -174,13 +225,13 @@ class JinahyaColorUtilsTest {
 
         @MethodSource({"randomCssRgbHexadecimalNotation3_"})
         @ParameterizedTest
-        void __3(final float[] components, final String cssRgbHexadecimalNotation3) {
+        void __3(final float[] components, final String cssRgbHexadecimalNotation) {
             parseCssRgbHexadecimalNotation(
-                    cssRgbHexadecimalNotation3,
+                    cssRgbHexadecimalNotation,
                     r -> g -> b -> a -> {
-                        assertThat(r).isEqualTo(toInt(components[0]) >> 4);
-                        assertThat(g).isEqualTo(toInt(components[1]) >> 4);
-                        assertThat(b).isEqualTo(toInt(components[2]) >> 4);
+                        assertThat(r).isEqualTo(toColor(components[0]) >> 4);
+                        assertThat(g).isEqualTo(toColor(components[1]) >> 4);
+                        assertThat(b).isEqualTo(toColor(components[2]) >> 4);
                         assertThat(a).isZero();
                         return null;
                     }
@@ -189,14 +240,14 @@ class JinahyaColorUtilsTest {
 
         @MethodSource({"randomCssRgbHexadecimalNotation4_"})
         @ParameterizedTest
-        void __4(final float[] components, final String cssRgbHexadecimalNotation4) {
+        void __4(final float[] components, final String cssRgbHexadecimalNotation) {
             parseCssRgbHexadecimalNotation(
-                    cssRgbHexadecimalNotation4,
+                    cssRgbHexadecimalNotation,
                     r -> g -> b -> a -> {
-                        assertThat(r).isEqualTo(toInt(components[0]) >> 4);
-                        assertThat(g).isEqualTo(toInt(components[1]) >> 4);
-                        assertThat(b).isEqualTo(toInt(components[2]) >> 4);
-                        assertThat(a).isEqualTo(toInt(components[3]) >> 4);
+                        assertThat(r).isEqualTo(toColor(components[0]) >> 4);
+                        assertThat(g).isEqualTo(toColor(components[1]) >> 4);
+                        assertThat(b).isEqualTo(toColor(components[2]) >> 4);
+                        assertThat(a).isEqualTo(toColor(components[3]) >> 4);
                         return null;
                     }
             );
@@ -204,13 +255,13 @@ class JinahyaColorUtilsTest {
 
         @MethodSource({"randomCssRgbHexadecimalNotation6_"})
         @ParameterizedTest
-        void __6(final float[] components, final String cssRgbHexadecimalNotation6) {
+        void __6(final float[] components, final String cssRgbHexadecimalNotation) {
             parseCssRgbHexadecimalNotation(
-                    cssRgbHexadecimalNotation6,
+                    cssRgbHexadecimalNotation,
                     r -> g -> b -> a -> {
-                        assertThat(r).isEqualTo(toInt(components[0]));
-                        assertThat(g).isEqualTo(toInt(components[1]));
-                        assertThat(b).isEqualTo(toInt(components[2]));
+                        assertThat(r).isEqualTo(toColor(components[0]));
+                        assertThat(g).isEqualTo(toColor(components[1]));
+                        assertThat(b).isEqualTo(toColor(components[2]));
                         assertThat(a).isZero();
                         return null;
                     }
@@ -219,14 +270,16 @@ class JinahyaColorUtilsTest {
 
         @MethodSource({"randomCssRgbHexadecimalNotation8_"})
         @ParameterizedTest
-        void __8(final float[] components, final String cssRgbHexadecimalNotation8) {
+        void __8(final float[] components, final String cssRgbHexadecimalNotation) {
+            assert components.length == 4;
+            assert cssRgbHexadecimalNotation.length() == 8;
             parseCssRgbHexadecimalNotation(
-                    cssRgbHexadecimalNotation8,
+                    cssRgbHexadecimalNotation,
                     r -> g -> b -> a -> {
-                        assertThat(r).isEqualTo(toInt(components[0]));
-                        assertThat(g).isEqualTo(toInt(components[1]));
-                        assertThat(b).isEqualTo(toInt(components[2]));
-                        assertThat(a).isEqualTo(toInt(components[3]));
+                        assertThat(r).as("r").isEqualTo(toColor(components[0]));
+                        assertThat(g).as("g").isEqualTo(toColor(components[1]));
+                        assertThat(b).as("b").isEqualTo(toColor(components[2]));
+                        assertThat(a).as("a").isEqualTo(toColor(components[3]));
                         return null;
                     }
             );
