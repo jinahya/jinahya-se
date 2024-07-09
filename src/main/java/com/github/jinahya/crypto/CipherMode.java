@@ -15,7 +15,7 @@
  */
 package com.github.jinahya.crypto;
 
-import com.github.jinahya.lang.FieldEnum;
+import com.github.jinahya.lang.ValueEnum;
 
 import javax.crypto.Cipher;
 
@@ -24,7 +24,7 @@ import javax.crypto.Cipher;
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public enum CipherMode implements FieldEnum.OfInt<CipherMode> {
+public enum CipherMode implements ValueEnum.OfInt<CipherMode> {
 
     /**
      * A constant for {@link Cipher#ENCRYPT_MODE}.
@@ -59,7 +59,7 @@ public enum CipherMode implements FieldEnum.OfInt<CipherMode> {
     }
 
     @Override
-    public int fieldValueAsInt() {
+    public int valueAsInt() {
         return fieldValue;
     }
 

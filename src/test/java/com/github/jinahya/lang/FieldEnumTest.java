@@ -29,9 +29,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 @Slf4j
-public abstract class FieldEnumTest<E extends Enum<E> & FieldEnum<E, F>, F> extends EnumTest<E> {
+public abstract class FieldEnumTest<E extends Enum<E> & ValueEnum<E, F>, F> extends EnumTest<E> {
 
-    public abstract static class OfInt<E extends Enum<E> & FieldEnum.OfInt<E>> extends EnumTest<E> {
+    public abstract static class OfInt<E extends Enum<E> & ValueEnum.OfInt<E>> extends EnumTest<E> {
 
         protected OfInt(final Class<E> enumClass) {
             super(enumClass);
@@ -41,7 +41,7 @@ public abstract class FieldEnumTest<E extends Enum<E> & FieldEnum<E, F>, F> exte
         protected void fieldValueAsInt_NonNullUnique_() {
             final var fieldValues = new HashSet<Integer>();
             for (final var enumConstant : enumClass.getEnumConstants()) {
-                final var fieldValue = enumConstant.fieldValueAsInt();
+                final var fieldValue = enumConstant.valueAsInt();
                 assertThat(fieldValue)
                         .as("field value of %1$s", enumConstant)
                         .isNotIn(fieldValues);
@@ -49,7 +49,7 @@ public abstract class FieldEnumTest<E extends Enum<E> & FieldEnum<E, F>, F> exte
         }
     }
 
-    public abstract static class OfLong<E extends Enum<E> & FieldEnum.OfLong<E>> extends EnumTest<E> {
+    public abstract static class OfLong<E extends Enum<E> & ValueEnum.OfLong<E>> extends EnumTest<E> {
 
         protected OfLong(final Class<E> enumClass) {
             super(enumClass);
@@ -59,7 +59,7 @@ public abstract class FieldEnumTest<E extends Enum<E> & FieldEnum<E, F>, F> exte
         protected void fieldValueAsInt_NonNullUnique_() {
             final var fieldValues = new HashSet<Long>();
             for (final var enumConstant : enumClass.getEnumConstants()) {
-                final var fieldValue = enumConstant.fieldValueAsLong();
+                final var fieldValue = enumConstant.valueAsLong();
                 assertThat(fieldValue)
                         .as("field value of %1$s", enumConstant)
                         .isNotIn(fieldValues);
@@ -67,7 +67,7 @@ public abstract class FieldEnumTest<E extends Enum<E> & FieldEnum<E, F>, F> exte
         }
     }
 
-    public abstract static class OfFloat<E extends Enum<E> & FieldEnum.OfFloat<E>> extends EnumTest<E> {
+    public abstract static class OfFloat<E extends Enum<E> & ValueEnum.OfFloat<E>> extends EnumTest<E> {
 
         protected OfFloat(final Class<E> enumClass) {
             super(enumClass);
@@ -77,7 +77,7 @@ public abstract class FieldEnumTest<E extends Enum<E> & FieldEnum<E, F>, F> exte
         protected void fieldValueAsInt_NonNullUnique_() {
             final var fieldValues = new HashSet<Float>();
             for (final var enumConstant : enumClass.getEnumConstants()) {
-                final var fieldValue = enumConstant.fieldValueAsFloat();
+                final var fieldValue = enumConstant.valueAsFloat();
                 assertThat(fieldValue)
                         .as("field value of %1$s", enumConstant)
                         .isNotIn(fieldValues);
@@ -94,7 +94,7 @@ public abstract class FieldEnumTest<E extends Enum<E> & FieldEnum<E, F>, F> exte
     protected void fieldValue_NonNullUnique_() {
         final var fieldValues = new HashSet<F>();
         for (final var enumConstant : enumClass.getEnumConstants()) {
-            final var fieldValue = enumConstant.fieldValue();
+            final var fieldValue = enumConstant.value();
             assertThat(fieldValue)
                     .as("field value of %1$s", enumConstant)
                     .isNotNull()

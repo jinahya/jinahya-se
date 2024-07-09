@@ -23,6 +23,6 @@ package com.github.jinahya.lang;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public interface ComparableFieldEnum<E extends Enum<E>, F extends Comparable<? super F>>
-        extends FieldEnum<E, F> {
+        extends ValueEnum<E, F> {
 
 }

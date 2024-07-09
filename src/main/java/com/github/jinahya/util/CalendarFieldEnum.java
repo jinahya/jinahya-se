@@ -15,7 +15,7 @@
  */
 package com.github.jinahya.util;
 
-import com.github.jinahya.lang.FieldEnum;
+import com.github.jinahya.lang.ValueEnum;
 
 import java.util.Calendar;
 
@@ -25,7 +25,7 @@ import java.util.Calendar;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public interface CalendarFieldEnum<E extends Enum<E>, F>
-        extends FieldEnum<E, F> {
+        extends ValueEnum<E, F> {
 
     void set(final Calendar calendar);
 }

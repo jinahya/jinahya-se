@@ -48,7 +48,7 @@ public abstract class ComparableFieldEnumTest<E extends Enum<E> & ComparableFiel
     @Test
     public void assertOrderedFieldValues() {
 
-        final F[] fieldValues = FieldEnums.fieldValues(enumClass, fieldClass);
+        final F[] fieldValues = ValueEnums.fieldValues(enumClass, fieldClass);
         for (int i = 1; i < fieldValues.length; i++) {
             assertTrue(fieldValues[i - 1].compareTo(fieldValues[i]) < 0);
         }

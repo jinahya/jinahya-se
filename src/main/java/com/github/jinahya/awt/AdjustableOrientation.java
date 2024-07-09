@@ -15,7 +15,7 @@
  */
 package com.github.jinahya.awt;
 
-import com.github.jinahya.lang.FieldEnum;
+import com.github.jinahya.lang.ValueEnum;
 
 import java.awt.*;
 
@@ -25,7 +25,7 @@ import java.awt.*;
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum AdjustableOrientation
-        implements FieldEnum.OfInt<AdjustableOrientation> {
+        implements ValueEnum.OfInt<AdjustableOrientation> {
 
     /**
      * A constant for {@link Adjustable#HORIZONTAL}.
@@ -47,7 +47,7 @@ public enum AdjustableOrientation
     }
 
     @Override
-    public int fieldValueAsInt() {
+    public int valueAsInt() {
         return fieldValue;
     }
 

@@ -15,15 +15,15 @@
  */
 package com.github.jinahya.util.logging;
 
-import com.github.jinahya.lang.FieldEnum;
-import com.github.jinahya.lang.FieldEnums;
+import com.github.jinahya.lang.ValueEnum;
+import com.github.jinahya.lang.ValueEnums;
 
 import java.util.logging.Level;
 
 /**
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public enum LoggingLevel implements FieldEnum<LoggingLevel, Integer> {
+public enum LoggingLevel implements ValueEnum<LoggingLevel, Integer> {
 
     OFF(Level.OFF),
     SEVERE(Level.SEVERE),
@@ -44,7 +44,7 @@ public enum LoggingLevel implements FieldEnum<LoggingLevel, Integer> {
      */
     public static LoggingLevel fromFieldValue(final int fieldValue) {
 
-        return FieldEnums.fromFieldValue(LoggingLevel.class, fieldValue);
+        return ValueEnums.fromFieldValue(LoggingLevel.class, fieldValue);
     }
 
     /**
@@ -70,7 +70,7 @@ public enum LoggingLevel implements FieldEnum<LoggingLevel, Integer> {
      */
     public Integer[] fieldValues() {
 
-        return FieldEnums.fieldValues(LoggingLevel.class, int.class);
+        return ValueEnums.fieldValues(LoggingLevel.class, int.class);
     }
 
     private LoggingLevel(final int fieldValue) {
@@ -84,7 +84,7 @@ public enum LoggingLevel implements FieldEnum<LoggingLevel, Integer> {
     }
 
     @Override
-    public Integer fieldValue() {
+    public Integer value() {
 
         return fieldValue;
     }

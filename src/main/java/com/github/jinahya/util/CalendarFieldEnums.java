@@ -15,7 +15,7 @@
  */
 package com.github.jinahya.util;
 
-import com.github.jinahya.lang.FieldEnums;
+import com.github.jinahya.lang.ValueEnums;
 
 import java.util.Calendar;
 
@@ -42,7 +42,7 @@ public final class CalendarFieldEnums {
             throw new NullPointerException("enumType");
         }
 
-        return FieldEnums.fromFieldValue(enumType, calendar.get(field));
+        return ValueEnums.fromFieldValue(enumType, calendar.get(field));
     }
 
     /**
@@ -64,7 +64,7 @@ public final class CalendarFieldEnums {
 
         final int p = calendar.get(field);
 
-        calendar.set(field, value.fieldValue());
+        calendar.set(field, value.value());
 
         final int n = calendar.get(field);
     }

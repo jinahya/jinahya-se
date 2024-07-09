@@ -16,33 +16,40 @@
 package com.github.jinahya.lang;
 
 /**
- * An interface for implementing an {@code Enum} for old school constant fields.
+ * An interface for enums whose constants are mapped to specific values.
  *
  * @param <E> enum type parameter
- * @param <V> field type parameter
+ * @param <V> value type parameter
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public interface FieldEnum<E extends Enum<E>, V> {
+public interface ValueEnum<E extends Enum<E>, V> {
 
     interface OfInt<E extends Enum<E> & OfInt<E>> {
 
-        int fieldValueAsInt();
+        int valueAsInt();
     }
 
     interface OfLong<E extends Enum<E> & OfLong<E>> {
 
-        long fieldValueAsLong();
+        long valueAsLong();
     }
 
     interface OfFloat<E extends Enum<E> & OfFloat<E>> {
 
-        float fieldValueAsFloat();
+        float valueAsFloat();
     }
 
+    interface OfDouble<E extends Enum<E> & OfDouble<E>> {
+
+        double valueAsDouble();
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
     /**
-     * Returns field value.
+     * Returns the value of this constant.
      *
-     * @return field value.
+     * @return the value of this constant.
      */
-    V fieldValue();
+    V value();
 }
