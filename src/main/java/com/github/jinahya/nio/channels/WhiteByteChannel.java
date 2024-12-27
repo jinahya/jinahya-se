@@ -22,7 +22,7 @@ import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * A readable byte channel read random values.
+ * A readable byte channel reads random values.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @see BlackByteChannel
@@ -47,12 +47,15 @@ public final class WhiteByteChannel implements ReadableByteChannel {
         return InstanceHolder.INSTANCE;
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     private WhiteByteChannel() {
         super();
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     /**
-     * Puts some number of random values into specified buffer.
+     * Fills specified buffer with random bytes.
      *
      * @param dst the buffer.
      * @return the number of random values put on {@code dst}.
@@ -61,11 +64,10 @@ public final class WhiteByteChannel implements ReadableByteChannel {
     @Override
     public int read(final ByteBuffer dst) throws IOException {
         Objects.requireNonNull(dst, "dst is null");
-        int written = 0;
-        for (; dst.hasRemaining() && ThreadLocalRandom.current().nextBoolean(); written++) {
-            dst.put((byte) ThreadLocalRandom.current().nextInt(255));
-        }
-        return written;
+        final var bytes = new byte[dst.remaining()];
+        ThreadLocalRandom.current().nextBytes(bytes);
+        dst.put(bytes);
+        return bytes.length;
     }
 
     /**

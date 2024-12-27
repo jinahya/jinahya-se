@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.WritableByteChannel;
 import java.util.Objects;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * A byte channel which discards all remaining bytes of given buffer.
@@ -47,12 +46,15 @@ public final class BlackByteChannel implements WritableByteChannel {
         return InstanceHolder.INSTANCE;
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     private BlackByteChannel() {
         super();
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     /**
-     * Discards some number of byte from specified buffer.
+     * Discards all remaining bytes in specified buffer.
      *
      * @param src the buffer.
      * @return the number of bytes discarded.
@@ -61,11 +63,9 @@ public final class BlackByteChannel implements WritableByteChannel {
     @Override
     public int write(final ByteBuffer src) throws IOException {
         Objects.requireNonNull(src, "src is null");
-        int read = 0;
-        for (; src.hasRemaining() && ThreadLocalRandom.current().nextBoolean(); read++) {
-            src.get();
-        }
-        return read;
+        final var remaining = src.remaining();
+        src.position(src.limit());
+        return remaining;
     }
 
     /**

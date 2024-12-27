@@ -23,11 +23,12 @@ import java.util.Objects;
 /**
  * A readable byte channel filtering another channel.
  *
+ * @param <T> channel type parameter
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @see WritableFilterChannel
  */
-public class ReadableFilterChannel
-        extends FilterChannel<ReadableByteChannel>
+public class ReadableFilterChannel<T extends ReadableByteChannel>
+        extends FilterChannel<T>
         implements ReadableByteChannel {
 
     /**
@@ -35,7 +36,7 @@ public class ReadableFilterChannel
      *
      * @param channel the channel to filter.
      */
-    public ReadableFilterChannel(final ReadableByteChannel channel) {
+    public ReadableFilterChannel(final T channel) {
         super(channel);
     }
 

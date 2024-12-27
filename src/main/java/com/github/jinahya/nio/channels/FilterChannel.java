@@ -25,7 +25,8 @@ import java.util.Objects;
  * @param <T> channel type parameter
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public abstract class FilterChannel<T extends Channel> implements Channel {
+public abstract class FilterChannel<T extends Channel>
+        implements Channel {
 
     /**
      * Creates a new instance on top of specified channel.
