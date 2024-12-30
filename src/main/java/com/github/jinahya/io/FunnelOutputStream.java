@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * A decorated filer output stream writes bytes only through {@link #write(int)} method.
+ * A decorated filer output stream writes bytes only through the {@link #write(int)} method.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @see FunnelInputStream

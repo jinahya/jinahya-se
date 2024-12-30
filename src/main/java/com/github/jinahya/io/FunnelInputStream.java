@@ -21,7 +21,7 @@ import java.io.InputStream;
 import java.util.Objects;
 
 /**
- * A decorated filter input stream reads bytes only through {@link #read()} method.
+ * A decorated filter input stream reads bytes only through the {@link #read()} method.
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  * @see FunnelOutputStream
