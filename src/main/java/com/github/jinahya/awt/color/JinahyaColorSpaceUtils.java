@@ -85,7 +85,9 @@ public final class JinahyaColorSpaceUtils {
         if (rgbColorSpace == null) {
             return cmykColorSpace.fromRGB(rgbColorComponents);
         }
-        return cmykColorSpace.fromCIEXYZ(rgbToCiexyz(rgbColorSpace, rgbColorComponents));
+        return cmykColorSpace.fromCIEXYZ(
+                rgbToCiexyz(rgbColorSpace, rgbColorComponents)
+        );
     }
 
     /**
