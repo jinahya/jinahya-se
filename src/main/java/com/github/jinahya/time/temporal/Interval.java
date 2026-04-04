@@ -1,14 +1,29 @@
 package com.github.jinahya.time.temporal;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.temporal.Temporal;
 import java.util.Objects;
 
-public final class Interval<T extends Temporal & Comparable<? super T>> {
+/**
+ * Represents a time interval of specific temporal type.
+ *
+ * @param <T> temporal type parameter
+ * @see <a href="https://www.joda.org/joda-time/apidocs/org/joda/time/Interval.html">org.joda.time.Interval</a>
+ */
+public final class Interval<T extends Temporal & Comparable<? super T>>
+        implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = -7195401716791497138L;
+
+    // -----------------------------------------------------------------------------------------------------------------
     public Interval(final T start, final T end) {
         super();
-        if (Objects.requireNonNull(start, "start is null").compareTo(Objects.requireNonNull(end, "end is null")) >= 0) {
-            throw new IllegalArgumentException("start(" + start + ") must not be after the end(" + end + ")");
+        Objects.requireNonNull(start, "start is null");
+        Objects.requireNonNull(end, "end is null");
+        if (start.compareTo(end) >= 0) {
+            throw new IllegalArgumentException("start(" + start + ") must be before the end(" + end + ")");
         }
         this.start = start;
         this.end = end;
@@ -37,6 +52,16 @@ public final class Interval<T extends Temporal & Comparable<? super T>> {
     @Override
     public int hashCode() {
         return Objects.hash(start, end);
+    }
+
+    // ----------------------------------------------------------------------------------------------------------- start
+    public T getStart() {
+        return start;
+    }
+
+    // ------------------------------------------------------------------------------------------------------------- end
+    public T getEnd() {
+        return end;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
