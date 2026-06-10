@@ -9,9 +9,9 @@ package com.github.jinahya.util;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -103,8 +103,8 @@ public final class JinahyaBitSetUtils {
     }
 
     /**
-     * Writes the low {@value Short#SIZE} bits of specified value into specified bit set, starting at specified
-     * bit index, in little-endian byte order.
+     * Writes the low {@value Short#SIZE} bits of specified value into specified bit set, starting at specified bit
+     * index, in little-endian byte order.
      *
      * <p>The low byte occupies bits {@code index..index+7}; the high byte occupies bits
      * {@code index+8..index+15}. Bits above the low {@value Short#SIZE} of {@code value} are ignored.</p>
@@ -127,8 +127,8 @@ public final class JinahyaBitSetUtils {
     }
 
     /**
-     * Reads {@value Short#SIZE} bits from specified bit set starting at specified bit index, in little-endian
-     * byte order, and returns them as an unsigned short value.
+     * Reads {@value Short#SIZE} bits from specified bit set starting at specified bit index, in little-endian byte
+     * order, and returns them as an unsigned short value.
      *
      * <p>Inverse of {@link #setShort(BitSet, int, int)}: for any non-negative {@code index} and any
      * {@code v} in {@code [0, 65536)}, {@code getShort(setShort(set, index, v), index) == v}.</p>
@@ -146,8 +146,8 @@ public final class JinahyaBitSetUtils {
     }
 
     /**
-     * Writes all {@value Integer#SIZE} bits of specified value into specified bit set, starting at specified
-     * bit index, in little-endian byte order.
+     * Writes all {@value Integer#SIZE} bits of specified value into specified bit set, starting at specified bit index,
+     * in little-endian byte order.
      *
      * <p>The low short occupies bits {@code index..index+15}; the high short occupies bits
      * {@code index+16..index+31}.</p>
@@ -170,8 +170,8 @@ public final class JinahyaBitSetUtils {
     }
 
     /**
-     * Reads {@value Integer#SIZE} bits from specified bit set starting at specified bit index, in little-endian
-     * byte order, and returns them as a (signed) {@code int}.
+     * Reads {@value Integer#SIZE} bits from specified bit set starting at specified bit index, in little-endian byte
+     * order, and returns them as a (signed) {@code int}.
      *
      * <p>Inverse of {@link #setInt(BitSet, int, int)}: for any non-negative {@code index} and any {@code int}
      * value {@code v}, {@code getInt(setInt(set, index, v), index) == v}.</p>
@@ -189,8 +189,8 @@ public final class JinahyaBitSetUtils {
     }
 
     /**
-     * Writes all {@value Long#SIZE} bits of specified value into specified bit set, starting at specified bit
-     * index, in little-endian byte order.
+     * Writes all {@value Long#SIZE} bits of specified value into specified bit set, starting at specified bit index, in
+     * little-endian byte order.
      *
      * <p>The low int occupies bits {@code index..index+31}; the high int occupies bits
      * {@code index+32..index+63}.</p>
@@ -213,8 +213,8 @@ public final class JinahyaBitSetUtils {
     }
 
     /**
-     * Reads {@value Long#SIZE} bits from specified bit set starting at specified bit index, in little-endian
-     * byte order, and returns them as a (signed) {@code long}.
+     * Reads {@value Long#SIZE} bits from specified bit set starting at specified bit index, in little-endian byte
+     * order, and returns them as a (signed) {@code long}.
      *
      * <p>Inverse of {@link #setLong(BitSet, int, long)}: for any non-negative {@code index} and any
      * {@code long} value {@code v}, {@code getLong(setLong(set, index, v), index) == v}.</p>
@@ -230,6 +230,158 @@ public final class JinahyaBitSetUtils {
         return ((long) getInt(set, index + Integer.SIZE) << Integer.SIZE)
                | Integer.toUnsignedLong(getInt(set, index));
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Computes the <a href="https://en.wikipedia.org/wiki/Jaccard_index">Jaccard similarity coefficient</a> between two
+     * bit sets, treating each bit set as the set of bit indices for which {@link BitSet#get(int)} returns
+     * {@code true}.
+     *
+     * <p>Defined as {@code |set1 &cap; set2| / |set1 &cup; set2|}. When both bit sets are empty, the union is
+     * empty and this method returns {@code 1.0d} by convention (two empty sets are identical).</p>
+     *
+     * @param set1 the first bit set.
+     * @param set2 the second bit set.
+     * @return the Jaccard similarity coefficient, a value in {@code [0.0, 1.0]}.
+     * @throws NullPointerException when either {@code set1} or {@code set2} is {@code null}.
+     * @see #getHammingDistance(BitSet, BitSet)
+     */
+    public static double getJaccardSimilarity(final BitSet set1, final BitSet set2) {
+        Objects.requireNonNull(set1, "set1 is null");
+        Objects.requireNonNull(set2, "set2 is null");
+        final var intersection = (BitSet) set1.clone();
+        intersection.and(set2);
+        final var intersectionCardinality = intersection.cardinality();
+        final var unionCardinality = set1.cardinality() + set2.cardinality() - intersectionCardinality;
+        if (unionCardinality == 0) {
+            return 1.0d;
+        }
+        return (double) intersectionCardinality / unionCardinality;
+    }
+
+    /**
+     * Computes the <a href="https://en.wikipedia.org/wiki/Hamming_distance">Hamming distance</a> between two bit sets —
+     * the number of bit positions at which they differ.
+     *
+     * <p>Equivalent to the cardinality of {@code set1 XOR set2}. Bit positions beyond either set's logical
+     * length, where {@link BitSet#get(int)} returns {@code false} on both sides, contribute zero.</p>
+     *
+     * @param set1 the first bit set.
+     * @param set2 the second bit set.
+     * @return the Hamming distance, a non-negative {@code int}.
+     * @throws NullPointerException when either {@code set1} or {@code set2} is {@code null}.
+     * @see #getJaccardSimilarity(BitSet, BitSet)
+     */
+    public static int getHammingDistance(final BitSet set1, final BitSet set2) {
+        Objects.requireNonNull(set1, "set1 is null");
+        Objects.requireNonNull(set2, "set2 is null");
+        final var xor = (BitSet) set1.clone();
+        xor.xor(set2);
+        return xor.cardinality();
+    }
+
+    /**
+     * Computes the <a href="https://en.wikipedia.org/wiki/Dice-S%C3%B8rensen_coefficient">Dice–S&oslash;rensen
+     * coefficient</a> between two bit sets.
+     *
+     * <p>Defined as {@code 2 * |set1 &cap; set2| / (|set1| + |set2|)}. When both bit sets are empty, this method
+     * returns {@code 1.0d} by convention (two empty sets are identical).</p>
+     *
+     * @param set1 the first bit set.
+     * @param set2 the second bit set.
+     * @return the Dice–S&oslash;rensen coefficient, a value in {@code [0.0, 1.0]}.
+     * @throws NullPointerException when either {@code set1} or {@code set2} is {@code null}.
+     * @see #getJaccardSimilarity(BitSet, BitSet)
+     */
+    public static double getDiceCoefficient(final BitSet set1, final BitSet set2) {
+        Objects.requireNonNull(set1, "set1 is null");
+        Objects.requireNonNull(set2, "set2 is null");
+        final var intersection = (BitSet) set1.clone();
+        intersection.and(set2);
+        final var denominator = set1.cardinality() + set2.cardinality();
+        if (denominator == 0) {
+            return 1.0d;
+        }
+        return 2.0d * intersection.cardinality() / denominator;
+    }
+
+    /**
+     * Computes the <a href="https://en.wikipedia.org/wiki/Overlap_coefficient">overlap coefficient</a> (also known as
+     * the Szymkiewicz–Simpson coefficient) between two bit sets.
+     *
+     * <p>Defined as {@code |set1 &cap; set2| / min(|set1|, |set2|)}. When both bit sets are empty, this method
+     * returns {@code 1.0d} (two empty sets are identical); when exactly one bit set is empty, returns
+     * {@code 0.0d}.</p>
+     *
+     * @param set1 the first bit set.
+     * @param set2 the second bit set.
+     * @return the overlap coefficient, a value in {@code [0.0, 1.0]}.
+     * @throws NullPointerException when either {@code set1} or {@code set2} is {@code null}.
+     * @see #getJaccardSimilarity(BitSet, BitSet)
+     */
+    public static double getOverlapCoefficient(final BitSet set1, final BitSet set2) {
+        Objects.requireNonNull(set1, "set1 is null");
+        Objects.requireNonNull(set2, "set2 is null");
+        final var cardinality1 = set1.cardinality();
+        final var cardinality2 = set2.cardinality();
+        final var minCardinality = Math.min(cardinality1, cardinality2);
+        if (minCardinality == 0) {
+            return (cardinality1 == 0 && cardinality2 == 0) ? 1.0d : 0.0d;
+        }
+        final var intersection = (BitSet) set1.clone();
+        intersection.and(set2);
+        return (double) intersection.cardinality() / minCardinality;
+    }
+
+    /**
+     * Computes the cosine similarity between two bit sets, treating each as a binary indicator vector.
+     *
+     * <p>Defined as {@code |set1 &cap; set2| / sqrt(|set1| * |set2|)}. When both bit sets are empty, this method
+     * returns {@code 1.0d} (two empty vectors are identical); when exactly one bit set is empty, returns
+     * {@code 0.0d}.</p>
+     *
+     * @param set1 the first bit set.
+     * @param set2 the second bit set.
+     * @return the cosine similarity, a value in {@code [0.0, 1.0]}.
+     * @throws NullPointerException when either {@code set1} or {@code set2} is {@code null}.
+     * @see #getJaccardSimilarity(BitSet, BitSet)
+     */
+    public static double getCosineSimilarity(final BitSet set1, final BitSet set2) {
+        Objects.requireNonNull(set1, "set1 is null");
+        Objects.requireNonNull(set2, "set2 is null");
+        final var cardinality1 = set1.cardinality();
+        final var cardinality2 = set2.cardinality();
+        if (cardinality1 == 0 || cardinality2 == 0) {
+            return (cardinality1 == 0 && cardinality2 == 0) ? 1.0d : 0.0d;
+        }
+        final var intersection = (BitSet) set1.clone();
+        intersection.and(set2);
+        return intersection.cardinality() / Math.sqrt((double) cardinality1 * cardinality2);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Returns whether specified {@code subset} is a subset of specified {@code superset} — that is, every bit set in
+     * {@code subset} is also set in {@code superset}.
+     *
+     * <p>An empty bit set is a subset of any bit set (including itself).</p>
+     *
+     * @param subset   the bit set to test for being a subset.
+     * @param superset the bit set to test for containing {@code subset}.
+     * @return {@code true} if {@code subset} is a subset of {@code superset}; {@code false} otherwise.
+     * @throws NullPointerException when either {@code subset} or {@code superset} is {@code null}.
+     */
+    public static boolean isSubsetOf(final BitSet subset, final BitSet superset) {
+        Objects.requireNonNull(subset, "subset is null");
+        Objects.requireNonNull(superset, "superset is null");
+        final var difference = (BitSet) subset.clone();
+        difference.andNot(superset);
+        return difference.isEmpty();
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     private JinahyaBitSetUtils() {
         throw new AssertionError("instantiation is not allowed");
