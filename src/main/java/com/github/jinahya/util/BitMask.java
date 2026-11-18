@@ -140,6 +140,14 @@ public final class BitMask implements Serializable {
             return Objects.hash(value);
         }
 
+        /**
+         * Reads this mask from specified stream and validates the deserialized value.
+         *
+         * @param s the stream to read from.
+         * @throws IOException if an I/O error occurs.
+         * @throws ClassNotFoundException if a class of a serialized object cannot be found.
+         * @throws InvalidObjectException if the deserialized value is not valid for a mask.
+         */
         private void readObject(final ObjectInputStream s) throws IOException, ClassNotFoundException {
             Objects.requireNonNull(s, "s is null");
             s.defaultReadObject();
@@ -150,6 +158,11 @@ public final class BitMask implements Serializable {
             }
         }
 
+        /**
+         * Resolves the deserialized mask into a cached instance with the same value.
+         *
+         * @return a cached instance with the same value as this mask.
+         */
         private Object readResolve() {
             if (true) {
                 return ofExponent(MAX_EXPONENT - Long.numberOfLeadingZeros(value));
@@ -189,6 +202,11 @@ public final class BitMask implements Serializable {
             return value;
         }
 
+        /**
+         * The value of this mask.
+         *
+         * @serial
+         */
         private final long value;
     }
 
@@ -281,6 +299,14 @@ public final class BitMask implements Serializable {
         return Objects.hash(value);
     }
 
+    /**
+     * Reads this mask from specified stream and validates the deserialized value.
+     *
+     * @param s the stream to read from.
+     * @throws IOException if an I/O error occurs.
+     * @throws ClassNotFoundException if a class of a serialized object cannot be found.
+     * @throws InvalidObjectException if the deserialized value is not valid for a mask.
+     */
     private void readObject(final ObjectInputStream s) throws IOException, ClassNotFoundException {
         Objects.requireNonNull(s, "s is null");
         s.defaultReadObject();
@@ -291,6 +317,11 @@ public final class BitMask implements Serializable {
         }
     }
 
+    /**
+     * Resolves the deserialized mask into a cached instance with the same value.
+     *
+     * @return a cached instance with the same value as this mask.
+     */
     private Object readResolve() {
         return ofExponent(MAX_EXPONENT - Integer.numberOfLeadingZeros(value));
     }
@@ -328,5 +359,10 @@ public final class BitMask implements Serializable {
         return value;
     }
 
+    /**
+     * The value of this mask.
+     *
+     * @serial
+     */
     private final int value;
 }

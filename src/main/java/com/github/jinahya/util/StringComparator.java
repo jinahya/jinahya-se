@@ -36,8 +36,16 @@ package com.github.jinahya.util;
  */
 
 /**
+ * A comparator for {@link String} values.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class StringComparator extends ComparableComparator<String> {
 
+    /**
+     * Creates a new instance.
+     */
+    public StringComparator() {
+        super();
+    }
 }

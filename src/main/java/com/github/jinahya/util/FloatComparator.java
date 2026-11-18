@@ -36,8 +36,16 @@ package com.github.jinahya.util;
  */
 
 /**
+ * A comparator for {@link Float} values.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class FloatComparator extends NumberComparator<Float> {
 
+    /**
+     * Creates a new instance.
+     */
+    public FloatComparator() {
+        super();
+    }
 }

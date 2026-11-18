@@ -36,6 +36,8 @@ package com.github.jinahya.util;
  */
 
 /**
+ * Utilities for applying and removing {@code int} bit masks.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class Masks {

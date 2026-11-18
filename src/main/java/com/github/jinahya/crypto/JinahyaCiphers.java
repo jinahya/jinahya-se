@@ -100,21 +100,49 @@ public final class JinahyaCiphers {
         return transformationTokens[2];
     }
 
+    /**
+     * Returns the algorithm part of specified transformation.
+     *
+     * @param transformation the transformation, e.g., {@code AES/CBC/PKCS5Padding}.
+     * @return the algorithm part of {@code transformation}.
+     */
     public static String getAlgorithm(final String transformation) {
         Objects.requireNonNull(transformation, "transformation is null");
         return getAlgorithm(transformation.split("/"));
     }
 
+    /**
+     * Returns the mode part of specified transformation, if present.
+     *
+     * @param transformation the transformation, e.g., {@code AES/CBC/PKCS5Padding}.
+     * @return an optional of the mode part of {@code transformation}; empty if absent.
+     */
     public static Optional<String> getMode(final String transformation) {
         Objects.requireNonNull(transformation, "transformation is null");
         return Optional.ofNullable(getMode(transformation.split("/")));
     }
 
+    /**
+     * Returns the padding part of specified transformation, if present.
+     *
+     * @param transformation the transformation, e.g., {@code AES/CBC/PKCS5Padding}.
+     * @return an optional of the padding part of {@code transformation}; empty if absent.
+     */
     public static Optional<String> getPadding(final String transformation) {
         Objects.requireNonNull(transformation, "transformation is null");
         return Optional.ofNullable(getPadding(transformation.split("/")));
     }
 
+    /**
+     * Parses specified transformation and returns the result of applying its algorithm, mode, and padding to specified
+     * function.
+     *
+     * @param <R>            result type parameter
+     * @param transformation the transformation to parse.
+     * @param function       a function applied with the algorithm, the mode (may be {@code null}), and the padding
+     *                       (may be {@code null}), in that order.
+     * @return the result of the {@code function}.
+     */
     public static <R> R parseTransformation(
             final String transformation,
             final Function<? super String,

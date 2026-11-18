@@ -36,11 +36,20 @@ package com.github.jinahya.lang;
  */
 
 /**
+ * An interface for defining an enum for float constant fields.
+ *
  * @param <E> enum type parameter
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public interface FloatFieldEnum<E extends Enum<E>> {
 
+    /**
+     * Returns an array of field values of all constants of specified enum type, in declaration order.
+     *
+     * @param enumType the enum type.
+     * @param <E>      enum type parameter
+     * @return an array of field values of all constants of {@code enumType}.
+     */
     static <E extends Enum<E> & FloatFieldEnum<E>> float[] floatFieldValues(
             final Class<E> enumType) {
         final E[] enumConstants = enumType.getEnumConstants();
@@ -51,6 +60,15 @@ public interface FloatFieldEnum<E extends Enum<E>> {
         return fieldValues;
     }
 
+    /**
+     * Returns the constant of specified enum type whose field value is equal to specified value.
+     *
+     * @param enumType   the enum type.
+     * @param fieldValue the field value to match.
+     * @param <E>        enum type parameter
+     * @return the constant of {@code enumType} whose field value is equal to {@code fieldValue}.
+     * @throws IllegalArgumentException if no constant matches {@code fieldValue}.
+     */
     static <E extends Enum<E> & FloatFieldEnum<E>> E fromDoubleFieldValue(
             final Class<E> enumType, final float fieldValue) {
         for (final E enumConstant : enumType.getEnumConstants()) {

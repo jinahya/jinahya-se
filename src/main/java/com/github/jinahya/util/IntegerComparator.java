@@ -36,8 +36,16 @@ package com.github.jinahya.util;
  */
 
 /**
+ * A comparator for {@link Integer} values.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class IntegerComparator extends NumberComparator<Integer> {
 
+    /**
+     * Creates a new instance.
+     */
+    public IntegerComparator() {
+        super();
+    }
 }

@@ -23,6 +23,9 @@ package com.github.jinahya.awt.color;
 import java.awt.color.ICC_ColorSpace;
 import java.util.List;
 
+/**
+ * Utilities for {@link ICC_ColorSpace} class.
+ */
 public final class JinahyaICC_ColorSpaceUtils {
 
     /**

@@ -38,10 +38,22 @@ package com.github.jinahya.lang.reflect;
 import java.lang.reflect.Method;
 
 /**
+ * Utilities for {@link Method} class.
+ *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
 public class Methods {
 
+    /**
+     * Finds a declared method of specified name and parameter types from specified class or its superclasses.
+     *
+     * @param klass          the class from which the method is searched.
+     * @param name           the name of the method.
+     * @param parameterTypes the parameter types of the method.
+     * @return the declared method found.
+     * @throws NoSuchMethodException if no matching method is declared by {@code klass} or any of its superclasses.
+     * @see Class#getDeclaredMethod(String, Class[])
+     */
     public static Method findDeclaredMethod(final Class<?> klass,
                                             final String name,
                                             final Class<?>... parameterTypes)

@@ -50,12 +50,18 @@ import java.util.List;
  * Standard Algorithm Names</a> (Java SE 21)
  * @see <a
  * href="https://docs.oracle.com/en/java/javase/21/docs/specs/security/standard-names.html#messagedigest-algorithms">MessageDigest
- * Algorithms</> (Java SE 21)
+ * Algorithms</a> (Java SE 21)
  */
 public final class JinahyaMessageDigestConstants {
 
+    /**
+     * The algorithm name for {@code SHA-1}.
+     */
     public static final String ALGORITHM_SHA_1 = "SHA-1";
 
+    /**
+     * The algorithm name for {@code SHA-256}.
+     */
     public static final String ALGORITHM_SHA_256 = "SHA-256";
 
     /**

@@ -41,18 +41,55 @@ import com.github.jinahya.lang.ValueEnums;
 import java.util.logging.Level;
 
 /**
+ * Constants for {@link Level}s, each mapped to the level's int value.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum LoggingLevel implements ValueEnum<LoggingLevel, Integer> {
 
+    /**
+     * A constant for {@link Level#OFF}.
+     */
     OFF(Level.OFF),
+
+    /**
+     * A constant for {@link Level#SEVERE}.
+     */
     SEVERE(Level.SEVERE),
+
+    /**
+     * A constant for {@link Level#WARNING}.
+     */
     WARNING(Level.WARNING),
+
+    /**
+     * A constant for {@link Level#INFO}.
+     */
     INFO(Level.INFO),
+
+    /**
+     * A constant for {@link Level#CONFIG}.
+     */
     CONFIG(Level.CONFIG),
+
+    /**
+     * A constant for {@link Level#FINE}.
+     */
     FINE(Level.FINE),
+
+    /**
+     * A constant for {@link Level#FINER}.
+     */
     FINER(Level.FINER),
+
+    /**
+     * A constant for {@link Level#FINEST}.
+     */
     FINEST(Level.FINEST),
+
+    /**
+     * A constant for {@link Level#ALL}.
+     */
     ALL(Level.ALL);
 
     /**

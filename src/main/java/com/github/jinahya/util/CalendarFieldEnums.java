@@ -40,16 +40,20 @@ import com.github.jinahya.lang.ValueEnums;
 import java.util.Calendar;
 
 /**
+ * Utilities for {@link CalendarFieldEnum}s.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class CalendarFieldEnums {
 
     /**
+     * Returns the constant of specified enum type matching the value of specified field of specified calendar.
+     *
      * @param <E>      enum type parameter
      * @param enumType enum type
      * @param calendar calendar
      * @param field    field
-     * @return
+     * @return the constant of {@code enumType} matching the value of {@code field} in {@code calendar}.
      */
     public static <E extends Enum<E> & CalendarFieldEnum<E, Integer>> E get(
             final Class<E> enumType, final Calendar calendar, final int field) {
@@ -66,6 +70,8 @@ public final class CalendarFieldEnums {
     }
 
     /**
+     * Sets the value of specified constant to specified field of specified calendar.
+     *
      * @param <E>      enum type parameter
      * @param calendar calendar
      * @param field    field

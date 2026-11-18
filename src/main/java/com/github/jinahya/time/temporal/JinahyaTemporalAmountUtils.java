@@ -25,14 +25,19 @@ import java.time.temporal.TemporalAmount;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * A utility class for {@link TemporalAmount}.
+ */
 public class JinahyaTemporalAmountUtils {
 
     /**
-     * .
+     * Returns the value of specified amount in specified time unit. The first {@link ChronoUnit} of
+     * {@code amount}'s units that can be converted to a {@link TimeUnit} is used.
      *
-     * @param amount .
-     * @param unit   .
-     * @return .
+     * @param amount the amount.
+     * @param unit   the time unit.
+     * @return the value of {@code amount} in {@code unit}.
+     * @throws IllegalStateException if none of {@code amount}'s units can be converted to {@code unit}.
      * @see <a href="https://docs.oracle.com/en/java/javase//21/docs/api/java.base/java/util/concurrent/TimeUnit.html">
      * java.util.concurrent.TimeUnit</a>
      * @see <a
@@ -61,6 +66,14 @@ public class JinahyaTemporalAmountUtils {
                 .orElseThrow(() -> new IllegalStateException("no supported; amount: " + amount + "; unit: " + unit));
     }
 
+    /**
+     * Returns the value of specified amount in specified unit.
+     *
+     * @param amount the amount.
+     * @param unit   the unit.
+     * @return the value of {@code amount} in {@code unit}.
+     * @see #get(TemporalAmount, TimeUnit)
+     */
     public static long get(final TemporalAmount amount, final ChronoUnit unit) {
         Objects.requireNonNull(amount, "amount is null");
         Objects.requireNonNull(unit, "unit is null");

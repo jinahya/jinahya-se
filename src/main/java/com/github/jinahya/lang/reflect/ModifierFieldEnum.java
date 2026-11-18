@@ -38,11 +38,19 @@ package com.github.jinahya.lang.reflect;
 import com.github.jinahya.lang.IntFieldEnum;
 
 /**
+ * An interface for enum types whose constants represent modifier values.
+ *
  * @param <E> enum type parameter
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public interface ModifierFieldEnum<E extends Enum<E>> extends IntFieldEnum<E> {
 
+    /**
+     * Checks whether specified modifiers contain this constant's field value.
+     *
+     * @param modifiers the modifiers to check.
+     * @return {@code true} if {@code modifiers} contains this constant's field value; {@code false} otherwise.
+     */
     default boolean is(final int modifiers) {
         return (modifiers & getFieldValue()) == getFieldValue();
     }

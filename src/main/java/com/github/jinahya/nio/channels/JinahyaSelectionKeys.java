@@ -23,8 +23,21 @@ package com.github.jinahya.nio.channels;
 import java.nio.channels.SelectionKey;
 import java.util.Objects;
 
+/**
+ * A utility class for {@link SelectionKey}.
+ */
 public final class JinahyaSelectionKeys {
 
+    /**
+     * Checks whether the interest set of specified selection key contains any of specified interest operations.
+     *
+     * @param selectionKey     the selection key to check.
+     * @param interestOp       an interest operation.
+     * @param otherInterestOps other interest operations.
+     * @return {@code true} if the interest set of {@code selectionKey} contains any of specified interest operations;
+     * {@code false} otherwise.
+     * @see SelectionKey#interestOps()
+     */
     public static boolean isAny(final SelectionKey selectionKey, final int interestOp, final int... otherInterestOps) {
         Objects.requireNonNull(selectionKey, "selectionKey is null");
         final int interestOps = selectionKey.interestOps();

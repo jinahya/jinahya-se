@@ -77,6 +77,19 @@ public final class JinahyaThrowables {
         return appendable;
     }
 
+    /**
+     * Prints specified throwable's stack traces to an output stream supplied by specified supplier, using specified
+     * charset, and returns the result of specified mapper applied to the stream.
+     *
+     * @param throwable the throwable whose stack traces are printed.
+     * @param supplier  the supplier of the output stream.
+     * @param charset   the charset for encoding characters.
+     * @param mapper    the function to apply to the stream.
+     * @param <S>       output stream type parameter
+     * @param <R>       result type parameter
+     * @return the result of {@code mapper} applied to the stream.
+     * @throws NullPointerException if any argument is {@code null}, or the {@code supplier} supplies {@code null}.
+     */
     public static <S extends OutputStream, R> R printStackTraceToStream(final Throwable throwable,
                                                                         final Supplier<? extends S> supplier,
                                                                         final Charset charset,
@@ -94,6 +107,14 @@ public final class JinahyaThrowables {
         return mapper.apply(stream);
     }
 
+    /**
+     * Returns specified throwable's stack traces as an array of bytes encoded with specified charset.
+     *
+     * @param throwable the throwable whose stack traces are returned.
+     * @param charset   the charset for encoding characters.
+     * @return an array of bytes of {@code throwable}'s stack traces.
+     * @see #printStackTraceToStream(Throwable, Supplier, Charset, Function)
+     */
     public static byte[] getStackTraceBytes(final Throwable throwable, final Charset charset) {
         return printStackTraceToStream(
                 throwable,
@@ -103,6 +124,18 @@ public final class JinahyaThrowables {
         );
     }
 
+    /**
+     * Prints specified throwable's stack traces to a writer supplied by specified supplier, and returns the result of
+     * specified mapper applied to the writer.
+     *
+     * @param throwable the throwable whose stack traces are printed.
+     * @param supplier  the supplier of the writer.
+     * @param mapper    the function to apply to the writer.
+     * @param <S>       writer type parameter
+     * @param <R>       result type parameter
+     * @return the result of {@code mapper} applied to the writer.
+     * @throws NullPointerException if any argument is {@code null}, or the {@code supplier} supplies {@code null}.
+     */
     public static <S extends Writer, R> R printStackTraceToWriter(final Throwable throwable,
                                                                   final Supplier<? extends S> supplier,
                                                                   final Function<? super S, ? extends R> mapper) {
@@ -118,6 +151,13 @@ public final class JinahyaThrowables {
         return mapper.apply(writer);
     }
 
+    /**
+     * Returns specified throwable's stack traces as a string.
+     *
+     * @param throwable the throwable whose stack traces are returned.
+     * @return a string of {@code throwable}'s stack traces.
+     * @see #printStackTraceToWriter(Throwable, Supplier, Function)
+     */
     public static String getStackTraceString(final Throwable throwable) {
         return printStackTraceToWriter(
                 throwable,

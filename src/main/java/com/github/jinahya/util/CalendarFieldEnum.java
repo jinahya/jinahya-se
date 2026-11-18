@@ -40,6 +40,8 @@ import com.github.jinahya.lang.ValueEnum;
 import java.util.Calendar;
 
 /**
+ * A {@link ValueEnum} whose values correspond to values of a {@link Calendar} field.
+ *
  * @param <E> enum type parameter
  * @param <F> field value type parameter
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
@@ -47,5 +49,10 @@ import java.util.Calendar;
 public interface CalendarFieldEnum<E extends Enum<E>, F>
         extends ValueEnum<E, F> {
 
+    /**
+     * Sets this constant's value to the corresponding field of specified calendar.
+     *
+     * @param calendar the calendar to modify.
+     */
     void set(final Calendar calendar);
 }

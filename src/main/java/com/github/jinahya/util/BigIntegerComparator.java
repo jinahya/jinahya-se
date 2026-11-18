@@ -38,8 +38,16 @@ package com.github.jinahya.util;
 import java.math.BigInteger;
 
 /**
+ * A comparator for {@link java.math.BigInteger} values.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class BigIntegerComparator extends NumberComparator<BigInteger> {
 
+    /**
+     * Creates a new instance.
+     */
+    public BigIntegerComparator() {
+        super();
+    }
 }

@@ -67,8 +67,15 @@ public final class JinahyaColorUtils {
     static final Pattern PATTERN_CSS_HEXADECIMAL_NOTATION = Pattern.compile(REGEXP_CSS_HEXADECIMAL_NOTATION);
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * The minimum value of a color value. The value is {@value}.
+     */
     public static final int MIN_COLOR = 0;
 
+    /**
+     * The maximum value of a color value. The value is {@value}.
+     */
     public static final int MAX_COLOR = 255;
 
     static final int MIN_COMPONENT_INT = 0b0_00000000_00000000000000000000000;
@@ -282,6 +289,7 @@ public final class JinahyaColorUtils {
     /**
      * Returns a {@code 6}-long hexadecimal string representation of color components.
      *
+     * @param colors an array of red, green, and blue color values, each in {@code [0..255]}.
      * @return a string representation of {@code rrggbb}.
      * @see #toCssRgbHexadecimalNotation8(int[])
      * @see <a href="https://www.w3.org/TR/css-color-4/#hex-color">5.2. The RGB Hexadecimal Notations: '#RRGGBB'</a>
@@ -303,6 +311,7 @@ public final class JinahyaColorUtils {
     /**
      * Returns a {@code 6}-long hexadecimal string representation of color components.
      *
+     * @param components an array of red, green, and blue color components, each in {@code [0.0..1.0]}.
      * @return a string representation of {@code rrggbb}.
      * @see #toCssRgbHexadecimalNotation8(int[])
      * @see <a href="https://www.w3.org/TR/css-color-4/#hex-color">5.2. The RGB Hexadecimal Notations: '#RRGGBB'</a>
@@ -315,6 +324,7 @@ public final class JinahyaColorUtils {
     /**
      * Returns a {@code 8}-long hexadecimal string representation of specified colors.
      *
+     * @param colors an array of red, green, blue, and optional alpha color values, each in {@code [0..255]}.
      * @return a hexadecimal notation current colors represented as {@code rrggbbaa}.
      * @see #toCssRgbHexadecimalNotation6(int[])
      * @see <a href="https://www.w3.org/TR/css-color-4/#hex-color">5.2. The RGB Hexadecimal Notations: '#RRGGBB'</a>
@@ -329,6 +339,8 @@ public final class JinahyaColorUtils {
     /**
      * Returns a {@code 6}-long hexadecimal string representation of color components.
      *
+     * @param components an array of red, green, blue, and optional alpha color components, each in
+     *                   {@code [0.0..1.0]}.
      * @return a string representation of {@code rrggbbaa}.
      * @see #toCssRgbHexadecimalNotation8(int[])
      * @see <a href="https://www.w3.org/TR/css-color-4/#hex-color">5.2. The RGB Hexadecimal Notations: '#RRGGBB'</a>

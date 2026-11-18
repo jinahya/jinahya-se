@@ -36,6 +36,8 @@ package com.github.jinahya.lang;
  */
 
 /**
+ * An interface for defining an enum for byte constant fields.
+ *
  * @param <E> enum type parameter
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */

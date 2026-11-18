@@ -38,6 +38,8 @@ package com.github.jinahya.lang.reflect;
 import java.lang.reflect.Modifier;
 
 /**
+ * Constants for modifiers applicable to classes.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum ClassModifier implements ModifierFieldEnum<ClassModifier> {

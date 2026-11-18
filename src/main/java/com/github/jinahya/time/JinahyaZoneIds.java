@@ -24,8 +24,17 @@ import java.time.ZoneId;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * A utility class for {@link ZoneId}.
+ */
 public final class JinahyaZoneIds {
 
+    /**
+     * Returns a set of all available zone ids.
+     *
+     * @return a set of all available zone ids.
+     * @see ZoneId#getAvailableZoneIds()
+     */
     public static Set<ZoneId> getAvailableZones() {
         return ZoneId.getAvailableZoneIds().stream().map(ZoneId::of).collect(Collectors.toSet());
     }

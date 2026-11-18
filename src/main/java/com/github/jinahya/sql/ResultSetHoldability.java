@@ -40,6 +40,8 @@ import com.github.jinahya.lang.IntFieldEnum;
 import java.sql.ResultSet;
 
 /**
+ * Constants for holdabilities of result sets defined in {@link ResultSet}.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum ResultSetHoldability implements IntFieldEnum<ResultSetHoldability> {

@@ -20,8 +20,14 @@ package com.github.jinahya.crypto;
  * #L%
  */
 
+/**
+ * Constants and utilities for {@link javax.crypto.KeyGenerator}.
+ */
 public final class JinahyaKeyGenerators {
 
+    /**
+     * The algorithm name for {@code AES}.
+     */
     public static final String ALGORITHM_AES = "AES";
 
     private JinahyaKeyGenerators() {

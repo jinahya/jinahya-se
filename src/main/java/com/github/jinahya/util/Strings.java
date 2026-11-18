@@ -36,24 +36,54 @@ package com.github.jinahya.util;
  */
 
 /**
+ * Utilities for {@link String}s.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class Strings {
 
+    /**
+     * Checks whether specified string is empty.
+     *
+     * @param string the string to check.
+     * @return {@code true} if {@code string} is empty; {@code false} otherwise.
+     * @throws NullPointerException if {@code string} is {@code null}.
+     */
     public static boolean isEmpty(final String string) {
 
         return string.isEmpty();
     }
 
+    /**
+     * Checks whether specified string is not empty.
+     *
+     * @param string the string to check.
+     * @return {@code true} if {@code string} is not empty; {@code false} otherwise.
+     * @throws NullPointerException if {@code string} is {@code null}.
+     */
     public static boolean nonEmpty(final String string) {
 
         return !isEmpty(string);
     }
 
+    /**
+     * Checks whether specified string is empty after being {@link String#trim() trimmed}.
+     *
+     * @param string the string to check.
+     * @return {@code true} if trimmed {@code string} is empty; {@code false} otherwise.
+     * @throws NullPointerException if {@code string} is {@code null}.
+     */
     public static boolean isTrimmedEmpty(final String string) {
         return string.trim().isEmpty();
     }
 
+    /**
+     * Checks whether specified string is not empty after being {@link String#trim() trimmed}.
+     *
+     * @param string the string to check.
+     * @return {@code true} if trimmed {@code string} is not empty; {@code false} otherwise.
+     * @throws NullPointerException if {@code string} is {@code null}.
+     */
     public static boolean nonTrimmedEmpty(final String string) {
         return !isTrimmedEmpty(string);
     }

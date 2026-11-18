@@ -27,8 +27,25 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 
+/**
+ * A utility class for slicing a temporal range into {@link TemporalSlice}s.
+ */
 public final class TemporalSlicer {
 
+    /**
+     * Slices specified range and accepts each slice to specified consumer.
+     *
+     * @param <T>            temporal type parameter
+     * @param startInclusive the start of the range, inclusive.
+     * @param endExclusive   the end of the range, exclusive; must be after {@code startInclusive}.
+     * @param startAdjuster  an operator for adjusting {@code startInclusive} to the start of the first slice; must
+     *                       not result a value after {@code startInclusive}.
+     * @param amountAdder    an operator for adding an amount to the start of each slice.
+     * @param endAdjuster    an operator for adjusting the result of {@code amountAdder} to the end of each slice.
+     * @param sliceConsumer  the consumer accepts each slice.
+     * @throws IllegalArgumentException if {@code startInclusive} is not before {@code endExclusive}.
+     * @throws DateTimeException        if any of the operators results an invalid value.
+     */
     public static <T extends Temporal & Comparable<? super T>> void slice(
             final T startInclusive, final T endExclusive, final UnaryOperator<T> startAdjuster,
             final UnaryOperator<T> amountAdder, final UnaryOperator<T> endAdjuster,
@@ -77,6 +94,19 @@ public final class TemporalSlicer {
         }
     }
 
+    /**
+     * Slices specified range by specified amount and accepts each slice to specified consumer.
+     *
+     * @param <T>            temporal type parameter
+     * @param startInclusive the start of the range, inclusive.
+     * @param endExclusive   the end of the range, exclusive; must be after {@code startInclusive}.
+     * @param startAdjuster  an operator for adjusting {@code startInclusive} to the start of the first slice; must
+     *                       not result a value after {@code startInclusive}.
+     * @param sliceAmount    the amount of each slice.
+     * @param sliceConsumer  the consumer accepts each slice.
+     * @throws IllegalArgumentException if {@code startInclusive} is not before {@code endExclusive}.
+     * @throws DateTimeException        if {@code startAdjuster} results an invalid value.
+     */
     public static <T extends Temporal & Comparable<? super T>> void slice(
             final T startInclusive, final T endExclusive,
             final UnaryOperator<T> startAdjuster, final TemporalAmount sliceAmount,

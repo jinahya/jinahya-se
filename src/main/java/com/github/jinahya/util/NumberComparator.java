@@ -36,10 +36,18 @@ package com.github.jinahya.util;
  */
 
 /**
- * @param <T>
+ * A comparator for {@link Number}s which are also {@link Comparable}.
+ *
+ * @param <T> number type parameter
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class NumberComparator<T extends Number & Comparable<? super T>>
         extends ComparableComparator<T> {
 
+    /**
+     * Creates a new instance.
+     */
+    public NumberComparator() {
+        super();
+    }
 }

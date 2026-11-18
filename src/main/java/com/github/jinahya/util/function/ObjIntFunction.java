@@ -36,9 +36,21 @@ package com.github.jinahya.util.function;
  */
 
 /**
+ * Represents a function that accepts an object-valued and an {@code int}-valued argument,
+ * and produces a result.
+ *
+ * @param <T> the type of the object argument to the function
+ * @param <R> the type of the result of the function
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 public interface ObjIntFunction<T, R> {
 
+    /**
+     * Applies this function to the given arguments.
+     *
+     * @param t     the first function argument
+     * @param value the second function argument
+     * @return the function result
+     */
     R apply(T t, int value);
 }

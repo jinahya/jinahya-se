@@ -55,6 +55,15 @@ import java.util.zip.ZipOutputStream;
  */
 public class Zips {
 
+    /**
+     * Returns a file for specified zip entry under specified root directory, creating parent directories as needed.
+     *
+     * @param root  the root directory; must be an existing directory.
+     * @param entry the zip entry.
+     * @return a file for {@code entry} under {@code root}.
+     * @throws IOException              if failed to create a parent directory.
+     * @throws IllegalArgumentException if {@code root} is not an existing directory.
+     */
     protected static File file(final File root, final ZipEntry entry) throws IOException {
         if (!Objects.requireNonNull(root, "root is null").isDirectory()) {
             throw new IllegalArgumentException("root is not an existing directory");
@@ -75,6 +84,17 @@ public class Zips {
         return file;
     }
 
+    /**
+     * Writes specified file, recursively if it is a directory, to specified zip output stream with specified path
+     * prefix.
+     *
+     * @param path   the path prefix of entries; restored to its original content on return.
+     * @param file   the file to zip; must exist.
+     * @param filter the filter for child files; may be {@code null}.
+     * @param stream the zip output stream to write to.
+     * @param buffer the buffer to use; must not be empty.
+     * @throws IOException if an I/O error occurs.
+     */
     protected static void zip(final StringBuilder path, final File file, final FileFilter filter,
                               final ZipOutputStream stream, final byte[] buffer)
             throws IOException {
@@ -108,6 +128,15 @@ public class Zips {
         }
     }
 
+    /**
+     * Zips all files, recursively, in specified directory into specified zip output stream.
+     *
+     * @param directory the directory whose files are zipped.
+     * @param filter    the filter for files; may be {@code null}.
+     * @param stream    the zip output stream to write to.
+     * @param buffer    the buffer to use; must not be empty.
+     * @throws IOException if an I/O error occurs.
+     */
     public static void zip(final File directory, final FileFilter filter, final ZipOutputStream stream,
                            final byte[] buffer)
             throws IOException {

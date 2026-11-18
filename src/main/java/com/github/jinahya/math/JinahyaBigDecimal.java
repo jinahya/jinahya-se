@@ -22,9 +22,21 @@ package com.github.jinahya.math;
 
 import java.math.BigDecimal;
 
+/**
+ * A utility class for {@link BigDecimal}.
+ */
 public final class JinahyaBigDecimal {
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Returns an instance of {@link BigDecimal} class itself, not of any subclass, for specified value.
+     *
+     * @param value the value.
+     * @return a safe instance of {@code value}.
+     * @throws NullPointerException if {@code value} is {@code null}.
+     * @implNote Not yet implemented; the current implementation always returns {@code null}.
+     */
     public static BigDecimal safeInstance(final BigDecimal value) {
         if (value == null) {
             throw new NullPointerException("value is null");

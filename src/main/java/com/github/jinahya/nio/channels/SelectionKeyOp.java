@@ -52,6 +52,12 @@ public enum SelectionKeyOp
      */
     OP_ACCEPT(SelectionKey.OP_ACCEPT);
 
+    /**
+     * Returns the constant whose field value matches specified value.
+     *
+     * @param fieldValue the field value to match.
+     * @return the constant whose field value matches {@code fieldValue}.
+     */
     public static SelectionKeyOp valueOfFieldValue(final int fieldValue) {
         return IntFieldEnum.valueOfFieldValue(SelectionKeyOp.class, fieldValue);
     }

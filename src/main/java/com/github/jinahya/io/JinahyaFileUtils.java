@@ -22,8 +22,19 @@ package com.github.jinahya.io;
 
 import java.io.File;
 
+/**
+ * A utility class for {@link File}.
+ */
 public class JinahyaFileUtils {
 
+    /**
+     * Requests that specified file be deleted when the virtual machine terminates, and returns the file.
+     *
+     * @param file the file to delete on exit.
+     * @return given {@code file}.
+     * @throws IllegalArgumentException if {@code file} is {@code null}.
+     * @see File#deleteOnExit()
+     */
     public static File deleteOnExit(final File file) {
         if (file == null) {
             throw new IllegalArgumentException("file is null");

@@ -25,6 +25,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Indicates that the annotated method is excluded from code coverage because it handles a failing case.
+ */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.METHOD})
 public @interface _ExcludeFromCoverage_FailingCase {

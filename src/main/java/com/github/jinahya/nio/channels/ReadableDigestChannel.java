@@ -41,6 +41,8 @@ import java.nio.channels.ReadableByteChannel;
 import java.security.MessageDigest;
 
 /**
+ * A readable filter channel which updates a {@link MessageDigest} with bytes read.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class ReadableDigestChannel extends ReadableFilterChannel {
@@ -65,13 +67,26 @@ public class ReadableDigestChannel extends ReadableFilterChannel {
         return read;
     }
 
+    /**
+     * Returns the current value of {@code digest} property.
+     *
+     * @return the current value of {@code digest} property; may be {@code null}.
+     */
     public MessageDigest getDigest() {
         return digest;
     }
 
+    /**
+     * Replaces the current value of {@code digest} property with specified value.
+     *
+     * @param digest new value for {@code digest} property; {@code null} for not digesting.
+     */
     public void setDigest(final MessageDigest digest) {
         this.digest = digest;
     }
 
+    /**
+     * The message digest updated with bytes read; may be {@code null}.
+     */
     protected MessageDigest digest;
 }

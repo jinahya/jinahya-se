@@ -22,8 +22,21 @@ package com.github.jinahya.lang;
 
 import java.io.IOException;
 
+/**
+ * Utilities for {@link Appendable}.
+ */
 public final class JinahyaAppendableUtils {
 
+    /**
+     * Appends specified character to specified appendable, and returns the appendable.
+     *
+     * @param <T>        appendable type parameter
+     * @param appendable the appendable to which the character is appended.
+     * @param c          the character to append.
+     * @return given {@code appendable}.
+     * @throws IOException if an I/O error occurs.
+     * @see Appendable#append(char)
+     */
     @SuppressWarnings({"unchecked"})
     public static <T extends Appendable> T append(final T appendable, final char c) throws IOException {
         return (T) appendable.append(c);

@@ -36,6 +36,8 @@ package com.github.jinahya.lang;
  */
 
 /**
+ * Utilities for {@link Class}.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class Classes {
@@ -101,6 +103,17 @@ public final class Classes {
         return is;
     }
 
+    /**
+     * Checks that the source class is assignable from the specified class.
+     *
+     * @param is   the source class to check for assignability from {@code from}.
+     * @param from the class to check for assignability to the source class.
+     * @return {@code is} if it's assignable from {@code from}
+     * @throws NullPointerException     if {@code is} is {@code null}.
+     * @throws NullPointerException     if {@code from} is {@code null}.
+     * @throws IllegalArgumentException if {@code is} is not assignable from {@code from}.
+     * @see Class#isAssignableFrom(java.lang.Class)
+     */
     public static Class<?> requireAssignableFrom(final Class<?> is,
                                                  final Class<?> from) {
 

@@ -42,6 +42,9 @@ import java.util.stream.Stream;
  */
 public class JinahyaBeansUtils {
 
+    /**
+     * Represents information of a property found while traversing a bean.
+     */
     public static class PropertyInfo {
 
         static PropertyInfo of(final PropertyInfo parent, final PropertyDescriptor descriptor,
@@ -102,6 +105,11 @@ public class JinahyaBeansUtils {
             );
         }
 
+        /**
+         * Returns the depth of this property information; {@code 0} for a property without any parent.
+         *
+         * @return the depth of this property information.
+         */
         public final int getDepth() {
             return Optional.ofNullable(parent)
                     .stream()
@@ -131,9 +139,18 @@ public class JinahyaBeansUtils {
         final Object value;
     }
 
+    /**
+     * A supplier of a {@link PropertyInfo}.
+     */
     public interface PropertyInfoHolder
             extends Supplier<PropertyInfo> {
 
+        /**
+         * Returns a new holder which supplies specified property information.
+         *
+         * @param value the property information to supply.
+         * @return a new holder of {@code value}.
+         */
         static PropertyInfoHolder of(final PropertyInfo value) {
             Objects.requireNonNull(value, "value is null");
             return () -> value;
@@ -237,6 +254,18 @@ public class JinahyaBeansUtils {
         acceptEachProperty(parent, clazz, clazz.cast(bean), function);
     }
 
+    /**
+     * Traverses, recursively, each property of specified bean while applying each property information to specified
+     * function.
+     *
+     * @param <H>      holder type parameter
+     * @param parent   the holder of the parent property information; may be {@code null}.
+     * @param bean     the bean whose properties are traversed.
+     * @param function a function which, for a parent holder, returns a function which maps each property information
+     *                 to a child holder; a {@code null} result prevents further traversal of the property.
+     * @throws IntrospectionException       if an exception occurs during introspection.
+     * @throws ReflectiveOperationException if failed to read a property value.
+     */
     public static <H extends PropertyInfoHolder> void acceptEachProperty(
             final H parent, final Object bean,
             final Function<? super H,
@@ -294,6 +323,17 @@ public class JinahyaBeansUtils {
         );
     }
 
+    /**
+     * Accepts the value of each property, declared by the class of specified bean, to a consumer resulted by applying
+     * specified bean, specified attachment, and the property descriptor to specified function.
+     *
+     * @param <T>        bean type parameter
+     * @param <A>        attachment type parameter
+     * @param bean       the bean whose property values are accepted.
+     * @param attachment an attachment; may be {@code null}.
+     * @param function   the function which results a consumer for each property value.
+     * @throws IntrospectionException if an exception occurs during introspection.
+     */
     @SuppressWarnings({
             "unchecked"
     })

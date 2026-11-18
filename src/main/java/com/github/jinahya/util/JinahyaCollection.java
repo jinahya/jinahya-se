@@ -36,6 +36,8 @@ package com.github.jinahya.util;
  */
 
 /**
+ * Utilities for {@link java.util.Collection}s.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class JinahyaCollection {

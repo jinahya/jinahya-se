@@ -55,14 +55,14 @@ import java.util.Objects;
 public final class JinahyaCipherUtils {
 
     /**
-     * Updates and optionally finishes a multipart encryption or description operation.
+     * Updates and optionally finishes a multipart encryption or decryption operation.
      *
      * @param cipher the cipher
      * @param input  the input
      * @param output the output
      * @param inbuf  an input buffer.
      * @param outbuf an output buffer.
-     * @param limit  the maximum number of bytes to process; {@code -1L} for all available bytes in {@code input}.
+     * @param limit  the maximum number of bytes to process; must be positive.
      * @param finish a flag for calling {@link Cipher#doFinal()}.
      * @return the actual number of bytes processed
      * @throws IOException               if an I/O error occurs.
@@ -74,6 +74,7 @@ public final class JinahyaCipherUtils {
      * @throws BadPaddingException       if this cipher is in decryption mode, and (un)padding has been requested, but
      *                                   the decrypted data is not bounded by the appropriate padding bytes.
      *                                   <i>Description copied from {@link Cipher#doFinal(byte[], int)}.</i>
+     * @throws ShortBufferException      if {@code outbuf} is too small to hold the result.
      * @see Cipher#update(byte[], int, int, byte[], int)
      */
     public static long update(final Cipher cipher, final InputStream input, final OutputStream output,
@@ -112,6 +113,25 @@ public final class JinahyaCipherUtils {
         return count;
     }
 
+    /**
+     * Updates and optionally finishes a multipart encryption or decryption operation using an output buffer allocated
+     * for specified input buffer.
+     *
+     * @param cipher the cipher
+     * @param input  the input
+     * @param output the output
+     * @param inbuf  an input buffer.
+     * @param limit  the maximum number of bytes to process; must be positive.
+     * @param finish a flag for calling {@link Cipher#doFinal()}.
+     * @return the actual number of bytes processed
+     * @throws IOException               if an I/O error occurs.
+     * @throws IllegalBlockSizeException if this cipher is a block cipher, no padding has been requested (only in
+     *                                   encryption mode), and the total input length of the data processed by this
+     *                                   cipher is not a multiple of block size.
+     * @throws BadPaddingException       if this cipher is in decryption mode, and (un)padding has been requested, but
+     *                                   the decrypted data is not bounded by the appropriate padding bytes.
+     * @see #update(Cipher, InputStream, OutputStream, byte[], byte[], long, boolean)
+     */
     public static long update(final Cipher cipher, final InputStream input, final OutputStream output,
                               final byte[] inbuf, final long limit, final boolean finish)
             throws IOException, IllegalBlockSizeException, BadPaddingException {
@@ -126,6 +146,27 @@ public final class JinahyaCipherUtils {
         }
     }
 
+    /**
+     * Updates and optionally finishes a multipart encryption or decryption operation, reading from specified readable
+     * channel and writing to specified writable channel.
+     *
+     * @param cipher   the cipher
+     * @param readable the channel from which bytes are read.
+     * @param writable the channel to which processed bytes are written.
+     * @param inbuf    an input buffer.
+     * @param outbuf   an output buffer.
+     * @param limit    the maximum number of bytes to process; must be positive.
+     * @param finish   a flag for calling {@link Cipher#doFinal(ByteBuffer, ByteBuffer)}.
+     * @return the actual number of bytes processed
+     * @throws IOException               if an I/O error occurs.
+     * @throws IllegalBlockSizeException if this cipher is a block cipher, no padding has been requested (only in
+     *                                   encryption mode), and the total input length of the data processed by this
+     *                                   cipher is not a multiple of block size.
+     * @throws BadPaddingException       if this cipher is in decryption mode, and (un)padding has been requested, but
+     *                                   the decrypted data is not bounded by the appropriate padding bytes.
+     * @throws ShortBufferException      if {@code outbuf} is too small to hold the result.
+     * @see Cipher#update(ByteBuffer, ByteBuffer)
+     */
     public static long update(final Cipher cipher, final ReadableByteChannel readable,
                               final WritableByteChannel writable, final ByteBuffer inbuf, final ByteBuffer outbuf,
                               long limit, final boolean finish)
@@ -179,6 +220,25 @@ public final class JinahyaCipherUtils {
         return count;
     }
 
+    /**
+     * Updates and optionally finishes a multipart encryption or decryption operation, reading from specified readable
+     * channel and writing to specified writable channel, using an output buffer allocated for specified input buffer.
+     *
+     * @param cipher   the cipher
+     * @param readable the channel from which bytes are read.
+     * @param writable the channel to which processed bytes are written.
+     * @param inbuf    an input buffer.
+     * @param limit    the maximum number of bytes to process; must be positive.
+     * @param finish   a flag for calling {@link Cipher#doFinal(ByteBuffer, ByteBuffer)}.
+     * @return the actual number of bytes processed
+     * @throws IOException               if an I/O error occurs.
+     * @throws IllegalBlockSizeException if this cipher is a block cipher, no padding has been requested (only in
+     *                                   encryption mode), and the total input length of the data processed by this
+     *                                   cipher is not a multiple of block size.
+     * @throws BadPaddingException       if this cipher is in decryption mode, and (un)padding has been requested, but
+     *                                   the decrypted data is not bounded by the appropriate padding bytes.
+     * @see #update(Cipher, ReadableByteChannel, WritableByteChannel, ByteBuffer, ByteBuffer, long, boolean)
+     */
     public static long update(final Cipher cipher, final ReadableByteChannel readable,
                               final WritableByteChannel writable, final ByteBuffer inbuf, long limit,
                               final boolean finish)

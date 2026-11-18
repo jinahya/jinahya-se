@@ -25,6 +25,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Indicates that the annotated constructor is excluded from code coverage because it is an obviously private
+ * constructor.
+ */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.CONSTRUCTOR})
 public @interface _ExcludeFromCoverage_PrivateConstructor_Obviously {

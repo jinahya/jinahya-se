@@ -22,9 +22,20 @@ package com.github.jinahya.math;
 
 import java.math.BigInteger;
 
+/**
+ * A utility class for {@link BigInteger}.
+ */
 public final class JinahyaBigInteger {
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Returns an instance of {@link BigInteger} class itself, not of any subclass, for specified value.
+     *
+     * @param value the value.
+     * @return {@code value} if its class is {@link BigInteger}; a new {@link BigInteger} of the same value otherwise.
+     * @throws NullPointerException if {@code value} is {@code null}.
+     */
     public static BigInteger safeInstance(final BigInteger value) {
         if (value == null) {
             throw new NullPointerException("value is null");

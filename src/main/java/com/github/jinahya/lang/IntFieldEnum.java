@@ -38,12 +38,23 @@ package com.github.jinahya.lang;
 import java.util.Objects;
 
 /**
+ * An interface for defining an enum for int constant fields.
+ *
  * @param <E> enum type parameter
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public interface IntFieldEnum<E extends Enum<E>> {
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Returns an array of field values of all constants of specified enum type, in declaration order.
+     *
+     * @param enumType the enum type.
+     * @param <E>      enum type parameter
+     * @return an array of field values of all constants of {@code enumType}.
+     * @throws NullPointerException if {@code enumType} is {@code null}.
+     */
     static <E extends Enum<E> & IntFieldEnum<E>> int[] fieldValues(final Class<E> enumType) {
         Objects.requireNonNull(enumType, "enumType is null");
         final E[] enumConstants = enumType.getEnumConstants();
@@ -55,6 +66,16 @@ public interface IntFieldEnum<E extends Enum<E>> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Returns the constant of specified enum type whose field value is equal to specified value.
+     *
+     * @param enumType   the enum type.
+     * @param fieldValue the field value to match.
+     * @param <E>        enum type parameter
+     * @return the constant of {@code enumType} whose field value is equal to {@code fieldValue}.
+     * @throws IllegalArgumentException if no constant matches {@code fieldValue}.
+     */
     static <E extends Enum<E> & IntFieldEnum<E>> E valueOfFieldValue(final Class<E> enumType, final int fieldValue) {
         for (final E enumConstant : enumType.getEnumConstants()) {
             if (enumConstant.getFieldValue() == fieldValue) {

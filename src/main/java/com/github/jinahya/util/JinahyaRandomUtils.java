@@ -45,6 +45,14 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public final class JinahyaRandomUtils {
 
+    /**
+     * Returns a new array of specified length filled with random bytes.
+     *
+     * @param random the random to use; {@link ThreadLocalRandom#current()} is used when {@code null}.
+     * @param length the length of the array; must not be negative.
+     * @return a new array of random bytes.
+     * @throws IllegalArgumentException if {@code length} is negative.
+     */
     public static byte[] newRandomBytesOfFixedLength(Random random, final int length) {
         if (length < 0) {
             throw new IllegalArgumentException("length(" + length + ") < 0");
@@ -57,6 +65,16 @@ public final class JinahyaRandomUtils {
         return bytes;
     }
 
+    /**
+     * Returns a new array of random bytes whose length is randomly chosen between specified origin (inclusive) and
+     * specified bound (exclusive).
+     *
+     * @param random the random to use; {@link ThreadLocalRandom#current()} is used when {@code null}.
+     * @param origin the least length (inclusive).
+     * @param bound  the upper bound of the length (exclusive).
+     * @return a new array of random bytes.
+     * @throws IllegalArgumentException if {@code origin} is negative, or is greater than or equal to {@code bound}.
+     */
     public static byte[] newRandomBytesOfRandomLength(Random random, final int origin, final int bound) {
         if (random == null) {
             random = ThreadLocalRandom.current();
@@ -65,6 +83,15 @@ public final class JinahyaRandomUtils {
         return newRandomBytesOfFixedLength(random, length);
     }
 
+    /**
+     * Returns a new array of random bytes whose length is randomly chosen between {@code 0} (inclusive) and specified
+     * bound (exclusive).
+     *
+     * @param random the random to use; {@link ThreadLocalRandom#current()} is used when {@code null}.
+     * @param bound  the upper bound of the length (exclusive); must be positive.
+     * @return a new array of random bytes.
+     * @throws IllegalArgumentException if {@code bound} is not positive.
+     */
     public static byte[] newRandomBytesOfRandomLength(Random random, final int bound) {
         if (random == null) {
             random = ThreadLocalRandom.current();

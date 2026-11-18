@@ -39,6 +39,8 @@ import java.io.Serializable;
 import java.util.Random;
 
 /**
+ * A wrapper of a {@link Random} which generates values in specified ranges.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class JinahyaRandom implements Serializable {

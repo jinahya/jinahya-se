@@ -31,6 +31,9 @@ import java.util.function.Function;
 import static java.time.temporal.TemporalAdjusters.lastDayOfYear;
 import static java.util.Objects.requireNonNull;
 
+/**
+ * A utility class for {@link java.time} package.
+ */
 public final class TimeUtils {
 
     private static <T1 extends Temporal, T2 extends Temporal, R> R applyStartEndOf(

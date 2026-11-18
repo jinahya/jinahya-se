@@ -36,6 +36,8 @@ package com.github.jinahya.util;
  */
 
 /**
+ * Utilities related to {@link Character}.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class JinahyaCharacter {
@@ -96,8 +98,13 @@ public final class JinahyaCharacter {
     }
 
     /**
-     * @param codePoints
-     * @return
+     * Checks whether specified array of code points forms a valid Java identifier.
+     *
+     * @param codePoints the code points to check.
+     * @return {@code true} if the first code point is a Java identifier start and all following code points are Java
+     * identifier parts; {@code false} otherwise.
+     * @throws NullPointerException     if {@code codePoints} is {@code null}.
+     * @throws IllegalArgumentException if {@code codePoints} is empty.
      */
     public static boolean isJavaIdentifier(final int[] codePoints) {
 
@@ -123,8 +130,13 @@ public final class JinahyaCharacter {
     }
 
     /**
-     * @param seq
-     * @return
+     * Checks whether specified char sequence forms a valid Java identifier.
+     *
+     * @param seq the char sequence to check.
+     * @return {@code true} if the first code point is a Java identifier start and all following code points are Java
+     * identifier parts; {@code false} otherwise.
+     * @throws NullPointerException     if {@code seq} is {@code null}.
+     * @throws IllegalArgumentException if {@code seq} is empty.
      */
     public static boolean isJavaIdentifier(final CharSequence seq) {
 
@@ -140,8 +152,13 @@ public final class JinahyaCharacter {
     }
 
     /**
-     * @param a
-     * @return
+     * Checks whether specified char array forms a valid Java identifier.
+     *
+     * @param a the char array to check.
+     * @return {@code true} if the first code point is a Java identifier start and all following code points are Java
+     * identifier parts; {@code false} otherwise.
+     * @throws NullPointerException     if {@code a} is {@code null}.
+     * @throws IllegalArgumentException if {@code a} is empty.
      */
     public static boolean isJavaIdentifier(final char[] a) {
 

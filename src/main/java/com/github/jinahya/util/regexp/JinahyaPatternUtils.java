@@ -23,13 +23,27 @@ package com.github.jinahya.util.regexp;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+/**
+ * Utilities for {@link Pattern}s.
+ */
 public abstract class JinahyaPatternUtils {
 
+    /**
+     * Checks whether specified input entirely matches specified pattern.
+     *
+     * @param pattern the pattern to match.
+     * @param input   the character sequence to be matched.
+     * @return {@code true} if the entire {@code input} matches {@code pattern}; {@code false} otherwise.
+     * @throws NullPointerException if {@code pattern} or {@code input} is {@code null}.
+     */
     public static boolean matches(final Pattern pattern, final CharSequence input) {
         Objects.requireNonNull(pattern, "pattern is null");
         return pattern.matcher(input).matches();
     }
 
+    /**
+     * Creates a new instance.
+     */
     protected JinahyaPatternUtils() {
         super();
     }

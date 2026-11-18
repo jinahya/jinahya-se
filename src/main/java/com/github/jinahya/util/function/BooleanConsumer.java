@@ -43,7 +43,6 @@ package com.github.jinahya.util.function;
  * This is a
  * <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html">functional
  * interface</a> whose functional method is {@link #accept(boolean)}.
- * <p>
  *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */

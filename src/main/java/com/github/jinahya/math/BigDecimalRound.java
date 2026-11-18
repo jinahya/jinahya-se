@@ -40,17 +40,50 @@ import com.github.jinahya.lang.IntFieldEnum;
 import java.math.BigDecimal;
 
 /**
+ * Constants for legacy rounding mode fields of {@link BigDecimal}.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum BigDecimalRound implements IntFieldEnum<BigDecimalRound> {
 
+    /**
+     * A constant for {@link BigDecimal#ROUND_UP}.
+     */
     UP(BigDecimal.ROUND_UP), // 0
+
+    /**
+     * A constant for {@link BigDecimal#ROUND_DOWN}.
+     */
     DOWN(BigDecimal.ROUND_DOWN), // 1
+
+    /**
+     * A constant for {@link BigDecimal#ROUND_CEILING}.
+     */
     CEILING(BigDecimal.ROUND_CEILING), // 2
+
+    /**
+     * A constant for {@link BigDecimal#ROUND_FLOOR}.
+     */
     FLOOR(BigDecimal.ROUND_FLOOR), //3
+
+    /**
+     * A constant for {@link BigDecimal#ROUND_HALF_UP}.
+     */
     HALF_UP(BigDecimal.ROUND_HALF_UP), // 4
+
+    /**
+     * A constant for {@link BigDecimal#ROUND_HALF_DOWN}.
+     */
     HALF_DOWN(BigDecimal.ROUND_HALF_DOWN), // 5
+
+    /**
+     * A constant for {@link BigDecimal#ROUND_HALF_EVEN}.
+     */
     HALF_EVEN(BigDecimal.ROUND_HALF_EVEN), // 6
+
+    /**
+     * A constant for {@link BigDecimal#ROUND_UNNECESSARY}.
+     */
     UNNECESSARY(BigDecimal.ROUND_UNNECESSARY); // 7
 
     private BigDecimalRound(final int fieldValue) {

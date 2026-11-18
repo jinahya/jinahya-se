@@ -40,6 +40,8 @@ import com.github.jinahya.lang.IntFieldEnum;
 import java.sql.Connection;
 
 /**
+ * Constants for transaction isolation levels defined in {@link Connection}.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum ConnectionTransactionIsolationLevel

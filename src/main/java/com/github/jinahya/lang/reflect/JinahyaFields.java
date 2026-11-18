@@ -41,10 +41,22 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 /**
+ * Utilities for {@link Field} class.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class JinahyaFields {
 
+    /**
+     * Removes specified modifiers from specified field by reflectively modifying its internal {@code modifiers}
+     * field.
+     *
+     * @param field the field whose modifiers are removed.
+     * @param delta the modifiers to remove.
+     * @return given {@code field}.
+     * @throws NoSuchFieldException   if the internal {@code modifiers} field is not found.
+     * @throws IllegalAccessException if failed to access the internal {@code modifiers} field.
+     */
     @Deprecated
     public static Field removeModifiers(final Field field, final int delta)
             throws NoSuchFieldException, IllegalAccessException {
@@ -65,6 +77,15 @@ public final class JinahyaFields {
         return field;
     }
 
+    /**
+     * Removes the {@link Modifier#PRIVATE private} modifier from specified field.
+     *
+     * @param field the field whose {@code private} modifier is removed.
+     * @return given {@code field}.
+     * @throws NoSuchFieldException   if the internal {@code modifiers} field is not found.
+     * @throws IllegalAccessException if failed to access the internal {@code modifiers} field.
+     * @see #removeModifiers(Field, int)
+     */
     @Deprecated
     public static Field unprivate(final Field field)
             throws NoSuchFieldException, IllegalAccessException {
@@ -72,6 +93,15 @@ public final class JinahyaFields {
         return removeModifiers(field, Modifier.PRIVATE);
     }
 
+    /**
+     * Removes the {@link Modifier#FINAL final} modifier from specified field.
+     *
+     * @param field the field whose {@code final} modifier is removed.
+     * @return given {@code field}.
+     * @throws NoSuchFieldException   if the internal {@code modifiers} field is not found.
+     * @throws IllegalAccessException if failed to access the internal {@code modifiers} field.
+     * @see #removeModifiers(Field, int)
+     */
     @Deprecated
     public static Field unfinal(final Field field)
             throws NoSuchFieldException, IllegalAccessException {

@@ -26,8 +26,18 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ * Utilities for {@link ColorSpace} class.
+ */
 public final class JinahyaColorSpaceUtils {
 
+    /**
+     * Returns the name of the {@code TYPE_} field, defined in {@link ColorSpace} class, whose value equals to specified
+     * value.
+     *
+     * @param colorSpaceType the color space type value to match.
+     * @return the name of the matching {@code TYPE_} field; {@code null} when no field matches.
+     */
     public static String nameOfColorSpaceType(final int colorSpaceType) {
         return Arrays.stream(ColorSpace.class.getFields())
                 .filter(f -> {
@@ -49,6 +59,14 @@ public final class JinahyaColorSpaceUtils {
                 ;
     }
 
+    /**
+     * Returns the name of the {@code TYPE_} field, defined in {@link ColorSpace} class, whose value equals to the
+     * {@link ColorSpace#getType() type} of specified color space.
+     *
+     * @param colorSpace the color space whose type is matched.
+     * @return the name of the matching {@code TYPE_} field; {@code null} when no field matches.
+     * @see #nameOfColorSpaceType(int)
+     */
     public static String nameOfColorSpaceType(final ColorSpace colorSpace) {
         Objects.requireNonNull(colorSpace, "colorSpace is null");
         return nameOfColorSpaceType(colorSpace.getType());

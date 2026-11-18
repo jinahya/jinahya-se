@@ -40,6 +40,8 @@ import com.github.jinahya.lang.IntFieldEnum;
 import java.sql.DatabaseMetaData;
 
 /**
+ * Constants for deferrability of foreign key constraints defined in {@link DatabaseMetaData}.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum DatabaseMetaDataDeferrability

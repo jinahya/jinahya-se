@@ -38,40 +38,42 @@ package com.github.jinahya.lang.reflect;
 import java.lang.reflect.Modifier;
 
 /**
+ * Constants for modifiers applicable to fields.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum FieldModifier implements ModifierFieldEnum<FieldModifier> {
 
     /**
-     *
+     * Constant for {@link Modifier#PUBLIC}({@value Modifier#PUBLIC}).
      */
     PUBLIC(Modifier.PUBLIC), // 1
 
     /**
-     *
+     * Constant for {@link Modifier#PRIVATE}({@value Modifier#PRIVATE}).
      */
     PRIVATE(Modifier.PRIVATE), // 2
 
     /**
-     *
+     * Constant for {@link Modifier#PROTECTED}({@value Modifier#PROTECTED}).
      */
     PROTECTED(Modifier.PROTECTED), // 4
 
     /**
-     *
+     * Constant for {@link Modifier#STATIC}({@value Modifier#STATIC}).
      */
     STATIC(Modifier.STATIC), // 8
 
     /**
-     *
+     * Constant for {@link Modifier#FINAL}({@value Modifier#FINAL}).
      */
     FINAL(Modifier.FINAL), // 16
     /**
-     *
+     * Constant for {@link Modifier#VOLATILE}({@value Modifier#VOLATILE}).
      */
     VOLATILE(Modifier.VOLATILE), // 64
     /**
-     *
+     * Constant for {@link Modifier#TRANSIENT}({@value Modifier#TRANSIENT}).
      */
     TRANSIENT(Modifier.TRANSIENT); // 128
 

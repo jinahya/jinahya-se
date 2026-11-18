@@ -26,8 +26,21 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.function.LongFunction;
 
+/**
+ * A utility class for {@link Duration}.
+ */
 public class JinahyaDurationUtils {
 
+    /**
+     * Applies the number of days, of specified duration, and the remaining duration to specified function, and returns
+     * the result.
+     *
+     * @param <R>      result type parameter
+     * @param duration the duration; must not be negative.
+     * @param function the function to be applied with the number of days and the remaining duration.
+     * @return the result of the {@code function}.
+     * @throws IllegalArgumentException if {@code duration} is negative.
+     */
     public static <R> R applyDays(final Duration duration,
                                   final LongFunction<? extends Function<? super Duration, ? extends R>> function) {
         if (Objects.requireNonNull(duration, "duration is null").isNegative()) {
@@ -39,6 +52,16 @@ public class JinahyaDurationUtils {
         return function.apply(days).apply(remaining);
     }
 
+    /**
+     * Applies the number of hours, of specified duration, and the remaining duration to specified function, and returns
+     * the result.
+     *
+     * @param <R>      result type parameter
+     * @param duration the duration; must not be negative.
+     * @param function the function to be applied with the number of hours and the remaining duration.
+     * @return the result of the {@code function}.
+     * @throws IllegalArgumentException if {@code duration} is negative.
+     */
     public static <R> R applyHours(final Duration duration,
                                    final LongFunction<? extends Function<? super Duration, ? extends R>> function) {
         if (Objects.requireNonNull(duration, "duration is null").isNegative()) {
@@ -50,6 +73,16 @@ public class JinahyaDurationUtils {
         return function.apply(hours).apply(remaining);
     }
 
+    /**
+     * Applies the number of minutes, of specified duration, and the remaining duration to specified function, and returns
+     * the result.
+     *
+     * @param <R>      result type parameter
+     * @param duration the duration; must not be negative.
+     * @param function the function to be applied with the number of minutes and the remaining duration.
+     * @return the result of the {@code function}.
+     * @throws IllegalArgumentException if {@code duration} is negative.
+     */
     public static <R> R applyMinutes(final Duration duration,
                                      final LongFunction<? extends Function<? super Duration, ? extends R>> function) {
         if (Objects.requireNonNull(duration, "duration is null").isNegative()) {
@@ -61,6 +94,16 @@ public class JinahyaDurationUtils {
         return function.apply(minutes).apply(remaining);
     }
 
+    /**
+     * Applies the number of seconds, of specified duration, and the remaining duration to specified function, and returns
+     * the result.
+     *
+     * @param <R>      result type parameter
+     * @param duration the duration; must not be negative.
+     * @param function the function to be applied with the number of seconds and the remaining duration.
+     * @return the result of the {@code function}.
+     * @throws IllegalArgumentException if {@code duration} is negative.
+     */
     public static <R> R applySeconds(final Duration duration,
                                      final LongFunction<? extends Function<? super Duration, ? extends R>> function) {
         if (Objects.requireNonNull(duration, "duration is null").isNegative()) {

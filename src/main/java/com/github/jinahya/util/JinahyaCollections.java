@@ -23,6 +23,9 @@ package com.github.jinahya.util;
 import java.util.Collection;
 import java.util.Collections;
 
+/**
+ * Utilities for {@link Collection}s.
+ */
 public final class JinahyaCollections {
 
     /**
@@ -40,11 +43,31 @@ public final class JinahyaCollections {
         return collection;
     }
 
+    /**
+     * Adds all specified elements to specified collection and returns the collection.
+     *
+     * @param <T>      collection type parameter
+     * @param <E>      element type parameter
+     * @param c        the collection to which elements are added.
+     * @param elements the elements to add.
+     * @return given {@code c}.
+     * @see Collections#addAll(Collection, Object[])
+     */
     public static <T extends Collection<? super E>, E> T addAll(final T c, final E... elements) {
         final boolean changed = Collections.addAll(c, elements);
         return c;
     }
 
+    /**
+     * Adds all elements of specified second collection to specified first collection and returns the first collection.
+     *
+     * @param <T> first collection type parameter
+     * @param <E> element type parameter
+     * @param c1  the collection to which elements are added.
+     * @param c2  the collection whose elements are added.
+     * @return given {@code c1}.
+     * @see Collection#addAll(Collection)
+     */
     public static <T extends Collection<? super E>, E> T addAll(final T c1, final Collection<? extends E> c2) {
         final boolean changed = c1.addAll(c2);
         return c1;

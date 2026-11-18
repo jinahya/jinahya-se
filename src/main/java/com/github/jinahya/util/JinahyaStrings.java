@@ -22,8 +22,19 @@ package com.github.jinahya.util;
 
 import java.util.Objects;
 
+/**
+ * Utilities for {@link String}s.
+ */
 public final class JinahyaStrings {
 
+    /**
+     * Checks the emptiness of specified string.
+     *
+     * @param str the string to check.
+     * @return the value of {@link String#isEmpty() str.isEmpty()}.
+     * @throws NullPointerException if {@code str} is {@code null}.
+     * @implNote Despite its name, this method currently returns {@code true} when {@code str} is empty.
+     */
     public static boolean nonEmpty(final String str) {
         return Objects.requireNonNull(str, "str is null").isEmpty();
     }

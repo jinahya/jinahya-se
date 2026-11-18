@@ -44,10 +44,23 @@ public final class JinahyaLangUtils {
             void.class, Void.class
     );
 
+    /**
+     * Returns an unmodifiable set of all primitive types, including {@code void}.
+     *
+     * @return an unmodifiable set of all primitive types.
+     */
     public static Set<Class<?>> getAllPrimitiveTypes() {
         return WRAPPER_CLASSES.keySet();
     }
 
+    /**
+     * Returns the wrapper type of specified primitive type.
+     *
+     * @param clazz the primitive type.
+     * @return the wrapper type of {@code clazz}.
+     * @throws NullPointerException     if {@code clazz} is {@code null}.
+     * @throws IllegalArgumentException if {@code clazz} is not a primitive type.
+     */
     public static Class<?> getWrapperType(final Class<?> clazz) {
         Objects.requireNonNull(clazz, "clazz is null");
         if (!clazz.isPrimitive()) {
@@ -61,10 +74,22 @@ public final class JinahyaLangUtils {
                     .stream()
                     .collect(Collectors.toUnmodifiableMap(Map.Entry::getValue, Map.Entry::getKey));
 
+    /**
+     * Returns an unmodifiable set of all wrapper types, including {@link Void}.
+     *
+     * @return an unmodifiable set of all wrapper types.
+     */
     public static Set<Class<?>> getAllWrapperTypes() {
         return PRIMITIVE_CLASSES.keySet();
     }
 
+    /**
+     * Checks whether specified class is a wrapper type of a primitive type.
+     *
+     * @param clazz the class to check.
+     * @return {@code true} if {@code clazz} is a wrapper type; {@code false} otherwise.
+     * @throws NullPointerException if {@code clazz} is {@code null}.
+     */
     public static boolean isWrapper(final Class<?> clazz) {
         Objects.requireNonNull(clazz, "clazz is null");
         return PRIMITIVE_CLASSES.containsKey(clazz);

@@ -36,8 +36,16 @@ package com.github.jinahya.util;
  */
 
 /**
+ * A comparator for {@link Double} values.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class DoubleComparator extends NumberComparator<Double> {
 
+    /**
+     * Creates a new instance.
+     */
+    public DoubleComparator() {
+        super();
+    }
 }

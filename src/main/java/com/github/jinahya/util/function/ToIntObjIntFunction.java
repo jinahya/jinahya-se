@@ -36,9 +36,20 @@ package com.github.jinahya.util.function;
  */
 
 /**
+ * Represents a function that accepts an object-valued and an {@code int}-valued argument,
+ * and produces an {@code int}-valued result.
+ *
+ * @param <T> the type of the object argument to the function
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 public interface ToIntObjIntFunction<T> {
 
+    /**
+     * Applies this function to the given arguments.
+     *
+     * @param t     the first function argument
+     * @param value the second function argument
+     * @return the function result
+     */
     int applyAsInt(T t, int value);
 }

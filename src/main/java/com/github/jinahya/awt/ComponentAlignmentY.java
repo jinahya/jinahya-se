@@ -40,6 +40,8 @@ import com.github.jinahya.lang.FloatFieldEnum;
 import java.awt.*;
 
 /**
+ * Constants for vertical alignment values defined in {@link Component} class.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum ComponentAlignmentY implements FloatFieldEnum<ComponentAlignmentY> {

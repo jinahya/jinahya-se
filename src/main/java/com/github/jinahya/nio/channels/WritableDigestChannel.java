@@ -41,6 +41,8 @@ import java.nio.channels.WritableByteChannel;
 import java.security.MessageDigest;
 
 /**
+ * A writable filter channel which updates a {@link MessageDigest} with bytes written.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class WritableDigestChannel extends WritableFilterChannel {
@@ -65,10 +67,20 @@ public class WritableDigestChannel extends WritableFilterChannel {
         return written;
     }
 
+    /**
+     * Returns the current value of {@code digest} property.
+     *
+     * @return the current value of {@code digest} property; may be {@code null}.
+     */
     public MessageDigest getDigest() {
         return digest;
     }
 
+    /**
+     * Replaces the current value of {@code digest} property with specified value.
+     *
+     * @param digest new value for {@code digest} property; {@code null} for not digesting.
+     */
     public void setDigest(final MessageDigest digest) {
         this.digest = digest;
     }

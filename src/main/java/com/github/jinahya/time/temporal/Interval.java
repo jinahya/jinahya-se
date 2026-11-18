@@ -38,6 +38,13 @@ public final class Interval<T extends Temporal & Comparable<? super T>>
     private static final long serialVersionUID = -7195401716791497138L;
 
     // -----------------------------------------------------------------------------------------------------------------
+    /**
+     * Creates a new instance with specified start and end.
+     *
+     * @param start the start of the interval.
+     * @param end   the end of the interval; must be after {@code start}.
+     * @throws IllegalArgumentException if {@code start} is not before {@code end}.
+     */
     public Interval(final T start, final T end) {
         super();
         Objects.requireNonNull(start, "start is null");
@@ -75,17 +82,33 @@ public final class Interval<T extends Temporal & Comparable<? super T>>
     }
 
     // ----------------------------------------------------------------------------------------------------------- start
+    /**
+     * Returns the start of this interval.
+     *
+     * @return the start of this interval.
+     */
     public T getStart() {
         return start;
     }
 
     // ------------------------------------------------------------------------------------------------------------- end
+    /**
+     * Returns the end of this interval.
+     *
+     * @return the end of this interval.
+     */
     public T getEnd() {
         return end;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    /**
+     * The start of this interval.
+     */
     private final T start;
 
+    /**
+     * The end of this interval.
+     */
     private final T end;
 }

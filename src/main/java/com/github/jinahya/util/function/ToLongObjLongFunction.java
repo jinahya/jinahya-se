@@ -36,9 +36,20 @@ package com.github.jinahya.util.function;
  */
 
 /**
+ * Represents a function that accepts an object-valued and a {@code long}-valued argument,
+ * and produces a {@code long}-valued result.
+ *
+ * @param <T> the type of the object argument to the function
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 public interface ToLongObjLongFunction<T> {
 
+    /**
+     * Applies this function to the given arguments.
+     *
+     * @param t     the first function argument
+     * @param value the second function argument
+     * @return the function result
+     */
     long applyAsLong(T t, long value);
 }

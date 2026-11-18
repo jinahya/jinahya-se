@@ -39,10 +39,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Utilities for {@link String}.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class Strings {
 
+    /**
+     * Concatenates specified strings to specified string.
+     *
+     * @param string the string to which others are concatenated.
+     * @param strs   the strings to concatenate.
+     * @return a string of {@code string} followed by each of {@code strs}.
+     * @throws NullPointerException if {@code string} or {@code strs} is {@code null}.
+     * @see String#concat(String)
+     */
     public static String concat(String string, final String... strs) {
 
         if (string == null) {
@@ -60,6 +71,15 @@ public final class Strings {
         return string;
     }
 
+    /**
+     * Tests if specified string contains any of specified character sequences.
+     *
+     * @param string the string to test.
+     * @param ss     the character sequences to search for.
+     * @return {@code true} if {@code string} contains any of {@code ss}; {@code false} otherwise.
+     * @throws NullPointerException if {@code string} or {@code ss} is {@code null}.
+     * @see String#contains(CharSequence)
+     */
     public static boolean containsAny(final String string, final CharSequence... ss) {
 
         if (string == null) {
@@ -79,6 +99,15 @@ public final class Strings {
         return false;
     }
 
+    /**
+     * Tests if specified string contains all of specified character sequences.
+     *
+     * @param string the string to test.
+     * @param ss     the character sequences to search for.
+     * @return {@code true} if {@code string} contains all of {@code ss}; {@code false} otherwise.
+     * @throws NullPointerException if {@code string} or {@code ss} is {@code null}.
+     * @see String#contains(CharSequence)
+     */
     public static boolean containsAll(final String string, final CharSequence... ss) {
 
         if (string == null) {
@@ -126,6 +155,19 @@ public final class Strings {
         return false;
     }
 
+    /**
+     * Returns the index of the {@code ordinal}-th (zero-based) occurrence of specified character in specified string,
+     * starting the search at specified index.
+     *
+     * @param string    the string to search.
+     * @param ch        the character to search for.
+     * @param fromIndex the index from which to start the search.
+     * @param ordinal   the zero-based ordinal of the occurrence.
+     * @return the index of the {@code ordinal}-th occurrence of {@code ch}; {@code -1} if no such occurrence.
+     * @throws NullPointerException     if {@code string} is {@code null}.
+     * @throws IllegalArgumentException if {@code ordinal} is negative.
+     * @see String#indexOf(int, int)
+     */
     public static int indexOf(final String string, final int ch, int fromIndex,
                               int ordinal) {
 
@@ -150,6 +192,17 @@ public final class Strings {
         return index;
     }
 
+    /**
+     * Returns a list of indices of all occurrences of specified character in specified string, starting the search at
+     * specified index.
+     *
+     * @param string    the string to search.
+     * @param ch        the character to search for.
+     * @param fromIndex the index from which to start the search.
+     * @return a list of indices of all occurrences of {@code ch}.
+     * @throws NullPointerException if {@code string} is {@code null}.
+     * @see String#indexOf(int, int)
+     */
     public static List<Integer> indicesOf(final String string, final int ch,
                                           int fromIndex) {
 
@@ -171,6 +224,19 @@ public final class Strings {
         return indices;
     }
 
+    /**
+     * Returns the index of the {@code ordinal}-th (zero-based) non-overlapping occurrence of specified substring in
+     * specified string, starting the search at specified index.
+     *
+     * @param string    the string to search.
+     * @param str       the substring to search for.
+     * @param fromIndex the index from which to start the search.
+     * @param ordinal   the zero-based ordinal of the occurrence.
+     * @return the index of the {@code ordinal}-th occurrence of {@code str}; {@code -1} if no such occurrence.
+     * @throws NullPointerException     if {@code string} is {@code null}.
+     * @throws IllegalArgumentException if {@code ordinal} is negative.
+     * @see String#indexOf(String, int)
+     */
     public static int indexOf(final String string, final String str,
                               int fromIndex, int ordinal) {
 
@@ -195,6 +261,17 @@ public final class Strings {
         return index;
     }
 
+    /**
+     * Returns a list of indices of all non-overlapping occurrences of specified substring in specified string,
+     * starting the search at specified index.
+     *
+     * @param string    the string to search.
+     * @param str       the substring to search for.
+     * @param fromIndex the index from which to start the search.
+     * @return a list of indices of all occurrences of {@code str}.
+     * @throws NullPointerException if {@code string} is {@code null}.
+     * @see String#indexOf(String, int)
+     */
     public static List<Integer> indicesOf(final String string, final String str,
                                           int fromIndex) {
 

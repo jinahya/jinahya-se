@@ -24,6 +24,11 @@ import com.github.jinahya.lang.IntFieldEnum;
 
 import java.awt.color.ICC_Profile;
 
+/**
+ * Constants for fields whose names start with {@code CLASS_} defined in {@link ICC_Profile} class.
+ *
+ * @see ICC_Profile#getProfileClass()
+ */
 public enum JinahyaICC_ProfileClass
         implements IntFieldEnum<JinahyaICC_ProfileClass> {
 
@@ -32,12 +37,24 @@ public enum JinahyaICC_ProfileClass
      */
     CLASS_ABSTRACT(ICC_Profile.CLASS_ABSTRACT),
 
+    /**
+     * Constant for {@link ICC_Profile#CLASS_COLORSPACECONVERSION}({@value ICC_Profile#CLASS_COLORSPACECONVERSION}).
+     */
     CLASS_COLORSPACECONVERSION(ICC_Profile.CLASS_COLORSPACECONVERSION),
 
+    /**
+     * Constant for {@link ICC_Profile#CLASS_DEVICELINK}({@value ICC_Profile#CLASS_DEVICELINK}).
+     */
     CLASS_DEVICELINK(ICC_Profile.CLASS_DEVICELINK),
 
+    /**
+     * Constant for {@link ICC_Profile#CLASS_DISPLAY}({@value ICC_Profile#CLASS_DISPLAY}).
+     */
     CLASS_DISPLAY(ICC_Profile.CLASS_DISPLAY),
 
+    /**
+     * Constant for {@link ICC_Profile#CLASS_INPUT}({@value ICC_Profile#CLASS_INPUT}).
+     */
     CLASS_INPUT(ICC_Profile.CLASS_INPUT),
 
     /**
@@ -45,9 +62,20 @@ public enum JinahyaICC_ProfileClass
      */
     CLASS_NAMEDCOLOR(ICC_Profile.CLASS_NAMEDCOLOR),
 
+    /**
+     * Constant for {@link ICC_Profile#CLASS_OUTPUT}({@value ICC_Profile#CLASS_OUTPUT}).
+     */
     CLASS_OUTPUT(ICC_Profile.CLASS_OUTPUT);
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Returns the value whose {@link #getFieldValue() fieldValue} equals to specified value.
+     *
+     * @param fieldValue the value of {@link #getFieldValue() fieldValue} to match.
+     * @return the value whose {@link #getFieldValue()} equals to {@code fieldValue}.
+     * @throws IllegalArgumentException when no value matched.
+     */
     public static JinahyaICC_ProfileClass valueOfFieldValue(final int fieldValue) {
         return IntFieldEnum.valueOfFieldValue(JinahyaICC_ProfileClass.class, fieldValue);
     }

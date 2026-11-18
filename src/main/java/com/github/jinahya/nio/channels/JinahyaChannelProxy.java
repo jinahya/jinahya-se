@@ -22,6 +22,17 @@ package com.github.jinahya.nio.channels;
 
 import java.nio.channels.Channel;
 
+/**
+ * An abstract proxy for a {@link Channel}.
+ *
+ * @param <T> channel type parameter
+ */
 public abstract class JinahyaChannelProxy<T extends Channel> {
 
+    /**
+     * Creates a new instance.
+     */
+    public JinahyaChannelProxy() {
+        super();
+    }
 }

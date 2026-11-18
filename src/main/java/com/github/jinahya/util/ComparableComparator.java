@@ -49,6 +49,13 @@ public class ComparableComparator<T extends Comparable<? super T>>
         implements Comparator<T> {
 
     /**
+     * Creates a new instance.
+     */
+    public ComparableComparator() {
+        super();
+    }
+
+    /**
      * An enum constants for ordering {@code null} references.
      */
     public enum Nulls {
@@ -95,41 +102,97 @@ public class ComparableComparator<T extends Comparable<? super T>>
         }
     }
 
+    /**
+     * Returns a new comparator for {@link Byte} values which handles {@code null} references with specified
+     * ordering.
+     *
+     * @param nulls the ordering for {@code null} references; may be {@code null}
+     * @return a new comparator for {@link Byte} values
+     */
     public static Comparator<Byte> byteComparator(final Nulls nulls) {
 
         return new ComparableComparator<Byte>().nulls(nulls);
     }
 
+    /**
+     * Returns a new comparator for {@link Short} values which handles {@code null} references with specified
+     * ordering.
+     *
+     * @param nulls the ordering for {@code null} references; may be {@code null}
+     * @return a new comparator for {@link Short} values
+     */
     public static Comparator<Short> shortComparator(final Nulls nulls) {
 
         return new ComparableComparator<Short>().nulls(nulls);
     }
 
+    /**
+     * Returns a new comparator for {@link Integer} values which handles {@code null} references with specified
+     * ordering.
+     *
+     * @param nulls the ordering for {@code null} references; may be {@code null}
+     * @return a new comparator for {@link Integer} values
+     */
     public static Comparator<Integer> integerComparator(final Nulls nulls) {
 
         return new ComparableComparator<Integer>().nulls(nulls);
     }
 
+    /**
+     * Returns a new comparator for {@link Long} values which handles {@code null} references with specified
+     * ordering.
+     *
+     * @param nulls the ordering for {@code null} references; may be {@code null}
+     * @return a new comparator for {@link Long} values
+     */
     public static Comparator<Long> longComparator(final Nulls nulls) {
 
         return new ComparableComparator<Long>().nulls(nulls);
     }
 
+    /**
+     * Returns a new comparator for {@link BigInteger} values which handles {@code null} references with specified
+     * ordering.
+     *
+     * @param nulls the ordering for {@code null} references; may be {@code null}
+     * @return a new comparator for {@link BigInteger} values
+     */
     public static Comparator<BigInteger> bigIntegerComparator(final Nulls nulls) {
 
         return new ComparableComparator<BigInteger>().nulls(nulls);
     }
 
+    /**
+     * Returns a new comparator for {@link Float} values which handles {@code null} references with specified
+     * ordering.
+     *
+     * @param nulls the ordering for {@code null} references; may be {@code null}
+     * @return a new comparator for {@link Float} values
+     */
     public static Comparator<Float> floatComparator(final Nulls nulls) {
 
         return new ComparableComparator<Float>().nulls(nulls);
     }
 
+    /**
+     * Returns a new comparator for {@link Double} values which handles {@code null} references with specified
+     * ordering.
+     *
+     * @param nulls the ordering for {@code null} references; may be {@code null}
+     * @return a new comparator for {@link Double} values
+     */
     public static Comparator<Double> doubleComparator(final Nulls nulls) {
 
         return new ComparableComparator<Double>().nulls(nulls);
     }
 
+    /**
+     * Returns a new comparator for {@link BigDecimal} values which handles {@code null} references with specified
+     * ordering.
+     *
+     * @param nulls the ordering for {@code null} references; may be {@code null}
+     * @return a new comparator for {@link BigDecimal} values
+     */
     public static Comparator<BigDecimal> bigDecimalComparator(final Nulls nulls) {
 
         return new ComparableComparator<BigDecimal>().nulls(nulls);

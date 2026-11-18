@@ -36,8 +36,16 @@ package com.github.jinahya.util;
  */
 
 /**
+ * A comparator for {@link Byte} values.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class ByteComparator extends NumberComparator<Byte> {
 
+    /**
+     * Creates a new instance.
+     */
+    public ByteComparator() {
+        super();
+    }
 }

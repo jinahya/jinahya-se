@@ -42,6 +42,8 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 
 /**
+ * A table model of {@link Locale#getAvailableLocales() available locales}.
+ *
  * @author Jin Kwon
  */
 public class LocaleTableModel extends AbstractTableModel {
@@ -109,6 +111,9 @@ public class LocaleTableModel extends AbstractTableModel {
         abstract Object getValueAt(Locale locale);
     }
 
+    /**
+     * Creates a new instance with all available locales as rows.
+     */
     public LocaleTableModel() {
 
         super();
@@ -142,7 +147,17 @@ public class LocaleTableModel extends AbstractTableModel {
         return columns.get(columnIndex).getValueAt(rows.get(rowIndex));
     }
 
+    /**
+     * The locales of rows.
+     *
+     * @serial
+     */
     private List<Locale> rows;
 
+    /**
+     * The columns.
+     *
+     * @serial
+     */
     private List<Column> columns;
 }

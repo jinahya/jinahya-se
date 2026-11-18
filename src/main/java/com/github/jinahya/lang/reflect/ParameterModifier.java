@@ -38,10 +38,15 @@ package com.github.jinahya.lang.reflect;
 import java.lang.reflect.Modifier;
 
 /**
+ * Constants for modifiers applicable to parameters.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum ParameterModifier implements ModifierFieldEnum<ParameterModifier> {
 
+    /**
+     * Constant for {@link Modifier#FINAL}({@value Modifier#FINAL}).
+     */
     FINAL(Modifier.FINAL); // 16
 
     private ParameterModifier(final int fieldValue) {

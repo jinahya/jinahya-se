@@ -197,6 +197,11 @@ public final class BitFace implements Serializable {
             return Objects.hash(value);
         }
 
+        /**
+         * Resolves the deserialized face into a cached instance with the same value.
+         *
+         * @return a cached instance with the same value as this face.
+         */
         private Object readResolve() {
             return of(value);
         }
@@ -255,6 +260,11 @@ public final class BitFace implements Serializable {
             return value;
         }
 
+        /**
+         * The value of this face.
+         *
+         * @serial
+         */
         private final long value;
     }
 
@@ -402,6 +412,11 @@ public final class BitFace implements Serializable {
         return Objects.hash(value);
     }
 
+    /**
+     * Resolves the deserialized face into a cached instance with the same value.
+     *
+     * @return a cached instance with the same value as this face.
+     */
     private Object readResolve() {
         return of(value);
     }
@@ -460,5 +475,10 @@ public final class BitFace implements Serializable {
         return value;
     }
 
+    /**
+     * The value of this face.
+     *
+     * @serial
+     */
     private final int value;
 }

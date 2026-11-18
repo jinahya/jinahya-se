@@ -40,6 +40,7 @@ public final class JinahyaLocks {
      * returns the result.
      *
      * @param <T>      lock type parameter
+     * @param <R>      result type parameter
      * @param lock     the lock to acquire.
      * @param function the function to be applied with the acquisition result.
      * @return the result of the {@code function}.
@@ -60,12 +61,32 @@ public final class JinahyaLocks {
         return function.apply(lock, Boolean.FALSE);
     }
 
+    /**
+     * {@link Lock#tryLock() Tries to acquire} specified lock, applies the acquisition result to specified function, and
+     * returns the {@code int} result.
+     *
+     * @param <T>      lock type parameter
+     * @param lock     the lock to acquire.
+     * @param function the function to be applied with the acquisition result.
+     * @return the result of the {@code function}.
+     * @see #tryLockAndApply(Lock, BiFunction)
+     */
     public static <T extends Lock> int tryLockAndApplyAsInt(
             final T lock, final ToIntBiFunction<? super T, ? super Boolean> function) {
         Objects.requireNonNull(function, "function is null");
         return tryLockAndApply(lock, function::applyAsInt);
     }
 
+    /**
+     * {@link Lock#tryLock() Tries to acquire} specified lock, applies the acquisition result to specified function, and
+     * returns the {@code long} result.
+     *
+     * @param <T>      lock type parameter
+     * @param lock     the lock to acquire.
+     * @param function the function to be applied with the acquisition result.
+     * @return the result of the {@code function}.
+     * @see #tryLockAndApply(Lock, BiFunction)
+     */
     public static <T extends Lock> long tryLockAndApplyAsLong(
             final T lock, final ToLongBiFunction<? super T, ? super Boolean> function) {
         Objects.requireNonNull(function, "function is null");
@@ -77,6 +98,7 @@ public final class JinahyaLocks {
      * acquisition result to specified function, and returns the result.
      *
      * @param <T>      lock type parameter
+     * @param <R>      result type parameter
      * @param lock     the lock to acquire.
      * @param time     the maximum time to wait for the lock.
      * @param unit     the time unit of the time argument

@@ -27,6 +27,12 @@ import java.time.temporal.Temporal;
 import java.util.Objects;
 import java.util.function.Function;
 
+/**
+ * Represents a slice, between an inclusive start and an exclusive end, of a temporal range.
+ *
+ * @param <T> temporal type parameter
+ * @see TemporalSlicer
+ */
 public final class TemporalSlice<T extends Temporal & Comparable<? super T>> {
 
     static <T extends Temporal & Comparable<? super T>> TemporalSlice<T> of(
@@ -72,19 +78,42 @@ public final class TemporalSlice<T extends Temporal & Comparable<? super T>> {
                + '}';
     }
 
+    /**
+     * Returns a period between the start and the end of this slice.
+     *
+     * @param mapper a function for mapping each of the start and the end to a local date.
+     * @return a period between the start and the end of this slice.
+     * @see Period#between(LocalDate, LocalDate)
+     */
     public Period toPeriod(final Function<? super T, LocalDate> mapper) {
         Objects.requireNonNull(mapper, "mapper is null");
         return Period.between(mapper.apply(startInclusive), mapper.apply(endExclusive));
     }
 
+    /**
+     * Returns a duration between the start and the end of this slice.
+     *
+     * @return a duration between the start and the end of this slice.
+     * @see Duration#between(Temporal, Temporal)
+     */
     public Duration toDuration() {
         return Duration.between(startInclusive, endExclusive);
     }
 
+    /**
+     * Returns the start, inclusive, of this slice.
+     *
+     * @return the start, inclusive, of this slice.
+     */
     public T getStartInclusive() {
         return startInclusive;
     }
 
+    /**
+     * Returns the end, exclusive, of this slice.
+     *
+     * @return the end, exclusive, of this slice.
+     */
     public T getEndExclusive() {
         return endExclusive;
     }

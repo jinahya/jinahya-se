@@ -37,13 +37,30 @@ package com.github.jinahya.lang.reflect;
 
 import java.lang.reflect.Modifier;
 
+/**
+ * Utilities for modifiers.
+ */
 public final class Modifiers {
 
+    /**
+     * Checks whether all of specified modifiers are applicable to classs.
+     *
+     * @param modifiers the modifiers to check.
+     * @return {@code true} if all of {@code modifiers} are applicable to classs; {@code false} otherwise.
+     */
     public static boolean isClassModifiers(final int modifiers) {
 
         return (Modifier.classModifiers() & modifiers) == modifiers;
     }
 
+    /**
+     * Checks that all of specified modifiers are applicable to classs.
+     *
+     * @param modifiers the modifiers to check.
+     * @return given {@code modifiers}.
+     * @throws IllegalArgumentException if any of {@code modifiers} is not applicable to classs.
+     * @see #isClassModifiers(int)
+     */
     public static int requireClassModifiers(final int modifiers) {
 
         if (!isClassModifiers(modifiers)) {
@@ -54,11 +71,25 @@ public final class Modifiers {
         return modifiers;
     }
 
+    /**
+     * Checks whether all of specified modifiers are applicable to fields.
+     *
+     * @param modifiers the modifiers to check.
+     * @return {@code true} if all of {@code modifiers} are applicable to fields; {@code false} otherwise.
+     */
     public static boolean isFieldModifiers(final int modifiers) {
 
         return (Modifier.fieldModifiers() & modifiers) == modifiers;
     }
 
+    /**
+     * Checks that all of specified modifiers are applicable to fields.
+     *
+     * @param modifiers the modifiers to check.
+     * @return given {@code modifiers}.
+     * @throws IllegalArgumentException if any of {@code modifiers} is not applicable to fields.
+     * @see #isFieldModifiers(int)
+     */
     public static int requireFieldModifiers(final int modifiers) {
 
         if (!isFieldModifiers(modifiers)) {
@@ -69,11 +100,25 @@ public final class Modifiers {
         return modifiers;
     }
 
+    /**
+     * Checks whether all of specified modifiers are applicable to interfaces.
+     *
+     * @param modifiers the modifiers to check.
+     * @return {@code true} if all of {@code modifiers} are applicable to interfaces; {@code false} otherwise.
+     */
     public static boolean isInterfaceModifiers(final int modifiers) {
 
         return (Modifier.fieldModifiers() & modifiers) == modifiers;
     }
 
+    /**
+     * Checks that all of specified modifiers are applicable to interfaces.
+     *
+     * @param modifiers the modifiers to check.
+     * @return given {@code modifiers}.
+     * @throws IllegalArgumentException if any of {@code modifiers} is not applicable to interfaces.
+     * @see #isInterfaceModifiers(int)
+     */
     public static int requireInterfaceModifiers(final int modifiers) {
 
         if (!isInterfaceModifiers(modifiers)) {
@@ -84,11 +129,25 @@ public final class Modifiers {
         return modifiers;
     }
 
+    /**
+     * Checks whether all of specified modifiers are applicable to methods.
+     *
+     * @param modifiers the modifiers to check.
+     * @return {@code true} if all of {@code modifiers} are applicable to methods; {@code false} otherwise.
+     */
     public static boolean isMethodModifiers(final int modifiers) {
 
         return (Modifier.fieldModifiers() & modifiers) == modifiers;
     }
 
+    /**
+     * Checks that all of specified modifiers are applicable to methods.
+     *
+     * @param modifiers the modifiers to check.
+     * @return given {@code modifiers}.
+     * @throws IllegalArgumentException if any of {@code modifiers} is not applicable to methods.
+     * @see #isMethodModifiers(int)
+     */
     public static int requireMethodModifiers(final int modifiers) {
 
         if (!isMethodModifiers(modifiers)) {

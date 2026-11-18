@@ -44,28 +44,64 @@ import java.util.Calendar;
  */
 public enum CalendarMonth implements CalendarIntFieldEnum<CalendarMonth> {
 
+    /**
+     * Constant for {@link Calendar#JANUARY}.
+     */
     JANUARY(Calendar.JANUARY), // 0
 
+    /**
+     * Constant for {@link Calendar#FEBRUARY}.
+     */
     FEBRUARY(Calendar.FEBRUARY), // 1
 
+    /**
+     * Constant for {@link Calendar#MARCH}.
+     */
     MARCH(Calendar.MARCH), // 2
 
+    /**
+     * Constant for {@link Calendar#APRIL}.
+     */
     APRIL(Calendar.APRIL), // 3
 
+    /**
+     * Constant for {@link Calendar#MAY}.
+     */
     MAY(Calendar.MAY), // 4
 
+    /**
+     * Constant for {@link Calendar#JUNE}.
+     */
     JUNE(Calendar.JUNE), // 5
 
+    /**
+     * Constant for {@link Calendar#JULY}.
+     */
     JULY(Calendar.JULY), // 6
 
+    /**
+     * Constant for {@link Calendar#AUGUST}.
+     */
     AUGUST(Calendar.AUGUST), // 7
 
+    /**
+     * Constant for {@link Calendar#SEPTEMBER}.
+     */
     SEPTEMBER(Calendar.SEPTEMBER), // 8
 
+    /**
+     * Constant for {@link Calendar#OCTOBER}.
+     */
     OCTOBER(Calendar.OCTOBER), // 9
 
+    /**
+     * Constant for {@link Calendar#NOVEMBER}.
+     */
     NOVEMBER(Calendar.NOVEMBER), // 10
 
+    /**
+     * Constant for {@link Calendar#DECEMBER}.
+     */
     DECEMBER(Calendar.DECEMBER); // 11
 
     //UNDECIMBER(Calendar.UNDECIMBER); // 12
@@ -77,6 +113,13 @@ public enum CalendarMonth implements CalendarIntFieldEnum<CalendarMonth> {
      */
     public static final int CALENDAR_FIELD = Calendar.MONTH;
 
+    /**
+     * Returns the constant matching the {@link Calendar#MONTH} field value of specified calendar.
+     *
+     * @param calendar the calendar whose month is read.
+     * @return the constant matching the month of {@code calendar}.
+     * @throws NullPointerException if {@code calendar} is {@code null}.
+     */
     public static CalendarMonth fromCalendar(final Calendar calendar) {
 
         return CalendarIntFieldEnum.fromCalendar(

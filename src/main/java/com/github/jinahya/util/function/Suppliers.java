@@ -40,10 +40,20 @@ import java.util.List;
 import java.util.function.Supplier;
 
 /**
+ * Utilities for {@link Supplier}.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class Suppliers {
 
+    /**
+     * Returns a supplier which caches the result of the first invocation of specified supplier and returns it for all
+     * subsequent invocations.
+     *
+     * @param <T>     the type of results supplied by specified supplier.
+     * @param wrappee the supplier whose result is cached.
+     * @return a supplier which caches the result of {@code wrappee}.
+     */
     public static <T> Supplier<T> cacheable(final Supplier<T> wrappee) {
 
         final List<T> holder = new ArrayList<>(1);
@@ -70,11 +80,24 @@ public final class Suppliers {
         return supplier;
     }
 
+    /**
+     * Returns a supplier which always supplies specified value.
+     *
+     * @param <T>      the type of the value.
+     * @param supplied the value to supply; may be {@code null}.
+     * @return a supplier which always supplies {@code supplied}.
+     */
     public static <T> Supplier<T> supplying(final T supplied) {
 
         return of(() -> supplied);
     }
 
+    /**
+     * Returns a supplier which always supplies {@code null}.
+     *
+     * @param <T> the type of results supplied.
+     * @return a supplier which always supplies {@code null}.
+     */
     public static <T> Supplier<T> supplyingNull() {
 
         return supplying(null);

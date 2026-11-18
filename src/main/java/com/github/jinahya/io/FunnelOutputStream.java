@@ -57,6 +57,12 @@ public class FunnelOutputStream
         super(out);
     }
 
+    /**
+     * Notifies that specified byte has been written to the underlying output stream. The default implementation does
+     * nothing.
+     *
+     * @param b the byte written.
+     */
     protected void written(final int b) {
         // does nothing
     }

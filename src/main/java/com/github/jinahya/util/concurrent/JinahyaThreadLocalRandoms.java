@@ -40,16 +40,34 @@ import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 
 /**
+ * A utility class for generating streams of pseudorandom values using {@link ThreadLocalRandom}.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class JinahyaThreadLocalRandoms {
 
+    /**
+     * Returns an effectively unlimited stream of pseudorandom {@code float} values, each between zero (inclusive) and
+     * one (exclusive).
+     *
+     * @return a stream of pseudorandom {@code float} values.
+     * @see ThreadLocalRandom#doubles()
+     */
     public static DoubleStream floats() {
         return ThreadLocalRandom.current()
                 .doubles()
                 .map(d -> (float) d);
     }
 
+    /**
+     * Returns an effectively unlimited stream of pseudorandom {@code float} values, each conforming to specified origin
+     * (inclusive) and bound (exclusive).
+     *
+     * @param randomNumberOrigin the origin (inclusive) of each random value.
+     * @param randomNumberBound  the bound (exclusive) of each random value.
+     * @return a stream of pseudorandom {@code float} values.
+     * @see ThreadLocalRandom#doubles(double, double)
+     */
     public static DoubleStream floats(final float randomNumberOrigin,
                                       final float randomNumberBound) {
 
@@ -58,6 +76,14 @@ public class JinahyaThreadLocalRandoms {
                 .map(d -> (float) d);
     }
 
+    /**
+     * Returns a stream producing specified number of pseudorandom {@code float} values, each between zero (inclusive)
+     * and one (exclusive).
+     *
+     * @param streamSize the number of values to generate.
+     * @return a stream of pseudorandom {@code float} values.
+     * @see ThreadLocalRandom#doubles(long)
+     */
     public static DoubleStream floats(final long streamSize) {
 
         return ThreadLocalRandom.current()
@@ -65,6 +91,16 @@ public class JinahyaThreadLocalRandoms {
                 .map(d -> (float) d);
     }
 
+    /**
+     * Returns a stream producing specified number of pseudorandom {@code float} values, each conforming to specified
+     * origin (inclusive) and bound (exclusive).
+     *
+     * @param streamSize         the number of values to generate.
+     * @param randomNumberOrigin the origin (inclusive) of each random value.
+     * @param randomNumberBound  the bound (exclusive) of each random value.
+     * @return a stream of pseudorandom {@code float} values.
+     * @see ThreadLocalRandom#doubles(long, double, double)
+     */
     public static DoubleStream floats(final long streamSize,
                                       final float randomNumberOrigin,
                                       final float randomNumberBound) {
@@ -75,6 +111,8 @@ public class JinahyaThreadLocalRandoms {
     }
 
     /**
+     * Returns an effectively unlimited stream of pseudorandom {@code byte} values.
+     *
      * @return a stream of pseudorandom byte values
      * @see ThreadLocalRandom#ints()
      */
@@ -85,6 +123,15 @@ public class JinahyaThreadLocalRandoms {
                 .map(i -> (byte) i);
     }
 
+    /**
+     * Returns an effectively unlimited stream of pseudorandom {@code byte} values, each conforming to specified origin
+     * (inclusive) and bound (exclusive).
+     *
+     * @param randomNumberOrigin the origin (inclusive) of each random value.
+     * @param randomNumberBound  the bound (exclusive) of each random value.
+     * @return a stream of pseudorandom {@code byte} values.
+     * @see ThreadLocalRandom#ints(int, int)
+     */
     public static IntStream bytes(final byte randomNumberOrigin,
                                   final byte randomNumberBound) {
 
@@ -93,6 +140,13 @@ public class JinahyaThreadLocalRandoms {
                 .map(i -> (byte) i);
     }
 
+    /**
+     * Returns a stream producing specified number of pseudorandom {@code byte} values.
+     *
+     * @param streamSize the number of values to generate.
+     * @return a stream of pseudorandom {@code byte} values.
+     * @see ThreadLocalRandom#ints(long)
+     */
     public static IntStream bytes(final long streamSize) {
 
         return ThreadLocalRandom.current()
@@ -100,6 +154,16 @@ public class JinahyaThreadLocalRandoms {
                 .map(i -> (byte) i);
     }
 
+    /**
+     * Returns a stream producing specified number of pseudorandom {@code byte} values, each conforming to specified
+     * origin (inclusive) and bound (exclusive).
+     *
+     * @param streamSize         the number of values to generate.
+     * @param randomNumberOrigin the origin (inclusive) of each random value.
+     * @param randomNumberBound  the bound (exclusive) of each random value.
+     * @return a stream of pseudorandom {@code byte} values.
+     * @see ThreadLocalRandom#ints(long, int, int)
+     */
     public static IntStream bytes(final long streamSize,
                                   final byte randomNumberOrigin,
                                   final byte randomNumberBound) {

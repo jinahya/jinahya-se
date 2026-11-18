@@ -69,6 +69,17 @@ public class JinahyaBeansUtils2 {
         );
     }
 
+    /**
+     * Accepts each property descriptor of the class of specified bean to a consumer resulted by applying specified bean
+     * and specified attachment to specified function.
+     *
+     * @param <T>        bean type parameter
+     * @param <A>        attachment type parameter
+     * @param bean       the bean whose property descriptors are accepted.
+     * @param attachment an attachment; may be {@code null}.
+     * @param function   the function which results a consumer for each property descriptor.
+     * @throws IntrospectionException if an exception occurs during introspection.
+     */
     @SuppressWarnings({
             "unchecked"
     })
@@ -143,6 +154,17 @@ public class JinahyaBeansUtils2 {
         );
     }
 
+    /**
+     * Accepts the value of each property, declared by the class of specified bean, to a consumer resulted by applying
+     * specified bean, specified attachment, and the property descriptor to specified function.
+     *
+     * @param <T>        bean type parameter
+     * @param <A>        attachment type parameter
+     * @param bean       the bean whose property values are accepted.
+     * @param attachment an attachment; may be {@code null}.
+     * @param function   the function which results a consumer for each property value.
+     * @throws IntrospectionException if an exception occurs during introspection.
+     */
     @SuppressWarnings({
             "unchecked"
     })

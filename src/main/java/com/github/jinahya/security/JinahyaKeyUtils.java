@@ -30,8 +30,19 @@ import java.security.spec.EncodedKeySpec;
 import java.util.Objects;
 import java.util.function.Function;
 
+/**
+ * A utility class for {@link Key}.
+ */
 public final class JinahyaKeyUtils {
 
+    /**
+     * Writes the encoded form of specified key to specified path.
+     *
+     * @param key          the key to write.
+     * @param specFunction a function which creates an encoded key spec from the encoded form of the {@code key}.
+     * @param path         the path to which the encoded key is written.
+     * @throws IOException if an I/O error occurs.
+     */
     public static void writeEncoded(
             final Key key, final Function<? super byte[], ? extends EncodedKeySpec> specFunction,
             final Path path)
@@ -45,6 +56,16 @@ public final class JinahyaKeyUtils {
         Files.write(path, encodedKey);
     }
 
+    /**
+     * Reads an encoded key from specified path.
+     *
+     * @param <K>          key type parameter
+     * @param path         the path from which the encoded key is read.
+     * @param specFunction a function which creates an encoded key spec from bytes read.
+     * @param keyFunction  a function which creates a key from the encoded key spec.
+     * @return the key read.
+     * @throws IOException if an I/O error occurs.
+     */
     public static <K extends Key> K readEncoded(
             final Path path,
             final Function<? super byte[], ? extends EncodedKeySpec> specFunction,

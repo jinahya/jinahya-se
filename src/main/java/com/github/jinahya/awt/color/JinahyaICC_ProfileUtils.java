@@ -36,11 +36,21 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Utilities for {@link ICC_Profile} class.
+ */
 @SuppressWarnings({
         "java:S101" // JinahyaICC_...
 })
 public final class JinahyaICC_ProfileUtils {
 
+    /**
+     * Returns the name of the {@code CLASS_} field, defined in {@link ICC_Profile} class, whose value equals to
+     * specified value.
+     *
+     * @param profileClass the profile class value to match.
+     * @return the name of the matching {@code CLASS_} field; {@code null} when no field matches.
+     */
     public static String nameOfProfileClass(final int profileClass) {
         return Arrays.stream(ICC_Profile.class.getFields())
                 .filter(f -> {
@@ -62,6 +72,14 @@ public final class JinahyaICC_ProfileUtils {
                 ;
     }
 
+    /**
+     * Returns the name of the {@code CLASS_} field, defined in {@link ICC_Profile} class, whose value equals to the
+     * {@link ICC_Profile#getProfileClass() profile class} of specified profile.
+     *
+     * @param iccProfile the profile whose profile class is matched.
+     * @return the name of the matching {@code CLASS_} field; {@code null} when no field matches.
+     * @see #nameOfProfileClass(int)
+     */
     public static String nameOfProfileClass(final ICC_Profile iccProfile) {
         Objects.requireNonNull(iccProfile, "iccProfile is null");
         return nameOfProfileClass(iccProfile.getProfileClass());
@@ -129,6 +147,7 @@ public final class JinahyaICC_ProfileUtils {
     /**
      * Returns all installed {@link ICC_Profile}s.
      *
+     * @return a list of installed {@link ICC_Profile}s; empty when the platform is not supported.
      * @see <a href="https://mrserge.lv/2023/how-to-install-icc-profiles-on-pc-and-mac-and-where-to-find-them/">How to
      * install ICC profiles on PC and MAC and where to find them</a>
      */

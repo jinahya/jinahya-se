@@ -37,12 +37,24 @@ public enum JinahyaColorSpaceCs
      */
     CS_CIEXYZ(ColorSpace.CS_CIEXYZ),
 
+    /**
+     * Constant for {@link ColorSpace#CS_GRAY}({@value ColorSpace#CS_GRAY}).
+     */
     CS_GRAY(ColorSpace.CS_GRAY),
 
+    /**
+     * Constant for {@link ColorSpace#CS_LINEAR_RGB}({@value ColorSpace#CS_LINEAR_RGB}).
+     */
     CS_LINEAR_RGB(ColorSpace.CS_LINEAR_RGB),
 
+    /**
+     * Constant for {@link ColorSpace#CS_PYCC}({@value ColorSpace#CS_PYCC}).
+     */
     CS_PYCC(ColorSpace.CS_PYCC),
 
+    /**
+     * Constant for {@link ColorSpace#CS_sRGB}({@value ColorSpace#CS_sRGB}).
+     */
     CS_sRGB(ColorSpace.CS_sRGB),
     ;
 

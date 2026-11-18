@@ -38,18 +38,55 @@ package com.github.jinahya.lang.reflect;
 import java.lang.reflect.Modifier;
 
 /**
+ * Constants for modifiers applicable to methods.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum MethodModifier implements ModifierFieldEnum<MethodModifier> {
 
+    /**
+     * Constant for {@link Modifier#PUBLIC}({@value Modifier#PUBLIC}).
+     */
     PUBLIC(Modifier.PUBLIC), // 1
+
+    /**
+     * Constant for {@link Modifier#PRIVATE}({@value Modifier#PRIVATE}).
+     */
     PRIVATE(Modifier.PRIVATE),//2
+
+    /**
+     * Constant for {@link Modifier#PROTECTED}({@value Modifier#PROTECTED}).
+     */
     PROTECTED(Modifier.PROTECTED), // 4
+
+    /**
+     * Constant for {@link Modifier#STATIC}({@value Modifier#STATIC}).
+     */
     STATIC(Modifier.STATIC), // 8
+
+    /**
+     * Constant for {@link Modifier#FINAL}({@value Modifier#FINAL}).
+     */
     FINAL(Modifier.FINAL), // 16
+
+    /**
+     * Constant for {@link Modifier#SYNCHRONIZED}({@value Modifier#SYNCHRONIZED}).
+     */
     SYNCHRONIZED(Modifier.SYNCHRONIZED), //32
+
+    /**
+     * Constant for {@link Modifier#NATIVE}({@value Modifier#NATIVE}).
+     */
     NATIVE(Modifier.NATIVE), // 256
+
+    /**
+     * Constant for {@link Modifier#ABSTRACT}({@value Modifier#ABSTRACT}).
+     */
     ABSTRACT(Modifier.ABSTRACT), // 1024
+
+    /**
+     * Constant for {@link Modifier#STRICT}({@value Modifier#STRICT}).
+     */
     STRICT(Modifier.STRICT); // 2048
 
     private MethodModifier(final int fieldValue) {

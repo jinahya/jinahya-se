@@ -26,6 +26,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * A utility class for {@link StandardCharsets}.
+ */
 public final class JinahyaStandardCharsets {
 
     /**

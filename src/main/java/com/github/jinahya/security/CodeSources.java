@@ -44,16 +44,34 @@ import static java.util.Objects.requireNonNull;
 import static java.util.Optional.ofNullable;
 
 /**
+ * A utility class for {@link CodeSource}.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class CodeSources {
 
+    /**
+     * Returns the location of the code source of specified protection domain.
+     *
+     * @param domain the protection domain.
+     * @return an optional of the location; empty if the code source or its location is not available.
+     * @see ProtectionDomain#getCodeSource()
+     * @see CodeSource#getLocation()
+     */
     public static Optional<URL> getLocation(final ProtectionDomain domain) {
 
         return ofNullable(requireNonNull(domain, "null domain").getCodeSource())
                 .map(CodeSource::getLocation);
     }
 
+    /**
+     * Returns the location of the code source of specified class.
+     *
+     * @param klass the class.
+     * @return an optional of the location; empty if the code source or its location is not available.
+     * @see Class#getProtectionDomain()
+     * @see #getLocation(ProtectionDomain)
+     */
     public static Optional<URL> getLocation(final Class<?> klass) {
 
         return getLocation(

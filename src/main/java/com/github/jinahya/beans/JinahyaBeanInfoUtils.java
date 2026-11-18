@@ -26,6 +26,9 @@ import java.beans.PropertyDescriptor;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+/**
+ * A utility class for {@link java.beans.BeanInfo}.
+ */
 public final class JinahyaBeanInfoUtils {
 
     /**

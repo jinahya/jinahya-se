@@ -38,8 +38,16 @@ package com.github.jinahya.util;
 import java.math.BigDecimal;
 
 /**
+ * A comparator for {@link java.math.BigDecimal} values.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class BigDecimalComparator extends NumberComparator<BigDecimal> {
 
+    /**
+     * Creates a new instance.
+     */
+    public BigDecimalComparator() {
+        super();
+    }
 }

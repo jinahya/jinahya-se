@@ -36,8 +36,16 @@ package com.github.jinahya.util;
  */
 
 /**
+ * A comparator for {@link Short} values.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class ShortComparator extends NumberComparator<Short> {
 
+    /**
+     * Creates a new instance.
+     */
+    public ShortComparator() {
+        super();
+    }
 }

@@ -95,6 +95,13 @@ public enum CalendarDayOfWeek implements CalendarIntFieldEnum<CalendarDayOfWeek>
 //        return FieldEnums.fromFieldValue(
 //            CalendarDayOfWeek.class, fieldValue);
 //    }
+    /**
+     * Returns the constant matching the {@link Calendar#DAY_OF_WEEK} field value of specified calendar.
+     *
+     * @param calendar the calendar whose day of week is read.
+     * @return the constant matching the day of week of {@code calendar}.
+     * @throws NullPointerException if {@code calendar} is {@code null}.
+     */
     public static CalendarDayOfWeek fromCalendar(final Calendar calendar) {
 
         return CalendarIntFieldEnum.fromCalendar(CalendarDayOfWeek.class, calendar,

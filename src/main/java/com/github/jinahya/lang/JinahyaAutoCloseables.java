@@ -59,6 +59,18 @@ public final class JinahyaAutoCloseables {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Creates a proxy of {@link AutoCloseable}, defined by specified class loader, which delegates to specified
+     * closeable except that the {@link AutoCloseable#close()} method throws an
+     * {@link UnsupportedOperationException}.
+     *
+     * @param <T>       closeable type parameter
+     * @param loader    the class loader to define the proxy.
+     * @param closeable the closeable to delegate to.
+     * @return a proxy of {@code closeable} which is not closeable.
+     * @throws NullPointerException if {@code closeable} is {@code null}.
+     */
     @SuppressWarnings({"unchecked"})
     public static <T extends AutoCloseable> T uncloseable(final ClassLoader loader, final T closeable) {
         if (closeable == null) {
@@ -75,6 +87,17 @@ public final class JinahyaAutoCloseables {
                 });
     }
 
+    /**
+     * Creates a proxy of {@link AutoCloseable}, defined by the class loader of specified closeable's class, which
+     * delegates to specified closeable except that the {@link AutoCloseable#close()} method throws an
+     * {@link UnsupportedOperationException}.
+     *
+     * @param <T>       closeable type parameter
+     * @param closeable the closeable to delegate to.
+     * @return a proxy of {@code closeable} which is not closeable.
+     * @throws NullPointerException if {@code closeable} is {@code null}.
+     * @see #uncloseable(ClassLoader, AutoCloseable)
+     */
     public static <T extends AutoCloseable> T uncloseable(final T closeable) {
         if (closeable == null) {
             throw new NullPointerException("closeable is null");

@@ -24,6 +24,9 @@ import java.util.function.Predicate;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Utilities for {@link Class}es.
+ */
 public abstract class JinahyaClasses {
 
     /**
@@ -46,6 +49,9 @@ public abstract class JinahyaClasses {
         }
     }
 
+    /**
+     * Creates a new instance.
+     */
     protected JinahyaClasses() {
         super();
     }

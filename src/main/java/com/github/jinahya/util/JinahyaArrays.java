@@ -36,10 +36,18 @@ package com.github.jinahya.util;
  */
 
 /**
+ * Utilities for arrays.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class JinahyaArrays {
 
+    /**
+     * Reverses the order of elements in specified {@code short} array in place.
+     *
+     * @param a the array to reverse.
+     * @throws NullPointerException if {@code a} is {@code null}.
+     */
     public static void reverse(final short[] a) {
 
         final int h = a.length / 2;
@@ -50,6 +58,12 @@ public class JinahyaArrays {
         }
     }
 
+    /**
+     * Reverses the order of elements in specified {@code boolean} array in place.
+     *
+     * @param a the array to reverse.
+     * @throws NullPointerException if {@code a} is {@code null}.
+     */
     public static void reverse(final boolean[] a) {
 
         final int h = a.length / 2;
@@ -60,6 +74,12 @@ public class JinahyaArrays {
         }
     }
 
+    /**
+     * Reverses the order of elements in specified {@code byte} array in place.
+     *
+     * @param a the array to reverse.
+     * @throws NullPointerException if {@code a} is {@code null}.
+     */
     public static void reverse(final byte[] a) {
 
         final int h = a.length / 2;
@@ -70,6 +90,12 @@ public class JinahyaArrays {
         }
     }
 
+    /**
+     * Reverses the order of elements in specified {@code char} array in place.
+     *
+     * @param a the array to reverse.
+     * @throws NullPointerException if {@code a} is {@code null}.
+     */
     public static void reverse(final char[] a) {
 
         final int h = a.length / 2;
@@ -80,6 +106,12 @@ public class JinahyaArrays {
         }
     }
 
+    /**
+     * Reverses the order of elements in specified {@code double} array in place.
+     *
+     * @param a the array to reverse.
+     * @throws NullPointerException if {@code a} is {@code null}.
+     */
     public static void reverse(final double[] a) {
 
         final int h = a.length / 2;
@@ -90,6 +122,12 @@ public class JinahyaArrays {
         }
     }
 
+    /**
+     * Reverses the order of elements in specified {@code float} array in place.
+     *
+     * @param a the array to reverse.
+     * @throws NullPointerException if {@code a} is {@code null}.
+     */
     public static void reverse(final float[] a) {
 
         final int h = a.length / 2;
@@ -100,6 +138,12 @@ public class JinahyaArrays {
         }
     }
 
+    /**
+     * Reverses the order of elements in specified {@code int} array in place.
+     *
+     * @param a the array to reverse.
+     * @throws NullPointerException if {@code a} is {@code null}.
+     */
     public static void reverse(final int[] a) {
 
         final int h = a.length / 2;
@@ -110,6 +154,12 @@ public class JinahyaArrays {
         }
     }
 
+    /**
+     * Reverses the order of elements in specified {@code long} array in place.
+     *
+     * @param a the array to reverse.
+     * @throws NullPointerException if {@code a} is {@code null}.
+     */
     public static void reverse(final long[] a) {
 
         final int h = a.length / 2;
@@ -120,6 +170,12 @@ public class JinahyaArrays {
         }
     }
 
+    /**
+     * Reverses the order of elements in specified {@code Object} array in place.
+     *
+     * @param a the array to reverse.
+     * @throws NullPointerException if {@code a} is {@code null}.
+     */
     public static void reverse(final Object[] a) {
 
         final int h = a.length / 2;

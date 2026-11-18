@@ -36,8 +36,16 @@ package com.github.jinahya.util;
  */
 
 /**
+ * A comparator for {@link Long} values.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class LongComparator extends NumberComparator<Long> {
 
+    /**
+     * Creates a new instance.
+     */
+    public LongComparator() {
+        super();
+    }
 }

@@ -58,6 +58,12 @@ public class FunnelInputStream
         super(in);
     }
 
+    /**
+     * Notifies that specified byte has been read from the underlying input stream. The default implementation does
+     * nothing.
+     *
+     * @param b the byte read; {@code -1} if the end of the stream has been reached.
+     */
     protected void read(final int b) {
         // does nothing
     }

@@ -31,10 +31,21 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.function.Function;
 
+/**
+ * A utility class for {@link PrivateKey}.
+ */
 public final class JinahyaPrivateKeyUtils {
 
     private static final Function<byte[], EncodedKeySpec> PKCS8 = PKCS8EncodedKeySpec::new;
 
+    /**
+     * Writes the encoded form of specified private key to specified path.
+     *
+     * @param key      the private key to write.
+     * @param function a function which creates an encoded key spec from the encoded form of the {@code key}.
+     * @param path     the path to which the encoded key is written.
+     * @throws IOException if an I/O error occurs.
+     */
     public static void writeEncoded(
             final PrivateKey key,
             final Function<? super byte[], ? extends EncodedKeySpec> function,
@@ -43,11 +54,27 @@ public final class JinahyaPrivateKeyUtils {
         JinahyaKeyUtils.writeEncoded(key, function, path);
     }
 
+    /**
+     * Writes the encoded form of specified private key to specified path using {@link PKCS8EncodedKeySpec}.
+     *
+     * @param key  the private key to write.
+     * @param path the path to which the encoded key is written.
+     * @throws IOException if an I/O error occurs.
+     */
     public static void writeEncoded(final PrivateKey key, final Path path)
             throws IOException {
         writeEncoded(key, PKCS8, path);
     }
 
+    /**
+     * Reads an encoded private key from specified path.
+     *
+     * @param path     the path from which the encoded key is read.
+     * @param function a function which creates an encoded key spec from bytes read.
+     * @param factory  a key factory for generating the private key.
+     * @return the private key read.
+     * @throws IOException if an I/O error occurs.
+     */
     public static PrivateKey readEncoded(
             final Path path, final Function<? super byte[], ? extends EncodedKeySpec> function,
             final KeyFactory factory)
@@ -68,6 +95,14 @@ public final class JinahyaPrivateKeyUtils {
         );
     }
 
+    /**
+     * Reads a {@link PKCS8EncodedKeySpec}-encoded private key from specified path.
+     *
+     * @param path    the path from which the encoded key is read.
+     * @param factory a key factory for generating the private key.
+     * @return the private key read.
+     * @throws IOException if an I/O error occurs.
+     */
     public static PrivateKey readEncoded(final Path path, final KeyFactory factory)
             throws IOException {
         return readEncoded(path, PKCS8, factory);

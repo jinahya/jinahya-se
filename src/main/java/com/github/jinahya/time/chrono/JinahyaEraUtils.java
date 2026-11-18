@@ -27,8 +27,20 @@ import java.util.Objects;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+/**
+ * A utility class for {@link Era}.
+ */
 public final class JinahyaEraUtils {
 
+    /**
+     * Returns a stream of fields, among specified fields, which are supported by specified era.
+     *
+     * @param <T>    field type parameter
+     * @param era    the era.
+     * @param fields the fields to filter.
+     * @return a stream of fields supported by {@code era}.
+     * @see Era#isSupported(TemporalField)
+     */
     public static <T extends TemporalField> Stream<T> filterSupported(final Era era, final Iterable<T> fields) {
         Objects.requireNonNull(era, "era is null");
         Objects.requireNonNull(fields, "fields is null");
@@ -36,6 +48,14 @@ public final class JinahyaEraUtils {
                 .filter(era::isSupported);
     }
 
+    /**
+     * Returns a stream of constants, of specified enum class, which are supported by specified era.
+     *
+     * @param <T>       field type parameter
+     * @param era       the era.
+     * @param enumClass the enum class of fields.
+     * @return a stream of constants of {@code enumClass} supported by {@code era}.
+     */
     public static <T extends Enum<T> & TemporalField> Stream<T> filterSupported(final Era era,
                                                                                 final Class<T> enumClass) {
         Objects.requireNonNull(era, "era is null");

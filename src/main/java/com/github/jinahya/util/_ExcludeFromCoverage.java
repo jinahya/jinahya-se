@@ -25,9 +25,17 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Indicates that the annotated element is excluded from code coverage.
+ */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.TYPE, ElementType.CONSTRUCTOR, ElementType.METHOD})
 public @interface _ExcludeFromCoverage {
 
+    /**
+     * Returns the reason for the exclusion.
+     *
+     * @return the reason for the exclusion.
+     */
     String value();
 }

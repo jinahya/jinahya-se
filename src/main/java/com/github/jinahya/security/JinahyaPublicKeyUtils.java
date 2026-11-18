@@ -31,10 +31,21 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.function.Function;
 
+/**
+ * A utility class for {@link PublicKey}.
+ */
 public final class JinahyaPublicKeyUtils {
 
     private static final Function<byte[], EncodedKeySpec> X509 = X509EncodedKeySpec::new;
 
+    /**
+     * Writes the encoded form of specified public key to specified path.
+     *
+     * @param key      the public key to write.
+     * @param function a function which creates an encoded key spec from the encoded form of the {@code key}.
+     * @param path     the path to which the encoded key is written.
+     * @throws IOException if an I/O error occurs.
+     */
     public static void writeEncoded(
             final PublicKey key, final Function<? super byte[], ? extends EncodedKeySpec> function,
             final Path path)
@@ -42,11 +53,27 @@ public final class JinahyaPublicKeyUtils {
         JinahyaKeyUtils.writeEncoded(key, function, path);
     }
 
+    /**
+     * Writes the encoded form of specified public key to specified path using {@link X509EncodedKeySpec}.
+     *
+     * @param key  the public key to write.
+     * @param path the path to which the encoded key is written.
+     * @throws IOException if an I/O error occurs.
+     */
     public static void writeEncoded(final PublicKey key, final Path path)
             throws IOException {
         writeEncoded(key, X509, path);
     }
 
+    /**
+     * Reads an encoded public key from specified path.
+     *
+     * @param path     the path from which the encoded key is read.
+     * @param function a function which creates an encoded key spec from bytes read.
+     * @param factory  a key factory for generating the public key.
+     * @return the public key read.
+     * @throws IOException if an I/O error occurs.
+     */
     public static PublicKey readEncoded(
             final Path path, final Function<? super byte[], ? extends EncodedKeySpec> function,
             final KeyFactory factory)
@@ -67,6 +94,14 @@ public final class JinahyaPublicKeyUtils {
         );
     }
 
+    /**
+     * Reads a {@link X509EncodedKeySpec}-encoded public key from specified path.
+     *
+     * @param path    the path from which the encoded key is read.
+     * @param factory a key factory for generating the public key.
+     * @return the public key read.
+     * @throws IOException if an I/O error occurs.
+     */
     public static PublicKey readEncoded(final Path path, final KeyFactory factory)
             throws IOException {
         return readEncoded(path, X509, factory);

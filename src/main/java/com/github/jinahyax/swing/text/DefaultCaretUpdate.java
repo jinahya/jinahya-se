@@ -40,12 +40,25 @@ import com.github.jinahya.lang.IntFieldEnum;
 import javax.swing.text.DefaultCaret;
 
 /**
+ * Constants for caret update policies defined in {@link DefaultCaret} class.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public enum DefaultCaretUpdate implements IntFieldEnum<DefaultCaretUpdate> {
 
+    /**
+     * Constant for {@link DefaultCaret#UPDATE_WHEN_ON_EDT}({@value DefaultCaret#UPDATE_WHEN_ON_EDT}).
+     */
     WHEN_ON_EDT(DefaultCaret.UPDATE_WHEN_ON_EDT),
+
+    /**
+     * Constant for {@link DefaultCaret#NEVER_UPDATE}({@value DefaultCaret#NEVER_UPDATE}).
+     */
     NEVER(DefaultCaret.NEVER_UPDATE),
+
+    /**
+     * Constant for {@link DefaultCaret#ALWAYS_UPDATE}({@value DefaultCaret#ALWAYS_UPDATE}).
+     */
     ALWAYS(DefaultCaret.ALWAYS_UPDATE);
 
     private DefaultCaretUpdate(final int fieldValue) {

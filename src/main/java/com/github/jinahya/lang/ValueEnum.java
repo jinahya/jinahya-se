@@ -44,23 +44,63 @@ package com.github.jinahya.lang;
  */
 public interface ValueEnum<E extends Enum<E>, V> {
 
+    /**
+     * An interface for enums whose constants are mapped to {@code int} values.
+     *
+     * @param <E> enum type parameter
+     */
     interface OfInt<E extends Enum<E> & OfInt<E>> {
 
+        /**
+         * Returns the value of this constant as an {@code int}.
+         *
+         * @return the value of this constant as an {@code int}.
+         */
         int valueAsInt();
     }
 
+    /**
+     * An interface for enums whose constants are mapped to {@code long} values.
+     *
+     * @param <E> enum type parameter
+     */
     interface OfLong<E extends Enum<E> & OfLong<E>> {
 
+        /**
+         * Returns the value of this constant as a {@code long}.
+         *
+         * @return the value of this constant as a {@code long}.
+         */
         long valueAsLong();
     }
 
+    /**
+     * An interface for enums whose constants are mapped to {@code float} values.
+     *
+     * @param <E> enum type parameter
+     */
     interface OfFloat<E extends Enum<E> & OfFloat<E>> {
 
+        /**
+         * Returns the value of this constant as a {@code float}.
+         *
+         * @return the value of this constant as a {@code float}.
+         */
         float valueAsFloat();
     }
 
+    /**
+     * An interface for enums whose constants are mapped to {@code double} values.
+     *
+     * @param <E> enum type parameter
+     */
     interface OfDouble<E extends Enum<E> & OfDouble<E>> {
 
+        /**
+         * Returns the value of this constant as a {@code double}.
+         *
+         * @return the value of this constant as a {@code double}.
+         */
         double valueAsDouble();
     }
 
